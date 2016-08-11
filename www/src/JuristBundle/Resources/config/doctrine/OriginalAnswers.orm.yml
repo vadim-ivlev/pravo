@@ -1,0 +1,33 @@
+JuristBundle\Entity\OriginalAnswers:
+    type: entity
+    table: jurist.original_answers
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        answers:
+            type: text
+        dateModefieded:
+            type: datetime
+            column: date_modefieded
+        answersSteps:
+            type: text
+            column: answers_steps
+        date:
+            type: datetime
+        rating:
+            type: integer
+            default: 0
+        createdAt:
+            type: datetime
+        editedAt:
+            type: datetime
+        typeCards:
+            type: string
+        questionId:
+            type: integer
+            column: questionId
+    lifecycleCallbacks: {  }

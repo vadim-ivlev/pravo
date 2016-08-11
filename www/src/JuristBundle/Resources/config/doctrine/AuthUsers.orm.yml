@@ -1,0 +1,104 @@
+JuristBundle\Entity\AuthUsers:
+    type: entity
+    table: jurist.auth_users
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        name:
+            type: string
+            length: '255'
+        secondName:
+            type: string
+            length: 255
+            column: second_name
+        patronymic:
+            type: string
+            length: 255
+        email:
+            type: string
+            length: '128'
+            unique: true
+        pass:
+            type: string
+            length: '32'
+        graduate:
+            type: text
+        biography:
+            type: text
+        isModerator:
+            type: boolean
+            column: is_moderator
+        isJurist:
+            type: boolean
+            column: is_jurist
+        disabled:
+            type: boolean
+            default: true
+        isModeratorCompanies:
+            type: boolean
+            column: is_moderator_companies
+        dateEndPay: #дата окночания подсветки на главной вопроса, как оплаченного
+            type: datetime
+        dateEndPayFeedbackButton: #время окончания работы кнопки обратной связи на сайте
+            type: datetime
+            column: date_end_pay_feedback_button
+            nullable: TRUE
+        juristFeedbackSiteOrEmail: #определяет кнопка ведет на сайт или емейл
+            type: boolean
+            column: jurist_feedback_site_or_email
+            nullable: TRUE
+        juristDataFeedback: #инфо для кнопки содержащий сайт или емейл
+            type: string
+            length: 255
+            column: jurist_data_feedback
+            nullable: TRUE
+        directory:
+            type: string
+            length: 255
+        filename:
+            type: string
+            length: 255
+        width:
+            type: integer
+        height:
+            type: integer
+        mainRubric:
+            type: integer
+            column: main_rubric
+        dateEndOfferServices: #дата окончания в рекомендую услуги
+            type: datetime
+            column: date_end_offers_services
+            nullable: TRUE
+
+    manyToMany:
+        rubrics:
+            targetEntity: Rubrics
+            inversedBy: auth_users
+            joinTable:
+              name: jurist.auth_users_rubrics
+              joinColumns:
+                auth_users_id:
+                  referencedColumnName: id
+              inverseJoinColumns:
+                rubrics_id:
+                  referencedColumnName: id
+    #oneToOne:User_modefieded todo
+    oneToOne:
+        UserModefiededId:
+            targetEntity: UserModefieded
+            mappedBy: AuthUserId
+    oneToMany:
+        answers:
+            targetEntity: Answers
+            mappedBy: authUsersId
+    manyToOne:
+            companiesId:
+                targetEntity: Companies
+                joinColumn:
+                    name: companies_id
+                    referencedColumnName: id
+    lifecycleCallbacks: {  }

@@ -1,0 +1,51 @@
+JuristBundle\Entity\Tags:
+    type: entity
+    table: jurist.tags
+    repositoryClass: JuristBundle\Entity\TagsRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        name:
+            type: string
+            length: '100'
+            unique: true
+        createdAt:
+            type: datetime
+        editedAt:
+            type: datetime
+#    manyToOne:
+#                creator:
+#                    targetEntity: RG\WorkspaceBundle\Entity\User
+#                editor:
+#                    targetEntity: RG\WorkspaceBundle\Entity\User
+#                    nullable: true
+#                edition:
+#                    targetEntity: Edition
+#                    inversedBy: tags
+#    manyToMany:
+#            rubrics:
+#                targetEntity: Rubrics
+#                mappedBy: tagsRubrics
+#                joinTable:
+#                   name: jurist.tags_questions
+#            roleGrants:
+#               targetEntity: Questions
+#               joinTable:
+#                   name: jurist.tags_questions
+    manyToMany:
+            questions:
+                targetEntity: Questions
+                inversedBy: tags
+                joinTable:
+                  name: jurist.tags_questions
+                  joinColumns:
+                    tags_id:
+                      referencedColumnName: id
+                  inverseJoinColumns:
+                    questions_id:
+                      referencedColumnName: id
+    lifecycleCallbacks: {  }

@@ -1,0 +1,7 @@
+app:
+    resource: "@AppBundle/Controller/"
+    type:     annotation
+
+jurist_bundle:
+    resource: "@JuristBundle/Resources/config/routing.yml"
+    prefix:   /jurists

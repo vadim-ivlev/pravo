@@ -1,0 +1,126 @@
+jurist_homepage:
+    path:     /hello/
+    defaults: { _controller: JuristBundle:Default:index }
+
+jurist_get_list_of_questions:
+    path:     /questions/{rubric}/{tag}
+    defaults: { _controller: JuristBundle:Question:getQuestions, rubric: null, tag: null }
+    requirements:
+            _method:  GET
+
+jurist_create_question:
+    path:     /question/create/
+    defaults: { _controller: JuristBundle:Question:createQuestion }
+
+jurist_get_answer:
+    path:     /question/{id}/answer/
+    defaults: { _controller: JuristBundle:Question:getAnswer }
+
+jurist_get_list_of_jurists:
+    path:     /users/
+    defaults: { _controller: JuristBundle:JuristSS:getAll }
+
+jurist_get_one_jurist:
+    path:     /user/{id}/
+    defaults: { _controller: JuristBundle:JuristSS:getOne }
+
+jurist_get_tags_of_rubrics:
+    path:     /rubric/{id}/
+    defaults: { _controller: JuristBundle:Rubric:getTags }
+
+
+rg_main_page: #главная
+        path:     /main/{pageId}/{format}/{limit_pagination}/
+        defaults: { _controller: JuristBundle:Questions:main,  page: pageId, format: html, limit_pagination: 0}
+        requirements:
+                    _pageId: "/d+"
+                    _format: "html/json"
+                    _limit_pagination: "/d+"
+
+rg_answer_page: #вопрос-ответ
+        path:     /rubrics/question/{id}/{format}/
+        defaults: { _controller: JuristBundle:Answers:answer,  id: null, format: html}
+        requirements:
+                    _id: "/d+"
+                    _format: "html/json"
+
+rg_jurist_page: #страница конкретного юриста
+        path:     /jurist/{id}/{format}/
+        defaults: { _controller: JuristBundle:Jurist:jurist,  id: null, format: html}
+        requirements:
+                    _id: "/d+"
+                    _format: "html/json"
+
+rg_jurists_page: #страница всех юристов
+        path:     /jurists/{id}/{format}/{limit_pagination}/
+        defaults: { _controller: JuristBundle:Jurists:jurists,  id: null, format: html, limit_pagination: 0}
+        requirements:
+                    _id: "/d+"
+                    _format: "html/json"
+                    _limit_pagination: "/d+"
+
+
+rg_rubrics_page: # страница рубрик
+        path:     /rubrics/{format}/{id}/
+        defaults: { _controller: JuristBundle:Rubrics:rubric, format: html, id: null}
+        requirements:
+                    _format: "html/json"
+                    _id: "/d+"
+
+rg_rubric_page: # страница конкретной рубрики
+        path:     /rubric/{number_page}/{format}/{offset}/{id}/
+        defaults: { _controller: JuristBundle:Rubric:rubric}
+        requirements:
+                    _format: "html/json"
+                    _id: "/d+"
+                    _id_page: "/d+"
+
+rg_tag_page: # страница конкретного тега
+        path:     /tag/{format}/{id}/{id_page}/
+        defaults: { _controller: JuristBundle:Tag:tag}
+        requirements:
+                    _format: "html/json"
+                    _id: "/d+"
+                    _id_page: "/d+"
+
+ask_page: # форма задачи вопроса
+        path:     /ask/{format}/
+        defaults: { _controller: JuristBundle:Ask:ask, format: html}
+        requirements:
+                    _format: "html/json"
+
+rules_page: # правила
+        path:     /rules/{format}/
+        defaults: { _controller: JuristBundle:Rules:rules, format: html}
+        requirements:
+                    _format: "html/json"
+
+partners_page: # партнеры
+        path:     /partners/{format}/
+        defaults: { _controller: JuristBundle:Partners:partners, format: html}
+        requirements:
+                    _format: "html/json"
+
+rating_page: # рейтинг вопроса
+        path:     /rating/{id}/
+        defaults: { _controller: JuristBundle:Rating:get, id: null}
+        requirements:
+                    _id: "/d+"
+
+rg_form:
+        path:     /form/{id}/
+        defaults: { _controller: JuristBundle:Forms:get, id: null}
+        requirements:
+                    _id: "/d+"
+
+rg_sidebar_page:
+        path:     /sidebar/{format}/
+        defaults: { _controller: JuristBundle:Api:sidebar, format: html}
+        requirements:
+                    _format: "html/json"
+
+rg_test_update:
+        path:     /tu/{id}
+        defaults: { _controller: JuristBundle:Api:TestUpdate,  id: null}
+        requirements:
+                    _id: "/d+"

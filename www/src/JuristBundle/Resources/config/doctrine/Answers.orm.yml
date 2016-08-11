@@ -1,0 +1,55 @@
+JuristBundle\Entity\Answers:
+    type: entity
+    table: jurist.answers
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        answers:
+            type: text
+        answersSteps:
+            type: text
+            column: answers_steps
+        date:
+            type: datetime
+        rating:
+            type: integer
+            default: 0
+        createdAt:
+            type: datetime
+        editedAt:
+            type: datetime
+        typeCards:
+            type: string
+        #questionId:
+        #    type: integer
+        #    column: questionId
+    #oneToOne:
+    #    juristsId:
+    #        targetEntity: Jurists
+    #        joinColumn:
+    #            name: jurists_id
+    #            referencedColumnName: id
+    manyToOne:
+    #    juristsId: #todo
+    #        targetEntity: Jurists
+    #        joinColumn:
+    #            name: jurists_id
+    #            referencedColumnName: id
+        authUsersId:
+            targetEntity: AuthUsers
+            joinColumn:
+                name: auth_users_id
+                referencedColumnName: id
+
+    oneToOne:
+        question:
+            targetEntity: Questions
+            #inversedBy: answers
+            joinColumn:
+                name: question_id
+                referencedColumnName: id
+    lifecycleCallbacks: {  }

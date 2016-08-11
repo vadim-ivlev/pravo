@@ -1,0 +1,69 @@
+JuristBundle\Entity\Questions:
+    type: entity
+    table: jurist.questions
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        #juristsId:
+        #    type: integer
+        #    column: jurists_id
+        AuthUsersId:
+            type: integer
+            column: authUsers_id
+        step:
+            type: smallint
+            default: 0
+            nullable: TRUE
+        title:
+            type: string
+            length: '150'
+        date:
+            type: datetime
+        description:
+            type: text
+            nullable: TRUE
+        status:
+            type: integer
+            nullable: TRUE
+        deadline:
+            type: datetime
+            nullable: TRUE
+        deadlineId:
+            type: integer
+            column: deadline_id
+            nullable: TRUE
+        deadlineInfo:
+            type: integer
+            column: deadline_info
+            nullable: TRUE
+        createdAt:
+            type: datetime
+            nullable: TRUE
+        editedAt:
+            type: datetime
+            nullable: TRUE
+        #questionId:
+        #    type: integer
+    oneToOne:
+        answersId:
+            targetEntity: Answers
+            mappedBy: question
+    manyToOne:
+        authorId:
+          targetEntity: Author
+          #inversedBy: questions
+          joinColumn:
+            name: author_id
+            referencedColumnName: id
+    manyToMany:
+        tags:
+          targetEntity: Tags
+          mappedBy: questions
+        rubrics:
+          targetEntity: Rubrics
+          mappedBy: questions
+    lifecycleCallbacks: {  }

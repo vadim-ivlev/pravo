@@ -1,0 +1,40 @@
+# Doctrine Configuration
+doctrine:
+    dbal:
+        default_connection: jurist
+        connections:
+            #pravo:
+            #    driver:   pdo_mysql
+            #    host:     "%database.pravo.host%"
+            #    port:     "%database.pravo.port%"
+            #    dbname:   "%database.pravo.name%"
+            #    user:     "%database.pravo.user%"
+            #    password: "%database.pravo.password%"
+            #    charset:  UTF8
+            jurist:
+                schema_filter: ~(?!migration_versions)~
+                driver:   pdo_mysql
+                host:     %database.jurist.host%
+                port:     %database.jurist.port%
+                dbname:   %database.jurist.name%
+                user:     %database.jurist.user%
+                password: %database.jurist.password%
+                charset:  UTF8
+
+    orm:
+        auto_generate_proxy_classes: "%kernel.debug%"
+        default_entity_manager: jurist
+        entity_managers:
+            jurist:
+                connection: jurist
+                mappings:
+                    JuristBundle: ~
+            #pravo:
+            #    connection: pravo
+                #mappings:
+                #    AccountBundle: ~
+                #    AuthBundle: ~
+                #    CommentBundle: ~
+                #    SubscribeBundle: ~
+                #    GeoBundle: ~
+                #    DataFormBundle: ~

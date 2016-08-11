@@ -1,0 +1,71 @@
+JuristBundle\Entity\Rubrics:
+    type: entity
+    table: jurist.rubrics
+    repositoryClass: JuristBundle\Entity\RubricsRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        name:
+            type: string
+            length: '100'
+            unique: true
+        createdAt:
+            type: datetime
+        editedAt:
+            type: datetime
+    manyToMany:
+                    #companies: #todo START выпелин из-за ненадобности
+                    #    targetEntity: Companies
+                    #    mappedBy: rubrics
+                    #inversedBy: rubrics #todo END выпелин из-за ненадобности
+
+                    #joinTable:
+                      #name: jurist.companies_rubrics
+                      #joinColumns:
+                        #rubrics_id:
+                          #referencedColumnName: id
+                      #inverseJoinColumns:
+                      #  companies_id:
+                      #    referencedColumnName: id
+                tags:
+                    targetEntity: Tags
+                    inversedBy: rubrics
+                    joinTable:
+                      name: jurist.tags_rubrics
+                      joinColumns:
+                        rubrics_id:
+                          referencedColumnName: id
+                      inverseJoinColumns:
+                        tags_id:
+                          referencedColumnName: id
+                questions:
+                    targetEntity: Questions
+                    inversedBy: rubrics
+                    joinTable:
+                      name: jurist.rubrics_questions
+                      joinColumns:
+                        rubrics_id:
+                          referencedColumnName: id
+                      inverseJoinColumns:
+                        questions_id:
+                          referencedColumnName: id
+                #jurists: #todo
+                #    targetEntity: Jurists
+                #    mappedBy: rubrics
+                authUsers:
+                    targetEntity: AuthUsers
+                    mappedBy: rubrics
+                    #inversedBy: rubrics
+                    #joinTable:
+                    #  name: jurist.jurists_rubrics
+                    #  joinColumns:
+                    #    rubrics_id:
+                    #      referencedColumnName: id
+                    #  inverseJoinColumns:
+                    #    questions_id:
+                    #      referencedColumnName: id
+    lifecycleCallbacks: {  }

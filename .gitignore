@@ -1,0 +1,20 @@
+#игнорируем симфонивские не нужные компоненты
+www/app/config/parameters.yml
+www/build/
+www/phpunit.xml
+www/var/*
+!/var/cache
+www/var/cache/*
+!www/var/cache/.gitkeep
+!/var/logs
+/var/logs/*
+!www/var/logs/.gitkeep
+!/var/sessions
+www/var/sessions/*
+!www/var/sessions/.gitkeep
+!www/var/SymfonyRequirements.php
+www/vendor/
+www/web/bundles/
+share/
+node_modules/
+npm-debug.log

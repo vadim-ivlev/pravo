@@ -1,0 +1,131 @@
+JuristBundle\Entity\LogsQuestion:
+    type: entity
+    table: jurist.logs_questions
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        authUserIdModefided:
+            type: integer
+            column: auth_user_id_modefided
+        parentQuestionId:
+            type: integer
+            column: parent_question_id
+        parentAuthorId:
+            type: integer
+            column: parent_author_id
+        parentAnswerId:
+            type: integer
+            column: parent_answer_id
+            nullable: TRUE
+        dateModefieded:
+            type: datetime
+            column: date_modefieded
+        authorName:
+            type: string
+            length: 255
+            column: author_name
+            nullable: TRUE
+        originalAuthorName:
+            type: string
+            length: 255
+            column: original_author_name
+            nullable: TRUE
+        authorEmail:
+            type: string
+            length: 255
+            column: author_email
+            nullable: TRUE
+        originalAuthorEmail:
+            type: string
+            length: 255
+            column: original_author_email
+        authorCity:
+            type: string
+            length: 255
+            column: author_city
+            nullable: TRUE
+        originalAuthorCity:
+            type: string
+            length: 255
+            column: original_author_city
+            nullable: TRUE
+        step:
+            type: smallint
+            nullable: TRUE
+        originalStep:
+            type: smallint
+            column: original_step
+            nullable: TRUE
+        title:
+            type: string
+            length: '100'
+            nullable: TRUE
+        originalTitle:
+            type: string
+            length: '100'
+            column: original_title
+            nullable: TRUE
+        description:
+            type: text
+            nullable: TRUE
+        originalDescription:
+            type: text
+            column: original_description
+            nullable: TRUE
+        status:
+            type: integer
+            nullable: TRUE
+        originalStatus:
+            type: integer
+            column: original_status
+            nullable: TRUE
+        deadline:
+            type: datetime
+            nullable: TRUE
+        originalDeadline:
+            type: datetime
+            column: original_deadline
+            nullable: TRUE
+        rubricsId:
+            type: string
+            length: 255
+            column: rubrics_id
+        originalRubricsId:
+            type: string
+            length: 255
+            column: original_rubrics_id
+        tagsId:
+            type: string
+            length: 255
+            column: tags_id
+            nullable: TRUE
+        originalTagsId:
+            type: string
+            length: 255
+            column: original_tags_id
+            nullable: TRUE
+        answerSteps:
+            type: text
+            column: answer_steps
+            nullable: TRUE
+        originalAnswerSteps:
+            type: text
+            column: original_answer_steps
+            nullable: TRUE
+        answers:
+            type: text
+            column: answers
+            nullable: TRUE
+        originalAnswers:
+            type: text
+            column: original_answers
+            nullable: TRUE
+        originalDateAnswer:
+            type: datetime
+            column: original_date_answer
+            nullable: TRUE
+    lifecycleCallbacks: {  }

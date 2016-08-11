@@ -1,0 +1,31 @@
+JuristBundle\Entity\UserModefieded:
+    type: entity
+    table: jurist.user_modefieded
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        idAuthUser:
+            type: integer
+            column: id_auth_user
+        date:
+            type: datetime
+        questionIdModefieded:
+            type: integer
+            column: question_id_modefieded
+        authorIdModefieded:
+            type: integer
+            column: author_id_modefieded
+        answersIdModefieded:
+            type: integer
+            column: answers_id_modefieded
+    oneToOne:
+        AuthUserId:
+            targetEntity: AuthUsers
+            joinColumn:
+                name: id_auth_user
+                referencedColumnName: id
+    lifecycleCallbacks: {  }

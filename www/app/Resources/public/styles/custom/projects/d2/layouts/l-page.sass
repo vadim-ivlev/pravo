@@ -1,0 +1,39 @@
+/*
+ * Основная сетка сайта
+ *
+ */
+
+// Объявляем блок
+$block: '.l-page'
+
+// Стили
+#{$block}
+    width: 100%
+    min-height: 100%
+    margin: 0 auto
+    padding: 0 20px
+
+    // Tablet
+    +bp-tablet
+
+        &
+            width: $width-wrapper-tablet
+            padding: 0
+
+    // Tablet landscape
+    +bp-tabletLandscape
+
+        &
+            width: $width-wrapper-tabletLandscape
+
+    // Desktop
+    +bp-desktop
+
+        &
+            width: $width-wrapper-desktop
+
+    // Desktop full
+    +bp-desktopFull
+
+        &
+            width: $width-wrapper-desktopFull

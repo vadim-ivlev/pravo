@@ -1,0 +1,63 @@
+{{#if sujets}}
+
+    <div class="b-followed-full {{showMaterials ? 'b-followed-full_expanded' : ''}} {{materials ? 'b-followed-full_expanded' : 'b-followed-full_hidden'}} ">
+        <div class="b-followed-full__col b-followed-full__col_side_left"
+             id="news-content">
+            <div class="b-news-inner b-news-inner_type_wide b-news-inner_type_viewed slideInRight">
+                <div class="b-followed-full__link">
+                    <a class="b-link_blue b-icon-aside b-icon-aside_type_larrow-mini"
+                       href="#"
+                       title="Отслеживаемые сюжеты"
+                       on-click="sujets">Отслеживаемые сюжеты</a>
+                </div>
+
+                <h2 class="b-followed-full__title"><a href="{{sujetUrl}}">{{sujetTitle}}</a></h2>
+
+                <sujet-materials items="{{materials}}"/>
+            </div>
+        </div>
+    </div>
+
+    <div class="b-followed-full__col b-followed-full__col_side_right">
+        <div class="b-followed">
+            <h2 class="b-followed__title">Отслеживаемые сюжеты:</h2>
+
+            <div class="b-followed__list js-height-list" decorator="scroll-bar">
+                {{#sujets}}
+                    <div class="b-followed__item {{#if activeItemId == id}}active{{/if}}" on-click="materials: {{.}}">
+                        <div class="b-followed__item-text">
+                            <a class="b-link" href="{{url}}">{{{title}}}</a>
+                        </div>
+                        <div class="b-followed__item-action">
+
+                            {{#if materials > 0}}
+                                <span class="b-followed__qty">{{materials > 99 ? 99 : materials}}</span>
+                            {{/if}}
+                            <rg-follow-sujet sujet="{{id}}"/>
+                        </div>
+                    </div>
+                {{/sujets}}
+            </div>
+        </div>
+    </div>
+{{else}}
+    <div class="b-followed-full__col b-followed-full__col_side_right">
+        <dummy-empty type="'sujets'" />
+    </div>
+
+    <div class="b-followed-full__col b-followed-full__col_side_right">
+        <div class="b-followed">
+            <h2 class="b-followed__title">Популярные сюжеты:</h2>
+
+            <div class="b-followed__list js-height-list" decorator="scroll-bar">
+                {{#popularSujets}}
+                    <div class="b-followed__item">
+                        <div class="b-followed__item-text">
+                            <a class="b-link" href="{{url}}">{{{title}}}</a>
+                        </div>
+                    </div>
+                {{/popularSujets}}
+            </div>
+        </div>
+    </div>
+{{/if}}

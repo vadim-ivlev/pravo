@@ -1,0 +1,18 @@
+<rg-form action="https://front.rg.ru/form/" class="b-form__body b-form_grey" name="'vacancies'" method="'post'" id="1">
+
+    <div class="b-form__title">Откликнуться на вакансию</div>
+
+    <rg-name label="'Пожалуйста, представьтесь'" form="'vacancies'" placeholder="'Имя'" name="name"></rg-name>
+
+    <rg-email label="'Ваш e-mail'" form="'vacancies'" name="'email'" required="true"></rg-email>
+
+    <rg-select label="'Тема'" form="'vacancies'" name="'theme'" items='[{"value":0,"content":"Выбрать тему:"},{"value":1,"content":"О работе сайта"},{"value":2,"content":"Использование материалов \"РГ\""},{"value":3,"content":"Ошибка в материале"},{"value":4,"content":"Реклама в газете"},{"value":5,"content":"Реклама на сайте"},{"value":6,"content":"Подписка на \"РГ\""},{"value":7,"content":"Подписка на электронный архив \"РГ\""},{"value":8,"content":"Вопросы по подписке и доставке"},{"value":9,"content":"Справки о письмах"},{"value":10,"content":"Пресс-центр \"РГ\""},{"value":11,"content":"Главному редактору \"РГ\""},{"value":12,"content":"Шеф-редактору сайта"},{"value":13,"content":"Другие вопросы"}]'></rg-select>
+
+    <rg-input label="'Тема сообщения'" form="'vacancies'" name="'theme_message'" placeholder="'Тема'"></rg-input>
+
+    <rg-textarea label="'Ваше сообщение'" form="'vacancies'" name="'message'" placeholder="'Текст сообщения'"></rg-textarea>
+
+    <rg-submit form="'vacancies'" text="'Отправить'"></rg-submit>
+
+    <div class="b-form__notice">* - поля, обязательные для заполнения</div>
+</rg-form>

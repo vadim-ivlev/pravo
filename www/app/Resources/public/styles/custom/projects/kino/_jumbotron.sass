@@ -1,0 +1,56 @@
+/*
+ *Jumbotron 
+ */
+
+$jumbotron: '.jumbotron'
+
+#{$jumbotron}
+    margin: 0 0 30px 0
+    padding: 10px
+    padding-left: 0
+    position: relative
+    
+    background: $color-white
+
+    &__block_accent,
+    &__block_aside
+        width: 50%
+        float: left
+
+.heading-large
+
+    .heading
+        &__item
+            font-size: $font-size-h1
+            font-weight: $font-weight-light
+            float: left
+
+        &__rss
+            float: left
+
+            width: 26px
+            height: 26px
+
+            margin: 21px 0 0 20px
+
+            background: url($img-sprite-url) 1px -217px no-repeat
+
+            &:hover
+               background: url($img-sprite-url) -24px -217px no-repeat 
+
+
+.page_layout_content
+
+    .heading
+        margin-bottom: $indent*2
+        overflow: hidden
+
+.jumbotron-wrapper:after
+        width: 100%
+        height: 75px
+
+        position: absolute
+        bottom: -75px
+
+        background: url($jumbotron-light-bottom)
+

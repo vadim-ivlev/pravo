@@ -1,0 +1,32 @@
+ <!-- blocks.custom.kino.sidebar.main.userReview.userReview -->
+
+        <div class="user-review">
+            <div class="user-review__title">
+                <span class="user-review__title__text">{{ status }}</span>
+            </div>
+            <div class="user-review__rating">
+                <div class="stars{{#if starsProcessing }} stars_processing{{ /if }}{{ #if starsDeactive }} stars_deactive{{ /if }}">
+                    <div class="stars__list group">
+                        {{ #stars }}
+                        <div class="stars__list__item" on-click="changeRating(+.)">{{ . }}</div>
+                        <!--<div class="stars__list__item" on-click="changeRating(+.)">{{ . }}</div>-->
+                        {{ /stars }}
+                    </div>
+                    <div class="stars__value" style="width:{{ starsValue + '%'}}"></div>
+                </div>
+            </div>
+            <div class="user-review__info group">
+                <div class="user-review__info__overall">
+                    <b class="user-review__info__overall__text">Общий рейтинг: </b>
+                    <b class="user-review__info__overall__value">{{ overall }}</b>
+                </div>
+                {{ #if votes > 0 }}
+                <div class="user-review__info__votes">
+                    <b class="user-review__info__votes__text">Голосов: </b>
+                    <b class="user-review__info__votes__value">{{ votes }}</b>
+                </div>
+                {{ /if }}
+            </div>
+        </div>
+        
+<!-- /blocks.custom.kino.sidebar.main.userReview.userReview -->

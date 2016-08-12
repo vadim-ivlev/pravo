@@ -24,7 +24,9 @@ class JuristsController extends ApiController
         $request = Request::createFromGlobals();
         $rubrics_conditions_get = $request->query->get('rubrics_conditions');
 
-        //dump($rubrics_conditions_get);die;
+        //dump($this->ProcessingRequestForPaginationAction());die;
+        
+
         $rubrics_conditions = $this->connect_to_Jurists_bd
             ->getRepository('JuristBundle:Rubrics')
             ->findBy([]);
@@ -197,15 +199,17 @@ class JuristsController extends ApiController
         }
         unset($val);
 
-        if ($request->query->get(self::RUBRICS_CONDITION_NAME)) {
+        /*if ($request->query->get(self::RUBRICS_CONDITION_NAME)) {
             $get_string = '?' . self::RUBRICS_CONDITION_NAME . '=' . (int)$request->query->get(self::RUBRICS_CONDITION_NAME);
         } else {
             $get_string = '';
-        }
+        }*/
 
+        //dump($this->ProcessingRequestForPaginationAction());
+        //dump($get_string);
         $this->PaginationAction(
             $AllJurist, self::PAGINATION_FOR_JURISTS, self::COUNT_RECORDS_ON_PAGE_JURISTS,
-            $id, 'https://front.rg.ru/jurists/jurists/', 1, '', $get_string
+            $id, 'https://front.rg.ru/jurists/jurists/', 1, '', $this->ProcessingRequestForPaginationAction()
         );
         /**
          * array $query, $count_numeric_page, $count_records_on_page,

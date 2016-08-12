@@ -1,0 +1,30 @@
+$block: '.b-client-line'
+
+#{$block}
+    float: right
+    text-align: left
+    line-height: 1 
+
+    &__tel
+        +font(19px)   
+
+    +bp-tablet
+
+        &
+
+
+    +bp-tabletLandscape
+
+        &
+            margin-top: 5px
+            
+            &__tel
+                +font(24px)
+                 
+    +bp-desktop
+
+        &
+            
+    +bp-desktopFull
+
+        &

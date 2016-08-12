@@ -1,0 +1,7 @@
+<div class="b-menu">
+    <div class="b-menu__wrapper group">
+
+        <menu-geolocation />
+        <menu-services materials="{{materials}}"/>
+    </div>
+</div>

@@ -1,0 +1,226 @@
+<div id="root" class="page{{ #if overlay }} overlay{{ /if }}" on-click="hideInfo">
+
+	<div id="medalInfo" class="info-medal group{{ #if medalInfoShow }} info-medal_open{{ /if }}{{ #if show }} show{{ /if }}">
+		<div class="medal">
+			{{ #if cur_medal.medal_src }}<div class="fig"><img src="/res/images/custom/projects/nagrady_pobedy/medals/{{ cur_medal.medal_src }}.png"></div>{{ /if }}
+			<div class="medal-meta group">
+				<div>
+					<i>{{ cur_medal.count }}</i>
+					<b>награждений<br/>в годы войны</b>
+				</div>
+				{{ #if cur_medal.not_get }}
+				<div>
+					<i>{{ cur_medal.not_get }}</i>
+					<b>остались<br/>неврученными</b>
+				</div>
+				{{ /if }}
+			</div>
+		</div>
+		<div class="info">
+			<div class="title">{{ cur_medal.title }}</div>
+			<div class="content">
+				<p>{{ cur_medal.establish }}</p>
+				<p>{{ cur_medal.desc }}</p>
+				{{ #if cur_medal.content }}
+				<p>{{{ cur_medal.content }}}</p>
+				{{ /if }}
+			</div>
+		</div>
+	</div>
+
+	<div class="header">
+		<h1>Награды победы</h1>
+		<h2>Ордена и медали<br>великой отечественной войны</h2>
+	</div>
+
+	<div class="intro info-page">
+		<h3>Вступительное слово</h3>
+		<div class="content group">
+			<div class="col">
+				<p>Задумывались ли вы когда нибудь, сколько орденов и медалей было учреждено и вручено в годы Великой Отечественной войны?</p>
+				<p>В специальном проекте "Российской газеты" и журнала "Родина" мы публикуем полный список наград, вручавшихся участникам войны, партизанского движения и труженикам тыла.</p>
+				<p>О неврученных наградах читайте <a href="//rg.ru/zvezdy_pobedy/">здесь</a></p>
+			</div>
+			<div class="col">
+				<div class="legend">
+
+					<div class="legend-year">
+						<div class="meta">
+							<div class="cur-year">0000</div>
+							<div class="info">
+								<div class="info-graph">000 000</div>
+							</div>
+						</div>
+						<span class="tooltip tooltip1">год учреждения награды</span>
+						<span class="tooltip tooltip2">число награжденных в этот год</span>
+					</div>
+
+					<div class="legend-month">
+						<div class="cur-month">00</div>
+						<span class="tooltip tooltip1">месяц учреждения награды</span>
+					</div>
+
+					<div class="legend-desc">
+						<div class="title">Орден Отечественной войны (1 степени)</div>
+						<div class="info">
+							<b>000</b>
+							<i>000</i>
+						</div>
+						<span class="tooltip tooltip1">название награды</span>
+						<span class="tooltip tooltip2">остались неврученными</span>
+						<span class="tooltip tooltip3">награждено в годы войны</span>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+
+	{{ #infograph_list }}
+	
+	{{ #if year === "1941" }}
+	
+		<div class="infograph-page infograph-page-1941">
+			<div class="page-content">
+				<div class="page-content__text">
+					<h3>Начало великой отечественной войны</h3>
+					<p>22 июня 1941 года в 4 утра без объявления войны фашистская Германия и ее союзники напали на Советский Союз. Части Красной армии были атакованы немецкими войсками на всем протяжении границы. Так начался самый кровопролитный военный конфликт в истории.</p>
+					<p>Великая Отечественная война стала примером самоотверженного героизма и глубокой любви к Отечеству. За годы войны было произведено до 38 миллионов награждений, в том числе около 13 миллионов - орденами и медалями, имеющими серийные номера. Точное количество награждений, произведенных в 1941 году, неизвестно.</p>
+				</div>
+				<div class="page-content__meta meta">1941</div>
+			</div>
+		</div>
+		
+	{{ else }}
+		
+	<div class="infograph-page infograph-page-{{ year }}">
+
+	{{ #if year === "less1941"}}
+		<h3>Награды, учрежденные до вов</h3>
+	{{ /if }}
+
+		<div class="page-content">
+			<div class="page-content__time">
+
+			{{ #month }}
+			
+				<div class="time-row group 
+					{{ #if items }}
+						time-row_active 
+					{{ /if }}
+					{{ #options }}
+						{{ . + ' ' }}
+					{{ /options }}">
+
+					<div class="time-month">{{ number }}</div>
+						
+					<div class="time-content time-content-{{ items_count ? items_count : items.length }}-item">
+
+					{{ #items }}
+						
+						<div class="item{{ #if @index > 3 }} item-two-col{{ /if }}{{ #item_options }} {{ . + ' ' }}{{ /item_options }}" on-click="selectItem">
+							{{ #if medal_src }}
+							<div class="item-fig"><img src="/res/images/custom/projects/nagrady_pobedy/medals/{{ medal_src }}.png"></div>
+							{{ /if }}
+							<div class="item-desc">
+								<b>{{ title }}</b>
+								<i>{{ count }}</i>
+								{{ #if not_get }}<em>{{ not_get }}</em>{{ /if }}
+							</div>
+						</div>
+
+					{{ /items }}
+
+					</div>
+
+				</div>
+
+			{{ /month }}
+			
+			</div>
+
+			{{ #if year !== "less1941"}}
+
+			<div class="page-content__meta meta">
+				<div class="cur-year">{{ year }}</div>
+				<div class="info">
+					<div class="info-graph">{{ full_count }}</div>
+					<div class="info-text">- награждений в этот год</div>
+				</div>
+			</div>
+
+			{{ /if }}
+
+		</div>
+	</div>
+	
+	{{ /if }}
+	
+	{{ /infograph_list }}
+
+	<div class="footer group">
+		<div class="logo">
+			<a href="//rg.ru" class="link-to-home link">
+				<span>Обратно на сайт</span>
+				<img src="/res/images/custom/projects/nagrady_pobedy/logo-white.png" alt="rg.ru"/>
+			</a>
+		</div>
+		<div class="text">
+			 &copy; 1998-2016 ФГБУ "Редакция "Российской газеты" Интернет-портал "Российской газеты" зарегистрирован в Роскомнадзоре 21.06.2012 г. Номер свидетельства ЭЛ № ФС 77 - 50379.
+		</div>
+		<div class="counter group">
+			<div class="counter-item">
+				<!-- rambler 100 -->
+				<div id="top100counter"></div>
+				<script type="text/javascript">
+				var _top100q = _top100q || [];
+				_top100q.push(["setAccount", "250928"]);
+				_top100q.push(["trackPageviewByLogo", document.getElementById("top100counter")]);
+				(function(){
+				 var top100 = document.createElement("script"); top100.type = "text/javascript";
+				 top100.async = true;
+				 top100.src = ("https:" == document.location.protocol ? "https:" : "http:") + "//st.top100.ru/top100/top100.js";
+				 var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(top100, s);
+				})();
+				</script>
+			</div>
+
+			<div class="counter-item">
+				<!-- mail -->
+				<script type="text/javascript">//<![CDATA[
+				var _tmr = _tmr || [];
+				_tmr.push({id: "11659", type: "pageView", start: (new Date()).getTime()});
+				(function (d, w) {
+				   var ts = d.createElement("script"); ts.type = "text/javascript"; ts.async = true;
+				   ts.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//top-fwz1.mail.ru/js/code.js";
+				   var f = function () {var s = d.getElementsByTagName("script")[0]; s.parentNode.insertBefore(ts, s);};
+				   if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); }
+				})(document, window);
+				//]]></script><noscript><div style="position:absolute;left:-10000px;">
+				<img src="//top-fwz1.mail.ru/counter?id=11659;js=na" style="border:0;" height="1" width="1" alt="Рейтинг@Mail.ru" />
+				</div></noscript>
+				<!-- //Rating@Mail.ru counter -->
+				<!-- Rating@Mail.ru counter -->
+				<div><a href="http://top.mail.ru/jump?from=11659" target="_blank">
+				<img src="http://dd.c2.b0.a0.top.mail.ru/counter?id=11659;t=216;l=1" 
+				style="border:0;" height="31" width="88" alt="Рейтинг@Mail.ru" /></a></div>
+			</div>
+
+			<div class="counter-item" id="liCounter">
+				<script type="text/javascript">
+				$('#liCounter').html("<a href='http://www.liveinternet.ru/click' "+
+				"target=_blank><img src='//counter.yadro.ru/hit?t14.11;r"+
+				escape(document.referrer)+((typeof(screen)=="undefined")?"":
+				";s"+screen.width+"*"+screen.height+"*"+(screen.colorDepth?
+				screen.colorDepth:screen.pixelDepth))+";u"+escape(document.URL)+
+				";h"+escape(document.title.substring(0,80))+";"+Math.random()+
+				"' alt='' title='LiveInternet: показано число просмотров за 24"+
+				" часа, посетителей за 24 часа и за сегодня' "+
+				"border='0' width='88' height='31'><\/a>");</script>
+			</div>
+
+			<!-- Yandex.Metrika counter --><script type="text/javascript">(function (d, w, c) { (w[c] = w[c] || []).push(function() { try { w.yaCounter22322746 = new Ya.Metrika({id:22322746, clickmap:true, trackLinks:true, accurateTrackBounce:true, trackHash:true}); } catch(e) { } }); var n = d.getElementsByTagName("script")[0], s = d.createElement("script"), f = function () { n.parentNode.insertBefore(s, n); }; s.type = "text/javascript"; s.async = true; s.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//mc.yandex.ru/metrika/watch.js"; if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); } })(document, window, "yandex_metrika_callbacks");</script><noscript><div><img src="//mc.yandex.ru/watch/22322746" style="position:absolute; left:-9999px;" alt="" /></div></noscript><!-- /Yandex.Metrika counter -->
+		</div>
+	</div>
+
+</div>

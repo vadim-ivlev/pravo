@@ -1,0 +1,52 @@
+/*
+ * Блок downloads
+ * 
+ */
+
+
+// Объявляем блок
+$block: '.b-downloads'
+
+
+// Стили
+#{$block}
+
+    position: relative
+
+    padding-left: 30px
+
+    &_last
+        padding-top: 28px
+        border-top: 1px solid $comment-color
+
+
+    &__link
+        position: relative
+
+        padding-left: 5px
+        margin-bottom: 4px
+
+    &__meta
+        padding-left: 5px
+        margin-bottom: 25px
+
+        color: $comment-color
+
+        span
+            text-transform: uppercase
+
+    &__col
+        width: 50%
+        float: left
+
+    // Tablet Landscape
+    +bp-tabletLandscape
+
+        &
+
+            &__col
+                width: 33%
+
+
+
+

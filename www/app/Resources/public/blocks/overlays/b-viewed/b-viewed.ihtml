@@ -1,0 +1,27 @@
+{{#if materials}}
+<div class="b-viewed">
+    <h2 class="b-viewed__title">Прочитанные статьи:</h2>
+
+    <div class="b-viewed__list js-height-list" decorator="scroll-bar">
+        {{#materials}}
+            <div class="b-viewed__item">
+                <a class="b-link b-viewed__link" href="{{url}}">{{{title}}}</a>
+            </div>
+        {{/materials}}
+    </div>
+</div>
+{{else}}
+<div class="b-viewed">
+    <dummy-empty type="'viewed'" />
+
+    <h2 class="b-viewed__title">Популярные статьи:</h2>
+
+    <div class="b-viewed__list js-height-list" decorator="scroll-bar">
+        {{#popularMaterials}}
+            <div class="b-viewed__item">
+                <a class="b-link b-viewed__link" href="{{path}}">{{{title}}}</a>
+            </div>
+        {{/popularMaterials}}
+    </div>
+</div>
+{{/if}}

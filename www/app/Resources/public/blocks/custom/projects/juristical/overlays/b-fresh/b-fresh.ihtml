@@ -1,0 +1,111 @@
+<div class="b-fresh {{isFascicleEmpty ? 'isEmpty' : ''}}{{isLoading ? 'isLoading' : ''}}">
+
+    <div class="b-fresh__col b-fresh__col_left">
+        <div class="b-fresh__magazine-list">
+
+            {{#fascicles}}
+                <div class="js-tab b-fresh__magazine-list-item {{#if url === fascicle.title_id }}is-active{{/if}}" on-click="selectTab: {{url}}">
+                    <a class="b-link b-link_title b-fresh__magazine-link">{{name}}</a>
+                </div>
+            {{/fascicles}}
+
+        </div>
+    </div>
+
+    <div class="b-fresh__col b-fresh__col_right">
+
+        {{#fascicle}}
+        <div class="b-fresh__content">
+
+            <div class="b-fresh__head group">
+
+                <div class="b-fresh__head-logo">
+                    <div class="b-vendors__icon b-vendors__icon_{{label}}"></div>
+                </div>
+
+                <!-- меню выпусков для мобильной версии -->
+                <div class="b-fresh__head-select">
+
+                    <label class="b-field b-field_select b-field_select_select">
+                        <div class="b-field__wrapper">
+                            <select class="b-field__select b-field__select_select" 
+                                value="{{selectedIssue}}" 
+                                on-change="selectTab: {{selectedIssue}}"
+                                type="select">
+                                {{#fascicles}}
+                                    <option value="{{url}}">{{name}}</option>
+                                {{/fascicles}}
+                            </select>
+                        </div>
+                    </label>
+
+                </div>
+                <!-- /меню выпусков для мобильной версии -->
+
+                <div class="b-fresh__head-calendar">
+                    <!-- <div class="b-custom-datepicker">
+                        <input class="js-datepicker" type="text" decorator="fresh-date-picker">
+                    </div> -->
+                    {{currentDate}}
+                </div>
+
+                {{#fascicleLink}}
+                <div class="b-fresh__head-action">
+                    {{#if title_id === 'rg-spec'}}
+                        <a class="b-link b-link_blue" href="{{fascicleLink}}">Перейти к Тематическим приложениям</a>
+                    {{else}}
+                        <a class="b-link b-link_blue" href="{{fascicleLink}}">Перейти к выпуску {{number ? ('№' + number) : ''}}</a>
+                    {{/if}}
+                </div>
+                {{/fascicleLink}}
+
+            </div>
+
+            <div class="b-fresh__news b-news">
+                {{#if isLoading}}
+                    <div class="b-fresh__info has-loading">Загрузка <span class="b-spinner"></span></div>
+                {{else}}
+
+                    {{#fascicleList}}
+
+                        <div class="b-news__list">
+                            {{#if broadsides}}
+                                <div class="b-fresh__fascicle-wrapper">
+                                    <div class="b-fresh__fascicle-header">
+                                        <div class="b-fresh__fascicle-header__title">{{name}}</div>
+                                        <a class="b-link b-link_blue b-fresh__fascicle-header__meta" href="/gazeta/{{title_id}}/{{fascicleDate(date)}}/{{fascicle_seq}}.html#rg-spec-{{number}}">Перейти к выпуску №{{number}}</a>
+                                    </div>
+                                    <div class="b-fresh__fascicle-list">
+                                    {{#broadsides }}
+                                        {{> broadsides}}
+                                    {{/broadsides }}
+                                    </div>
+                                </div>
+                            {{else}}
+                                {{> broadsides}}
+                            {{/if}}
+                        </div>
+
+                        {{#if title_id !== 'rg-spec'}}
+                            {{#active_materials}}
+                                <div class="b-fresh__active-materials">
+                                    <a class="b-link b-link_title" href="{{fascicleLink}}">и ещё {{active_materials}} {{materialsSuffix(active_materials)}}</a>
+                                </div>
+                            {{/active_materials}}
+                        {{/if}}
+
+                    {{/fascicleList}}
+                    {{^fascicleList}}
+                        <div class="b-fresh__info">Нет материалов для вывода</div>
+                    {{/fascicleList}}
+
+                {{/if}}
+
+            </div>
+
+        </div>        
+        {{/fascicle}}
+
+    </div>
+
+</div>

@@ -1,0 +1,74 @@
+<div class="b-account__item b-account__item_1 b-account__item_user">
+
+    <div class="b-account__content">
+
+        <div class="b-account__user-media">
+            <img src="{{user.avatar}}" class="b-account__user-img">
+        </div>
+
+        <div class="b-account__user-lname">
+            <label class="b-field b-field_input b-field_input_text b-account__field b-account__field_input">
+                <input-notification msg="{{lastNameErrorMsg}}" off="2000"/>
+                <div class="b-field__wrapper">
+                    <input class="b-field__input b-field__input_text" 
+                        type="text" 
+                        placeholder="Фамилия" 
+                        value="{{user.lastName}}">
+                </div>
+            </label>
+        </div>
+
+        <div class="b-account__user-name">
+            <label class="b-field b-field_input b-field_input_text b-account__field b-account__field_input">
+                <input-notification msg="{{firstNameErrorMsg}}" off="2000"/>
+                <div class="b-field__wrapper">
+                    <input class="b-field__input b-field__input_text" 
+                        type="text" 
+                        placeholder="Имя" 
+                        value="{{user.firstName}}">
+                </div>
+            </label>
+        </div>
+
+        <div class="b-account__user-email">
+            <label class="b-field b-field_input b-field_input_text b-account__field b-account__field_input">
+                <input-notification msg="{{emailErrorMsg}}" off="2000"/>
+                <div class="b-field__wrapper">
+                    <input class="b-field__input b-field__input_text" 
+                        type="text" 
+                        placeholder="email" 
+                        value="{{user.email}}">
+                </div>
+            </label>
+        </div>
+
+        <div class="b-account__user-region">
+            <label class="b-field b-field_white b-field_select b-field_select_select b-account__field b-account__field_select">
+                <div class="b-field__wrapper">
+                    <select class="b-field__select b-field__select_select" 
+                        type="select" 
+                        name="select-region" 
+                        value="{{user.region}}">
+                        {{# _.sortBy(regions, 'originName')}}
+                            <option value="{{id}}">{{originName}}</option>
+                        {{/regions}}
+                    </select>
+                </div>
+            </label>
+        </div>
+
+        <div class="b-account__submit">
+            <label class="b-field b-field_type_comment b-field_input b-field_input_submit {{loading ? 'b-spinner' : ''}}">
+                <input-notification msg="{{successMsg}}" off="2000" class="'b-input-notification_success'"/>
+                <div class="b-field__wrapper" id="superTest">
+                    <input class="b-field__input b-field__input_submit"
+                        type="submit"
+                        value="Сохранить"
+                        on-click="save">
+                </div>
+            </label>
+        </div>
+
+    </div>
+
+</div>

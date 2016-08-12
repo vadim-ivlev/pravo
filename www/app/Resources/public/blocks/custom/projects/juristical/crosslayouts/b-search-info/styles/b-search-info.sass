@@ -1,0 +1,34 @@
+/*
+ * Блок информации поиска
+ * 
+ */     
+
+// Объявляем блок
+$block: '.b-search-info'
+
+// Основной блок
+#{$block}
+    //padding: 0 20px
+
+    &__meta,
+    &__sort
+        margin-bottom: 20px
+
+    &__meta
+        color: $comment-color
+
+    .b-content &
+        margin-bottom: 17px
+        border-bottom: 1px solid $border-color
+
+    // Планшет
+    +bp-tablet
+
+        &
+            //padding: 0
+    
+            &__meta
+                float: left
+            
+            &__sort
+                float: right

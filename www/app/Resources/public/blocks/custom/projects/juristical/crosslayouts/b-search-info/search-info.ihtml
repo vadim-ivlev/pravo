@@ -1,0 +1,5 @@
+{{#showResult}}
+    <div class="{{ !rgb ? 'b-search-info' : 'b-search-info__body'}} group">
+        <div class="b-search-info__sort">Сортировать: <a class="b-search-info__link b-link b-link_blue" href="#" on-click="sort">{{sort ? 'По алфавиту' : 'По рейтингу'}}</a></div>
+    </div>
+{{/showResult}}

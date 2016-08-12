@@ -1,0 +1,15 @@
+<!--include b-feed-->
+{{#items}}
+    <div class="b-feed__item"><span class="b-feed__date _date"></span>
+        <a class="b-link b-link_title"
+           href="/2016/01/19/cena-nefti-marki-brent-vyrosla-do-30-dollarov-proverka-translita.html">
+            Цена нефти марки Brent выросла до 30 долларов - проверка транслита
+        </a>
+    </div>
+{{#items}}
+<!--/include b-feed-->
+<div class="b-feed__item b-feed__item_more">
+    <a href="#"
+       class="b-link b-link_title"
+       on-click="load">• • •</a>
+</div>

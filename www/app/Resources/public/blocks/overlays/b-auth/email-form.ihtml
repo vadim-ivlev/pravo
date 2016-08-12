@@ -1,0 +1,34 @@
+<div class="b-form">
+
+    <form class="b-form__body" on-submit="submit">
+
+        <div class="b-form__row">
+
+            <label class="b-field b-field_input b-field_input_text b-auth__input_text">
+                <input-notification msg="{{errorMsg}}" off="10000" />
+                <div class="b-field__wrapper">
+                    <input class="b-field__input b-field__input_text" 
+                        id="emailInput" 
+                        type="text" 
+                        value="{{email}}" 
+                        placeholder="e-mail">
+                </div>
+            </label>
+            <!--Кнопка-->
+            <label class="b-field b-field_input b-field_input_submit b-field_accent b-auth__button {{error ? 'b-input_notify' : ''}} {{loading ? 'b-spinner' : ''}}">
+                <div class="b-field__wrapper">
+                    <input class="b-field__input b-field__input_submit"
+                    type="submit"
+                    value="Войти"
+                    disabled="{{disabled}}"
+                    twoway="false">
+
+                </div>
+            </label>
+            <!--/Кнопка-->
+
+        </div>
+
+    </form>
+
+</div>

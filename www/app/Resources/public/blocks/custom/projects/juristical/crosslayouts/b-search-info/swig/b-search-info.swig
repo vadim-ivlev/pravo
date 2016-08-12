@@ -1,0 +1,1 @@
+<rg-search-info rgb="true" />

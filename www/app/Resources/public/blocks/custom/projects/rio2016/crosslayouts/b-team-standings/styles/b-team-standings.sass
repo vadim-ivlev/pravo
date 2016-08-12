@@ -1,0 +1,118 @@
+$block: '.b-team-standings'
+
+#{$block}
+    // display: none
+    margin: 0 20px 20px
+    
+    &__body 
+        padding: 20px
+        border: 1px solid #E1E1E1
+
+    &__name
+        +font(17px)
+        font-style: italic
+        font-weight: bold
+        margin-bottom: 11px
+        font-family: $f-serif
+
+    &__table
+        border-collapse: collapse
+        width: 100%
+        +font(13px) 
+
+        & th:nth-child(2)
+            text-align: left
+
+        & tr:nth-child(2)
+
+            & td
+                padding-top: 10px
+
+        & tr.is_russia
+
+            & td
+                background-color: #F36921
+                color: #fff
+                position: relative
+
+                &:first-child:before, &:last-child:before
+                    width: 10px
+                    height: 100%
+                    content: ''
+                    display: block
+                    position: absolute
+                    top: 0
+                    right: -10px
+                    background-color: #F36921
+                    border-bottom-right-radius: 3px
+                    border-top-right-radius: 3px
+
+                &:first-child:before
+                    left: -10px    
+                    border-bottom-right-radius: 0
+                    border-top-right-radius: 0                
+                    border-bottom-left-radius: 3px
+                    border-top-left-radius: 3px
+
+
+        & th
+            border-bottom: 1px solid #E1E1E1
+
+        & td, & th
+            padding: 5px
+            width: 10%
+            font-weight: normal
+
+            &:nth-child(2)
+                width: 50%
+
+            &:first-child
+                padding-left: 0
+
+            &:last-child
+                padding-right: 0
+
+            &:nth-last-child(-n+4)
+                text-align: center
+
+    &__medal
+        width: 15px
+        height: 15px
+        margin: 0 auto
+        background:url(#{$img-path}custom/projects/rio2016/gold.png) 50% 50% no-repeat
+
+        &.gold
+            background-image: url(#{$img-path}custom/projects/rio2016/gold.png)
+
+        &.silver
+            background-image: url(#{$img-path}custom/projects/rio2016/silver.png)
+
+        &.bronze
+            background-image: url(#{$img-path}custom/projects/rio2016/bronze.png)
+
+        &.overall
+            width: 17px
+            background-image: url(#{$img-path}custom/projects/rio2016/overall.png)
+
+    +bp-tablet
+
+        &
+            margin: 0 0 20px
+
+    +bp-retina
+
+        &
+            &__medal
+                &.gold
+                    background-image: url(#{$img-path}custom/projects/rio2016/gold_x2.png)
+                    background-size: 100%
+                &.silver
+                    background-image: url(#{$img-path}custom/projects/rio2016/silver_x2.png)
+                    background-size: 100%
+                &.bronze
+                    background-image: url(#{$img-path}custom/projects/rio2016/bronze_x2.png)
+                    background-size: 100%
+                &.overall
+                    background-image: url(#{$img-path}custom/projects/rio2016/overall_x2.png)
+                    background-size: 100%
+

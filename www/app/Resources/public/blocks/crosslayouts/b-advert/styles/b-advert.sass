@@ -1,0 +1,185 @@
+/*
+ * Баннеры текстовые
+ * 22.10.15 Max: В такой верстке будет использоваться рекламных материалах только на главной.
+ */
+
+// Объявляем блок
+$block: '.b-advert'
+
+// Модификаторы
+
+// Стили
+#{$block}
+    +font(13px)
+
+    padding: 0
+    margin-bottom: 20px
+    border-bottom: 1px solid $border-color
+
+    &_type_yad
+        width: 100%
+        text-align: center
+        border-bottom: 0
+
+    &_type_sky
+        background-color: $today-bg-color
+        border-bottom: 0
+
+    &_type_sky &__item-image
+        float: none
+
+    &_type_sky &__item
+        margin-bottom: 0
+
+    &_type_sky &__item-description
+        padding: 20px
+
+    &_type_sky &__item-title
+        +font
+
+        color: $black
+
+    &_type_sky &__item-text
+        +font(13px)
+
+    &__title
+        font-family: $f-serif
+        font-weight: normal
+        font-style: italic
+
+        +font(12px)
+
+        margin-bottom: 20px
+
+    &__list
+
+    &__item
+        margin-bottom: 20px
+        overflow: hidden
+
+    &__item-image
+        margin: 0 10px 10px 0
+        float: left
+        display: block
+
+    &__item-description
+        display: block
+
+    &__item-title
+        font-weight: bold
+        margin-bottom: 5px
+        color: $link-color
+
+    &__item-text
+        margin-bottom: 5px
+
+    &__item-mail
+        color: $comment-color
+
+
+    /*
+     * Новые стили для рекламных блоков
+     *
+     */
+
+    &_yaDirect
+        border-bottom: 0
+
+        .yap-yandex_ad_sidebar_left-adaptive,
+        .yap-yandex_ad_sidebar_left-adaptive .yap-layout_block_fixed
+            width: 100%!important
+
+    &_yaDirect-vertical
+    
+
+    // Tablet landscape
+    +bp-tabletLandscape
+
+        &
+            padding-top: 20px
+
+            &__item
+                text-align: center
+                margin: 0 20px 20px
+
+
+
+/*
+ * Закостылирование баннера
+ *
+ */
+
+// Объявляем блок
+$block: '.b-banner'
+
+// Стили
+#{$block}
+    text-align: center
+
+    &_type_sidebar
+        width: 240px
+        padding: 20px 0 1px
+
+        position: relative
+
+        background-color: $today-bg-color
+
+        &.is-fixed
+            position: fixed
+            top: 0
+
+        &.is-bottom
+            position: absolute !important
+            bottom: 0
+            top: auto
+
+    &_type_head
+        width: 100%
+        overflow: hidden
+
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#dee3e7+1,cbd2d8+100 */
+    background: #dee3e7
+
+    /* Old browsers */
+
+    background: -moz-linear-gradient(top, #dee3e7 1%, #cbd2d8 100%) /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(1%, #dee3e7), color-stop(100%, #cbd2d8)) /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, #dee3e7 1%, #cbd2d8 100%)  /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, #dee3e7 1%, #cbd2d8 100%) /* Opera 11.10+ */
+    background: -ms-linear-gradient(top, #dee3e7 1%, #cbd2d8 100%) /* IE10+ */
+    background: linear-gradient(to bottom, #dee3e7 1%, #cbd2d8 100%) /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#dee3e7', endColorstr='#cbd2d8',GradientType=0 ) /* IE6-9 */
+
+    &_type_sidebar &__item
+        display: none
+
+    &_type_aside &__item
+        display: block
+
+    &_type_sidebar &__item.is-active
+        display: block
+
+    &__item-image
+        margin-bottom: 19px
+    
+
+    // Tablet landscape
+    +bp-tabletLandscape
+
+        &
+
+            &_type_sidebar
+                width: 280px
+                padding: 20px 20px
+
+    // Desktop
+    +bp-desktop
+
+        &
+
+            &_type_sidebar
+                width: 310px
+                padding: 20px 35px
+
+                &.is-bottom
+                    bottom: 11px

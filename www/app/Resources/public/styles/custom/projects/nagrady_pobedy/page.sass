@@ -1,0 +1,116 @@
+
+/*
+ * Page
+ *
+ */
+
+.page
+    font-family: $font-main
+    width: $width-middle 
+    margin: 0 auto
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .6)
+
+.overlay
+
+    &:before
+        content: ''
+        width: 100%
+        margin: auto
+
+        position: fixed
+        top: 0
+        right: 0
+        bottom: 0
+        left: 0
+        z-index: 6
+
+        background-color: rgba(black, .7)
+
+        cursor: pointer
+
+.infograph-page
+    padding-top: $infograph-page-padding-top
+    position: relative
+
+    &:before
+        @include aside-decor-infograph('left')
+
+    &:after
+        @include aside-decor-infograph('right')
+
+.infograph-page-less1941
+    padding-top: 0
+    background-image: none
+
+    h3
+        font-family: $font-condensed
+        margin: 0
+        padding: $def-indent
+        padding-left: $meta-width/2 + $meta-width/5.5 + $def-indent*2
+        position: absolute
+        top: -39px
+        text-transform: uppercase
+        color: $primary-light-text-color
+        background-color: darken($primary-color, 5%)
+        z-index: 1
+
+.infograph-page-less1941:before,
+.infograph-page-less1941:after
+    display: none
+
+.infograph-page-1941
+    background: url($img-path + "fig_1941.jpg") top center / contain no-repeat
+
+    .page-content:after
+        content: ""
+        height: 100%
+        position: absolute
+        top: 0
+        left: 74px
+        border-left: 2px solid #457368
+
+    .page-content__text
+        width: 770px
+        margin-left: $def-indent*15
+        color: $invert-text-color
+        padding: $def-indent*3
+
+        h3
+            color: $primary-light-text-color
+            text-transform: uppercase
+
+    .page-content__meta
+        font-size: 2.4em
+        line-height: $meta-width
+        background: #5a1601
+        border-radius: 100%
+        z-index: 1
+
+.infograph-page-1942
+    background: url($img-path + "fig_1942.jpg") top center / contain no-repeat
+
+    .page-content__time
+        background: url($img-path + "maps/map_1942.png") 240px 260px no-repeat
+
+.infograph-page-1943
+    background: url($img-path + "fig_1943.jpg") top center / contain no-repeat
+
+    .page-content__time
+        background: url($img-path + "maps/map_1943.png") 250px 0px no-repeat
+
+.infograph-page-1944
+    background: url($img-path + "fig_1944.jpg") top center / contain no-repeat
+
+    .page-content__time
+        background: url($img-path + "maps/map_1944.png") 200px 0 no-repeat
+
+.infograph-page-1945
+    background: url($img-path + "fig_1945.jpg") top center / contain no-repeat
+
+    .page-content__time
+        background: url($img-path + "maps/map_1945.png") 200px 450px no-repeat
+
+.page-content
+    width: 100%
+    position: relative
+    background-color: rgba($primary-color, .9)

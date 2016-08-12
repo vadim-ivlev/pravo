@@ -1,0 +1,191 @@
+
+/*
+ * Блок b
+ *
+ */
+
+$block: '.b'
+
+// Стили
+#{$block}
+
+    &__title
+        font-family: $f-sans
+        font-weight: normal
+
+    &__title_extra
+        +font(20px)
+        margin-left: 20px
+        font-weight: normal
+
+    &__title_shifter
+        text-transform: uppercase
+        font-weight: bold
+
+
+    &__img
+        width: auto
+
+    &__text
+        +font(14px)
+        margin-bottom: 18px
+
+    &__media
+        text-align: center
+
+    +bp-tablet
+        &
+
+            &__title
+                +font(26px)
+
+            &__media
+                text-align: left
+                float: left
+
+            &__wrapper
+                width: 60%
+                float: left
+
+                padding-left: 40px
+
+            &__row
+                width: 50%
+                float: left
+                padding-right: 5%
+
+                &:last-child
+                    padding: 0
+
+    +bp-tabletLandscape
+        &
+            &__title
+                +font(30px)
+
+            &__item
+                margin-bottom: 30px
+
+    +bp-desktop
+        &
+            &__row
+                width: 100%
+                float: none
+                padding: 0
+
+/*
+ * Блок Ссылки
+ *
+ */
+$block: '.b-link'
+$b-static-wrapper : '.b-static-wrapper'
+// Стили
+#{$b-static-wrapper}
+    #{$block}
+
+        display: block
+        margin-bottom: 20px
+
+        +font(14px)
+
+/*
+ * Блок Ссылок в виде кнопки
+ *
+ */
+
+// Объявляем блок
+$block: '.b-link-btn'
+
+// Стили
+#{$block}
+
+    float: left
+    clear: both
+    margin-bottom: 20px
+
+    +bp-desktopFull
+        &
+            float: none
+            clear: none
+
+/*
+ * Блок списка хедера
+ *
+ */
+
+$block: '.b-list-head'
+
+// Стили
+#{$block}
+    &__title
+        display: none
+/*
+ * Блок header
+ *
+ */
+
+
+$block: '.b-header'
+$b-logo: '.b-logo'
+// Стили
+#{$block}
+    &_promo
+        padding: 0 20px
+
+        #{$b-logo}
+            &__image
+                image-rendering: -webkit-optimize-contrast
+
+
+        +bp-tablet
+            &
+                padding: 0
+                #{$block}
+                    &__item
+                        display: inline-block
+                        vertical-align: middle
+                        width: auto
+
+                    &__title
+                        margin-left: 40px
+
+                #{$b-logo}
+                    &__image
+                        width: 220px
+                        height: 76px
+
+        +bp-tabletLandscape
+            &
+                #{$block}
+                    &__title
+                        margin-left: 60px
+
+/*
+ * Блок l-page
+ *
+ */
+
+$block: '.l-page'
+
+// Стили
+#{$block}
+    &_promo
+        margin-top: 40px
+        max-width: 1280px
+
+        +bp-tablet
+            &
+                margin-top: 0
+
+// Блок футера
+$block: '.b-footer'
+
+// Стили
+#{$block}
+
+    +bp-desktopFull
+
+        &
+            width: 1240px
+
+
+

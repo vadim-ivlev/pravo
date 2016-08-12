@@ -1,0 +1,51 @@
+/*
+ * Блок ленты контента
+ * 
+ */
+
+// Объявляем блок
+$block: '.b-feed'
+
+// Стили
+#{$block}
+    .b-vidget__wrapper &
+        &__body
+            margin-bottom: 30px
+        &__item
+            margin-top: 15px
+            margin-bottom: 0
+            padding-bottom: 15px
+        &__name
+            margin-bottom: 0
+
+
+        +bp-desktop
+            &__body
+                margin-left: 0
+
+        +bp-desktopFull
+
+            &__body
+                width: 310px
+            &__name
+                +font(17px)
+
+.b-content_article
+    #{$block}
+        margin: 0 20px
+
+    +bp-tablet
+        #{$block}
+
+            margin: 0
+
++bp-desktopFull
+
+    .b-content_projects
+        #{$block}
+            &__body
+                margin-left: 30px
+
+
+
+

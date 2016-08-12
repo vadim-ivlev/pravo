@@ -1,0 +1,152 @@
+/*
+ * Футер
+ * 
+ */
+
+// Объявляем блок
+$block: '.b-footer-links'
+
+// Модификаторы
+// '.b-footer__links_type_desktop' Не используется, но в верстке есть
+
+// УБИВАЕМ ССЫЛКИ
+.b-footer-links__list-item a[href="/spec.html"],
+.b-footer-links__list-item a[href="/izdania/"],
+.b-footer-links__list-item a[href="/subscr/"],
+.b-footer-links__list-item a[href="/webpartner/"],
+.b-footer-links__list-item a[href="/finansist.html"],
+.b-footer-links__list-item a[href="/zhurnalist/"]
+    display: none
+
+// Стили 
+#{$block}
+    padding: 20px 20px 0
+
+    &__row
+        // inline-block fix
+        font-size: $f-sz-zero
+        letter-spacing: 0
+
+        
+        padding-top: 20px
+        border-top: 1px solid $border-color
+
+        &.has-1
+            padding-top: 0
+            border-top: 0
+
+        &.has-3
+            color: $comment-color
+
+        .b-footer__copyright-text
+            //display: none выключил пока не поймем, что делать с копирайтом
+
+    &__list
+        width: 50% // когда делятся на два подраздела друг под другом
+        margin: 0
+        padding: 0
+        position: relative
+
+        display: inline-block
+        vertical-align: top
+        list-style: none
+
+        // inline-block fix
+        +font(13px)
+        letter-spacing: $letterSpacingDefault
+
+    &__rss
+        +font(13px)
+        display: none
+
+    &__list-item
+        margin-bottom: 10px
+
+    &__list-item-title
+        +font(13px)
+        font-family: $f-sans
+
+        margin-bottom: 0
+    
+
+    // Tablet
+    +bp-tablet
+
+        &
+            
+            &__row
+                //width: auto
+                width: 100%
+                margin: 20px 0 0
+                padding-top: 0
+                display: inline-block
+                vertical-align: top
+                text-align: left
+                border-top: 0
+
+                //+flexbox // 20.01.2016 - торжество прогресса. Первый flexbox на новейшем сайте rg.ru
+                // как пришло, так и ушло - скатертью дорога!
+                //+flex-just(space-between)
+
+                &.has-1
+                    width: 60%
+
+                &.has-2
+                    width: 40%
+
+                &.has-3
+                    padding-top: 20px
+                    border-top: 1px solid $border-color
+
+            &__list
+                //width: 145px
+                width: 20%
+                padding-right: 10px
+
+                .has-1 &
+                    width: 33.33%
+
+                .has-2 &
+                    width: 50%
+
+                
+            
+
+    // Tablet landscape
+    +bp-tabletLandscape
+
+        &
+
+            &__row
+                position: relative
+            
+            &__list
+                //width: 195px
+                //width: 185px
+                //width: auto
+            
+    // Desktop
+    +bp-desktop
+
+        &
+            &__row
+                //display: block
+
+            &__list
+                //width: 255px
+                //width: 265px
+
+            &__rss
+                position: absolute
+                left: -4px
+                bottom: -85px
+                display: inline
+
+    // Desktop full
+    +bp-desktopFull
+
+        &
+           
+            &__list
+                //width: 320px
+                //width: 350px

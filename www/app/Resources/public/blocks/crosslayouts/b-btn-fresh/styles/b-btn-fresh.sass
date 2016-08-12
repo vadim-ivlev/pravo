@@ -1,0 +1,63 @@
+/*
+ * Кнопка свежего выпуска
+ * 
+ */
+
+// Объявляем блок
+$block: '.b-btn-fresh'
+
+// Стили
+#{$block}
+    height: 2.6em
+    padding: 7px 10px 5px
+
+    position: relative
+    display: inline-block
+
+    line-height: 1em
+    vertical-align: middle
+    background-color: $red
+
+    cursor: pointer
+
+    +rounded-corners(2px)
+
+    +transition
+
+    &__icon
+        background-position: -40px 0
+
+    &__text
+        +font(12px)
+        font-weight: bold
+        margin-left: 4px
+
+        display: none
+        vertical-align: middle
+        letter-spacing: 0
+        color: $white
+
+    &:hover
+        background-color: $red + #111
+
+        +transition
+
+    // Tablet
+    +bp-tablet
+
+        &
+            &__text
+                display: inline-block            
+
+    // Desktop
+    +bp-desktop
+
+        &
+            position: absolute
+            right: 340px
+            top: 9px
+
+            white-space: nowrap
+
+            &__text
+                font-weight: bold            

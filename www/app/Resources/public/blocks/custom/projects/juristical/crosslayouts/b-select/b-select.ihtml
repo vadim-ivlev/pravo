@@ -1,0 +1,14 @@
+<label class="b-field b-field_select b-field_select_select {{highlighted ? 'b-field_select_highlighted' : ''}} {{required ? 'b-field_required' : ''}}">
+    {{#label}}<div class="b-field__label">{{label}}</div>{{/label}}
+    <div class="b-field__wrapper">
+        <select class="b-field__select b-field__select_select"
+            on-change="select"
+            value="{{selectedOption}}"
+            type="select">
+            {{#items}}
+                {{#isObject}}<option value="{{value}}">{{{content}}}</option>{{/isObject}}
+                {{^isObject}}<option value="{{.}}">{{{.}}}</option>{{/isObject}}
+            {{/items}}
+        </select>
+    </div>
+</label>

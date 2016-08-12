@@ -1,0 +1,26 @@
+<div class="b-account__item b-account__item_3 b-account__item_social">
+
+    <div class="b-account__subtitle">Социальные сети:</div>
+    <div class="b-account__info">Нажмите на соответствующую иконку, чтобы связать ее с вашим аккаунтом</div>
+
+    <div class="b-account__social">
+
+        {{#socials: i}}
+
+            <div class="b-account__social-item">
+
+                <a class="b-icon b-icon_type_social b-social__item b-social__item_{{name}}"
+                   href="https://front.rg.ru/app_dev.php/auth/connect/{{title}}"></a>
+                <div class="b-account__social-name {{ merged ? 'is-active' : ''}}">{{merged ? fullName : 'Не привязана'}}</div>
+
+                {{#merged}}
+                    <button type="button"
+                            class="b-icon b-icon_type_close-btn b-account__close-btn"
+                            on-click="disconnect: {{.}}">Удалить</button>
+                {{/merged}}
+            </div>
+
+        {{/socials}}
+    </div>
+
+</div>

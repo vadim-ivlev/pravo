@@ -1,0 +1,3 @@
+{% if confJson %}
+	{[ confJson ]}
+{% endif %}

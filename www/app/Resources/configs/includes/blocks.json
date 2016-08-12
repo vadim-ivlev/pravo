@@ -1,0 +1,99 @@
+{
+  "name": "includes:blocks",
+  "subTasks": [
+	{
+		"name": "maintoday",
+		"dest": "/dest/templates/blocks",
+		"src": {
+			"include": [ "/src/pages/includes/route.html" ]
+		},
+		"plugins": [
+			{
+				"name": "gulp-rgswig",
+				"options": {
+					"data": {
+						"type": "blocks",
+						"name": "b-feed",
+						"tmplFile": "b-feed.swig",
+						"object": "objects__",
+						"hideDate": true
+					}
+				}
+			},
+			{
+				"name": "gulp-minify-html",
+				"options": {
+					"conditionals": true,
+					"comments": true,
+					"quotes": true
+				}
+			},
+			{
+				"name": "gulp-rename",
+				"options": {
+					"basename": "maintoday"
+				}
+			}
+		]
+	},
+	{
+		"name": "article-video",
+		"dest": "/dest/templates",
+		"src": {
+			"include": [ "/src/pages/includes/route.html" ]
+		},
+		"plugins": [
+			{
+				"name": "gulp-rgswig",
+				"options": {
+					"data": {
+						"type": "blocks",
+						"name": "video",
+						"tmplFile": "video.swig"
+					}
+				}
+			},
+			
+			"~gulp-minify-html",
+			
+			{
+				"name": "gulp-rename",
+				"options": {
+					"basename": "article-video",
+					"extname": ".ihtml"
+				}
+			}
+		]
+	},
+	{
+		"name": "calendar",
+		"dest": "/dest/templates",
+		"src": {
+			"include": [ "/src/pages/includes/route.html" ]
+		},
+		"plugins": [
+			{
+				"name": "gulp-rgswig",
+				"options": {
+					"data": {
+						"type": "blocks",
+						"name": "calendar",
+						"tmplFile": "calendar.swig",
+						"object": "calendar__"
+					}
+				}
+			},
+			
+			"~gulp-minify-html",
+			
+			{
+				"name": "gulp-rename",
+				"options": {
+					"basename": "calendar",
+					"extname": ".ihtml"
+				}
+			}
+		]
+	}
+  ]
+}

@@ -1,0 +1,2 @@
+<div class="b-follow b-follow_sujets {{subscribed ? 'is-active' : ''}}"
+    on-click="follow">{{txt}}</div>

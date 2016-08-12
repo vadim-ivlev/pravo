@@ -1,0 +1,181 @@
+/*
+ * СТили для брендирования в шапке
+ *
+ */
+
+// Объявляем блок
+$block: '.b-rgftools'
+
+$height: 36px
+
+// Стили
+#{$block}
+
+    &__notify
+        padding: 0 6px
+
+        position: fixed
+
+        color: $white
+        line-height: 24px
+
+        -webkit-animation-duration: 1.5s
+        -moz-animation-duration: 1.5s
+        animation-duration: 1.5s
+
+    &__body
+        width: 100%
+        height: $height
+
+        position: fixed
+        bottom: $height*-1
+        z-index: 9999
+
+        color: #eee
+        background-color: #222
+
+        +transition(bottom .3s ease)
+
+        &:hover,
+        .is-active + &
+            bottom: 0
+
+        &:after
+            content: ''
+            width: 60px
+            height: 60px
+
+            position: absolute
+            right: -60px
+            bottom: 16px
+
+            background: url(#{$img-path}rgftools.png) no-repeat 0 0
+
+            +transition(right .3s ease)
+            +transform(rotate(-30deg))
+
+            .is-active + &
+                right: 13px
+
+    &__item
+        padding: 0 20px
+        position: relative
+        display: inline-block
+        line-height: $height
+
+        white-space: nowrap
+
+        .is-active &,
+        &:hover
+            background: #444
+
+    &__name
+        +font(11px)
+        cursor: pointer
+
+    &__content
+        //+font(17px)
+        padding: 20px
+
+        display: none
+
+        position: absolute
+        left: 0
+        bottom: $height
+
+        background-color: inherit
+
+        +box-shadow(0 -3px 20px rgba($black, .2))
+
+    &__item:hover &__content
+        display: block
+
+    &__content-item
+        margin: 6px 0
+        color: #aaa
+        display: table-row
+
+        &-name
+            padding-right: 10px
+            display: table-cell
+
+        &-accent
+            font-weight: bold
+            color: $white
+
+        &-null
+            font-style: italic
+            font-weight: normal
+
+    &__pokeball
+        width: 30px
+        height: 30px
+
+        position: fixed
+        right: 10px
+        bottom: 10px
+        z-index: 10000
+
+        overflow: hidden
+
+        background: $white
+        border-radius: 50%
+        box-shadow: inset -10px 10px 0 10px #ccc, 0 0 10px -3px rgba($black, .4)
+        cursor: pointer
+
+        +transition(all .3s ease)
+
+        &.is-active
+            +transform(rotate(30deg))
+
+        &:before,
+        &:after
+            content: ''
+            position: absolute
+
+        &:before
+            width: 100%
+            height: 50%
+            background: red
+
+        &:after
+            width: 100%
+            height: 6px
+
+            top: calc(50% - 2px)
+            background: $black
+
+        &-button
+            position: absolute
+            top: calc(50% - 3px)
+            left: calc(50% - 8px)
+            z-index: 10
+
+            background: #7f8c8d
+            border: 4px solid #fff
+            border-radius: 50%
+            box-shadow: 0 0 0 4px $black
+
+
+    // Tablet
+    +bp-tablet
+
+        &
+
+
+    // Tablet landscape
+    +bp-tabletLandscape
+
+        &
+
+
+    // Desktop
+    +bp-desktop
+
+        &
+
+
+    // Desktop full
+    +bp-desktopFull
+
+        &

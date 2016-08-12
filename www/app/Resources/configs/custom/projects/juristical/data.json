@@ -1,0 +1,261 @@
+{
+	"name": "projects:juristical:data",
+	"subTasks": [
+		{
+			"name": "index",
+			"dest": "/dest/public/templates/custom/projects/juristical/templates/data",
+			"src": {
+				"include": [ "/src/pages/includes/route.html" ]
+			},
+			"plugins": [
+				{
+					"name": "gulp-rgswig",
+					"options": {
+						"data": {
+							"rgb": "projects.juristical.data-test:index|json"
+						}
+					}
+				},
+				{
+					"name": "gulp-minify-html",
+					"options": {
+						"conditionals": true,
+						"comments": true,
+						"quotes": true
+					}
+				},
+				{
+					"name": "gulp-rename",
+					"options": {
+						"basename": "index",
+						"extname": ".json"
+					}
+				}
+			]
+	  	},
+		{
+			"name": "answer",
+			"dest": "/dest/public/templates/custom/projects/juristical/templates/data",
+			"src": {
+				"include": [ "/src/pages/includes/route.html" ]
+			},
+			"plugins": [
+				{
+					"name": "gulp-rgswig",
+					"options": {
+						"data": {
+							"rgb": "projects.juristical.data-test:answer|json"
+						}
+					}
+				},
+				{
+					"name": "gulp-minify-html",
+					"options": {
+						"conditionals": true,
+						"comments": true,
+						"quotes": true
+					}
+				},
+				{
+					"name": "gulp-rename",
+					"options": {
+						"basename": "answer",
+						"extname": ".json"
+					}
+				}
+			]
+		},
+		{
+			"name": "ask",
+			"dest": "/dest/public/templates/custom/projects/juristical/templates/data",
+			"src": {
+				"include": [ "/src/pages/includes/route.html" ]
+			},
+			"plugins": [
+				{
+					"name": "gulp-rgswig",
+					"options": {
+						"data": {
+							"rgb": "projects.juristical.data-test:ask|json"
+						}
+					}
+				},
+				{
+					"name": "gulp-minify-html",
+					"options": {
+						"conditionals": true,
+						"comments": true,
+						"quotes": true
+					}
+				},
+				{
+					"name": "gulp-rename",
+					"options": {
+						"basename": "ask",
+						"extname": ".json"
+					}
+				}
+			]
+		},
+		{
+			"name": "users",
+			"dest": "/dest/public/templates/custom/projects/juristical/templates/data",
+			"src": {
+				"include": [ "/src/pages/includes/route.html" ]
+			},
+			"plugins": [
+				{
+					"name": "gulp-rgswig",
+					"options": {
+						"data": {
+							"rgb": "projects.juristical.data-test:users|json"
+						}
+					}
+				},
+				{
+					"name": "gulp-minify-html",
+					"options": {
+						"conditionals": true,
+						"comments": true,
+						"quotes": true
+					}
+				},
+				{
+					"name": "gulp-rename",
+					"options": {
+						"basename": "users",
+						"extname": ".json"
+					}
+				}
+			]
+		},
+		{
+			"name": "lawer",
+			"dest": "/dest/public/templates/custom/projects/juristical/templates/data",
+			"src": {
+				"include": [ "/src/pages/includes/route.html" ]
+			},
+			"plugins": [
+				{
+					"name": "gulp-rgswig",
+					"options": {
+						"data": {
+							"rgb": "projects.juristical.data-test:lawer|json"
+						}
+					}
+				},
+				{
+					"name": "gulp-minify-html",
+					"options": {
+						"conditionals": true,
+						"comments": true,
+						"quotes": true
+					}
+				},
+				{
+					"name": "gulp-rename",
+					"options": {
+						"basename": "lawer",
+						"extname": ".json"
+					}
+				}
+			]
+		},
+		{
+			"name": "rubrics",
+			"dest": "/dest/public/templates/custom/projects/juristical/templates/data",
+			"src": {
+				"include": [ "/src/pages/includes/route.html" ]
+			},
+			"plugins": [
+				{
+					"name": "gulp-rgswig",
+					"options": {
+						"data": {
+							"rgb": "projects.juristical.data-test:rubrics|json"
+						}
+					}
+				},
+				{
+					"name": "gulp-minify-html",
+					"options": {
+						"conditionals": true,
+						"comments": true,
+						"quotes": true
+					}
+				},
+				{
+					"name": "gulp-rename",
+					"options": {
+						"basename": "rubrics",
+						"extname": ".json"
+					}
+				}
+			]
+		},
+		{
+			"name": "rubric_questions",
+			"dest": "/dest/public/templates/custom/projects/juristical/templates/data",
+			"src": {
+				"include": [ "/src/pages/includes/route.html" ]
+			},
+			"plugins": [
+				{
+					"name": "gulp-rgswig",
+					"options": {
+						"data": {
+							"rgb": "projects.juristical.data-test:rubric-questions|json"
+						}
+					}
+				},
+				{
+					"name": "gulp-minify-html",
+					"options": {
+						"conditionals": true,
+						"comments": true,
+						"quotes": true
+					}
+				},
+				{
+					"name": "gulp-rename",
+					"options": {
+						"basename": "rubric_questions",
+						"extname": ".json"
+					}
+				}
+			]
+		},
+		{
+			"name": "rubric_tags",
+			"dest": "/dest/public/templates/custom/projects/juristical/templates/data",
+			"src": {
+				"include": [ "/src/pages/includes/route.html" ]
+			},
+			"plugins": [
+				{
+					"name": "gulp-rgswig",
+					"options": {
+						"data": {
+							"rgb": "projects.juristical.data-test:rubric-tags|json"
+						}
+					}
+				},
+				{
+					"name": "gulp-minify-html",
+					"options": {
+						"conditionals": true,
+						"comments": true,
+						"quotes": true
+					}
+				},
+				{
+					"name": "gulp-rename",
+					"options": {
+						"basename": "rubric_tags",
+						"extname": ".json"
+					}
+				}
+			]
+		}
+	]
+}

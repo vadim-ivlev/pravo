@@ -1,0 +1,23 @@
+// Объявляем блок
+$block: '.b-menu'
+
+// Стили
+#{$block}
+    display: block
+    text-align: right
+    padding: 10px 0
+    margin-bottom: 0
+    border-bottom: 2px solid #dedede
+    position: relative
+
+    &__geolocation, &__item_type_actions
+        display: none
+
+    &-user__name, &-user__nav-icon
+        cursor: pointer
+
+    & .is-mobile
+        display: none !important
+
+    & .b-menu-user__item_desktop
+        display: inline-block !important

@@ -1,0 +1,266 @@
+/*
+ * Блок Иконок
+ * 
+ */
+
+// Объявляем блок
+$block: '.b-icon'
+
+$bIconAside: '.b-icon-aside'
+
+$bIconCountry: '.b-icon-country'
+
+// Картинки
+#{$block}
+    background: url(#{$img-path}sprite_main.png) no-repeat
+
+    // Ретина
+    +bp-retina
+
+        &
+            background: url(#{$img-path}sprite_main_2.png) no-repeat
+            background-size: $retina-icon-width
+
+// Стили
+#{$block}
+    width: 20px
+    height: 20px
+
+    position: relative
+    display: inline-block
+    vertical-align: middle
+
+    &_type_social
+        width: 30px
+        height: 30px
+
+        background: url(#{$img-path}social_icons.svg) no-repeat
+
+    &_type_search
+        background-position: 0 0
+
+    &_type_region
+        background-position: -100px -80px
+
+    &_type_reload
+        position: absolute
+        right: -25px
+        top: 1px
+
+        background-position: -20px -70px
+
+    &_type_viewed
+        width: 30px
+        background-position: -120px 0
+
+    &_type_viewed.is-active
+        background-position: -120px -20px
+        z-index: 99999
+
+        &:after
+            content: ''
+            width: 40px
+            
+            position: absolute
+            bottom: -18px
+            left: -8px
+
+            border-bottom: 3px solid $red
+
+    &_type_follow
+        background-position: -150px 0
+
+    &_type_follow.is-active
+        background-position: -150px -20px
+        z-index: 99999
+
+        &:after
+            content: ''
+            width: 40px
+
+            position: absolute
+            bottom: -18px
+            left: -8px
+            
+            border-bottom: 3px solid $red
+
+    &_type_follow.is-modal
+        background-position: -150px -40px
+
+        &:after
+            border-bottom: 0
+
+    &_type_follow-white
+        background-position: -150px -20px
+
+    &_type_follow-white.is-active
+        background-position: -150px -40px
+
+    &_type_rss
+        background-position: -50px -30px
+
+    &_type_calendar
+        background-position: -20px 0
+
+    &_type_print
+        background-position: -170px 0
+
+    &_type_like
+        background-position: 0 -50px
+
+        &.is-active,
+        &:hover
+            background-position: 0 -70px
+
+    &_type_attention
+        background-position: -20px -50px
+
+    &_type_share
+        background-position: -40px -50px
+
+    &_type_comment
+        background-position: -60px -50px
+
+    &_type_star-gray
+        background-position: -150px -140px
+
+    &_type_star
+        background-position: -150px -79px
+
+        &.is-active,
+        &.hover
+            background-position: -150px -99px
+
+
+    &__qty
+        +font(11px)
+
+        width: 23px
+        height: 23px
+
+        position: absolute
+        top: -10px
+        right: -10px
+
+        display: inline-block
+        
+        vertical-align: middle
+        line-height: 2em
+        text-align: center
+        color: $white
+        
+        background-color: $red
+        +rounded-corners(50%)
+
+    &_type_speak
+        background-position: -170px -60px
+
+        &:hover
+            background-position: -170px -40px
+
+    &_type_user-quote
+        background-position: -170px -80px
+
+    &_type_close-btn
+        background-position: -90px -30px
+
+    &_type_geo
+        background-position: -150px -120px
+
+    // Tablet landscape
+    +bp-tabletLandscape
+
+        &
+            &_type_follow.is-active,
+            &_type_viewed.is-active
+
+                &:after
+                    bottom: -20px
+
+// Модификатор когда иконка рядом с контентом
+#{$bIconAside}
+    position: relative
+
+    &:before
+        content: ''
+
+        width: 20px
+        height: 20px
+        margin-right: 10px
+        display: inline-block
+        vertical-align: middle
+        background: url(#{$img-path}sprite_main.png) no-repeat
+
+        // Ретина
+        +bp-retina
+
+            &
+                background: url(#{$img-path}sprite_main_2.png) no-repeat
+                background-size: $retina-icon-width
+
+    &_type_login:before
+        background-position: -170px -20px
+
+    &_type_larrow-mini:before
+        width: 6px
+        height: 9px
+        margin-bottom: 2px
+        background-position: -100px -52px
+
+
+#{$bIconCountry}
+    width: 16px
+    height: 11px
+    background: url(#{$img-path}countrySprite.png) 0 0 no-repeat
+    margin-top: 4px
+
+    &_belarus
+        background-position: 0 0
+
+    &_hungary
+        background-position: -16px 0
+
+    &_germany
+        background-position: -32px 0
+
+    &_denmark
+        background-position: -48px 0
+
+    &_kazakhstan
+        background-position: 0 -11px
+
+    &_latvia
+        background-position: -16px -11px
+
+    &_norway
+        background-position: -32px -11px
+
+    &_russia
+        background-position: -48px -11px
+
+    &_slovakia
+        background-position: 0 -22px
+
+    &_finland
+        background-position: -16px -22px
+
+    &_france
+        background-position: -32px -22px
+
+    &_czech-republic
+        background-position: -48px -22px
+
+    &_switzerland
+        background-position: 0 -33px
+
+    &_sweden
+        background-position: -16px -33px
+
+    &_canada
+        background-position: -32px -33px
+
+    &_usa
+        background-position: -48px -33px
+
+    &_
+        display: none

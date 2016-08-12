@@ -1,0 +1,99 @@
+$block: '.b-footer'
+
+
+#{$block}
+    +font(13px)
+    margin-top: $indent-g-small
+    margin-bottom: $indent-g-small
+
+    &:before
+        content: ''
+        display: block
+        border-top: 3px solid $active-color
+
+    &__row
+        margin-top: $indent-g-small
+        overflow: hidden
+
+        &:first-child
+            padding-bottom: $indent-g
+            border-bottom: 1px solid $border-color
+
+    &__item
+        width: 50%
+
+        &:last-child
+            text-align: right
+
+    &__text
+        margin-top: 5px
+        display: block
+        clear: both
+
+    &__copy
+        padding-bottom: $indent-g-small
+        float: none
+
+    &__first .has-left, &__first .has-right
+        float: none
+        width: 100%
+        padding-bottom: $indent-g-small
+        overflow: hidden
+
+    &__first .has-right
+        padding-bottom: 0
+
+    &__first .has-left &__text
+        float: right
+        clear: none
+
+    &__first .b-vendors_lsr
+        float: left
+
+    
+    // Tablet
+    +bp-tablet
+
+        &
+
+
+
+    // Tablet landscape
+    +bp-tabletLandscape
+
+        &
+
+            &__first .has-left, &__first .has-right
+                float: left
+                width: 50%
+                padding-bottom: 0
+
+            &__first .has-left &__text
+                float: left
+                margin-top: 3px
+
+            &__first .b-vendors_lsr
+                float: right
+                margin-top: 4px
+
+            &__text
+                clear: none
+
+            &__copy
+                float: right
+
+            & .b-counter__item 
+                display: inline-block
+                margin-left: $indent-g-small
+            
+            
+    // Desktop
+    +bp-desktop
+
+        &
+            
+
+    // Desktop full
+    +bp-desktopFull
+
+        &

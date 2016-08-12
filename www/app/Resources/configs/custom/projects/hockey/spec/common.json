@@ -1,0 +1,48 @@
+{
+  "name": "projects:hockey:includes:spec",
+  "subTasks": [
+    {
+      "name": "teams:2016",
+      "dest": "/dest/templates/spec/hockey2016-teams",
+      "src": {
+        "include": [
+          "/src/pages/custom/projects/hockey2016/data/teams.js"
+        ]
+      },
+      "plugins": [
+        {
+          "name": "gulp-rgswig",
+          "options": {
+            "param": {
+              "compileType": "data"
+            }
+          }
+        },
+        {
+          "name": "gulp-minify-html",
+          "options": {
+            "conditionals": true,
+            "comments": true,
+            "quotes": true
+          }
+        },
+        {
+          "name": "gulp-rename",
+          "options": {
+            "basename": "index"
+          }
+        }
+      ]
+    },
+    {
+      "name": "schedule:2016",
+      "dest": "/dest/templates/spec/hockey2016-schedule",
+      "src": {
+        "include": [
+          "/src/pages/custom/projects/hockey2016/data/schedule.js"
+        ]
+      },
+      "plugins": "~"
+    }
+  ]
+}

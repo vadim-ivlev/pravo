@@ -1,0 +1,72 @@
+{
+  "name": "sujets:9may",
+  "subTasks": [
+    {
+      "name": "style",
+      "dest": "/dest/public/styles/custom/sujets/9may",
+      "src": {
+        "include": [
+          "/src/styles/custom/sujets/9may/index.sass"
+        ],
+        "exclude": [
+          "/src/styles/_*.sass"
+        ]
+      },
+      "sourcemaps": true,
+      "watch": true,
+      "plugins": [
+        {
+          "name": "gulp-sass",
+          "options": {
+            "outputStyle": "compressed"
+          }
+        }
+      ]
+    },
+    {
+      "name": "script",
+      "dest": "/dest/public/scripts/custom/sujets/9may",
+      "src": {
+        "include": [
+          "/src/scripts/custom/sujets/9may/index.js"
+        ]
+      },
+      "sourcemaps": true,
+      "browserify": {
+        "transforms": [
+          {
+            "name": "ractivate",
+            "options": {
+              "extensions": [
+                ".ihtml"
+              ]
+            }
+          }
+        ],
+        "watchify": true
+      },
+      "watch": true,
+      "plugins": [
+        {
+          "name": "gulp-debug",
+          "options": {
+            "title": "Js:"
+          }
+        },
+        {
+          "name": "gulp-babel",
+          "options": {
+            "compact": true
+          }
+        },
+        {
+          "name": "gulp-uglify"
+        },
+        {
+          "name": "gulp-concat",
+          "options": "index.js"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,51 @@
+<div class="b-gallery {{ meta.fullscreen ? 'b-gallery_fullscreen' : ''}} {{ !+meta.info.preview_count ? 'b-gallery_nothumb' : ''}}">
+
+	<div class="b-gallery__title">Фоторепортаж: {{ meta.info.title }}</div>
+
+	<div class="b-gallery__wrapper">
+
+	    <div class="b-gallery__meta">
+	        <div class="b-icon b-gallery__btn b-gallery__btn_fullscreen" on-click="openFullscreen"></div>
+	        <div class="b-gallery__btn b-gallery__btn_close" on-click="closeFullscreen"></div>
+            <div class="b-icon b-gallery__btn b-gallery__btn_share">
+            	<div class="b-share">
+            		<share options={{socialOption}} owner={{ 'gallery_' + gall + '_' + option }} />
+            	</div>
+            </div>
+	    </div>
+
+	    <div class="b-gallery__content">
+
+			<div
+				class="b-gallery__list b-gallery__list_fotorama" decorator="fotorama" data-thumbmargin="4">
+
+					{{#photos}}
+					<a
+						id="{{gall}}/{{option}}/{{@index + 1}}"
+						class="b-gallery__link"
+						href="//cdnimg.rg.ru/i/gallery/{{gall}}/{{filename}}"
+						data-fit="contain"
+						data-thumbfit="cover"
+						data-caption="<span class='b-gallery__text'>{{title}}</span> Фото: {{author}}">
+						<img
+							class="b-gallery__image"
+							src="//cdnimg.rg.ru/i/gallery/{{gall}}/thumbs/{{filename}}"
+							alt="{{title}}"
+                        	title="{{title}}"
+							>
+					</a>
+					{{/photos}}
+
+			</div>
+
+			<div class="b-gallery__advert">
+				<div class="b-ads b-ads_sidebar-right_gall">
+					<div class="adfox" data-src="//ads.adfox.ru/5906/prepareCode?p1=btwvn&amp;p2=cqs&amp;pct=a&amp;pfc=a&amp;pfb=a&amp;plp=a&amp;pli=a&amp;pop=a"></div>
+				</div>
+			</div>
+
+	    </div>
+
+    </div>
+
+</div>

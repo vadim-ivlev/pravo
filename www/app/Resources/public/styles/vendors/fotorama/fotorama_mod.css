@@ -1,0 +1,19 @@
+.fotorama__dot {
+    border: 0;
+    background-color: #4eacd7;
+    width: 7px;
+    height: 7px;
+    left: 14px;
+}
+
+.fotorama__nav--dots .fotorama__nav__frame {
+    width: 36px;
+    height: 0;
+}
+
+.fotorama__nav__frame.fotorama__active .fotorama__dot {
+    border-width: 0;
+    background-color: #00437a;
+    height: 7px;
+    width: 7px;
+}

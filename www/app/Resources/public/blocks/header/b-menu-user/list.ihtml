@@ -1,0 +1,57 @@
+<div class="b-menu-user__menu">
+    <div id="userProfileCatalogWrapper" class="b-menu-user__profile">
+
+        <div style="display: {{isAuthorized ? 'none' : 'block'}}">
+            <div class="b-menu-user__item b-menu-user__item_mobile">
+                <a class="b-link_blue b-icon-aside b-icon-aside_type_login"
+                    href="#"
+                on-click="login">Войти</a>
+            </div>
+        </div>
+
+        <div style="display: {{isAuthorized ? 'block' : 'none'}}">
+            <div class="b-menu-user__profile-info">
+                <div class="b-menu-user__profile-info-name"><a href="/account">{{user.firstName}} {{user.lastName}}</a></div>
+                <!--<div class="b-menu-user__profile-info-mail"><a href="/account">{{user.email}}</a></div>-->
+            </div>
+<!--            <div class="b-menu-user__profile-links">
+                <div class="b-menu-user__profile-links-item">
+                     <a class="b-link b-link_title" href="/account">Настройки профиля</a>
+                </div>
+                <div class="b-menu-user__profile-links-item">
+                    <a class="b-link b-link_title" href="/account/services">Сервисы</a>
+                </div>
+                <div class="b-menu-user__profile-links-item">
+                    <a class="b-link b-link_title"
+                       href="#"
+                       on-click="logout">Выход</a>
+                </div>
+            </div>-->
+            <div class="b-menu-user__profile-links">
+                <div class="b-menu-user__profile-links-item"><a class="b-link b-link_title" href="/account/services/sujets">Мои сюжеты</a></div>
+                <div class="b-menu-user__profile-links-item"><a class="b-link b-link_title" href="/account/services/comments">Комментарии</a></div>
+                <div class="b-menu-user__profile-links-item"><a class="b-link b-link_title" href="/account/services/saved">Сохранённые статьи</a></div>
+                <div class="b-menu-user__profile-links-item"><a class="b-link b-link_title" href="/account/profile">Настройки профиля</a></div>
+                <div class="b-menu-user__profile-links-item"><a class="b-link b-link_title" href="#" on-click="logout">Выход</a></div>
+            </div>
+
+        </div>
+
+        <div class="b-menu-user__profile-wrapper">
+            <div class="b-menu-user__profile-title">
+                <div class="b-categories__body b-categories__body_blue">
+                    <div class="b-categories__list">
+                        <div class="b-categories__item ">
+                            <a class="b-link b-link_white b-categories__link" href="/izdania/">Наши издания</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div 
+                class="b-menu-user__profile-categories shiftContainer" 
+                data-blocksshifterwidthhash="mobile" 
+                data-blocksshifterid="rgb_categories"></div>
+        </div>
+
+    </div>
+</div>

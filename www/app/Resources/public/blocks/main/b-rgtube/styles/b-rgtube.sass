@@ -1,0 +1,139 @@
+// Объявляем блок
+$block: '.b-rgtube'
+
+// Стили
+#{$block}
+    width: 100%
+    margin: 30px 0
+
+    &__name
+        font-family: $f-sans
+        font-weight: bold
+        padding: $indent-g-small 0
+        color: $black
+        +font(30px)
+
+
+    &__body
+        width: 100%
+        border-collapse: collapse 
+
+    &__video
+        height: auto
+
+    &__list
+        margin-top: 20px
+        padding: 20px 
+        background-color: #f3f3f3
+        overflow: hidden
+
+        &_wrapper
+            height: 240px
+
+        &__title
+            +font(17px)
+            padding-bottom: $indent-g-small
+            font-family: $f-serif
+            font-style: italic
+            font-weight: bold
+
+    &__item
+        width: 100%
+        padding-right: 20%      
+        padding-bottom: $indent-g-small
+        cursor: pointer
+        overflow: hidden
+
+    &__image
+        width: 100px
+        height: 60px
+        overflow: hidden
+        float: left
+        margin-right: 10px
+
+        & img 
+            width: 100px
+            display: block
+
+    &__title
+        font-weight: bold
+        +font(13px)
+
+    &__link
+        display: none
+
+
+    //tablet
+    +bp-tablet
+
+        &
+
+            &__video
+                padding-right: 0
+                width: 100%
+                height: 367px
+
+            &__list_wrapper
+                height: 287px
+
+            &__item
+                width: 100%
+                padding-right: 20px
+                float: none
+
+    // Tablet Landscape
+    +bp-tabletLandscape
+
+        &
+
+            &__video
+                height: 487px
+
+            &__list_wrapper
+                height: 407px
+
+            &__item
+                width: calc(50% - 20px)
+                margin-right: 20px
+                float: left
+
+
+    //desktop
+    +bp-desktop
+
+        &
+
+            &__body
+                display: table
+
+                & > div
+                    display: table-cell
+                    vertical-align: top
+
+            &__video
+                width: calc(100% - 300px)
+                padding-right: 30px
+                height: 100%
+
+            &__list
+                width: 300px
+                margin-top: 0
+
+                &_wrapper
+                    height: 400px
+
+            &__item
+                width: 100%
+                padding-right: 20px
+
+
+    //fulldesktop
+    +bp-desktopFull      
+
+        & 
+
+            &__list_wrapper 
+                height: 670px        
+
+
+

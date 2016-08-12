@@ -1,0 +1,177 @@
+/*
+ * Блок ввода данных
+ * Совмещает в себе все стандартные
+ * элементы формы
+ * 
+ */
+
+// Объявляем блок
+$block: '.b-field'
+
+// Стили
+#{$block}
+    +font(13px)
+    position: relative
+    display: block
+    clear: both
+
+    // Подпись к полю
+    &__label
+        margin-bottom: 10px
+        margin-right: 10px
+
+        &_bold
+            font-weight: bold
+
+    // Обертка для поля
+    &__wrapper
+        position: relative
+
+        &_inline
+            display: inline-block
+
+    // Иконки инпутов
+    &__icon
+        width: 20px
+        height: 20px
+        display: block
+
+        background: url(#{$img-path}sprite_main.png) no-repeat 0 0
+
+        // Retina
+        +bp-retina
+
+            &
+                background: url(#{$img-path}sprite_main_2.png) no-repeat 0 0
+                background-size: $retina-icon-width
+
+    // Модификатор, если поле обязательное
+    &_required &__label
+        position: relative
+
+        &:after
+            content: '*'
+
+    
+    &_input_text
+        &_highlighted
+            & .b-field__input_text
+                border-color: $red-warn
+
+    &_input_checkbox
+        &_highlighted
+            border: 1px solid $red-warn
+
+
+    // INPUT TEXT
+    &__input_text
+        @extend %text-field
+
+    // INPUT SUBMIT
+    &_input_submit
+        display: inline-block
+
+    &__input_submit
+        +button-field($link-color)
+
+    // Если второстепенное поле
+    &_second &__input_submit
+        +button-field($time-color)
+
+    //&__input_file
+    //&__input_checkbox
+    //&__input_radio
+    //&__input_submit
+    //&__button
+
+    &_textarea
+        &_highlighted
+            & .b-field__textarea
+                border-color: $red-warn
+
+    // TEXTAREA
+    &__textarea
+        +font(13px)
+        font-family: $f-sans!important // important потому что в комментах перебивает плагин
+
+        width: 100%
+        min-height: 115px
+        padding: 10px
+
+        border: 1px solid $border-color
+        resize: vertical
+
+    // CHECKBOX and RADIO
+    &_input_checkbox,
+    &_input_radio
+        float: left
+        cursor: pointer
+
+    &_input_checkbox &__label,
+    &_input_radio &__label
+        padding-left: 10px
+        display: inline-block
+        line-height: 24px
+        margin-bottom: 0
+
+    &_input_checkbox &__wrapper,
+    &_input_radio &__wrapper
+        //padding-right: 10px
+        float: left
+    
+    // Убираем оригинальный инпут
+    &_input_checkbox &__input_checkbox,
+    &_input_radio &__input_radio
+        @extend %visually-hidden
+
+    
+    // CHECKBOX
+    // Иконка
+    &_input_checkbox &__icon
+        background-position: -120px -60px
+
+    &_input_checkbox &__input_checkbox:checked + &__icon
+        background-position: -120px -40px
+
+
+    // RADIO
+    // Иконка
+    &_input_radio &__icon
+        background-position: -120px -100px
+
+    &_input_radio &__input_radio:checked + &__icon
+        background-position: -120px -80px
+
+
+    // SELECT
+    &__select
+        @extend %text-field
+        min-width: 180px
+        cursor: pointer
+        padding: 8px 12px
+        border-radius: 1px
+        border-color: $border-color
+
+    // добавляем декоративную стрелочку
+    &_select &__wrapper
+        background-color: $white
+
+        &:after
+            content: ''
+
+            position: absolute
+            right: 15px
+            top: 14px
+
+            border: 3px solid
+            border-color: $black transparent transparent transparent
+
+    .b-users-selection &
+        font-size: 14px
+
+    // Счётчик количества символов
+    &__maxlength
+        color: $light-grey
+        position: absolute
+        top: 0
+        right: 0

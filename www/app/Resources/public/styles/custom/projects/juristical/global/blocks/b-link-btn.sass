@@ -1,0 +1,21 @@
+/*
+ * Блок Ссылок в виде кнопки
+ * 
+ */
+
+// Объявляем блок
+$block: '.b-link-btn'
+
+// Стили
+#{$block}
+    display: inline-block
+
+    +button-field($link-color)
+
+    // Если второстепенное поле
+    &_second
+        +button-field($time-color)
+
+    // Если поле с акцентом
+    &_accent
+        +button-field($red)

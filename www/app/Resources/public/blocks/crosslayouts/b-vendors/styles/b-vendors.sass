@@ -1,0 +1,290 @@
+/*
+ * Логотипы партнеров
+ * 
+ */
+
+// Объявляем блок
+$block: '.b-vendors'
+
+// Стили 
+#{$block}
+    overflow: hidden
+
+    &__icon
+        
+        &:before
+            content: ''
+            height: 35px
+            background: url(#{$img-path}media/partners-rg.png) no-repeat 0 0 transparent
+
+        &_rg
+            //width: 94px
+            //height: 34px
+
+            &:before
+                width: 93px
+                //height: 34px
+                background-position: 0 0
+
+        &_subbota
+            //width: 94px
+            //height: 26px
+
+            &:before
+                width: 93px
+                //height: 26px
+                background-position: -93px 0
+
+        &_thematic
+            //width: 94px
+            //height: 26px
+
+            &:before
+                width: 94px
+                //height: 26px
+                background-position: -186px 0
+
+        &_soyuz
+            //width: 63px
+            //height: 25px
+
+            &:before
+                width: 62px
+                //height: 25px
+                background-position: -280px 0
+
+        &_rbth
+            //width: 197px
+            //height: 22px
+
+            &:before
+                width: 136px
+                //height: 22px
+                background-position: -342px 0
+
+        &_rodina
+            //width: 187px
+            //height: 26px
+
+            &:before
+                width: 93px
+                //height: 26px
+                background-position: -478px 0
+
+        &_bibliotechka
+            //width: 141px
+            //height: 22px
+
+            &:before
+                width: 141px
+                //height: 22px
+                background-position: -571px 0
+
+    // Ретина
+    +bp-retina
+
+        &
+
+            &__icon
+
+                &:before
+                    background-image: url(#{$img-path}media/partners-rg2x.png)
+                    background-size: 712px 35px     
+
+
+    // В блоке свежий выпуск
+    .b-fresh &__icon
+        height: 20px
+
+        &:before
+            position: absolute
+
+    // В шапке
+    &_header
+        +font(11px)
+        float: left
+
+        //&:before
+            //content: 'Наши издания:'
+            
+            //+font(13px)
+            //font-styles: italic
+            //font-family: $f-serif
+            //font-weight: bold
+
+        //&:after
+            //content: '...'
+            //font-styles: italic
+            //margin: 0 10px
+            //position: relative
+            //top: -3px
+
+    // Наши издания
+    &_header &__item_our-issues
+        +font(13px)
+        font-style: italic
+        font-family: $f-serif
+        font-weight: bold
+
+        margin-top: -2px
+
+        text-transform: none!important
+
+    &_header &__item_our-issues:after
+        +font(11px)
+        margin-top: 1px
+        display: none!important
+
+    // Кнопка показать больше
+    &_header &__item_more-btn
+        font-weight: bold
+        padding: 0 10px
+        //position: relative
+        //top: -3px
+        cursor: pointer
+
+        height: 22px
+        position: absolute
+        top: 5px
+
+    &_header &__item
+        display: inline-block
+        vertical-align: top
+        text-transform: uppercase
+
+        &_rg,
+        &_subbota,
+        &_thematic,
+        &_soyuz,
+        &_rbth,
+        &_rodina,
+        &_bibliotechka
+            display: none
+
+        &:after
+            content: '\07C'
+            //margin: -2px 20px 0
+            margin: 0 18px 0
+            display: inline-block
+            color: $comment-color
+            vertical-align: top
+
+        &:last-child:after
+            display: none
+
+    // В футере
+    &_footer
+        margin: 40px 0 20px
+        padding-bottom: 40px
+
+        border-bottom: 1px solid $border-color
+
+    &_footer &__item
+        text-align: center
+
+    &_footer &__icon
+        //display: inline-block
+        //position: relative
+        //vertical-align: middle
+
+        &:before
+            display: inline-block
+
+    // В оверлее сверху
+    &_overlay
+
+        #cboxLoadedContent
+            width: 100%!important
+            height: 100%!important
+            padding: 20px
+            overflow: hidden!important
+
+            &:before
+                content: 'Выберите интересующее вас издание:'
+                +font(16px)
+
+                padding-bottom: 16px
+                padding-right: 20px
+                display: block
+
+                border-bottom: 1px solid $border-color
+
+
+    &_overlay &__item
+        margin: 16px 0
+        display: block
+        text-transform: uppercase
+
+        &.is-tablet,
+        &.is-tablet-landscape,
+        &.is-desktop
+            display: block!important
+
+    &_overlay &__item_more-btn
+        display: none
+
+
+    // Мегакастом для логотипов по просьбе Оли
+    &_footer &__item
+        width: 180px
+
+        @media screen and (min-width: 500px)
+
+            &
+                //width: 260px
+
+        @media screen and (min-width: 620px)
+
+            &
+                //width: 320px
+
+
+
+    // Tablet
+    +bp-tablet
+
+        &
+
+            &_header:before
+                margin-right: 10px
+
+            &_header &__item
+
+                &_our-issues:after
+                    display: inline-block!important
+
+                &_subbota:after
+                    display: none
+
+            &_footer &__item
+                width: auto
+            
+
+    // Tablet landscape
+    +bp-tabletLandscape
+
+        &
+
+            &_header &__item
+
+                &_subbota:after
+                    display: inline-block
+
+                &_thematic:after
+                    display: none
+            
+            
+    // Desktop
+    +bp-desktop
+
+        &
+            &_header &__item_more-btn
+                display: none
+
+            &_header &__item
+
+                &_thematic:after
+                    display: inline-block
+
+                &_bibliotechka:after
+                    display: none

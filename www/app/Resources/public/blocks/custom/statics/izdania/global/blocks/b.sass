@@ -1,0 +1,129 @@
+/*
+ * Абстрактный блок стандартных элементов
+ * 
+ */
+
+// Объявляем блок
+$block: '.b'
+
+// Стили
+
+.b-link.has-left
+	margin-right: 15px
+
++bp-tablet
+	/*&
+		.has-left
+			float: left
+		.has-right
+			float: right*/
+#{$block}
+
+	&__wrapper
+		text-align: center
+
+	&__item
+		padding: 20px 20px 15px 20px
+
+		background: $today-bg-color
+	&__media
+		margin: auto
+		margin-bottom: 15px
+		width: 140px
+		height: 200px
+	&__title
+		+font(18px)
+
+		text-align: center
+
+	&__text
+		+font(14px)
+		display: none
+
+	&__wrapper
+		+font(13px)
+		border-top: 1px solid $border-color
+		padding-top: 20px
+	+bp-tablet
+		&
+			&__wrapper
+				text-align: left
+				+font(14px)
+			&__title
+				+font(20px)
+			&__wrapper
+				margin-left: 0
+			&__title
+				margin-left: 0
+			&__text
+				margin-left: 0
+				display: block
+	+bp-tabletLandscape
+
+		&
+
+			&__media
+				float: left
+
+			&__item
+				padding: 30px
+
+		&
+			&__wrapper
+				margin-left: 175px
+				padding-top: 30px
+
+			&__title
+				margin-left: 175px
+				text-align: left
+
+			&__text
+				margin-left: 175px
+
+	+bp-desktop
+
+		&
+
+			&__item
+				padding-left: 85px
+
+			&__wrapper
+				margin-left: 225px
+
+			&__title
+				margin-left: 225px
+
+			&__text
+				margin-left: 225px
+
+	+bp-desktopFull
+
+		&
+
+			&__wrapper
+				margin-left: 295px
+
+			&__item
+				padding-left: 155px
+				padding-right: 150px
+
+			&__title
+				margin-left: 295px
+
+			&__text
+				+font(14px)
+				margin-left: 295px
+
+
+			&__wrapper
+				border-top: 1px solid $border-color
+
+
+
+
+
+
+	
+
+
+

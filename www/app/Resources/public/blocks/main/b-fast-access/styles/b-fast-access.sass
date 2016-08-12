@@ -1,0 +1,97 @@
+/*
+ * Быстрый доступ к функционалу новости
+ *
+ */
+//#fastAccess
+    //position: fixed
+    //top: 50%
+    //transform: translateY(-50%)
+    //right: 0
+    //width: 60px
+    //z-index: 9
+    //min-height: 250px
+    //display: none
+
+//#fastAccess.fast-access_expanded
+    //width: 120px
+
+// Объявляем блок
+$block: '.b-fast-access'
+
+// Стили
+#{$block}
+    +font(14px)
+    padding: 20px 0
+
+    position: fixed
+    right: -50px
+    z-index: 9
+    transition: all .2s ease-out
+
+    top: 50%
+    transform: translateY(-50%)
+
+    color: $white
+    background-color: $time-color
+
+    display: none
+
+    &_expanded
+        right: 0
+
+    &__list
+
+    &__list-item
+        margin-bottom: 20px
+        padding: 0 20px
+        display: block
+
+        &_share
+            overflow: hidden // т.к. шаринг выскакивает сбоку
+
+        &:last-child
+            margin-bottom: 0
+
+    &__share
+        width: 190px
+        height: 0
+
+        position: absolute
+        top: -5px
+        right: 0
+
+        +transition(all .3s ease)
+        +opacity(0)
+
+        &_shown
+            //display: block
+
+    &__list-item:hover
+        overflow: visible
+        
+    &__list-item:hover &__share
+        width: 220px
+        height: auto
+        padding-left: 30px
+
+        right: 26px
+
+        +opacity(1)
+
+    +bp-tablet
+
+        &
+            top: 250px
+            right: 0
+            bottom: initial
+            display: block
+
+
+.stickedFastAccess
+
+    #{$block}
+
+        &
+            position: static
+            transition: none
+            transform: none

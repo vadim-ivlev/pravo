@@ -1,0 +1,115 @@
+/*
+ * Центральный блок с правым сайдбаром
+ *
+ */
+
+// Объявляем блок
+$block: '.l-main-content'
+
+// Родительские модификаторы
+$hasDocumentMaterial: '.l-main-content_doc'
+
+// Стили
+#{$block}
+    // inline-block fix
+    font-size: $f-sz-zero
+    letter-spacing: 0
+
+    // sidebar float fix
+    overflow: hidden
+
+    &__item
+        // inline-block fix
+        letter-spacing: $letterSpacingDefault
+
+    // Tablet
+    +bp-tablet
+
+        &
+            &__item_main,
+            &__item_article,
+            &__item_video,
+            &__item_list,
+            &__item_rubricator,
+            &__item_account
+                width: 490px
+                //margin: 0 auto
+                margin-left: 30px
+
+    // Tablet landscape
+    +bp-tabletLandscape
+
+        &
+
+            &__item_main,
+            &__item_article,
+            &__item_video,
+            &__item_list,
+            &__item_rubricator,
+            &__item_account
+                width: 650px
+
+    // Desktop
+    +bp-desktop
+
+        &
+            //width: 990px
+            //margin: 0 auto
+
+            &__item
+                width: 310px
+                margin-left: 30px
+
+                display: inline-block
+                vertical-align: top
+
+            &__item_main,
+            &__item_article,
+            &__item_video,
+            &__item_list
+                width: 650px
+                //margin-left: 0
+
+            &__item_rubricator,
+            &__item_account
+                //width: 100%
+                width: 990px
+
+
+    // Desktop full
+    +bp-desktopFull
+
+        &
+            //width: 1330px
+
+            &__item
+                width: 310px
+                margin-left: 30px
+
+                display: inline-block
+                vertical-align: top
+
+            &__item_main,
+            // добавил в артикле, по просьбе в врайке
+            &__item_article,
+            &__item_list
+                width: 990px
+                //margin-left: 0
+
+            //&__item_article,
+            &__item_video,
+                width: 850px
+                //margin: 0 70px
+
+            &__item_rubricator,
+            &__item_account
+                //width: 100%
+                width: 1330px
+
+            #{$hasDocumentMaterial} &__item_article
+                width: 920px
+                margin-right: 0
+
+            #{$hasDocumentMaterial} &__item_article__aside
+                width: 310px
+                float: right

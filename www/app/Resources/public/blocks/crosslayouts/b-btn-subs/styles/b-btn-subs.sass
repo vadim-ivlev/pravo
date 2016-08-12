@@ -1,0 +1,42 @@
+/*
+ * Кнопка подписки на издание
+ * 
+ */
+
+// Объявляем блок
+$block: '.b-btn-subs'
+
+// Стили
+#{$block}
+    display: inline-block
+    
+    &__btn
+        +font(12px)
+        margin-left: 20px
+        display: none
+        line-height: 1.6em
+        vertical-align: middle  
+
+        &:before
+            content: 'Подписка' 
+
+    // Tablet
+    +bp-tablet
+
+        &
+
+            &__btn
+                padding: 8px
+                display: inline-block
+
+    // Tablet landscape
+    +bp-tabletLandscape
+
+        &
+
+            &__btn
+                margin-left: 20px
+                padding: 8px 20px
+
+                &:before
+                    content: 'Подписка на издания'

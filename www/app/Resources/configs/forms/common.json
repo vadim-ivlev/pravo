@@ -1,0 +1,62 @@
+{
+	"name": "forms",
+	"subTasks": [
+		{
+			"name": "accreditation-mc",
+			"dest": "/dest/public/blocks/forms/b-form",
+			"src": {
+				"include": [ "/src/pages/includes/route.html" ]
+			},
+			"plugins": [
+				{
+					"name": "gulp-rgswig",
+					"options": {
+						"data": {
+							"rgb": "form:accreditation-mc"
+						}
+					}
+				},
+				{
+				  "name": "gulp-minify-html",
+				  "options": {
+					"conditionals": true,
+					"comments": true,
+					"quotes": true
+				  }
+				},
+				{
+					"name": "gulp-rename",
+					"options": {
+						"basename": "b-form_accreditation-mc",
+						"extname": ".ihtml"
+					}
+				}
+			]
+		},
+		{
+			"name": "business-breakfast",
+			"dest": "/dest/public/blocks/forms/b-form",
+			"src": {
+				"include": [ "/src/pages/includes/route.html" ]
+			},
+			"plugins": [
+				{
+					"name": "gulp-rgswig",
+					"options": {
+						"data": {
+							"rgb": "form:business-breakfast"
+						}
+					}
+				},
+				"~gulp-minify-html",
+				{
+					"name": "gulp-rename",
+					"options": {
+						"basename": "b-form_business-breakfast",
+						"extname": ".ihtml"
+					}
+				}
+			]
+		}
+	]
+}

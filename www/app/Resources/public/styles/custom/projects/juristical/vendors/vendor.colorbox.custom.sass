@@ -1,0 +1,199 @@
+/*
+ * Кастомизируем colorbox
+ *  
+ */
+
+#colorbox,
+#cboxOverlay,
+#cboxWrapper
+    z-index: 10
+
+// Стили
+#cboxLoadingGraphic
+    background:url(/res/images/spinner_black.svg) no-repeat center center
+
+#cboxLoadedContent
+    +box-sizing
+
+    padding: 0
+
+#cboxContent
+    min-width: 320px
+    background-color: $white
+
+#cboxClose
+    right: 15px
+    top: 14px
+
+    background: url(#{$img-path}sprite_main.png) -90px -30px no-repeat
+
+    &:hover
+        background-position: -90px -30px
+
+    // Retina
+    +bp-retina
+        
+        &
+            background: url(#{$img-path}sprite_main_2.png) -90px -30px no-repeat
+            background-size: $retina-icon-width
+
+#cboxOverlay
+    background-color: $black
+
+#colorbox.b-modal_search
+    
+    #cboxClose
+        top: 17px
+        right: 20px
+        left: auto
+
+#colorbox.b-modal_header
+    //z-index: 10 вырубил, не знаю зачем это надо
+
+    #cboxContent,
+    #cboxLoadedContent
+        margin-top: 0
+        overflow: hidden !important
+        background-color: transparent
+
+    #cboxClose
+        z-index: 1
+
+// Добавляем прелоадер на телефонах
+#colorbox.has-loading #cboxLoadedContent
+    background: url(/res/images/spinner_black.svg) no-repeat center center
+
+/*
+ * Media Queries
+ * 
+ */
+
+// Phones
+@media screen and (max-width: 767px)
+
+    #colorbox
+        width: 100% !important
+        height: 100% !important
+
+        position: fixed !important
+        top: 0 !important
+        left: 0 !important
+
+        #cboxWrapper,
+        #cboxContent,
+        #cboxLoadedContent
+            width: 100% !important
+            height: 100% !important
+            margin: 0
+            
+            position: absolute !important
+            
+            background-color: $white
+
+// Tablet
++bp-tablet
+
+    #colorbox.b-modal_search
+        position: fixed !important
+        top: 98px !important
+        left: 0 !important
+        width: 100% !important            
+
+        #cboxWrapper,
+        #cboxContent,
+        #cboxLoadedContent
+            width: 100% !important
+            margin: 0
+
+    #colorbox.b-modal_right
+        position: absolute !important
+        top: 45px !important
+        left: auto !important
+        right: 0 !important
+
+        #cboxWrapper,
+        #cboxContent,
+        #cboxLoadedContent
+            width: 100% !important
+            height: 100% !important
+            margin: 0
+            background-color: $white
+
+    #colorbox.b-modal_attention
+        width: 630px !important
+        
+        position: fixed !important
+        top: 0 !important
+        right: 0 !important
+        left: auto !important
+
+        #cboxWrapper,
+        #cboxContent,
+        #cboxLoadedContent
+            width: 630px !important
+            height: 700px !important
+            margin: 0
+            background-color: $white
+
+    #colorbox.b-modal_header
+        //z-index: auto  вырубил, не знаю зачем это надо
+ 
+    #cboxOverlay
+
+        &:before
+            content: ''
+
+            width: 30px
+            height: 30px
+
+            position: absolute
+            top: 50%
+            left: 50%
+            
+            background: url(/res/images/spinner.svg) no-repeat center center transparent
+            background-size: cover
+
+            +opacity(0)
+            +transition(opacity .3s ease .5s)
+
+        &.has-loading:before
+            +opacity(1)
+
+
+// Tablet Landscape
++bp-tabletLandscape
+
+    #colorbox.b-modal_search
+
+        #cboxClose
+            // no styles
+
+    // Если загружается
+    #colorbox
+        +opacity(1)
+        +transition(opacity .3s ease .5s)
+
+        &.has-loading
+            +opacity(0)
+
+        &.hidding
+            display: none!important
+            //+transition(opacity .2s ease)
+            //+opacity(0)
+            //+transform(translateY(-100px))
+
+// Desktop
++bp-desktop
+
+    #colorbox.b-modal_search
+
+        #cboxClose
+            left: 1220px
+
+// Desktop
++bp-desktopFull
+    
+    #colorbox.b-modal_search
+
+        #cboxClose
+            left: 1690px

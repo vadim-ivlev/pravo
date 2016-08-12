@@ -1,0 +1,80 @@
+/*
+ * Логотипы партнеров
+ * 
+ */
+
+// Объявляем блок
+$block: '.b-partners-rg'
+
+$partnersWidth: 138px
+$partnersHeight: 45px
+
+$partners: rg nedelya rodina biznes soyuz bibliotechka rbth
+
+$partnersTop: 0
+$partnersLeft: 0
+
+// Partners each
+=getPartners
+    @each $partner in $partners
+
+        &_#{$partner}
+            background-position: $partnersLeft $partnersTop*-1
+
+        $partnersTop: $partnersTop + $partnersHeight
+
+// Стили 
+#{$block}
+    margin: 20px 0
+    padding-bottom: 20px
+
+    overflow: hidden
+    border-bottom: 1px solid $border-color
+
+    &__item
+        text-align: center
+
+    &__icon
+        width: $partnersWidth
+        height: $partnersHeight
+
+        display: inline-block
+        vertical-align: middle
+        background: url(#{$img-path}media/partners-rg.png) no-repeat 0 0 transparent
+
+        +getPartners
+
+    // Ретина
+    +bp-retina
+
+        &
+
+            &__icon
+                background-image: url(#{$img-path}media/partners-rg2x.png)
+                background-size: $retina-partners-width $retina-partners-height
+    
+
+    // Tablet
+    +bp-tablet
+
+        &
+
+            
+
+    // Tablet landscape
+    +bp-tabletLandscape
+
+        &
+            
+            
+    // Desktop
+    +bp-desktop
+
+        &
+            
+
+    // Desktop full
+    +bp-desktopFull
+
+        &
+            

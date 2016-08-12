@@ -1,0 +1,25 @@
+/*
+ * Блок контактов для спецвыпусков
+ * 
+ */
+
+// Объявляем блок
+$block: '.b-contacts'
+
+// Стили
+#{$block}
+    padding: 20px
+    border: 1px solid $border-color
+
+    &__name
+        +font(17px)
+        font-family: $f-serif
+        font-style: italic
+        font-weight: bold
+        color: $red
+        padding-bottom: 10px
+    &__title
+        padding-bottom: 10px
+
+    &__subtitle
+        font-weight: bold

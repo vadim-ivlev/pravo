@@ -1,0 +1,104 @@
+/*
+ * Абстрактный блок ненумерованного списка
+ * 
+ */
+
+// Объявляем блок
+$block: '.b-ul'
+$b: '.b'
+
+// Стили
+#{$block}
+	padding-left: 17px
+	&__list
+		list-style: initial
+	&__item
+		margin-bottom: 20px
+		padding-left: 0
+		&:before
+			content: none
+#{$b}
+	&__wrapper.is-page-themed
+		#{$block}
+			&__item
+				+font(14px)
+			&__list
+				margin: 0
+	&__wrapper.is-page-abroad
+		#{$b}
+			&__row
+				#{$block}
+					&__item
+						+font(14px)
+
+			&__row.is-page-main
+				#{$block}
+					padding: 0
+					&__list
+						list-style: none
+						position: relative
+						margin: 0
+					&__item
+						+font(14px)
+						padding-left: 31px
+						span
+							color: $comment-color
+							padding-left: 5px
+						&:before
+							content: ""
+							position: absolute
+							top: 5px
+							width: 16px
+							height: 11px
+							border-radius: 0
+							background: url("/res/images/custom/statics/reklama/flags.png") 0 0 no-repeat
+						&.flag-uk:before
+							background-position: 0 -11px
+						&.flag-fr:before
+							background-position: 0 -22px
+						&.flag-ind:before
+							background-position: 0 -33px
+						&.flag-blgr:before
+							background-position: 0 -44px
+						&.flag-brz:before
+							background-position: 0 -55px
+						&.flag-it:before
+							background-position: 0 -66px
+						&.flag-is:before
+							background-position: 0 -77px
+						&.flag-ar:before
+							background-position: -16px 0px
+						&.flag-srb:before
+							background-position: -16px -11px
+						&.flag-gr:before
+							background-position: -16px -22px
+						&.flag-blg:before
+							background-position: -16px -33px
+						&.flag-jp:before
+							background-position: -16px -44px
+						&.flag-ur:before
+							background-position: -16px -55px
+
+			&__row.is-page-side
+				#{$block}
+					&__item
+						span
+							color: $comment-color
+							padding-left: 5px
+
+		+bp-tabletLandscape
+			&
+				#{$b}
+					&__row.is-page-main
+						#{$block}
+							&__list
+								width: 50%
+								float: left
+								margin: 0 0 35px 0
+
+
+
+
+
+
+

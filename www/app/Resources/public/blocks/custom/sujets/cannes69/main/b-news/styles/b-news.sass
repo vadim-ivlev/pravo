@@ -1,0 +1,22 @@
+/*
+ * Блок ленты контента
+ *
+ */
+
+// Объявляем блок
+$block: '.b-news'
+
+// Стили
+#{$block}
+
+    &-spiegel
+        padding: 0
+
+        #{$block}
+
+            &__list
+                float: left
+
+    &__list-item:nth-child(5),
+    &__list-item:nth-child(6)
+        display: inline-block

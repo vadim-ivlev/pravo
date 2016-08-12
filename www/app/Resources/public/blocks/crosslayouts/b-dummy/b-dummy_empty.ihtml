@@ -1,0 +1,11 @@
+<div class="b-dummy b-dummy_empty">
+
+    <p class="b-dummy__text"><b class="b-dummy__name">{{userName}}</b>, {{intro}}</p>
+    {{#list}}
+        {{#{txt: .}}}
+
+        <p class="b-dummy__text">{{{txt}}}</p>
+        {{/txt}}
+    {{/list}}
+    <p class="b-dummy__text"><b>{{outro}}</b></p>
+</div>

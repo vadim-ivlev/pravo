@@ -1,0 +1,165 @@
+/*
+ * Футер
+ * 
+ */
+
+// Объявляем блок
+$block: '.b-footer-cols'
+
+// Модификаторы
+// '.b-footer__links_type_desktop' Не используется, но в верстке есть
+
+// УБИВАЕМ ССЫЛКИ
+.b-footer-links__list-item a[href="/spec.html"],
+.b-footer-links__list-item a[href="/izdania/"],
+.b-footer-links__list-item a[href="/subscr/"],
+.b-footer-links__list-item a[href="/webpartner/"],
+.b-footer-links__list-item a[href="/finansist.html"],
+.b-footer-links__list-item a[href="/zhurnalist/"]
+    display: none
+
+// Стили 
+#{$block}
+    padding: 10px 0 0
+
+    &__row
+        // inline-block fix
+        font-size: $f-sz-zero
+        letter-spacing: 0
+        padding-top: 20px
+        border-top: 1px solid $border-color
+
+        &.has-1
+            padding-top: 0
+            border-top: 0
+
+        &.has-3
+            color: $comment-color
+
+        .b-footer__copyright-text
+            //display: none выключил пока не поймем, что делать с копирайтом
+
+    &__item
+        display: inline-block
+        vertical-align: top
+        list-style: none
+
+        // inline-block fix
+        +font(13px)
+        letter-spacing: $letterSpacingDefault
+        line-height: 24px
+        &:last-child
+            margin-right: 0
+
+    &__rss
+        +font(13px)
+        display: none
+
+    &__list-item
+        margin-bottom: 10px
+
+    &__list-item-title
+        +font(13px)
+        font-family: $f-sans
+
+        margin-bottom: 0
+    
+
+    // Tablet
+    +bp-tablet
+
+        &
+            
+            &__row
+                //width: auto
+                width: 100%
+                margin: 15px 0 0
+                padding-top: 0
+                display: inline-block
+                vertical-align: top
+                text-align: left
+                border-top: 0
+                &.has-2
+                    margin-top: 25px
+
+                //+flexbox // 20.01.2016 - торжество прогресса. Первый flexbox на новейшем сайте rg.ru
+                // как пришло, так и ушло - скатертью дорога!
+                //+flex-just(space-between)
+
+            &__item
+                width: 215px
+                margin-right: 80px
+                &_middle
+                    width: 115px
+                    margin-right: 90px
+                &:last-child
+                    width: 200px
+            
+
+    // Tablet landscape
+    +bp-tabletLandscape
+
+        &
+
+            &__row
+                position: relative
+                &.has-1
+                    width: 100%
+
+                &.has-2
+                    width: 100%
+                    margin-top: 0
+            
+            &__item
+                width: 220px
+                &_middle
+                    width: 225px
+                    margin-right: 90px
+                    margin-left: -10px
+                &:last-child
+                    width: 305px
+            
+    // Desktop
+    +bp-desktop
+
+        &
+            &__row
+                &.has-1
+                    width: 770px
+                    margin-top: 15px
+
+                &.has-2
+                    width: 410px
+                    margin-top: 15px
+
+            &__item
+                margin-right: 30px
+                width: 260px
+                &_middle
+                    width: 150px
+                    margin-left: 0
+                    margin-right: 52px
+                &:last-child
+                    width: 260px
+
+            &__rss
+                position: absolute
+                left: -4px
+                bottom: -85px
+                display: inline
+
+    // Desktop full
+    +bp-desktopFull
+
+        &
+            &__row
+                &.has-1
+                    width: 790px
+
+                &.has-2
+                    width: 450px
+           
+            &__item
+                margin-right: 25px
+                &_middle
+                    margin-right: 60px

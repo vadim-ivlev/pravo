@@ -1,0 +1,30 @@
+/*
+ * Абстрактный блок ненумерованного списка
+ * 
+ */
+
+// Объявляем блок
+$block: '.b-ul'
+
+// Стили
+#{$block}
+    +font(14px)
+    display: none
+
+    +bp-tablet
+        &
+            display: block
+    //Tablet landscape
+    +bp-tabletLandscape
+        &
+            margin-left: 175px
+    // Desktop
+    +bp-desktop
+        &
+            margin-left: 225px
+
+    //Desktop Full
+    +bp-desktopFull
+        &
+            margin-left: 295px
+

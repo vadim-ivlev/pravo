@@ -1,0 +1,21 @@
+<label class="b-field b-field_textarea b-field_textarea_textarea {{highlighted ? 'b-field_textarea_highlighted' : ''}} {{required ? 'b-field_required' : ''}}">
+    {{#label}}<div class="b-field__label">{{label}}</div>{{/label}}
+    <div class="b-field__wrapper">
+        <textarea name="{{name}}" class="b-field__textarea b-field__textarea_textarea" placeholder="{{placeholder}}" value="{{value}}" {{#maxlength}}maxlength="{{size}}"{{/maxlength}}></textarea>
+
+        {{#maxlength}}
+            {{#show}}
+                {{^backward}}
+                    <div class="b-field__maxlength">
+                        {{enteredValueLength}}/{{size}}
+                    </div>
+                {{/backward}}
+                {{#backward}}
+                    <div class="b-field__maxlength">
+                        {{enteredValueLength}}
+                    </div>
+                {{/backward}}
+            {{/show}}
+        {{/maxlength}}
+    </div>
+</label>

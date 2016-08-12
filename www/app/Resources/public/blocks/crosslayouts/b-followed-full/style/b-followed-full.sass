@@ -1,0 +1,47 @@
+/*
+ * Блок ленты на
+ * подписанные сервисы
+ * в личном кабинете
+ * 
+ */
+
+// Объявляем блок
+$block: '.b-followed-full'
+
+// Стили
+#{$block}
+
+    &__col
+        display: inline-block
+        vertical-align: top
+
+    &__col_side_left
+        width: 428px
+
+    &__col_side_left .b-news-inner
+        width: 428px
+        line-height: 1.4em
+
+    &__col_side_right
+        width: 340px
+        position: relative
+        z-index: 1
+
+    position: relative
+    display: block
+    overflow: hidden
+    // Desktop
+    +bp-desktop
+
+    	&__col_side_left
+            width: 650px
+
+        &__col_side_left .b-news-inner
+            +font(14px)
+            width: 650px
+
+        &__list-item-title
+            +font(17px)
+
+        &__col_side_right
+            width: 400px

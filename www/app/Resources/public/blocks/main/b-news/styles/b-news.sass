@@ -1,0 +1,486 @@
+/*
+ * Главные новости
+ * 
+ */
+
+// Объявляем блок
+$block: '.b-news'
+
+// Стили
+#{$block}
+    +font(13px)
+
+    padding: 0 20px
+
+    &__info
+        font-size: 14px
+        margin-bottom: 20px
+        margin-left: 30px
+        +opacity(.3)
+
+    &__list
+        position: relative
+        +transition(opacity .3s ease)
+
+        &.is-hide
+            display: none
+
+        .is-loading &,
+        &.is-loading
+            +opacity(.3)
+
+    &__list.is-hide &__info,
+    &__list-item + &__info
+        display: none
+
+    &__list-item
+        width: 100%
+        margin-bottom: 20px
+
+        display: inline-block
+        vertical-align: top
+
+        z-index: 1
+
+        &:nth-last-child(1),
+        &:nth-last-child(2)
+            //display: none
+
+    &_spiegel-index &__list-item:nth-child(5),
+    &_spiegel-index &__list-item:nth-child(6)
+        display: none
+
+    &__list-item-image
+        width: 100%
+
+    &__list-item-image-wrapper
+        width: 100%
+        margin-bottom: 10px
+
+        position: relative
+        display: inline-block
+        line-height: 0
+
+    &__list-item_adv
+        width: 50%
+        margin-left: 20px
+        float: right
+
+    &__list-item-time
+        +font(13px)
+
+        padding: 4px
+
+        position: absolute
+        bottom: 0
+        left: 0
+        
+        display: inline-block
+        line-height: 1em
+        color: $white
+        background-color: $time-color
+
+    &__list-item-action
+        padding: 2px 4px
+        
+        position: absolute
+        bottom: 0
+        right: 0
+
+    &__list-item-icon
+        width: 30px
+        height: 30px
+
+    &__list-item-icon_type_gallery
+        background-position: -60px 0
+
+    &__list-item-icon_type_play
+        background-position: -90px 0
+
+    &__list-item-title
+        +font
+        margin-bottom: 6px
+        line-height: 1.3em
+
+    &__list-item.is-read &__item-title
+        color: $is-read-color
+
+    &__list-item-text
+        +font(13px)
+
+    &__action
+        margin-bottom: 20px
+        text-align: center
+
+        +transition(opacity .3s ease)
+
+        .has-loading &
+            +opacity(.7)
+        
+        &_btn
+            cursor: pointer
+
+            &:before
+                content: ''
+                width: 20px
+                height: 20px
+                margin: auto
+
+                position: absolute
+                top: 0
+                right: 0
+                bottom: 0
+                left: 0
+
+                background: url($spinner) no-repeat center center transparent
+                background-size: contain!important
+
+                +opacity(0)
+                +transition(opacity .3s ease)
+
+            .has-loading &
+                position: relative
+                color: transparent
+                pointer-events: none
+
+                &:before
+                    +opacity(1)
+
+            &.has-hidden
+                display: none
+
+    &__list-item-tags
+        +font(13px)
+        margin-top: 10px
+
+    // Если тип - без средней картинки
+    // Так как на телефоне он тоже будет растяшивать картинку
+    // а нам это не желательно, то скрываем ее
+    &__list-no-lagre
+        //padding: 40px 20px
+
+        //position: relative
+
+        &:before
+            //content: ""
+
+            //width: 100%
+            //display: block
+
+            //+overlay
+            //z-index: -1
+
+            //border: 1px solid $border-color
+
+    &__list-no-lagre &__list-item-image
+        //display: none
+
+    &__list-no-lagre &__list-item-time
+        //+font(14px)
+        //position: static
+        //padding: 0
+
+        //color: $comment-color
+        //background: none
+
+    &__list-no-lagre &__list-item-title
+        //+font(24px)
+
+        //margin: 50px 0 20px
+        //line-height: 1.2em
+
+    // Если тип - без большой картинки
+    &__list-no-lagre,
+    &__list-no-x-lagre
+        padding: 40px 20px
+
+        position: relative
+
+        &:before
+            content: ""
+
+            width: 100%
+            display: block
+
+            +overlay
+            z-index: -1
+
+            border: 1px solid $border-color
+
+    &__list-no-lagre &__list-item-image,
+    &__list-no-x-lagre &__list-item-image
+        display: none
+
+    &__list-no-lagre &__list-item-time,
+    &__list-no-x-lagre &__list-item-time
+        +font(14px)
+        position: static
+        padding: 0
+
+        color: $comment-color
+        background: none
+
+    &__list-no-lagre &__list-item-title,
+    &__list-no-x-lagre &__list-item-title
+        +font(24px)
+
+        margin: 50px 0 20px
+        line-height: 1.2em
+
+    // если без картинки +  армагеддон 
+    &__list-item_type_armageddon:before
+        border-width: 2px
+        border-color: $attention
+
+    // Шпигель
+    &-spiegel
+        padding: 0 20px
+        overflow: hidden
+
+    .b-list-wrapper_gazeta &-spiegel
+        margin-bottom: 20px // fix margin in gazeta-issue
+        border-bottom: 1px solid $border-color
+
+    &-spiegel &__list-item:nth-last-child(1)
+        display: block
+
+    // Шпигель и армагеддон
+    &-spiegel &__list-item_type_armageddon:before
+        width: 100%
+
+    // Шпигель в каталоге
+    &_spiegel-catalog &,
+    &_spiegel-project &
+        clear: both
+
+    // Очищаем на мобиле
+    &_spiegel-catalog &__list,
+    &_spiegel-project &__list
+        clear: both
+
+    &_spiegel-catalog &-spiegel
+    &_spiegel-project &-spiegel
+        float: left
+        clear: none    
+
+    // Tablet
+    +bp-tablet
+
+        &
+            padding: 0
+
+            &__list
+                margin-left: -20px
+                // блоки не переносились на новую строку white-space: nowrap
+                // 
+                // inline-block fix
+                font-size: $f-sz-zero
+                letter-spacing: 0
+
+            &__list-item
+                width: 234px
+                margin-left: 20px
+                white-space: normal
+
+                // inline-block fix
+                letter-spacing: $letterSpacingDefault
+
+        // Если тип - без большой картинки
+        &__list-no-x-lagre
+            +font(13px)
+
+            padding: 0
+
+            &:before
+                //width: 230px
+                right: auto
+                bottom: 20px
+
+                display: none
+
+        // Если нет большой картинки, но есть средняя
+        &__list-no-x-lagre &__list-item-image
+            display: inline-block
+
+        &__list-no-x-lagre &__list-item-time
+            +font(13px)
+
+            padding: 4px
+
+            position: absolute
+            bottom: 0
+            left: 0
+            
+            display: inline-block
+            line-height: 1em
+            color: $white
+            background-color: $time-color
+
+        &__list-no-x-lagre &__list-item-title
+            //+font
+            margin: initial
+            margin-bottom: 6px
+            line-height: 1.3em
+
+        // Если оба класса присутствуют
+        // Или если это супершпигель
+        .b-news-spiegel &__list-no-x-lagre,
+        &__list-no-x-lagre.b-news__list-no-lagre,
+            padding: 40px 20px
+
+            position: relative
+
+            &:before
+                content: ""
+
+                width: 100%
+                display: block
+
+                +overlay
+                z-index: -1
+
+                border-width: 1px
+                border-color: $border-color
+
+        .b-news-spiegel .b-news__list-no-x-lagre &__list-item-image,
+        .b-news__list-no-x-lagre.b-news__list-no-lagre &__list-item-image
+            display: none
+
+        .b-news-spiegel .b-news__list-no-x-lagre &__list-item-time,
+        .b-news__list-no-x-lagre.b-news__list-no-lagre &__list-item-time
+            +font(14px)
+            position: static
+            padding: 0
+
+            color: $comment-color
+            background: none
+
+        .b-news-spiegel .b-news__list-no-x-lagre &__list-item-title,
+        .b-news__list-no-x-lagre.b-news__list-no-lagre &__list-item-title
+            +font(24px)
+
+            margin: 50px 0 20px
+            line-height: 1.2em
+
+        &-spiegel
+            padding: 0
+    
+        // Если тип - шпигель
+        &-spiegel &__list-item
+            width: 234px*2 + 20px
+            
+
+    // Tablet landscape
+    +bp-tabletLandscape
+
+        &
+            &__list
+                margin-left: -30px
+
+            &__list-item
+                width: 310px
+                margin-left: 30px
+
+            &__list-item-image-wrapper
+                margin-bottom: 15px
+
+            &__list-item-title
+                +font(18px)
+
+                margin-bottom: 6px
+                line-height: 1.35em
+
+            &__list-item-text
+                line-height: 1.6em
+
+        // Если тип - армагеддон
+        &__list-no-x-lagre
+
+            &:before
+                //width: 310px
+
+        &__list-no-x-lagre &__list-item-title
+            //+font(26px)
+
+        // Если тип - шпигель
+        &-spiegel &__list-item
+            width: 310px*2 + 30px
+
+    // Desktop
+    +bp-desktop
+
+        &
+            +font(14px)
+
+            // добавил, чтобы влазило 1260
+            &__list-item
+                width: 300px
+
+            &__list-item-image-wrapper
+                margin-bottom: 20px
+
+            &__list-item-title
+                +font(22px)
+                margin-bottom: 15px
+
+            &__list-item-text
+                +font(14px)
+
+        // если без картинки
+        &__list-no-x-lagre
+            //padding: 40px 30px
+
+        &__list-no-x-lagre &__list-item-title
+            //+font(32px) убрал, а то длинные слова не помещаются   
+
+        // Если тип - армагеддон
+        &__list-item_type_armageddon:before
+            border-width: 5px!important
+            border-color: $attention!important
+
+        // Если тип - шпигель
+        &-spiegel &__list-item
+            width: 310px*2 + 10px
+
+    // Desktop Full
+    +bp-desktopFull
+
+        &
+
+            &__list-item
+                width: 310px
+
+            &__list-item:nth-last-child(1),
+            &__list-item:nth-last-child(2)
+                //display: inline-block
+
+            //&__list-item:nth-child(5),
+            //&__list-item:nth-child(6)
+                //display: inline-block
+
+            .l-main-content__item_catalog &-spiegel,
+            .l-main-content__item_gazeta &-spiegel
+                float: left
+                
+            .l-main-content__item_catalog &,
+            .l-main-content__item_gazeta &
+                clear: both
+
+            &__catalog,
+            &__project
+
+                &__right
+                    float: right
+                    width: 310px
+
+                    & .b-accents_showcase-catalog
+
+                        float: none
+
+            // Если тип - шпигель
+        &-spiegel &__list-item
+            width: 310px*2 + 30px
+
+        &_spiegel-index &__list-item:nth-child(5),
+        &_spiegel-index &__list-item:nth-child(6)
+            display: inline-block

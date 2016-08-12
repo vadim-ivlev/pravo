@@ -1,0 +1,128 @@
+$block: '.b-header'
+
+#{$block}
+    height: 80px
+    line-height: 80px
+    background: url(#{$img-path}custom/projects/football/headbg.png) 50% 0 no-repeat 
+    margin-bottom: 30px
+
+    & .page
+        padding: 0 20px
+        position: relative
+
+    &__link
+
+        &__left
+            //float: left
+            +font(16px)
+            font-weight: bold
+
+            display: none
+            
+            position: absolute
+            left: 20px
+
+            color: transparent
+            
+            text-decoration: underline
+            text-transform: uppercase
+
+            +transition(color .3s ease)
+
+            &:before
+                display: inline-block
+                width: 9px
+                height: 16px
+                content: ''
+                vertical-align: -3px
+                background: url(#{$img-path}custom/projects/football/euroSprite.png) 0 0 no-repeat 
+                margin-right: 5px
+
+            // Кастомный медиазапрос убирающий текст
+            @media screen and (min-width: 1360px)
+
+                &
+                    color: $yellow
+
+        &__right
+            float: right
+
+    &__logo
+        width: 124px
+        //width: 160px
+        height: 80px
+
+        //float: left
+        position: absolute
+        display: block
+
+        background: url(#{$img-path}custom/projects/football/eurologo.png) 0 50% no-repeat
+        background-size: contain
+
+    // лого партнера
+    &__ads-logo
+        width: 100px
+        //width: 130px
+        height: 46px
+
+        position: absolute
+        //top: 12px
+        top: 8px
+        //left: 186px
+        left: 162px
+
+        overflow: hidden
+
+        div[id^="AdFox_banner"]
+            width: auto!important
+            height: auto!important
+
+            img
+                width: 100%
+                height: auto
+
+    +bp-tablet
+        
+        &
+            &__logo
+                width: 170px            
+
+            &__ads-logo
+                width: 170px
+                height: 50px
+
+                top: 16px
+                left: 220px
+
+    +bp-tabletLandscape
+
+        &
+
+            &__ads-logo
+                top: 15px
+                right: 30px
+                left: auto
+
+    +bp-desktop
+
+        &
+            & .page
+                padding: 0
+
+            &__link
+
+                &__left
+                    display: block
+
+            &__logo
+                width: 188px
+
+            &__ads-logo
+                width: 200px
+                right: 0
+
+    +bp-desktopFull
+
+        &
+            &__ads-logo
+                

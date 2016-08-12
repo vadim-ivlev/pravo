@@ -1,0 +1,20 @@
+<!-- blocks.custom.kino.main.article-main__heading.article-main__heading-->
+
+<div class="article-main__heading">
+    {{#needs_announce}}
+        <h2 class="article-main__heading__item">{{link_title}}</h2>
+        {{#subtitle}}
+        <p class="article-main__heading__subtitle">{{subtitle}}</p>
+        {{/subtitle}}
+    {{/needs_announce}}
+    {{^needs_announce}}
+        <h2 class="article-main__heading__item">{{title}}</h2>
+
+        {{#subtitle}}
+        <p class="article-main__heading__subtitle">{{subtitle}}</p>
+        {{/subtitle}}
+    {{/needs_announce}}                                
+</div>
+
+<!-- /blocks.custom.kino.main.article-main__heading.article-main__heading -->
+

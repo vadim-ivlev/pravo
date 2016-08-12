@@ -1,0 +1,62 @@
+/*
+ * Видео
+ *
+ */
+
+// Объявляем блок
+$block: '.b-video'
+
+// Стили
+#{$block}
+    //max-width: 650px бильды просили
+    max-width: 100%
+    margin-bottom: 20px
+    position: relative
+    overflow: hidden
+
+    .jwplayer
+        vertical-align: top
+
+    .jwicon
+        width: 72px !important
+
+    .jwdockbuttons
+        display: none !important
+
+    &__title
+        +font(18px)
+
+        padding: 10px 20px
+
+        position: absolute
+        top: 0
+        left: 0
+        width: 100%
+
+        color: $white
+        background-color: rgba(0,0,0,0.7)
+
+        +transition(opacity .3s ease)
+
+
+        p
+            margin-bottom: 0!important
+
+    &-playing &__title
+        +opacity(0)
+
+    &-playing:hover &__title
+        +opacity(1)
+
+    &__author
+        +font(14px)
+
+        padding: 10px
+        //padding-top: 0
+
+        color: $white
+        background-color: $black
+
+    // Модификаторы
+    .b-video-inner &
+        margin-bottom: 0

@@ -1,0 +1,303 @@
+{
+  "name": "projects:juristical",
+  "subTasks": [
+    {
+      "name": "style",
+      "dest": "/dest/public/styles/custom/projects/juristical",
+      "src": {
+        "include": [
+          "/src/styles/custom/projects/juristical/global.sass"
+        ]
+      },
+      "sourcemaps": true,
+      "watch": true,
+      "plugins": [
+        {
+          "name": "gulp-sass",
+          "options": {
+            "outputStyle": "compressed"
+          }
+        }
+      ]
+    },
+    {
+      "name": "script:global",
+      "dest": "/dest/public/scripts/custom/projects/juristical",
+      "src": {
+        "include": [
+          "/src/scripts/custom/projects/juristical/global.js"
+        ]
+      },
+      "sourcemaps": true,
+      "browserify": {
+        "transforms": [
+          {
+            "name": "ractivate",
+            "options": {
+              "extensions": [
+                ".ihtml"
+              ]
+            }
+          }
+        ],
+        "watchify": true
+      },
+      "watch": false,
+      "plugins": [
+        {
+          "name": "gulp-debug",
+          "options": {
+            "title": "Js:"
+          }
+        },
+        {
+          "name": "gulp-babel",
+          "options": {
+            "compact": true
+          }
+        },
+        {
+          "name": "gulp-uglify"
+        },
+        {
+          "name": "gulp-concat",
+          "options": "global.js"
+        }
+      ]
+    },
+    {
+      "name": "script:answer",
+      "dest": "/dest/public/scripts/custom/projects/juristical",
+      "src": {
+        "include": [
+          "/src/scripts/custom/projects/juristical/answer.js"
+        ]
+      },
+      "sourcemaps": true,
+      "browserify": {
+        "transforms": [
+          {
+            "name": "ractivate",
+            "options": {
+              "extensions": [
+                ".ihtml"
+              ]
+            }
+          }
+        ],
+        "watchify": true
+      },
+      "watch": false,
+      "plugins": [
+        {
+          "name": "gulp-debug",
+          "options": {
+            "title": "Js:"
+          }
+        },
+        {
+          "name": "gulp-babel",
+          "options": {
+            "compact": true
+          }
+        },
+        {
+          "name": "gulp-uglify"
+        },
+        {
+          "name": "gulp-concat",
+          "options": "answer.js"
+        }
+      ]
+    },
+    {
+      "name": "script:form",
+      "dest": "/dest/public/scripts/custom/projects/juristical",
+      "src": {
+        "include": [
+          "/src/scripts/custom/projects/juristical/b-form.js"
+        ]
+      },
+      "sourcemaps": true,
+      "browserify": {
+        "transforms": [
+          {
+            "name": "ractivate",
+            "options": {
+              "extensions": [
+                ".ihtml"
+              ]
+            }
+          }
+        ],
+        "watchify": true
+      },
+      "watch": false,
+      "plugins": [
+        {
+          "name": "gulp-debug",
+          "options": {
+            "title": "Js:"
+          }
+        },
+        {
+          "name": "gulp-babel",
+          "options": {
+            "compact": true
+          }
+        },
+        {
+          "name": "gulp-uglify"
+        },
+        {
+          "name": "gulp-concat",
+          "options": "b-form.js"
+        }
+      ]
+    },
+    {
+      "name": "script:rubric_questions",
+      "dest": "/dest/public/scripts/custom/projects/juristical",
+      "src": {
+        "include": [
+          "/src/scripts/custom/projects/juristical/rubric_questions.js"
+        ]
+      },
+      "sourcemaps": true,
+      "browserify": {
+        "transforms": [
+          {
+            "name": "ractivate",
+            "options": {
+              "extensions": [
+                ".ihtml"
+              ]
+            }
+          }
+        ],
+        "watchify": true
+      },
+      "watch": false,
+      "plugins": [
+        {
+          "name": "gulp-debug",
+          "options": {
+            "title": "Js:"
+          }
+        },
+        {
+          "name": "gulp-babel",
+          "options": {
+            "compact": true
+          }
+        },
+        {
+          "name": "gulp-uglify"
+        },
+        {
+          "name": "gulp-concat",
+          "options": "rubric_questions.js"
+        }
+      ]
+    },
+    {
+      "name": "script:pagination",
+      "dest": "/dest/public/scripts/custom/projects/juristical",
+      "src": {
+        "include": [
+          "/src/scripts/custom/projects/juristical/pagination.js"
+        ]
+      },
+      "sourcemaps": true,
+      "browserify": {
+        "transforms": [
+          {
+            "name": "ractivate",
+            "options": {
+              "extensions": [
+                ".ihtml"
+              ]
+            }
+          }
+        ],
+        "watchify": true
+      },
+      "watch": false,
+      "plugins": [
+        {
+          "name": "gulp-debug",
+          "options": {
+            "title": "Js:"
+          }
+        },
+        {
+          "name": "gulp-babel",
+          "options": {
+            "compact": true
+          }
+        },
+        {
+          "name": "gulp-uglify"
+        },
+        {
+          "name": "gulp-concat",
+          "options": "pagination.js"
+        }
+      ]
+    },
+    {
+      "name": "script:users",
+      "dest": "/dest/public/scripts/custom/projects/juristical",
+      "src": {
+        "include": [
+          "/src/scripts/custom/projects/juristical/users.js"
+        ]
+      },
+      "sourcemaps": true,
+      "browserify": {
+        "transforms": [
+          {
+            "name": "ractivate",
+            "options": {
+              "extensions": [
+                ".ihtml"
+              ]
+            }
+          }
+        ],
+        "watchify": true
+      },
+      "watch": false,
+      "plugins": [
+        {
+          "name": "gulp-debug",
+          "options": {
+            "title": "Js:"
+          }
+        },
+        {
+          "name": "gulp-babel",
+          "options": {
+            "compact": true
+          }
+        },
+        {
+          "name": "gulp-uglify"
+        },
+        {
+          "name": "gulp-concat",
+          "options": "users.js"
+        }
+      ]
+    },
+    {
+      "name": "images",
+      "dest": "/dest/public/images/custom/projects/juristical",
+      "src": {
+        "include": [
+          "/src/images/custom/projects/juristical/**/*.*"
+        ]
+      }
+    }
+  ]
+}

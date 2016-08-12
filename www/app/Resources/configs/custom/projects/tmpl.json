@@ -1,0 +1,272 @@
+{
+  "name": "tmpl:projects",
+  "subTasks": [
+    {
+      "name": "rgdigital:article",
+      "dest": "/dest/templates/custom/projects/rgdigital/templates",
+      "src": {
+        "include": [
+          "/src/pages/custom/projects/rgdigital/data/article.js"
+        ]
+      },
+      "plugins": [
+        {
+          "name": "gulp-rgswig",
+          "options": {
+            "param": {
+              "compileType": "data"
+            }
+          }
+        },
+        {
+          "name": "gulp-minify-html",
+          "options": {
+            "conditionals": true,
+            "comments": true,
+            "quotes": true
+          }
+        }
+      ]
+    },
+    {
+      "name": "sila:article",
+      "dest": "/dest/templates/custom/projects/sila/templates",
+      "src": {
+        "include": [
+          "/src/pages/custom/projects/sila/data/article.js"
+        ]
+      },
+      "plugins": "~"
+    },
+    {
+      "name": "kino:article",
+      "dest": "/dest/templates/custom/projects/kino/templates",
+      "src": {
+        "include": [
+          "/src/pages/custom/projects/kino/data/article.js"
+        ]
+      },
+      "plugins": "~"
+    },
+    {
+      "name": "rf:index",
+      "dest": "/dest/templates/custom/projects/rf/templates",
+      "src": {
+        "include": [
+          "/src/pages/custom/projects/rf/data/index.js"
+        ]
+      },
+      "plugins": "~"
+    },
+	  {
+      "name": "rbth:index",
+      "dest": "/dest/templates/custom/projects/rbth/templates",
+      "src": {
+        "include": [
+          "/src/pages/custom/projects/rbth/data/index.js"
+        ]
+      },
+      "plugins": "~"
+    },
+    {
+      "name": "zilart:index",
+      "dest": "/dest/templates/custom/projects/zilart/templates",
+      "src": {
+        "include": [
+          "/src/pages/custom/projects/zilart/data/index.js"
+        ]
+      },
+      "plugins": "~"
+    },
+    {
+      "name": "zilart:article",
+      "dest": "/dest/templates/custom/projects/zilart/templates",
+      "src": {
+        "include": [
+          "/src/pages/custom/projects/zilart/data/article.js"
+        ]
+      },
+      "plugins": "~"
+    },
+    {
+      "name": "nagrady:index",
+      "dest": "/dest/templates/custom/projects/nagrady_pobedy/templates",
+      "src": {
+        "include": [
+          "/src/pages/custom/projects/nagrady_pobedy/data/index.js"
+        ]
+      },
+      "plugins": "~"
+    },
+    {
+      "name": "zvezdy:index",
+      "dest": "/dest/templates/custom/projects/zvezdy_pobedy/templates",
+      "src": {
+        "include": [
+          "/src/pages/custom/projects/zvezdy_pobedy/data/index.js"
+        ]
+      },
+      "plugins": "~"
+    },
+    {
+      "name": "zvezdy:article",
+      "dest": "/dest/templates/custom/projects/zvezdy_pobedy/templates",
+      "src": {
+        "include": [
+          "/src/pages/custom/projects/zvezdy_pobedy/data/article.js"
+        ]
+      },
+      "plugins": "~"
+    },
+	  {
+      "name": "it_forum2020:index",
+      "dest": "/dest/templates/custom/projects/it_forum2020/templates",
+      "src": {
+        "include": [
+          "/src/pages/custom/projects/it_forum2020/data/index.js"
+        ]
+      },
+      "plugins": "~"
+    },
+    {
+      "name": "lada:index",
+      "dest": "/dest/templates/custom/projects/lada/templates",
+      "src": {
+        "include": [
+          "/src/pages/custom/projects/lada/data/index.js"
+        ]
+      },
+      "plugins": "~"
+    },
+    {
+      "name": "lada:article",
+      "dest": "/dest/templates/custom/projects/lada/templates",
+      "src": {
+        "include": [
+          "/src/pages/custom/projects/lada/data/article.js"
+        ]
+      },
+      "plugins": "~"
+    },
+    {
+      "name": "d2:article",
+      "dest": "/dest/templates/custom/projects/d2/templates",
+      "src": {
+        "include": [
+          "/src/pages/custom/projects/d2/data/article.js"
+        ]
+      },
+      "plugins": "~"
+    },
+    {
+      "name": "hockey2016:index",
+      "dest": "/dest/templates/custom/projects/hockey2016/templates",
+      "src": {
+        "include": [
+          "/src/pages/custom/projects/hockey2016/data/index.js"
+        ]
+      },
+      "plugins": "~"
+    },
+    {
+      "name": "hockey2016:article",
+      "dest": "/dest/templates/custom/projects/hockey2016/templates",
+      "src": {
+        "include": [
+          "/src/pages/custom/projects/hockey2016/data/article.js"
+        ]
+      },
+      "plugins": "~"
+    },
+    {
+      "name": "football2016:index",
+      "dest": "/dest/templates/custom/projects/football2016/templates",
+      "src": {
+        "include": [
+          "/src/pages/custom/projects/football2016/data/index.js"
+        ]
+      },
+      "plugins": "~"
+    },
+    {
+      "name": "football2016:article",
+      "dest": "/dest/templates/custom/projects/football2016/templates",
+      "src": {
+        "include": [
+          "/src/pages/custom/projects/football2016/data/article.js"
+        ]
+      },
+      "plugins": "~"
+    },
+    {
+      "name": "vreki2016:index",
+      "dest": "/dest/templates/custom/projects/vreki2016/templates",
+      "src": {
+        "include": [
+          "/src/pages/custom/projects/vreki2016/data/index.js"
+        ]
+      },
+      "plugins": "~"
+    },
+    {
+      "name": "forumspb2016:index",
+      "dest": "/dest/templates/custom/projects/forumspb2016/templates",
+      "src": {
+        "include": [
+          "/src/pages/custom/projects/forumspb2016/data/index.js"
+        ]
+      },
+      "plugins": "~"
+    },
+    {
+      "name": "forumspb2016:article",
+      "dest": "/dest/templates/custom/projects/forumspb2016/templates",
+      "src": {
+        "include": [
+          "/src/pages/custom/projects/forumspb2016/data/article.js"
+        ]
+      },
+      "plugins": "~"
+    },
+    {
+      "name": "kot:index",
+      "dest": "/dest/templates/custom/projects/kot/templates",
+      "src": {
+        "include": [
+          "/src/pages/custom/projects/kot/data/index.js"
+        ]
+      },
+      "plugins": "~"
+    },
+    {
+      "name": "kot:article",
+      "dest": "/dest/templates/custom/projects/kot/templates",
+      "src": {
+        "include": [
+          "/src/pages/custom/projects/kot/data/article.js"
+        ]
+      },
+      "plugins": "~"
+    },
+    {
+      "name": "rio2016:index",
+      "dest": "/dest/templates/custom/projects/rio2016/templates",
+      "src": {
+        "include": [
+          "/src/pages/custom/projects/rio2016/data/index.js"
+        ]
+      },
+      "plugins": "~"
+    },
+    {
+      "name": "rio2016:article",
+      "dest": "/dest/templates/custom/projects/rio2016/templates",
+      "src": {
+        "include": [
+          "/src/pages/custom/projects/rio2016/data/article.js"
+        ]
+      },
+      "plugins": "~"
+    }
+  ]
+}

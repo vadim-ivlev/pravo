@@ -1,0 +1,222 @@
+/*
+ * Меню в шапке
+ * 
+ */
+
+// Объявляем блок
+$block: '.b-menu'
+
+// Модификаторы
+
+// Стили
+#{$block}
+    //padding: 10px 0
+    padding: 10px 20px
+    position: relative
+    white-space: nowrap
+
+    &__wrapper
+        width: 100%
+        //padding: 8px 20px 7px
+        //padding: 10px 20px
+        //border-bottom: 1px solid $border-color
+
+        // inline-block fix
+        font-size: $f-sz-zero
+        letter-spacing: 0
+
+    &__col
+        +font(14px)
+        //width: 50%
+
+        display: inline-block
+        vertical-align: middle
+
+    &__col_side_left
+        //width: 30%
+        width: 50%
+        float: left
+
+    &__col_side_right
+        float: right
+        text-align: right
+
+    &__item
+        display: inline-block
+
+        vertical-align: middle
+        line-height: 1em
+        white-space: normal
+
+    &__item_type_user
+        margin-left: 20px
+        cursor: pointer
+
+    &__item_type_age
+        //+font(13px)
+        //font-weight: bold
+
+    &__item_type_country
+        //padding: 0 20px
+        max-width: 100%
+        overflow: hidden
+
+        position: relative
+        line-height: 1em
+
+        & .b-link
+            width: 100%
+            padding-right: 10px
+
+            position: relative
+            display: inline-block
+            line-height: 1.2em
+            white-space: nowrap
+
+            &:after
+                content: ''
+
+                width: 0
+                height: 0
+
+                position: absolute
+                right: 0
+                top: 7px
+                display: inline-block
+                
+                border: 3px solid
+                border-color: $link-color transparent transparent
+
+                z-index: 1
+
+    &__item-icon
+        display: inline-block
+        vertical-align: middle
+        // add Alex для отступа у верхних иконок
+        margin-left: 20px
+        & .b-icon_type_follow
+            margin-right: 0
+                
+
+    &__item_type_actions &__item-icon
+        display: none
+
+        &_geo
+            display: inline-block
+
+    &__item_type_actions &__item-icon_search,
+    .is-open &__item_type_actions &__item-icon
+        display: inline-block
+
+    // Меню геолокации
+    &__geolocation
+        display: none
+        position: relative
+
+        &:before
+            content: ''
+
+            width: 30px
+            height: 100%
+
+            position: absolute
+            top: 0
+            right: 0
+
+            +linear-gradient('to right', rgba($white, 0) 0%, $white 80%, $white 100%)
+
+            z-index: 1
+
+        &_hide
+            display: none
+
+
+    // Tablet
+    +bp-tablet
+
+        &
+            padding: 10px 0
+
+            &__wrapper
+                //width: 490px
+                //height: 54px
+                //margin-left: 30px
+                //margin: 0 auto
+                //padding: 10px 0
+
+            &__item_type_country
+                //padding: 0 27px
+
+            &__item_type_user
+                //margin-left: 19px
+
+            &__item_type_actions
+                margin-top: 2px
+
+            &__item_type_actions &__item-icon
+                display: inline-block
+
+            &__item-icon_geo
+                display: none!important
+
+            &__col_side_left
+                //width: 30%
+                width: 30%
+                float: none
+
+            &__col_side_right
+                width: 70%
+                position: relative
+                float: none
+
+            // Меню геолокации
+            &__geolocation
+                display: inline-block
+
+                &_hide
+                    display: inline-block
+            
+
+    // Tablet landscape
+    +bp-tabletLandscape
+
+        &
+
+            &__wrapper
+                //width: 650px
+                //padding: 8px 0 7px
+                //border-bottom: 3px solid $time-color
+            
+
+    // Desktop
+    +bp-desktop
+
+        &
+
+            &__item_type_country
+                width: auto
+
+                & .b-link
+                    width: auto
+
+                    &:before
+                        display: none
+
+            &__wrapper
+                //width: 990px
+                //width: 960px
+
+            &__col_side_left
+                width: 65%
+
+            &__col_side_right
+                width: 35%
+
+    // Desktop full
+    +bp-desktopFull
+
+        &
+
+            &__wrapper
+                //width: 1330px
+            

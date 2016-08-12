@@ -1,0 +1,1 @@
+<h1 class="b-material-head__title">{{ material_title }}</h1>

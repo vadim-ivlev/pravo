@@ -1,0 +1,54 @@
+/*
+ * Блок рубрик
+ * 
+ */
+
+// Объявляем блок
+$block: '.b-rubricator-rubrics'
+
+// Стили
+#{$block}
+    padding: 0 20px
+
+    // Элемент рубрики
+    // рекурсивно выводится в зав-ти от подрубрик
+    &__item
+        margin-bottom: 30px
+
+        // Элемент секции с рубриками
+        &_sect
+            display: none
+
+        &_show
+            display: block
+
+        // Элемент рубрики в списке
+        &_list
+            margin-right: 6px
+            margin-bottom: 4px!important
+            padding: 2px 4px
+            display: inline-block
+    
+    // Заголовок рубрики
+    &__title
+        font-weight: bold
+        margin-bottom: 6px
+
+        &_h1
+            +font(26px)
+            margin-bottom: 30px
+
+        &_h2
+            +font(16px)
+
+    // Список подрубрик
+    &__list
+        // Из-за паддинга у элемента рубрики,
+        // сдвигаем блок, чтобы не было отступа слева
+        margin-left: -4px
+    
+
+    +bp-tablet
+
+        &
+            padding: 0

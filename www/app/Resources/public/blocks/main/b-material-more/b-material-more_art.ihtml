@@ -1,0 +1,99 @@
+<div class="b-material-more">
+    <div class="b-material-more__list">
+        <div class="b-material-more__item">
+
+            <h3 class="b-material-more__item-title">Похожие статьи:</h3>
+
+            <div class="b-material-more__item-teaser b-material-more-teaser">
+                <div class="b-material-more-teaser__list">
+                    <div class="b-material-more-teaser__list-item">
+                        <a class="b-link" href="#">
+                            <span class="b-material-more-teaser__list-item-date">15:22, сегодня</span> США будут тренировать бойцов национальной гвардии Украины
+                        </a>
+                    </div>
+                    <div class="b-material-more-teaser__list-item">
+                        <a class="b-link" href="#">
+                            <span class="b-material-more-teaser__list-item-date">15:20, сегодня</span> Лавров призвал немедленно предоставить Донбассу особый статус
+                        </a>
+                    </div>
+                    <div class="b-material-more-teaser__list-item">
+                        <a class="b-link" href="#">
+                            <span class="b-material-more-teaser__list-item-date">14:10, сегодня</span> Силуанов: Курс рубля достиг точки равновесия
+                        </a>
+                    </div>
+                    <div class="b-material-more-teaser__list-item">
+                        <a class="b-link" href="#">
+                            <span class="b-material-more-teaser__list-item-date">11:56, сегодня</span> Глава МИД ФРГ посоветовал США не поставлять вооружение на Украину
+                        </a>
+                    </div>
+                    <div class="b-material-more-teaser__list-item">
+                        <a class="b-link" href="#">
+                            <span class="b-material-more-teaser__list-item-date">15:22, 11 мая</span> США будут тренировать бойцов национальной гвардии Украины
+                        </a>
+                    </div>
+                    <div class="b-material-more-teaser__list-item">
+                        <a class="b-link b-link_blue b-material-more-teaser__link" href="#">Все новости о сюжете</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="b-material-more__item">
+
+            <h3 class="b-material-more__item-title">Читайте ещё:</h3>
+
+            <div class="b-material-more__item-teaser b-material-more-teaser b-material-more-teaser_type_horizontal">
+                <div class="b-material-more-teaser__list">
+                    <div class="b-material-more-teaser__list-item">
+                        <img class="b-material-more-teaser__list-item-image" src="/img/new/material-more-image-01.jpg" alt="image">
+                        <p class="b-material-more-teaser__list-item-text">
+                            <a class="b-link" href="#">
+                                Появились фотографии 7 новых видов военной техники, которые покажут на Параде Победы
+                            </a>
+                        </p>
+                    </div>
+                    <div class="b-material-more-teaser__list-item">
+                        <img class="b-material-more-teaser__list-item-image" src="/img/new/material-more-image-02.jpg" alt="image">
+                        <p class="b-material-more-teaser__list-item-text">
+                            <a class="b-link" href="#">
+                                Финский разворот: почему спикера Госдумы не пустили на ассамблею ОБСЕ
+                            </a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="b-material-more__item">
+
+            <h3 class="b-material-more__item-title">Люди, похожие <a class="b-link b-link_blue" href="#">на вас</a>, читают:</h3>
+
+            <div class="b-material-more__item-teaser b-material-more-teaser b-material-more-teaser_type_vertical">
+                <div class="b-material-more-teaser__list">
+                    <div class="b-material-more-teaser__list-item">
+                        <img class="b-material-more-teaser__list-item-image" src="/img/new/material-more-image-03.jpg" alt="image">
+                        <p class="b-material-more-teaser__list-item-text">
+                            <a class="b-link" href="#">
+                                Песков: Кремль ждет от Парижа и Берлина оценки решения Рады о Донбассе
+                            </a>
+                        </p>
+                    </div>
+                    <div class="b-material-more-teaser__list-item">
+                        <img class="b-material-more-teaser__list-item-image" src="/img/new/material-more-image-04.jpg" alt="image">
+                        <p class="b-material-more-teaser__list-item-text">
+                            <a class="b-link" href="#">
+                                США будут тренировать бойцов национальной гвардии Украины
+                            </a>
+                        </p>
+                    </div>
+                    <div class="b-material-more-teaser__list-item is-tablet-landscape">
+                        <img class="b-material-more-teaser__list-item-image" src="/img/new/material-more-image-05.jpg" alt="image">
+                        <p class="b-material-more-teaser__list-item-text">
+                            <a class="b-link" href="#">
+                                Глава МИД ФРГ посоветовал США не поставлять вооружение на Украину
+                            </a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

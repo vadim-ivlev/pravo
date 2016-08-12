@@ -1,0 +1,13 @@
+<div class="b-mailing">
+    <input-notification msg="{{msg}}" off="8000" class="'b-input-notification_mailing'"/>
+    <div class="b-mailing__body">
+        <div class="b-mailing__name b__name {{subscribed ? '' : 'b-mailing__active_name'}}">
+            <!-- .b-mailing__active_name - активный -->
+            {{txt}}
+            <span on-click="faq" class="faq">?</span>
+        </div>
+        <span class="b-link-btn b-mailing__action_btn b-link-btn_{{subscribed ? 'second' : 'accent'}}" on-click="subscribe">{{subscribed ? 'Отписаться' : 'Подписаться' }}</span>
+        <!-- b-link-btn_accent - активная -->
+        <!-- .b-link-btn_second - неактивная -->
+    </div>
+</div>

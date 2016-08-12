@@ -1,0 +1,1 @@
+<div class="page"><!--#include virtual="/ssi/blocks/custom/projects/{[ _meta.uri ]}/{[ data.tournaments ]}"--></div>

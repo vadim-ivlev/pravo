@@ -1,0 +1,25 @@
+// Объявляем блок
+$block: '.b-sidebar-right'
+
+// Стили
+#{$block}
+    display: none
+    margin: 0
+
+    // Desktop
+    +bp-desktop
+
+        &
+            width: $width-block-small
+            
+            display: inline-block
+            vertical-align: top
+
+            &__item
+                margin-bottom: $indent-v-el
+
+    // Desktop full
+    +bp-desktopFull
+
+        &
+            float: right

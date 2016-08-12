@@ -1,0 +1,56 @@
+/*
+ * Подписаться на сюжет
+ * 
+ */
+
+// Объявляем блок
+$block: '.b-save'
+
+// Стили
+#{$block}
+    +font(14px)
+
+    &:hover
+        color: #333333
+        cursor: pointer
+
+    &_saved
+        position: relative
+        display: inline-block
+        line-height: 1.2em
+        color: #9a9a9a
+        border-bottom: 1px dotted
+    
+        &:after 
+            content: ''
+            width: 20px
+            height: 20px
+            position: absolute
+            right: -25px
+            background: url(/res/images/sprite_main.png) no-repeat -150px -140px
+    
+        &.is-active:after
+            background-position: -150px -100px
+
+    // Убираем, если вунтри контента статьи
+    .b-content .b-material-sujet &
+        display: none
+
+    // Внутри оверлея
+    .b-followed__item-action &_sujets
+        height: 14px
+
+    .b-fast-access &
+        &:after
+            background: url(/res/images/sprite_main.png) no-repeat -150px -80px
+            right: inherit
+            top: -10px
+
+        &.is-active:after
+            background-position: -150px -40px
+            
+    +bp-tablet
+        
+        &
+            display: none
+            

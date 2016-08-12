@@ -1,0 +1,30 @@
+/*
+ * Стрелки
+ *
+ */
+
+
+// Объявляем блок
+$block: '.b-arrow'
+
+// Стили
+#{$block}
+    display: inline-block
+    width: 10px
+    height: 16px
+    background: url("/res/images/sprite_main.png") no-repeat
+    vertical-align: middle
+    &:hover
+        opacity: 0.5
+
+    &_prev
+        background-position: -70px -32px
+        margin-right: 10px
+
+    &_next
+        background-position: -80px -32px
+        margin-left: 10px
+
+    &_disabled
+        opacity: 0.5
+        display: none

@@ -1,0 +1,144 @@
+// Объявляем блок
+$block: '.b-meta'
+
+// Стили
+#{$block}
+    float: none
+    width: 100%
+    padding: 20px 0
+    margin-top: 0
+    border-top: 1px solid #dedede
+    border-bottom: 1px solid #dedede
+    text-align: right
+    position: relative
+
+    &__body
+        text-align: center
+
+    &:after
+        display: block
+        clear: both
+        content: ''
+        height: 0
+
+    &__item
+        margin-right: 0
+        margin-left: $indent-g-small/2
+        display: inline-block
+        display: none
+
+        &:first-child
+            margin-left: 0
+
+        &:last-child
+            display: block
+            margin-top: 20px
+
+            & a
+                display: inline-block
+                width: auto
+
+    .b-footer &
+        border: none
+        float: left
+        width: auto
+        padding-bottom: 0
+        padding-top: 5px
+        margin-top: 0
+
+        &__item        
+            display: inline-block
+
+            &:last-child
+                display: inline-block
+                margin-top: 0
+                margin-bottom: 20px
+
+    .b-footer &.has-right
+        padding-right: 20px
+        width: 100%
+
+    .b-footer &.has-left
+        display: block
+        margin-top: -3px
+        padding-bottom: 0
+
+
+    // tablet
+    +bp-tablet
+
+        &
+            .b-footer &
+                padding-top: 15px
+
+            .b-footer &.has-left
+                padding-bottom: 0
+
+            .b-footer &.has-left
+                display: inline-block
+
+            &__item
+
+                &:last-child
+                    display: inline-block
+                    margin-top: 0
+                    float: right
+                    margin-bottom: 0
+
+    // tablet Landscape
+    +bp-tabletLandscape
+
+        &
+
+            &__body
+                text-align: left
+
+            .b-footer &.has-right
+                width: auto
+
+
+
+    // Desktop
+    +bp-desktop
+
+        &
+            float: right
+            padding: 0
+            border: none
+            width: auto
+            margin-top: 50px
+
+            .b-footer &
+                padding-top: 15px
+
+                &__item
+
+                    &:last-child
+                        display: inline-block
+
+
+
+
+    // desktopFull
+    +bp-desktopFull            
+
+        &
+
+            &__item
+                margin-left: $indent-g-small
+
+            .b-footer &
+
+                &__item
+                    // display: inline-block
+
+                    &:last-child
+
+                        float: left
+                        margin-right: 20px
+                        margin-left: 0
+
+
+
+            
+

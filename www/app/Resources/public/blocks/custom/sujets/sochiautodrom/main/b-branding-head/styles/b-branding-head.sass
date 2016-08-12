@@ -1,0 +1,86 @@
+/*
+ * Стили для брендирования в шапке
+ *
+ */
+
+// Объявляем блок
+$block: '.b-branding-head'
+
+$id: 'sochiautodrom'
+
+// Стили
+#{$block}
+    width: 100%
+    background-color: $white
+    padding-right: $indent-g
+    +box-sizing(content-box)
+
+    &__body
+        border-top: 6px solid #000
+        border-bottom: 6px solid #000
+        margin-bottom: $indent-g-small
+
+    &__media
+        // margin-bottom: 20px
+        // padding-bottom: 53%
+        padding-bottom: 21%
+
+        //background: url(#{$img-path}custom/sujets/#{$id}/branding_tabletLandscape.jpg) no-repeat 0 0
+        background: url(#{$img-path}custom/sujets/#{$id}/branding_desktop.png) no-repeat
+        background-size: contain
+
+    // Tablet 
+    +bp-tablet
+
+        &
+
+            &__body
+                margin-bottom: 0
+
+            &__media
+                height: 105px
+                margin-bottom: 0
+                padding-bottom: 0
+
+    // Tablet landscape
+    +bp-tabletLandscape
+
+        &
+
+            &__media
+                // height: 340px
+                height: 140px
+
+    // Desktop
+    +bp-desktop    
+
+        &
+            margin-left: -$indent-g
+            padding-left: $indent-g
+            margin-bottom: -69px
+            padding-bottom: 69px
+
+            &__media
+                height: 208px
+                
+
+    // Desktop
+    +bp-desktopFull
+
+        &
+            margin-left: -$indent-g*2
+            padding-left: $indent-g*2
+
+            &__media
+                height: 286px
+
+// Стилизуем бекграунд
++bp-desktop
+
+    body
+        background: url(#{$img-path}custom/sujets/#{$id}/bg.jpg) no-repeat /*1270px 0*/0 0/cover $white fixed
+
++bp-desktopFull
+
+    body
+        // background-position: 1700px 0

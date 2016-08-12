@@ -1,0 +1,59 @@
+/*
+ * СТили для брендирования в шапке
+ *
+ */
+
+// Объявляем блок
+$block: '.b-static-wrapper'
+
+// Стили
+#{$block}
+
+    .b-content-toggler:first-child
+        border-top: 0
+
+    // убираем отступы
+    .b-content-toggler__ctx
+        margin-bottom: 0
+        padding-top: 0
+
+        & .b-feed__body
+            width: 100%
+            margin-bottom: 0
+    
+    &__info
+
+        .b__name
+            margin-top: 0
+
+        .b-p
+            margin-bottom: 4px
+
+        .b__media
+            height: 160px
+            position: relative
+            overflow: hidden
+
+        .b__img
+            position: absolute
+            bottom: -60px
+
+    // Tablet 
+    +bp-tablet
+
+        &
+
+    // Tablet landscape
+    +bp-tabletLandscape
+
+        &
+
+    // Desktop
+    +bp-desktop
+
+        &
+
+    // Desktop full
+    +bp-desktopFull
+
+        &

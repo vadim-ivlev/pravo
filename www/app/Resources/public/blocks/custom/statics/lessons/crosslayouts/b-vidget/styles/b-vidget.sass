@@ -1,0 +1,83 @@
+/*
+ * Абстрактный блок стандартных элементов
+ *
+ */
+
+// Объявляем блок
+$block: '.b-vidget'
+$b : '.b'
+$link: '.b-link'
+
+// Стили
+#{$block}
+	overflow: hidden
+
+	&.b-sidebar-right__item
+		margin-bottom: 0
+
+	&__item
+		margin: auto
+		margin-bottom: 20px
+		color: $white
+		overflow: hidden
+		max-width: 310px
+		height: 206px
+
+		background: url($img-path + "custom/statics/lessons/fb_group.jpg" )
+
+		#{$b}
+			&__title
+				width: 100%
+				+font(18px)
+				text-transform: uppercase
+				font-weight: bold
+				margin-top: 85px
+				margin-left: 20px
+				margin-bottom: 26px
+
+			&__subtitle
+				+font(13px)
+				font-weight: normal
+				margin-left: 20px
+				margin-top: 3px
+				float: left
+
+			&__text
+				+font(13px)
+				float: right
+				background: #47639e
+				padding: 2px 8px
+				margin-right: 20px
+				border-radius: 3px
+		#{$link}
+			display: block
+			height: 100%
+
+			&:hover, &:visited
+				color: $white!important
+
+
+		+bp-tabletLandscape
+			float: left
+			margin-left: 30px
+			width: 310px
+
+		+bp-desktop
+			float: none
+			margin: auto
+			margin-bottom: 20px
+
+
+
+
+		&.godlit
+			background: url($img-path + "custom/statics/lessons/godlit.jpg" )
+
+
+
+
+
+
+
+
+

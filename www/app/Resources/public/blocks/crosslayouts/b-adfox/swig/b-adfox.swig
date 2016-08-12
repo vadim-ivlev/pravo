@@ -1,0 +1,1 @@
+<rg-adfox uri="//ads.adfox.ru/5906/prepareCode?pp=ibf&amp;ps=cgiu&amp;p2=fjgg&amp;pct=a&amp;plp=a&amp;pli=a&amp;pop=a&amp;pr=&amp;dl=/tema/mir/"></rg-adfox>

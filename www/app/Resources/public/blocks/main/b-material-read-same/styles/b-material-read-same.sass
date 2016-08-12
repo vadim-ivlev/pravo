@@ -1,0 +1,81 @@
+// Объявляем блок
+$block: '.b-material-read-same'
+
+// Стили
+#{$block}
+    margin: $indent-g-small
+    margin-bottom: $indent-g
+    border: 1px solid $border-color
+    margin-top: $indent-g-small*2
+
+    .b-content & .b-follow_sujets
+        display: inline-block
+
+    & rg-follow-sujet
+        padding-right: 40px
+
+        &+a
+            white-space: nowrap
+            display: inline-block
+            padding-top: 5px
+
+    &__item
+        display: block
+        padding: $indent-g-small
+
+        &.b-top-news
+            border-top: 1px solid $border-color
+
+            & .b-news-rubric__list-item-time
+                display: none
+
+    & .b-top-news__name
+        font-family: $f-serif
+        +font(14px)
+        font-style: italic
+        margin-bottom: $indent-g-small
+
+    & .b-news-rubric__list-item-link
+        font-family: $f-sans
+        +font(13px)
+
+
+    & .b-news-rubric__list-item-image
+        max-width: 65px
+
+        
+    // Tablet
+    +bp-tablet
+
+        &
+            margin: 0
+            margin-bottom: $indent-g
+            margin-top: $indent-g-small*2
+
+    // Tablet Landscape
+    +bp-tabletLandscape
+
+        &
+            display: table
+            width: 100%
+            border-collapse: collapse
+
+            &__item
+                display: table-cell
+                width: 50%
+                vertical-align: top
+
+                &.b-top-news
+                    border-left: 1px solid $border-color 
+                    border-top: none
+
+    // Desktop
+    +bp-desktop
+
+        &
+
+    // Desktop full
+    +bp-desktopFull
+
+        &
+

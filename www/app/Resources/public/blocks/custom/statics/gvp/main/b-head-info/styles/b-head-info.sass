@@ -1,0 +1,22 @@
+/*
+ * Статическая страница
+ *
+ */
+
+// Объявляем блок
+$block: '.b-head-info'
+
+// Основной блок
+#{$block}
+
+    +bp-desktop
+        #{$block}
+            &__row
+                #{$block}
+                    &__col
+                        &:last-child
+                            width: 70%
+
+
+
+

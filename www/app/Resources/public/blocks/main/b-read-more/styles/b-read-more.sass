@@ -1,0 +1,154 @@
+/*
+ * Врезка в статье (маленькая картинка)
+ * 
+ */
+
+// Объявляем блок
+$block: '.b-read-more'
+$bMaterialWrapper: '.b-material-wrapper'
+
+// Модификаторы
+
+#{$block}
+
+    &_wide
+        width: 100%
+        padding-bottom: 20px
+        
+    &_left
+        float: left
+
+    &_right
+        float: right
+
+    &_50x50
+        width: 100% 
+
+    &_50x50 &__img
+        width: auto
+
+    &_50x50 &__title
+        margin-top: 0
+
+    &_230x200
+        width: 100%
+
+    &_230x200 &__img
+        width: 100px
+
+    &_230x200 &__item
+        margin-bottom: 0
+
+    &_230x200.b-read-more_left
+        margin: 0 20px 10px 0
+
+    &_230x200.b-read-more_right
+        margin: 0 0 10px 20px
+
+// Стили
+#{$block}
+    +font(13px)
+
+    padding: 10px 15px
+    margin-bottom: 20px
+
+    background-color: $article-color
+
+    &__name
+        +font(13px)
+        font-style: italic
+        font-weight: bold
+        //text-transform: uppercase
+
+        &:first-letter
+            text-transform: uppercase
+
+    &__list
+
+    &__img
+        float: left
+
+        width: 100%
+        height: auto
+
+        margin: 0 10px 10px 0
+
+    &__item
+        overflow: hidden
+        margin-bottom: 15px
+
+    &__link
+
+        // Если проблем не возникнет, удалить 1 декабря
+        //#{$bMaterialWrapper} &
+            //color: $black
+            //text-decoration: none
+            //&:hover
+                //color: $black
+
+    &__title
+        margin-top: -5px
+
+        #{$bMaterialWrapper} &
+            margin-bottom: 0
+
+    // Tablet
+    +bp-tablet
+
+        &
+            width: 50%
+        
+
+            //Модификаторы
+
+            &_wide
+                width: 100%
+                padding-bottom: 20px
+
+            &_left
+                margin: 0 20px 10px 0
+
+
+            &_right
+                margin: 0 0 10px 20px
+
+            &_230x200
+                +font(14px)
+
+                width: 50%
+
+                display: block
+
+                //font-weight: bold
+                margin-top: 10px
+
+            &_230x200 &__img
+                width: auto
+                float: none
+
+            &_230x200 &__item
+                margin-bottom: 15px
+
+    // Tablet landscape
+    +bp-tabletLandscape
+
+        &
+            width: 310px
+            padding: 20px
+            padding-bottom: 0
+
+            &__title
+                margin-bottom: 20px
+
+            //Модификаторы
+
+            &_wide
+                width: 100%
+                padding-bottom: 20px
+
+            &_left
+                margin: 0 30px 20px 0
+
+
+            &_right
+                margin: 0 0 20px 30px

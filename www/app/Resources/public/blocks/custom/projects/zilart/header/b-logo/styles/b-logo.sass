@@ -1,0 +1,87 @@
+/*
+ * Логотип в шапке
+ * 
+ */
+
+// Объявляем блок
+$block: '.b-logo'
+
+// Модификаторы
+
+// Стили 
+#{$block}
+    &.b-header__info-item
+        display: inline-block
+        float: left
+
+    &.b-header__content-item
+        display: none
+
+    &__image
+        width: 60px
+        height: 18px
+        margin-right: 10px
+        display: block
+
+        background-repeat: no-repeat
+    
+        // маленький логотип
+        background-image: url(#{$img-path}media/logo/rg-main.png)
+        background-position: 0 -80px
+
+        // Если страница 404
+        .b-header_not-found &
+            width: 220px
+            height: 75px
+
+            background-position: 0 0
+
+        // Ретина
+        +bp-retina
+
+            &
+                // маленький логотип
+                background-image: url(#{$img-path}media/logo/rg-main2x.png)
+                background-size: 220px 104px
+
+    // Tablet
+    +bp-tablet
+
+        &
+            &.b-header__info-item
+                display: none
+
+            &.b-header__content-item
+                display: inline-block
+
+            &__image
+                width: 154px
+                height: 97px
+                //width: 220px
+                //height: 76px
+                background-position: -77px 0
+
+                // Основной логотип
+                //background-image: url(#{$img-path}media/logo/rg-main.png)
+                //background-position: 0 0
+                //background-size: cover
+
+    // Tablet
+    +bp-tabletLandscape
+        &
+            &__image
+                width: 220px
+                height: 97px
+                // background-position: 0 0
+                background-size: cover
+
+    // Desktop
+    +bp-desktop
+
+        &
+
+           &__image
+                // width: 220px
+                height: 76px
+                background-position: 0 0
+                // background-size: cover

@@ -1,0 +1,97 @@
+/*
+ * Info medal
+ *
+ */
+
+.info-medal
+    width: 80%
+    max-width: $info-medal-width
+    height: $info-medal-width/2.11
+    margin: auto
+
+    position: fixed
+    top: 0
+    right: 0
+    bottom: 0
+    left: 0
+    z-index: 10
+
+    display: none
+    opacity: 0
+
+    color: white
+    background-color: rgba($primary-color, .9)
+
+    transform: translate3d(0, -200px, 0)
+    transition: all .2s cubic-bezier(0.4, 1, 0.6, 1)
+
+    .medal
+        width: 20%
+        height: 100%
+        float: left
+        position: relative
+        background-color: darken($primary-color, 5%)
+
+        .fig
+            width: 120%
+            max-width: 200px
+            position: absolute
+            top: $def-indent*3
+            left: 42%
+
+            img
+                width: 100%
+                height: auto
+
+        .medal-meta
+            font-family: $font-condensed
+            width: 200%
+            position: absolute
+            left: 0
+            bottom: $def-indent*2
+
+            div
+                width: 50%
+                padding: $def-indent
+                float: left
+
+                i
+                    font-style: normal
+                    font-size: 1.6em
+                    display: block
+
+                b
+                    font-weight: normal
+                    font-size: .8em
+                    display: block
+
+            div:first-child
+                text-align: right
+
+    .info
+        width: 80%
+        padding-top: $def-indent*3
+        float: left
+
+        .title
+            font-size: 1.2em
+            font-family: $font-condensed
+            font-weight: bold
+            margin-bottom: $def-indent*4
+            padding: $def-indent $def-indent*3 $def-indent $def-indent*14
+            text-transform: uppercase
+            background-color: rgba($primary-juisy-color, .8)
+
+        .content
+            font-size: .8em
+            max-height: 300px
+            padding-left: $def-indent*14
+            padding-right: $def-indent
+            overflow: auto
+
+            b
+                text-transform: capitalize
+
+.info-medal_open
+    opacity: 1
+    transform: translate3d(0, 0, 0)

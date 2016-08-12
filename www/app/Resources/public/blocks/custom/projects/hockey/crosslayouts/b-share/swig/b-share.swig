@@ -1,0 +1,1 @@
+<share options='{"theme":{"counter":true}}' content="" owner="share" classes="b-share_vertical" />

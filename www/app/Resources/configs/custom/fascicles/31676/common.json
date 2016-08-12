@@ -1,0 +1,27 @@
+{
+  "name": "fascicles:31676",
+  "subTasks": [
+    {
+      "name": "style",
+      "dest": "/dest/public/styles/custom/fascicles/31676",
+      "src": {
+        "include": [
+          "/src/styles/custom/fascicles/31676/index.sass"
+        ],
+        "exclude": [
+          "/src/styles/_*.sass"
+        ]
+      },
+      "sourcemaps": true,
+      "watch": true,
+      "plugins": [
+        {
+          "name": "gulp-sass",
+          "options": {
+            "outputStyle": "compressed"
+          }
+        }
+      ]
+    }
+  ]
+}

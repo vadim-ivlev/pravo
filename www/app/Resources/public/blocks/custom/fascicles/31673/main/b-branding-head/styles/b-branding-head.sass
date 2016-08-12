@@ -1,0 +1,64 @@
+/*
+ * Стили для брендирования в шапке
+ *
+ */
+
+// Объявляем блок
+$block: '.b-branding-head'
+
+$id: '31673'
+
+// Стили
+#{$block}
+
+    &__media
+        margin-bottom: 20px
+        padding-bottom: 37%
+
+        background: url(#{$img-path}custom/fascicles/rg-spec/#{$id}/branding_tabletLandscape.jpg) no-repeat 0 0
+        background-size: contain
+
+    // Tablet 
+    +bp-tablet
+
+        &
+            &__media
+                height: 181px
+                margin-bottom: 0
+                padding-bottom: 0
+
+    // Tablet landscape
+    +bp-tabletLandscape
+
+        &
+
+            &__media
+                height: 240px
+
+    // Desktop
+    +bp-desktop    
+
+        &
+
+            &__media
+                background: url(#{$img-path}custom/fascicles/rg-spec/#{$id}/branding_desktop.jpg) no-repeat -420px 0
+
+    // Desktop
+    +bp-desktopFull
+
+        &
+
+            &__media
+                background-position: -60px 0
+
+
+// Стилизуем бекграунд
++bp-desktop
+
+    body
+        background: url(#{$img-path}custom/fascicles/rg-spec/#{$id}/bg.jpg) no-repeat 1240px 204px
+
++bp-desktopFull
+
+    body
+        background-position: 1700px 204px

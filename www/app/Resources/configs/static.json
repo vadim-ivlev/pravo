@@ -1,0 +1,50 @@
+{
+  "name": "static",
+  "subTasks": [
+    {
+      "name": "script",
+      "dest": "/dest/public/scripts",
+      "src": {
+        "include": [
+          "/src/scripts/static.js"
+        ]
+      },
+      "sourcemaps": true,
+      "browserify": {
+        "transforms": [
+          {
+            "name": "ractivate",
+            "options": {
+              "extensions": [
+                ".ihtml"
+              ]
+            }
+          }
+        ],
+        "watchify": true
+      },
+      "watch": true,
+      "plugins": [
+        {
+          "name": "gulp-debug",
+          "options": {
+            "title": "Js:"
+          }
+        },
+        {
+          "name": "gulp-babel",
+          "options": {
+            "compact": true
+          }
+        },
+        {
+          "name": "gulp-uglify"
+        },
+        {
+          "name": "gulp-concat",
+          "options": "static.js"
+        }
+      ]
+    }
+  ]
+}

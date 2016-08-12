@@ -1,0 +1,670 @@
+/*Auth BOX*/
+.message-box * { -webkit-text-size-adjust: none }
+
+.message-box {
+  font-family: roboto, sans-serif;
+  width: 620px;
+  margin: 0;
+  display: none;
+  position: fixed;
+  top: 30%;
+  z-index: 10001;
+}
+
+.positionForSmallWidth {
+  position: absolute;
+  left: 50px!important;
+}
+
+div.show-msgBox-overlay {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: #444 !important;
+  opacity: .6;
+  filter: alpha(opacity=60);
+  z-index: 2;
+  display: block !important;
+}
+
+.msgBox-active {
+  display: block;
+}
+
+.msg-wrapper {
+  padding: 18px 0;
+  position: relative;
+  color: #393838;
+  background: #fff;
+  border: 10px solid #a6a6a6;
+  z-index: 10001;
+}
+
+.msg-wrapper a {
+  color: #344a64;
+}
+
+.msg-wrapper a:hover {
+  text-decoration: none;
+}
+
+.msg-wrapper h3 {
+  font-size: 18px;
+  font-weight: 400;
+  margin: 0 0 18px 30px;
+}
+
+.msg-wrapper h3:after {
+  content: "beta";
+  font-family: roboto, sans-serif;
+  font-size: 11px;
+  font-variant: small-caps;
+  left: 139px;
+  position: absolute;
+  top: 12px;
+  text-shadow: 3px 2px 2px #AAAAAA;
+}
+
+.msg-wrapper .data {
+  font-size: 11px;
+  width: 240px;
+  padding: 0 30px;
+  float: left;
+}
+
+.msg-wrapper .aside-box {
+  width: 250px;
+  padding-right: 20px!important;
+  position: relative;
+}
+
+.msg-wrapper .aside-box:after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
+  border: 1px solid #a6a6a6;
+}
+
+.msg-wrapper .aside-box:before {
+  content: 'или';
+  font-size: 18px;
+  padding: 1px;
+  position: absolute;
+  top: 42%;
+  right: -15px;
+  background: #fff;
+  z-index: 1;
+}
+
+.msg-wrapper .data-social {
+  margin: 13px 0 0 45px;
+  POSITION:RELATIVE;
+}
+
+.msg-wrapper .data-social .social-ico {
+  width: 150px;
+  height: 45px;
+  margin: 0 0 10px 0;
+  display: block;
+  text-decoration: none;
+  text-indent: -9999px;
+  background: url(//www.rg.ru/i/img/social-ico.png) no-repeat 0 0;  
+}
+
+.msg-wrapper .data-social .fb {
+  background-position: 0 -0;
+}
+
+.msg-wrapper .data-social .vk {
+  background-position: 0 -55px;
+}
+
+.msg-wrapper .data-social .twitter {
+  background-position: 0 -110px;
+}
+
+.msg-wrapper .data-social .google {
+  background-position: 0 -165px;
+}
+
+.msg-wrapper .data-social .ya {
+  background-position: 0 -215px;
+}
+
+.msg-wrapper .data em {
+  font-style: normal;
+}
+
+.msg-wrapper .data .rgname-rg {
+  font-weight: 700;
+  font-style: normal;
+  color: #495966;
+}
+
+.msg-wrapper .data .rgname-ru {
+  font-weight: 700;
+  font-style: normal;
+  color: #eb7a41;
+}
+
+.msg-wrapper .data-unit-box {
+  margin: 13px 0 0 0;
+}
+
+.msg-wrapper .data-unit {
+  height: 20px;
+  margin: 0 0 13px 0;
+  line-height: 20px;
+}
+
+.msg-wrapper .main-box {
+  position: relative;
+}
+
+.msg-wrapper .main-box .tab {
+  padding: 0 30px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: none;
+}
+
+.msg-wrapper .main-box .tab-active { display: block!important }
+
+.msg-wrapper .data-unit label {
+  width: 53px;
+  float: left;
+  display: block;
+}
+
+.msg-wrapper .custom-height {
+  line-height: 12px;
+}
+
+.msg-wrapper .data-unit input[type="text"],
+.msg-wrapper .data-unit input[type="password"] {
+  width: 183px;
+  height: 16px;
+  padding: 2px 0 2px 2px;
+  border: 1px solid #bfbfbf;
+}
+
+.msg-wrapper .check-box input {
+  margin: 5px 7px 0 0;
+  float: left;
+}
+
+.msg-wrapper .check-box label {
+  width: 200px!important;
+  line-height: 13px;
+}
+
+.msg-wrapper .remember-box input {
+  margin: 5px 7px 0 53px;
+  float: left;
+}
+
+.msg-wrapper .remember-box label {
+  width: 143px!important;
+}
+
+.msg-wrapper .data-unit .forget-pass {
+  margin: 0 0 0 13px;
+}
+
+.msg-wrapper .data-unit.submit {
+  margin: 16px 0 16px;
+  text-align: right;
+}
+
+.msg-wrapper .data-unit .submit-btn {
+  font-size: 10px;
+  font-weight: 700;
+  margin: 4px 0 12px 0;
+  padding: 3px 12px;
+  text-align: center;
+  color: #fff;
+  letter-spacing: 1px;
+  text-shadow: 0 1px #222;
+  background: #a9acb0;
+  border: none;
+  border-radius: 5px;
+  box-shadow: 0 -1px 1px #606366 inset, 0 1px 4px #A9ACB0 inset;
+  cursor: pointer;
+}
+
+.msg-wrapper .data-unit .submit-btn:active {
+  text-shadow: none;
+  box-shadow: 0 2px 1px #606366 inset, 0 -2px 4px #A9ACB0 inset;
+}
+
+.msg-wrapper .tab-login .data-unit .submit-btn {
+  margin: 0 0 0 53px;
+}
+
+.msg-wrapper .close-box {
+  font-family: 'Times New Roman';
+  font-size: 46px;
+  position: absolute;
+  top: -10px;
+  right: 4px;
+  color: #393838;
+  line-height: 52px!important;
+  text-decoration: none;
+}
+
+.group:before,
+.group:after {
+  content: '';
+  display: table;
+}
+
+.group:after {
+  clear: both;
+}
+
+.group {
+  *zoom: 1;
+}
+
+.error {
+  position: relative;
+  color: tomato!important;
+}
+
+.error input {
+  font-size: 12px!important;
+  color: tomato!important;
+}
+
+.error:after {
+  content: '!';
+  font-family: helvetica;
+  font-size: 15px;
+  font-weight: 700;
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  top: 0;
+  right: -25px;
+  color: #fff;
+  line-height: 21px;
+  text-align: center;
+  text-shadow: 2px 2px 3px #222;
+  background: tomato;
+  border-radius: 50%;
+}
+
+/*iPad mini*/
+@media only screen 
+and (min-device-width : 768px) 
+and (max-device-width : 1024px)
+and (-webkit-min-device-pixel-ratio: 1)  {
+
+.msg-wrapper .data-unit .submit-btn {
+  text-shadow: none;
+  background: #606366;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+}
+
+/*iPhone 5*/
+@media only screen 
+and (min-device-width : 320px) 
+and (max-device-width : 568px) {
+
+.msg-wrapper .data-unit .submit-btn {
+  text-shadow: none;
+  background: #606366;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+div.show-msgBox-overlay  { display: none!important }
+
+.message-box  {
+	position: static;
+	margin: 0 auto;
+}
+
+.message-box .msg-wrapper { z-index: 0 }
+
+}
+
+/*iPhone 2 - 4*/
+@media only screen 
+and (min-device-width : 320px) 
+and (max-device-width : 480px) {
+
+.msg-wrapper .data-unit .submit-btn {
+  text-shadow: none;
+  background: #606366;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+div.show-msgBox-overlay  { display: none!important }
+
+.message-box  {
+	position: static;
+	margin: 0 auto;
+}
+
+.message-box .msg-wrapper { z-index: 0 }
+
+}
+
+/*Comment BOX*/
+.comments-wrapper { position: relative; -webkit-text-size-adjust: none }
+
+.comment-box {
+  font-family: roboto, sans-serif;
+  width: 665px;
+  height: 25px;
+  margin: 16px auto;
+  padding: 17px 12px;
+  position: relative;
+  overflow: hidden;
+  background: #fafafa;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  -webkit-transition: all .5s ease-out;
+  transition: all .5s ease-out;
+}
+
+/*header-com-form*/	
+
+.header-com-form {
+  margin: 0 0 18px;
+  overflow: hidden;
+  line-height: 24px;
+}
+
+.header-com-form .header-com-form-info,
+.header-com-form .header-com-form-addCom-btn {
+  font-size: 17px;
+  padding: 0 0 0 30px;
+  color: #344a64;
+}
+
+.header-com-form .header-com-form-info { 
+  float: left;
+  background: url(//www.rg.ru/i/img/auth_ico_sprite.png) no-repeat 0 0;
+}
+
+.header-com-form .header-com-form-info .com-count {
+  font-style: normal;
+}
+
+
+.header-com-form .header-com-form-addCom-btn {
+    background: url(//www.rg.ru/i/img/auth_ico_sprite.png) no-repeat scroll 0 -23px rgba(0, 0, 0, 0);
+    float: right;
+    position: relative;
+	line-height: 23px;
+}
+
+/*status-com-form*/
+
+.status-com-form {
+  margin: 0 0 8px;
+  clear: both;
+  line-height: 16px!important;
+}
+
+.status-com-form .status-com-form-info {
+  font-size: 15px;
+  color: #222;
+  display: none;
+}
+
+.status-com-form .status-com-form-info .logged-info {
+  color: #344a64;
+}
+
+.status-com-form .status-com-form-info .status-com-form-logout-btn {
+  text-decoration: none;
+}
+
+.status-com-form.logged > .logged { display: block }
+.status-com-form.unlogged > .unlogged { display: block }
+
+/*textarea-com-form*/
+
+.textarea-com-form {
+  width: 100%;
+}
+
+.textarea-com-form textarea {
+  font-family: roboto, sans-serif;
+  font-size: 15px;
+  width: 99%;
+  min-height: 150px;
+  padding: 3px;
+  color: #222;
+  overflow: auto;
+  border: 1px solid #ccc;
+  resize: vertical;
+}
+
+.textarea-com-form-info {
+  font-size: 15px!important;
+  height: 21px;
+  margin: 12px 0;
+  float: left;
+}
+
+/*sendBox-com-form*/
+
+.sendBox-com-form {
+  margin: 8px 0 0;
+  text-align: right;
+}
+
+.sendBox-com-form .sendBox-com-form-btn {
+  font-size: 11px;
+  font-weight: 700;
+  margin: 4px 0 0 0;
+  padding: 3px 12px;
+  text-align: center;
+  color: #fff;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  text-shadow: 0 1px #222;
+  background: #a9acb0;
+  border: none;
+  border-radius: 5px;
+  box-shadow: 0 -1px 1px #606366 inset, 0 1px 4px #A9ACB0 inset;
+  cursor: pointer;
+}
+
+.sendBox-com-form .sendBox-com-form-btn:active {
+  text-shadow: none;
+  box-shadow: 0 2px 1px #606366 inset, 0 -2px 4px #A9ACB0 inset;
+}
+
+/*iPad mini*/
+@media only screen 
+and (min-device-width : 768px) 
+and (max-device-width : 1024px)
+and (-webkit-min-device-pixel-ratio: 1)  {
+
+.sendBox-com-form .sendBox-com-form-btn {
+  text-shadow: none;
+  background: #606366;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+}
+
+/*iPhone 5*/
+@media only screen 
+and (min-device-width : 320px) 
+and (max-device-width : 568px) {
+
+.sendBox-com-form .sendBox-com-form-btn {
+  text-shadow: none;
+  background: #606366;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+}
+
+/*iPhone 2 - 4*/
+@media only screen 
+and (min-device-width : 320px) 
+and (max-device-width : 480px) {
+
+.sendBox-com-form .sendBox-com-form-btn {
+  text-shadow: none;
+  background: #606366;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+}
+
+/*Comments List*/
+.comment-box.ieSpike { display: none }
+
+.comment-box .comment-info-box {
+	width: 720px;
+	height: 330px;
+	display: none;
+	position: absolute;
+	top: -14px;
+	left: -12px;
+	background: url(/i/img/blur_hover.png) no-repeat 0 0;
+	opacity: 0;
+	-webkit-transition: all .3s ease-out;
+	transition: all .3s ease-out;
+	z-index: 3;
+}
+
+.comment-box .comment-info-box b {
+	font-size: 16px;
+	margin: 0;
+	display: block;
+	text-align: center;
+	-webkit-transition: all .3s ease-out;
+	transition: all .3s ease-out;
+}
+
+.comment-box .comment-info-box.show { display: block }
+
+.comment-box .comment-info-box.active { opacity: 1 }
+
+.comment-box .comment-info-box.active b { margin-top: 122px }
+
+.comList-box {
+  width: 691px;
+  margin: 16px auto 0;
+}
+
+.comList-box-item {
+  margin: 16px 0;
+  padding: 2%;
+  background: #f9f9f9;
+  border: 1px solid #ccc;
+}
+
+.comList-box .comments-hidden { display: none }
+
+.comList-box-item:first-child { margin-top: 0 }
+
+.comList-box-item-info {
+  width: 19%;
+  padding: 0 1% 0 0;
+  float: left;
+  line-height: 15px;
+}
+
+.comList-box-item-info .user-info {
+  font-size: 12px;
+  display: block;
+}
+
+.comList-box-item-info .com-date {
+  font-size: 9px;
+  font-style: normal;
+  display: block;
+}
+
+.comList-box-item-text {
+  width: 80%;
+  float: left;
+}
+
+.comList-box-item-text .readMore_btn {
+  width: 100px;
+  color: #344A64;
+  display: block;
+}
+
+.comList-box-item-text .moreText-box,
+.comList-box-item-text .readMore_btn i { font-style: normal; display: none }
+
+.comList-box-item-text .moreText-box.open,
+.comList-box-item-text .readMore_btn.open .open,
+.comList-box-item-text .readMore_btn.hide .hide { display: inline; }
+
+.reply-box {
+  padding: 16px 0 0;
+  overflow: hidden;
+  clear: both;
+}
+
+.reply-box .comList-box-item {
+  width: 98%;
+  padding: 1%;
+  box-shadow: none;
+  border: 0;
+  border-left: 1px solid #ccc!important;
+}
+
+.comList-box .comList-box-allComments-btn {
+  padding: 7px 0;
+  font-size: 16px;
+  text-align: center;
+  background: #F9F9F9;
+  border: 1px solid #CCCCCC;
+  cursor: pointer;
+}
+
+.replyCom_btn,
+.replyCom_cancel_btn { line-height: 14px!important; float: right; display: block; text-decoration: none }
+
+.replyCom_btn.hidden,
+.replyCom_cancel_btn.hidden { display: none }
+
+/*IFRAME*/
+.ie-auth-box iframe {
+  width: 100%;
+  height: 420px;
+  overflow: hidden;
+  background: url(//www.rg.ru/i/loader.gif) no-repeat center center transparent;
+}
+
+.ie-auth .comment-box { height: 384px!important; margin-top: 0!important }
+
+.ie-auth .message-box {
+  width: 680px;
+  margin: 15px auto 25px;
+  position: static;
+}
+
+.social-hidden {-khtml-opacity:0.2;-moz-opacity:0.2;filter:alpha(opacity=20);opacity:0.2}

@@ -1,0 +1,66 @@
+{{#tip}}
+    <button class="b-post__quote-tip noselect"
+        on-click="quote"
+        style="top: {{tip.top}}px; left: {{tip.left}}px; display: {{tip.display}};" title="Цитировать"
+        >Цитировать</button>
+{{/tip}}
+
+<!-- Post item -->
+<div class="b-post {{activeClass ? 'b-post_active' : ''}}">
+
+    {{#post.user.avatar}}
+        <div class="b-post__media noselect">
+            <img class="b-post__image"
+                 src="{{post.user.avatar}}"
+                 alt="face">
+        </div>
+    {{/post.user.avatar}}
+
+    <div class="b-post__wrapper group">
+
+        <div class="b-post__content">
+
+            <div class="b-post__row b-post__row_info noselect">
+
+                <div class="b-post__name">
+                    <a class="b-link b-link_blue b-post__name-full"
+                          title="Упомянуть пользователя"
+                          on-click="mention">{{#me}}Я{{/me}}{{^me}}{{post.user.firstName}} {{post.user.lastName}}{{/me}}</a>
+                    <span class="b-post__name-date">{{ dateFormat(post.date) }}</span>
+                </div>
+
+            </div>
+
+            <div class="b-post__row"
+                 on-mouseup="select">
+                <div class="b-post__text">
+                    <div>{{{post.content}}}</div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="b-post__action noselect">
+
+            {{#isComment}}
+            <div class="b-post__like">
+                <span class="b-post__like-qty">{{post.likes}}</span>
+                <span class="b-post__like-icon b-icon b-icon_type_like
+                    {{post.liked ? 'is-active' : ''}}
+                    {{loading ? 'heartbeats' : ''}}"
+                    on-click="like" title="{{post.isLiked ? 'Не нравится' : 'Нравится'}}"></span>
+            </div>
+            {{/isComment}}
+
+            <div class="b-post__reply-btn">
+                <a class="b-link b-link_blue"
+                   href="#"
+                   on-click="reply">Ответить</a>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+<!-- /Post item -->

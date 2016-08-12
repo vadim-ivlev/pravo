@@ -1,0 +1,8 @@
+<div class="b-auth">
+	<div class="b-auth__tabs">
+    	<tabs items='[{"title":"Регистрация","topic":"auth.registration"},{"title":"Войти","topic":"auth.enter"}]' selected="1" />
+    </div>
+    <div class="b-auth__scroll">
+        <div class="b-auth__content" id="authContent"></div>
+    <div>
+</div>

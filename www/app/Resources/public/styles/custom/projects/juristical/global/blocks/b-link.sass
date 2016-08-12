@@ -1,0 +1,153 @@
+/*
+ * Блок Ссылок
+ * 
+ */
+
+// Объявляем блок
+$block: '.b-link'
+
+// Модификатор для контента статьи
+$blockArticle: '.b-material-wrapper'
+
+// Если это матерал сюжета в сайтбаре
+$hasBMaterialSujet: '.b-material-sujet'
+
+// Стиль ссылки для материала в статье
+// костылим из-за того, что в редактуре
+// так теги ставятся
+#{$blockArticle} p a,
+#{$blockArticle} .lead a,
+#{$blockArticle} .b-broadcast-online a,
+.b-author__text a
+    font-style: inherit
+    color: $link-color
+    text-decoration: underline
+
+    &:hover
+        color: $link-color
+        text-decoration: none
+
+// Стили
+#{$block}
+    font-style: inherit
+
+    color: inherit
+    text-decoration: none
+    cursor: pointer
+
+    &:hover
+        color: $black + #333
+
+    &_blue
+        color: $link-color
+
+        &:hover
+            color: $link-color + #111
+
+    &_dotted
+        border-bottom: 1px dotted
+
+    &_white
+        color: $white
+
+        &:hover
+            color: $white - #333
+
+    &_title
+        &:hover
+            color: $link-color
+
+    &_inner
+        color: $link-color
+        text-decoration: underline
+
+        &:hover
+            color: $link-color
+            text-decoration: none
+
+    &_tag
+        color: $comment-color
+
+        &:hover
+            color: $link-color
+
+        &:after
+            content: ""
+
+        &:last-child
+            &:after
+                content: ""
+
+    &_reload
+        position: relative
+        color: $red
+
+        &:hover
+            color: $red + #111
+
+    &_watch
+        position: relative
+        display: inline-block
+        line-height: 1.2em
+        color: $comment-color
+        border-bottom: 1px dotted
+
+        .b-sidebar__item &
+            +font(14px)
+
+        &:after
+            content: ''
+            width: 20px
+            height: 20px
+
+            position: absolute
+            right: -25px
+
+            background: url(#{$img-path}sprite_main.png) no-repeat -150px -60px
+
+        #{$hasBMaterialSujet} &
+            margin-top: 10px
+
+
+    &_watch.is-active
+
+        &:after
+            background-position: -150px -40px
+
+    &_block
+        display: block
+
+    // Посещенная ссылка у материалов
+    .b-news &:visited,
+    .b-feed__list &:visited,
+    .b-news-inner &:visited
+        color: $is-read-color
+
+    &_latest
+        display: inline-block
+        margin-top: 1px
+        line-height: 21px
+        padding-bottom: 0
+
+    &_alrf
+        display: block
+        background: #051945
+        padding: 0 5px
+        margin-bottom: 20px
+
+    // Retina
+    +bp-retina
+
+        &
+
+            &_reload
+
+                &:before
+                    background: url(#{$img-path}sprite_main_2.png) -20px -70px no-repeat
+                    background-size: 500px
+
+            &_watch
+
+                &:after
+                    background: url(#{$img-path}sprite_main_2.png) no-repeat -150px -60px
+                    background-size: 500px

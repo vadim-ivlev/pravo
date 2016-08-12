@@ -1,0 +1,15 @@
+<div class="b-relap__body" style="padding-bottom: 10px;">
+	{{#title}}<div class="b-relap__name">{{title}}</div>{{/title}}
+	{{#elems}}
+		<div class="b-relap__item">
+			<a href="{{url}}" class="b-relap__item__link" data-rec="{{rec_id}}">
+				<span class="b-relap__item__media">
+					<img class="b-relap__item__img" src="{{thumb}}" alt="">
+				</span>
+				<span class="b-relap__item__title">
+					{{title}}
+				</span>
+			</a>
+		</div>
+	{{/elems}}
+</div>

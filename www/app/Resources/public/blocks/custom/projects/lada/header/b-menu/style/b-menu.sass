@@ -1,0 +1,21 @@
+// Объявляем блок
+$block: '.b-menu'
+
+// Стили
+#{$block}
+    display: block
+    text-align: right
+    padding: 10px 0
+    margin-bottom: 0
+    border-bottom: 2px solid #dedede
+    position: relative
+
+        &__geolocation, &__item_type_actions
+            display: none
+
+
+
+    // Tablet
+    +bp-tablet
+
+        &

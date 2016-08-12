@@ -1,0 +1,227 @@
+/*
+ * Шапка сайта
+ * 
+ */
+// Объявляем блок
+$block: '.b-header'
+
+// Переменные
+
+// Стили
+#{$block}
+    
+    width: 100%
+    position: fixed
+    top: 0
+    background-color: $white
+    z-index: 10
+
+    &__title
+        display: block
+        font-weight: bold
+        padding: 8px 0
+        text-transform: uppercase
+        position: relative
+        font-size: 18px
+        border-top: 1px solid #dedede
+
+    &__bottom
+        padding-top: 8px
+        display: flex
+        justify-content: space-between
+
+    &__info
+        //display: none
+        border-bottom: 1px solid $border-color
+
+        height: 0
+        padding: 0!important
+
+        & .b-logo
+            position: absolute
+            top: 22px
+            left: 20px
+            z-index: 1
+
+        & .b-vendors,
+        & .b-age
+            display: none
+
+    &__menu
+        //height: 46px
+
+        //margin-bottom: 10px
+        //line-height: 2em
+        overflow: inherit!important // Гасим скрытие элементов Эгей!
+
+        //border-bottom: 1px solid $border-color
+
+    &__wrapper
+        
+
+    //&__content,
+    &__item
+        //height: 83px
+        overflow: hidden
+        padding: 20px
+
+    &__content
+        //height: 83px
+        margin-top: 15px
+        padding: 0!important
+        text-align: center
+        display: none
+
+    //&__item,
+    &__content-item
+        display: inline-block
+        vertical-align: middle
+
+    &__item_info
+        padding-top: 10px
+        float: right
+
+    &_not-found:after
+        display: none
+
+    &_promo:after
+        width: 100%
+
+    // Белые распорки вокруг
+    &:before
+        top: 0
+
+    &:after
+        content: ""
+        width: 100%
+        padding: 0 20px
+        position: relative
+        display: block
+        border-bottom: 1px solid #dedede
+        z-index: 0
+        top: 0
+
+    // Tablet
+    +bp-tablet
+
+        &
+            position: static
+            margin-bottom: 30px
+
+            +box-shadow(none)
+
+            //padding-left: 30px
+
+            &__item
+                width: auto
+                padding: 0
+                &:last-child
+                    width: 100%
+
+            &__title
+                display: inline-block
+                font-size: 26px
+                top: -20px
+                margin-left: 50px
+                border: none
+
+            &__info
+                
+                height: auto
+                padding: 8px 0!important
+
+                & .b-logo
+                    position: static
+
+                & .b-vendors,
+                & .b-age
+                    display: inline-block
+
+            &__info:before
+                display: none
+
+            &__wrapper
+                //margin-left: 30px
+
+            //&__content,
+            &__item
+                //width: $width-wrapper-tablet
+                //height: 100px
+                //margin: 0 auto
+                //padding: 8px 0
+
+            &__content
+                //height: 100px
+                height: 95px
+                text-align: left
+                display: block
+
+            &__menu
+                //height: 51px
+                border-bottom: 1px solid $border-color
+
+            &_promo:after
+                width: 100%
+
+            // Белые распорки вокруг
+            &:before 
+                left: -$indent-g
+                padding-right: $indent-g + $indent-g
+
+    // Tablet landscape
+    +bp-tabletLandscape
+
+        &
+            //&__content,
+            &__item
+                width: auto
+
+            &__title
+                font-size: 30px
+                top: -15px
+
+            &__menu
+                border-bottom: 3px solid $time-color
+
+            &_promo:after
+                width: 100%
+
+    // Desktop
+    +bp-desktop
+
+        &
+            position: relative
+
+            //&__content,
+            &__item
+                //width: 990px
+                width: auto
+                //height: 115px
+
+            &__title
+                top: -15px
+
+            &__content
+                //height: 115px
+                //height: 95px
+
+            &_promo:after
+                width: 100%
+
+    // Desktop full
+    +bp-desktopFull
+
+        &
+            //&__content,
+            &__item
+                // display: inline-block
+                vertical-align: middle
+                width: auto
+
+            &__title
+                top: 10px
+
+            // Белые распорки вокруг
+            &:before
+                left: -$indent-g*2
+                padding-right: $indent-g*2 + $indent-g

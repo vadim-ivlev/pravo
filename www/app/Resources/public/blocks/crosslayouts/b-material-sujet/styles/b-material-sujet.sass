@@ -1,0 +1,31 @@
+/*
+ * Блок следить за сюжетом
+ * 
+ */
+
+// Объявляем блок
+$block: '.b-material-sujet'
+
+// Стили
+#{$block}
+    width: 100%
+    padding: 0 20px
+
+    &__name
+        +font(14px)
+        font-weight: bold
+        font-family: $f-sans
+
+        margin-bottom: 20px
+
+        & a
+            color: $link-color
+
+    &__list
+        margin-bottom: 20px
+
+    // Tablet
+    +bp-tablet
+
+        &
+            padding: 0

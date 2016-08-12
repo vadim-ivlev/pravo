@@ -1,0 +1,53 @@
+<div class="b-region">
+    <div class="b-region__current">
+        Текущий регион: <span class="b-region__current-city">Москва</span>
+    </div>
+
+    <div class="b-region__choose">
+        <div class="b-region__choose-title">Выберите интересующий регион:</div>
+        <div class="b-region__choose-item is-mobile">
+            <div class="b-select">
+                <select class="b-select__select" name="select-region">
+                    <option value="1">Москва</option>
+                    <option value="2">Санкт-Петербург</option>
+                    <option value="3">Севастополь</option>
+                    <option value="4">Киргизия</option>
+                    <option value="5">Дальневосточный ФО</option>
+                    <option value="6">Крымский ФО</option>
+                    <option value="7">Приволжский ФО</option>
+                    <option value="8">Северо-Западный ФО</option>
+                    <option value="9">Северо-Кавказский ФО</option>
+                    <option value="10">Сибирский ФО </option>
+                    <option value="11">Уральский ФО</option>
+                    <option value="12">Центральный ФО</option>
+                    <option value="13">Южный ФО</option>
+                </select>
+            </div>
+        </div>
+        <div class="b-region__choose-item is-tablet">
+            <ul class="b-region__list">
+                <li class="b-region__list-item"><a class="b-link b-link_blue b-region__link" href="#">Москва</a></li>
+                <li class="b-region__list-item"><a class="b-link b-link_blue b-region__link" href="#">Санкт-Петербург</a></li>
+                <li class="b-region__list-item"><a class="b-link b-link_blue b-region__link" href="#">Севастополь</a></li>
+                <li class="b-region__list-item"><a class="b-link b-link_blue b-region__link" href="#">Киргизия</a></li>
+                <li class="b-region__list-item"><a class="b-link b-link_blue b-region__link" href="#">Дальневосточный ФО</a></li>
+                <li class="b-region__list-item"><a class="b-link b-link_blue b-region__link" href="#">Крымский ФО</a></li>
+                <li class="b-region__list-item"><a class="b-link b-link_blue b-region__link b-region__link_active" href="#">Приволжский ФО</a></li>
+                <li class="b-region__list-item"><a class="b-link b-link_blue b-region__link" href="#">Северо-Западный ФО</a></li>
+                <li class="b-region__list-item"><a class="b-link b-link_blue b-region__link" href="#">Северо-Кавказский ФО</a></li>
+                <li class="b-region__list-item"><a class="b-link b-link_blue b-region__link" href="#">Сибирский ФО</a></li>
+                <li class="b-region__list-item"><a class="b-link b-link_blue b-region__link" href="#">Уральский ФО</a></li>
+                <li class="b-region__list-item"><a class="b-link b-link_blue b-region__link" href="#">Центральный ФО</a></li>
+                <li class="b-region__list-item"><a class="b-link b-link_blue b-region__link" href="#">Южный ФО</a></li>
+            </ul>
+        </div>
+    </div><!--
+    --><div class="b-region__search">
+        <div class="b-region__search-text">
+            Если вы не знаете к какому Федеральному округу принадлежит город, введите его название в поле:
+        </div>
+        <div class="b-input b-region__search-input">
+            <input class="b-input__input" type="text">
+        </div>
+    </div>
+</div>

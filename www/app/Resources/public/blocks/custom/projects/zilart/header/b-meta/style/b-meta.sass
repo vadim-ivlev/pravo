@@ -1,0 +1,49 @@
+// Объявляем блок
+$block: '.b-meta'
+
+// Стили
+#{$block}
+    float: none
+    width: 100%
+    padding: 20px 0
+    margin-top: 0
+    border-top: 1px solid #dedede
+    border-bottom: 1px solid #dedede
+    text-align: right
+    position: relative
+
+    &__body:after
+        display: block
+        position: absolute
+        right: 0
+        content: 'Партнерский проект'
+        +font(13px)
+
+    &:after
+        display: block
+        clear: both
+        content: ''
+        height: 0
+
+    &__item
+        margin-right: 0
+        margin-left: $indent-g-small
+        display: inline-block
+
+        &:first-child
+        	margin-left: 0
+        	float: left
+        	margin-top: 8px
+
+    // Desktop
+    +bp-desktop
+
+        &
+            float: right
+            padding: 0
+            border: none
+            width: auto
+            margin-top: 18px
+
+            
+

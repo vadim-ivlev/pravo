@@ -1,0 +1,879 @@
+/*
+ * Абстрактный блок стандартных элементов
+ *
+ */
+
+// Объявляем блок
+$block: '.b'
+
+.is-page-reveal
+    display: none
+
+.is-main-page
+    display: block
+
+// Стили
+#{$block}
+
+    //Main Page
+
+    &__title
+        +font(22px)
+        font-weight: bold
+
+    &__row
+        width: 100%
+        float: none
+
+        &:nth-child(2)
+            border-bottom: none
+            border-top: none
+
+    &__wrapper
+        width: 100%
+        padding-left: 0
+
+    &__wrapper.is-meta
+        #{$block}
+
+            &__row
+                border-bottom: 2px solid $today-bg-color
+            &__col
+                width: 30%
+                float: left
+                padding: 15px 0
+                font-weight: bold
+                +font(14px)
+
+                text-align: center
+                &:first-child
+                    text-align: left
+                    width: 70%
+                    font-weight: normal
+
+            &__title
+                border-bottom: 2px solid $today-bg-color
+                margin-bottom: 0
+                padding-top: 15px
+                padding-bottom: 15px
+                +font(14px)
+                text-transform: uppercase
+
+    &__col.is-main-text
+        width: 100%
+
+    &__wrapper.is-table
+        padding: 30px
+        background: $today-bg-color
+        clear: both
+        #{$block}
+            &__wrapper
+                width: 100%
+                padding: 0
+    &__item.is-table-unit
+        background-color: $white
+        margin: 0
+        &:last-child
+            margin-bottom: 30px
+            #{$block}
+                &__col.is-table-col-right, &__col.is-table-col-left
+                    width: 100%
+
+    &__wrapper.is-table-item
+        &:last-child
+            display: none
+            #{$block}
+                &__item.is-table-unit
+                    #{$block}
+                        &__col.is-table-col-right, &__col.is-table-col-left
+                            float: left
+                            width: 50%
+
+
+                        &__col.is-table-col-left
+                            #{$block}
+                                &__col
+                                    width: 100%
+                                    text-align: center
+
+    &__row.is-table-row
+        padding: 15px 0
+        border-bottom: 2px solid $today-bg-color
+
+        &:first-child
+            #{$block}
+                &__col.is-table-col-right
+                    color: $comment-color
+                    display: none
+
+
+                &__col.is-table-col-left
+                    #{$block}
+                        &__col:first-child
+                            width: 100%
+                            color: $comment-color
+
+    &__col.is-table-col-right
+        padding: 0 20px
+        margin-bottom: 10px
+        +font(14px)
+
+    &__col.is-table-col-left
+        padding: 0 20px
+        +font(14px)
+        #{$block}
+            &__col
+                width: 50%
+                float: left
+
+                &:last-child
+                    text-align: right
+
+    &__wrapper.is-contact
+        margin-top: 30px
+        border-top: 1px solid $today-bg-color
+        padding-top: 20px
+        #{$block}
+            &__title
+                +font(22px)
+                font-family: $f-sans
+                font-weight: normal
+                margin-bottom: 0
+
+            &__col
+                width: 100%
+                padding-bottom: 10px
+                padding-right: 0
+                padding-left: 0
+            &__row
+                padding-right: 0
+                &.is-contact-general
+                    margin-bottom: 0
+                    #{$block}
+                        &__col
+                            &:first-child
+                                width: 100%
+                                #{$block}
+                                    &__title
+                                        +font(24px)
+                                        float: left
+                                        font-weight: normal
+                                        clear: both
+                                        &:first-child
+                                            margin-left: 0
+                                    &__subtitle
+                                        width: 100%
+                                        clear: both
+                #{$block}
+                    &__title
+                        +font(14px)
+                        font-weight: bold
+                        margin-bottom: 10px
+
+                    &__subtitle
+                        +font(14px)
+                        font-weight: normal
+                        margin-bottom: 10px
+                    &__text
+                        margin-top: 10px
+                #{$b-link}
+                    margin-bottom: 10px
+
+    +bp-tablet
+        &
+            &__col.is-main-text
+                width: 50%
+                padding-right: 60px
+                float: left
+
+            &__col.is-table-wrapper
+                width: 50%
+                float: left
+
+            &__wrapper.is-contact
+                #{$block}
+                    &__row
+                        width: 100%
+                        #{$block}
+                            &__col
+                                width: 50%
+                                display: inline-block
+                                vertical-align: top
+                                &:nth-child(2)
+                                    clear: both
+                        &.is-contact-general
+                            #{$block}
+                                &__col
+                                    float: left
+                                    &:first-child
+                                        width: 50%
+                                    &:last-child
+                                        width: 50%
+                                        clear: none
+
+    +bp-tabletLandscape
+        &
+
+            &__wrapper.is-contact
+                #{$block}
+                    &__row
+                        #{$block}
+                            &__col
+                                width: 33%
+                                padding-right: 25px
+                            &.is-contact-general
+                                #{$block}
+                                    &__col
+                                        &:first-child
+                                            width: 33%
+                                            margin-top: 0
+                                            #{$block}
+                                                &__title
+                                                    clear: none
+                                                    +font(24px)
+                                        &:last-child
+                                            width: 50%
+
+            &__row.is-table-row
+                &:first-child
+                    #{$block}
+                        &__col.is-table-col-right
+                            display: block
+
+            &__col.is-table-col-right
+                width: 33.33333%
+                padding: 0 20px
+                float: left
+
+            &__col.is-table-col-left
+                width: 66.66666%
+                padding: 0 20px
+                float: left
+                #{$block}
+                    &__col
+                        width: 50%
+                        float: left
+                        &:last-child
+                            text-align: center
+
+            &__item.is-table-unit
+
+                &:last-child
+                    #{$block}
+                        &__col.is-table-col-right
+                            width: 33.3333%
+
+                        &__col.is-table-col-left
+                            width: 66.6666%
+                            #{$block}
+                                &__col
+                                    text-align: center
+
+
+
+    +bp-desktop
+        &
+            &__wrapper.is-contact
+                #{$block}
+                    &__row
+                        #{$block}
+                            &__col
+                                width: 25%
+
+
+    +bp-desktopFull
+        &
+            &__wrapper.is-contact
+                #{$block}
+                    &__row
+                        &.is-contact-general
+                            #{$block}
+                                &__col
+                                    &:first-child
+                                        #{$block}
+                                            &__title
+                                                margin-left: 90px
+                                                clear: none
+
+                                    &:last-child
+                                        width: 50%
+
+
+    //Info-materials
+
+    &__wrapper.is-price-wrapper
+        #{$block}
+            &__col
+                display: none
+                &:first-child
+                    display: block
+
+    &__wrapper.is-info-materials
+        margin-top: 20px
+        #{$block}
+            &__title
+                +font(22px)
+            &__col
+                width: 100%
+                float: none
+            &__col.is-table
+                padding: 30px
+                background: $today-bg-color
+                #{$block}
+                    &__subtitle
+                        +font(14px)
+                        font-weight: normal
+
+                    &__wrapper.is-item-wrapper
+
+                        +font(14px)
+                        padding: 20px
+                        background: $white
+                        margin-bottom: 30px
+                        #{$block}
+                            &__col
+                                text-align: center
+                            &__title
+                                font-weight: normal
+                                +font(14px)
+                                text-align: center
+                                text-transform: uppercase
+                                color: $comment-color
+                            &__item
+                                margin: 0
+                            &__row
+                                padding: 20px 0
+                                border-bottom: 2px solid $today-bg-color
+                                &:first-child
+                                    #{$block}
+                                        &__col
+                                            display: none
+                                            color: $comment-color
+
+    +bp-tablet
+
+        &__wrapper.is-check-mobile
+            float: left
+            width: auto
+        &
+            &__wrapper.is-price-wrapper
+                #{$block}
+                    &__col
+                        display: block
+
+            &__wrapper.is-info-materials
+                #{$block}
+                    &__col.is-table
+                        #{$block}
+                            &__wrapper.is-item-wrapper
+                                #{$block}
+                                    &__col
+                                        width: 33%
+                                        padding: 0 10px
+                                        float: left
+                                    &__row
+                                        &:first-child
+                                            #{$block}
+                                                &__col
+                                                    display: block
+
+    +bp-tabletLandscape
+        &
+            &__wrapper.is-check-mobile
+                float: none
+                width: 100%
+            &__wrapper.is-info-materials
+                #{$block}
+                    &__col
+                        width: 50%
+                        float: left
+
+
+    //Banners-places
+    &__wrapper.is-banners-place
+        margin-top: 20px
+        #{$block}
+            &__img
+                width: 100%
+            &__col.is-main
+                width: 100%
+                #{$block}
+                    &__title
+                        +font(16px)
+
+            &__wrapper.is-interactive
+                margin-top: 15px
+
+            &__wrapper.is-meta-description
+                margin-top: 20px
+
+            &__wrapper.is-interactive-item
+                position: relative
+                #{$block}
+                    &__media
+                        margin: 0
+                    &__item.is-interactive-left,
+                    &__item.is-interactive-center,
+                    &__item.is-interactive-right
+                        position: absolute
+
+                    &__item.is-interactive-left,
+                    &__item.is-interactive-right
+                        top: 59px
+                        -webkit-box-shadow: -2px 11px 72px -12px rgba(0,0,0,0.35)
+                        -moz-box-shadow: -2px 11px 72px -12px rgba(0,0,0,0.35)
+                        box-shadow: -2px 11px 72px -12px rgba(0,0,0,0.35)
+
+                    &__item.is-interactive-center
+                        left: 30%
+
+                    &__item.is-interactive-right
+                        width: 112px
+                        right: 0
+                        &:before
+                            content: '3'
+                            position: absolute
+                            top: 34%
+                            left: 50%
+                            right: 50%
+                            background: $white
+                            border-radius: 15px
+                            margin: auto
+                            padding: 1px 8px
+                            width: 24px
+                            margin-left: -12px
+                            font-weight: bold
+                            z-index: 3
+
+                        &:after
+                            position: absolute
+                            left: 0
+                            top: 20px
+                            width: 100%
+                            height: 63%
+                            background: $red
+
+                    &__item.is-interactive-right.is-active
+                        z-index: 9
+                        &:after
+                            content: ''
+
+
+                    &__item.is-interactive-center
+                        width: 129px
+                        z-index: 5
+                        &:before
+                            content: '2'
+                            position: absolute
+                            top: 49px
+                            left: 50%
+                            right: 50%
+                            background: #fff
+                            border-radius: 15px
+                            margin: auto
+                            padding: 1px 8px
+                            width: 24px
+                            margin-left: -12px
+                            font-weight: bold
+                            z-index: 3
+
+                        &:after
+                            position: absolute
+                            left: 8px
+                            top: 51px
+                            width: 87%
+                            height: 15px
+                            background: $red
+
+                    &__item.is-interactive-center.is-active
+                        z-index: 9
+                        &:after
+                            content: ''
+
+                    &__item.is-interactive-left
+                        width: 112px
+                        &:before
+                            content: '1'
+                            position: absolute
+                            top: 88px
+                            left: 50%
+                            right: 50%
+                            background: #fff
+                            border-radius: 15px
+                            margin: auto
+                            padding: 1px 8px
+                            width: 24px
+                            margin-left: -12px
+                            font-weight: bold
+                            z-index: 3
+
+                        &:after
+
+                            position: absolute
+                            top: 0
+                            left: 0
+                            width: 100%
+                            height: 100%
+                            background: $red
+
+                    &__item.is-interactive-left.is-active
+                        z-index: 9
+                        &:after
+                            content: ''
+                    #{$block}
+
+                        &__item.is-interactive-left,
+                        &__item.is-interactive-right
+                            top: 46px
+
+                        &__item.is-interactive-right
+                            &:before
+                                top: 39%
+                                left: 50%
+                                right: 50%
+
+                            &:after
+                                left: 0
+                                top: 19px
+                                width: 100%
+                                height: 63%
+
+                        &__item.is-interactive-center
+                            &:before
+                                top: 44px
+                                left: 50%
+                                right: 50%
+                                width: 24px
+                                margin-left: -12px
+                            &:after
+                                left: 8px
+                                top: 49px
+                                width: 86%
+                                height: 15px
+
+                        &__item.is-interactive-left
+                            &:before
+                                top: 48%
+                                left: 50%
+                                right: 50%
+                                width: 24px
+
+                            &:after
+                                left: 0
+                                width: 100%
+                                height: 100%
+
+            &__wrapper.is-table
+                background: none
+                +font(14px)
+                padding: 0
+                #{$block}
+                    &__text
+                        color: $comment-color
+                        margin-top: 20px
+                    &__col
+                        width: auto
+                        padding: 0
+                        &:first-child
+                            margin-right: 30px
+                        &:last-child
+                            margin-right: 60px
+                            font-weight: bold
+                    &__row
+                        padding: 15px 0
+                        border-bottom: 2px solid $today-bg-color
+                        #{$block}
+                            &__col.is-table-col-left
+                                margin-left: 5px
+                                float: left
+                                margin-right: 20px
+                                margin-top: -4px
+                                text-align: center
+                                width: 28px
+                                height: 28px
+                                line-height: 28px
+
+                            &__col.is-table-col-right
+                                float: none
+                                overflow: hidden
+                                clear: both
+                                margin-top: 10px
+                            &__item
+                                margin: 0
+                                width: 80%
+                    &__item
+                        float: left
+
+
+                    &__row.is-active
+                        #{$block}
+                            &__col.is-table-col-left
+                                background: $red
+                                float: left
+                                border-radius: 15px
+                                line-height: 28px
+                                color: white
+                                font-weight: bold
+
+                    &__row.is-table-title
+                        #{$block}
+                            &__col.is-table-col-left
+                                width: auto
+                                height: auto
+                                text-align: left
+                                line-height: inherit
+                                margin: 0
+                                float: left
+                                font-weight: bold
+                                text-transform: uppercase
+
+                            &__col.is-table-col-right
+                                color: $comment-color
+                                font-weight: normal
+                                float: right
+                                margin: 0
+                        &:first-child
+                            #{$block}
+                                &__item
+                                    clear: both
+                                &__col.is-table-col-right
+                                    float: left
+
+    +bp-tablet
+        &__wrapper.is-banners-place
+            #{$block}
+                &__wrapper.is-interactive-item
+                    #{$block}
+                        &__item.is-interactive-left,
+                        &__item.is-interactive-right
+                            top: 87px
+
+
+                        &__item.is-interactive-center
+                            left: 117px
+
+                        &__item.is-interactive-right
+                            width: 181px
+
+                            &:after
+                                top: 31px
+
+                        &__item.is-interactive-center
+                            width: 206px
+                            &:before
+                                top: 84px
+
+                            &:after
+                                left: 13px
+                                top: 84px
+                                height: 24px
+
+                        &__item.is-interactive-left
+                            width: 180px
+
+                            &:before
+                                top: 145px
+
+                    &:last-child
+
+                        #{$block}
+
+                            &__item.is-interactive-left,
+                            &__item.is-interactive-right
+                                top: 74px
+
+                            &__item.is-interactive-right
+
+                                &:after
+                                    top: 29px
+                            &__item.is-interactive-center
+                                &:before
+                                    top: 78px
+
+                                &:after
+                                    left: 13px
+                                    top: 78px
+                                    height: 24px
+
+                &__wrapper.is-table
+
+                    #{$block}
+                        &__row
+
+                            #{$block}
+                                &__col.is-table-col-right
+                                    float: right
+                                    clear: none
+                                    margin-top: 0
+
+                                &__col.is-table-col-center
+                                    float: left
+
+
+                                &__item
+                                    width: auto
+
+                        &__item
+                            float: none
+
+                        &__row.is-table-title
+
+                            &:first-child
+                                #{$block}
+                                    &__item
+                                        clear: none
+                                    &__col.is-table-col-right
+                                        float: right
+
+    +bp-tabletLandscape
+        &__wrapper.is-banners-place
+            .is-description
+                width: 50%
+            #{$block}
+
+                &__wrapper.is-main-description,
+                &__wrapper.is-table,
+                &__wrapper.is-meta-description
+                    width: 50%
+                    float: left
+                    clear: none
+                    padding-right: 66px
+
+                &__wrapper.is-main-description,
+                &__wrapper.is-meta-description
+                    clear: both
+
+                &__wrapper.is-interactive
+                    width: 50%
+                    float: right
+
+                &__wrapper.is-check-mobile
+                    margin-top: 180px
+                    text-align: center
+
+    +bp-desktop
+        &__wrapper.is-banners-place
+            #{$block}
+                &__wrapper.is-interactive-item
+                    #{$block}
+                        &__item.is-interactive-left,
+                        &__item.is-interactive-right
+                            top: 110px
+
+
+                        &__item.is-interactive-center
+                            &:before
+                                top: 108px
+
+                            left: 147px
+                            width: 256px
+                            &:after
+                                left: 16px
+                                top: 105px
+                                height: 30px
+
+                        &__item.is-interactive-right
+                            width: 224px
+
+                            &:after
+                                top: 38px
+
+                        &__item.is-interactive-left
+
+                            width: 224px
+
+                            &:before
+                                top: 178px
+
+
+                    &:last-child
+                        #{$block}
+                            &__item.is-interactive-left,
+                            &__item.is-interactive-right
+                                top: 89px
+
+                            &__item.is-interactive-right
+                                &:after
+                                    top: 37px
+
+                            &__item.is-interactive-center
+                                &:before
+                                    top: 99px
+                                &:after
+                                    left: 14px
+                                    top: 97px
+                                    height: 29px
+
+
+    +bp-desktopFull
+        &__wrapper.is-interactive
+            padding-left: 45px
+
+
+    //MobileApp page
+    &__wrapper.is-mobileApp
+        #{$block}
+            &__wrapper.is-interactive-item
+                width: 280px
+                height: 265px
+                &:last-child
+                    display: none
+
+    +bp-tablet
+        &__wrapper.is-mobileApp
+            #{$block}
+                &__wrapper.is-interactive-item
+                    width: 444px
+                    height: 435px
+
+    +bp-tabletLandscape
+        &__wrapper.is-mobileApp
+            #{$block}
+                &__wrapper.is-interactive-item
+                    height: 660px
+
+    +bp-desktop
+        &__wrapper.is-mobileApp
+            #{$block}
+                &__wrapper.is-interactive-item
+                    width: 555px
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,53 @@
+/*
+ * Свежий выпуск
+ * 
+ */
+
+// Объявляем блок
+$block: '.b-fascicles'
+
+// Стили
+#{$block}
+    
+
+    &__header
+        margin-bottom: 10px
+
+    &__content
+        // inline-block fix
+        font-size: $f-sz-zero
+
+        +transition(opacity .3s ease)
+
+        &.is-loading
+            +opacity(.3)
+
+    &__action
+        text-align: center
+
+    &__filters
+        padding: 10px 0
+
+        &:first-child
+            border-bottom: 1px solid $border-color
+
+        & .b-rubricator-menu
+            margin-bottom: 0
+    
+    // Tablet
+    +bp-tablet
+
+        &
+            
+            
+    // Tablet landscape
+    +bp-tabletLandscape
+
+        &
+
+
+    // Desktop
+    +bp-desktop
+
+        &
+          

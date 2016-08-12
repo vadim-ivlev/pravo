@@ -1,0 +1,64 @@
+/*
+ * Абстрактный блок стандартных элементов
+ * 
+ */
+
+// Объявляем блок
+$block: '.b'
+
++bp-desktopFull
+    .b-sidebar-right
+        float: none
+
+// Стили
+#{$block}
+
+    &__img
+        width: 250px
+
+    &__item
+        padding: 20px
+        padding-bottom: 0
+
+        background: $today-bg-color
+
+    &__row:last-child
+        padding-bottom: 1px
+
+    +bp-tablet
+        &
+
+            &__title_shifter
+                margin-bottom: 0
+
+            &__img
+
+                float: left
+
+            &__media
+                text-align: left
+
+    +bp-desktopFull
+        &
+            &__media
+                float: left
+
+            &__wrapper
+                width: 60%
+                float: left
+
+                padding-left: 40px
+
+
+
+
+
+
+
+
+
+
+
+
+
+

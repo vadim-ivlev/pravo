@@ -1,0 +1,1 @@
+<rg-tube list="{[ data[mod].list | json ]}"></rg-tube>

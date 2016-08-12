@@ -1,0 +1,62 @@
+<div class="b-comment">
+
+    <div class="b-comment__head">
+        <h3 class="b-comment__title">Комментарии (<span class="b-comment__title-qty">2</span>):</h3>
+
+        <label class="b-comment__check fake-checkbox-label">
+            <span class="fake-checkbox-label__box js-check"></span>
+            <input class="hidden-input" name="newsletter" type="checkbox">
+            <span class="b-comment__check-text">Подписаться на комментарии</span>
+        </label>
+    </div>
+    <div class="b-comment__list">
+
+        <div class="b-comment__list-item">
+            <div class="b-post">
+                <div class="b-post__face">
+                    <img class="b-post__image" src="{[_meta.host.img]}{[_meta.path.public.img]}/media/person-face-01.jpg" alt="face">
+                </div>
+                <div class="b-post__description">
+                    <div class="b-post__row b-post__row_type_person">
+                        <div class="b-post__name">Валерий Севастьянович,<span class="b-post__name-date">15:22</span></div>
+                    </div>
+                    <div class="b-post__row">
+                        Воздействие на потребителя деятельно допускает креативный рекламный блок.
+                    </div>
+                    <div class="b-post__row">
+                        <a class="b-link b-link_blue" href="#">Ответить</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="b-comment__list-item">
+            <blockquote class="b-comment__list-item-quote">
+                <div class="b-post">
+                    <div class="b-post__face">
+                        <img class="b-post__image" src="{[_meta.host.img]}{[_meta.path.public.img]}/media/person-face-02.jpg" alt="face">
+                    </div>
+                    <div class="b-post__description">
+                        <div class="b-post__row b-post__row_type_person">
+                            <div class="b-post__name">Ипполит Георгиевич,<span class="b-post__name-date">15:22</span></div>
+                            <div class="b-post__like b-post__like_active">
+                                <span class="b-icon b-icon_type_like b-post__like-icon is-active"></span>
+                                <span class="b-post__like-qty">17</span>
+                            </div>
+                        </div>
+                        <div class="b-post__row">
+                            Маркетинговая активность, отбрасывая подробности, пока плохо концентрирует жизненный цикл продукции. Поисковая реклама интуитивно тормозит отраслевой стандарт.
+                        </div>
+                        <div class="b-post__row">
+                            <a class="b-link b-link_blue" href="#">Ответить</a>
+                        </div>
+                    </div>
+                </div>
+            </blockquote>
+        </div>
+    </div>
+
+    <form class="b-comment__form" action="#">
+        <textarea class="b-textarea b-comment__textarea" name="post-text" placeholder="Напишите комментарий..."></textarea>
+        <input class="b-submit b-submit_type_comment" type="submit" value="Отправить комментарий">
+    </form>
+</div>

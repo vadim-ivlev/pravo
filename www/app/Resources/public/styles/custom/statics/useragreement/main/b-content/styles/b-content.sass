@@ -1,0 +1,25 @@
+// Блок основного контента
+// Объявляем блок
+$block: '.b-content'
+
+// Стили
+
+.b-list-head
+    &__body, &_promo
+        display: none
+
+#{$block}
+    &_promo
+        width: 100%
+
+        +bp-tablet
+            width: 100%
+
+        +bp-tabletLandscape
+            width: 100%
+
+        +bp-desktop
+            width: 100%
+
+        +bp-desktopFull
+            width: 1330px

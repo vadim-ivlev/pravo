@@ -1,0 +1,44 @@
+/*
+ * Блок ответа
+ *
+ */
+
+
+// Объявляем блок
+$block: '.b-answer'
+
+// Стили
+#{$block}
+    background: $today-bg-color
+    padding: 15px 20px
+    margin-bottom: 25px
+
+    &__lower-panel
+        padding: 15px 0 20px
+        border-bottom: 1px solid $border-color
+
+    &__thanx-block
+        display: inline-block
+
+    &__thanx
+        display: inline-block
+
+    &__bottom
+        overflow: hidden
+        padding: 20px 0 5px
+
+    +bp-tablet
+        &
+            &__thanx-block
+                width: 50%
+
+            &__thanx
+                padding: 15px 0 0 0
+
+    +bp-desktop
+        &
+            &__thanx-block
+                width: auto
+
+            &__thanx
+                padding: 0 0 0 20px

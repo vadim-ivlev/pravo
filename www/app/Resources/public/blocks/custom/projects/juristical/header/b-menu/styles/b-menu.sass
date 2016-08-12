@@ -1,0 +1,40 @@
+/*
+ * Низ шапки
+ *
+ */
+// Объявляем блок
+$block: '.b-menu'
+
+// Переменные
+
+// Стили
+#{$block}
+
+    display: flex
+    justify-content: space-between
+
+    &__section
+        display: inline-block
+        position: relative
+        &_right
+            position: absolute
+            top: 15px
+            right: 20px
+            padding-top: 5px
+
+    // Tablet
+    +bp-tablet
+
+        &
+            padding-top: 25px
+
+            &__section
+
+                &_right
+                    position: static
+                    margin-top: -10px
+
+    +bp-desktop
+
+        &
+            padding-top: 20px

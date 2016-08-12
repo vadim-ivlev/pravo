@@ -1,0 +1,42 @@
+$block: '.b-material-head'
+
+#{$block}
+    +font(20px)
+    font-weight: normal
+
+    width: 100%
+    margin: 0
+
+    &__date,
+    &__rubric,
+    &__authors
+        margin-bottom: 10px
+        display: block
+
+    &__date,
+    &__rubric
+        width: auto
+
+    +bp-tablet
+
+        &
+            +font(26px)
+
+    +bp-tabletLandscape
+
+        &
+            +font(32px)
+
+            &__date,
+            &__rubric,
+            &__authors
+                width: auto
+                margin-bottom: 0
+                padding-right: 47px
+                display: inline-block
+                vertical-align: top
+
+    +bp-desktop
+
+        &
+            +font(38px)

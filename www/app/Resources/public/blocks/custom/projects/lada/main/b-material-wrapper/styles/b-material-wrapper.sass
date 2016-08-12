@@ -1,0 +1,52 @@
+/*
+ * Тело статьи
+ * 
+ */
+
+// Изменение даты и скрытие рубрики
+.b-material-head__rubric
+    display: none !important
+.b-material-head__date
+    font-size: 0 !important
+
+    &:before
+        content: 'Март 2016'
+        +font(13px)
+
+// Объявляем блок
+$block: '.b-material-wrapper'
+
+// Модификаторы
+
+#{$block}
+    margin: 0 0 20px
+    padding: 0 0 5px
+    // border-color: $active-color
+    border: none
+
+    ul
+        li
+            position: relative
+            padding-left: 25px
+            margin-bottom: 25px
+
+            &:before
+                content: ''
+                position: absolute
+                top: 9px
+                left: 0
+                width: 5px
+                height: 5px
+                border-radius: 50%
+                -webkit-border-radius: 50%
+                -moz-border-radius: 50%
+                background-color: $active-color
+
+    .Section
+        color: $active-color
+        &:before
+            border-color: $active-color
+
+        &:after
+            border-color: $active-color
+

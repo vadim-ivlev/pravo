@@ -1,0 +1,59 @@
+/*
+ * Атор в блоках материала
+ *
+ */
+
+// Именование блока
+$authorInMaterial: '.author-in-material'
+
+// блок в материале акцента (с большой картинкой)
+$authorInMaterial_accent: '.author-in-material_accent'
+// блок в обычном материале (с маленькой картинкой)
+$authorInMaterial_default: '.author-in-material_default'
+
+
+// Классы внешних блоков, которые влияют на поведение блока
+// Блок всего контента
+$materialCover_to_authorInMaterial: '.material__cover'
+
+// Шаблон
+%authorInMaterial
+    font-size: $font-size-small
+    color: $color-white
+    opacity: 0
+
+    +transition(all, .3s, cubic-bezier(0, 1, 0, 1))
+
+// Стили
+// Блок в обычном маленьком материале
+#{$authorInMaterial}#{$authorInMaterial_default}
+    width: 100%
+    margin: auto
+    
+    position: absolute
+    right: 0
+    bottom: 20px
+    left: 0
+
+    text-align: center
+
+    z-index: 1
+
+    @extend %authorInMaterial
+
+    #{$materialCover_to_authorInMaterial}:hover &
+        opacity: 1
+
+// Когда блок вложен в материал шпигельный
+#{$authorInMaterial}#{$authorInMaterial_accent}
+    max-height: 0
+
+    @extend %authorInMaterial
+
+    #{$materialCover_to_authorInMaterial}:hover &
+        max-height: 600px
+        opacity: 1
+
+        transition-timing-function: cubic-bezier(1, 0, 1, 0)
+        transition-delay: 0s
+        transition-duration: 0s

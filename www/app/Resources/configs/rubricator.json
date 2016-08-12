@@ -1,0 +1,72 @@
+{
+  "name": "rubricator",
+  "subTasks": [
+    {
+      "name": "style",
+      "dest": "/dest/public/styles",
+      "src": {
+        "include": [
+          "/src/styles/rubricator.sass"
+        ],
+        "exclude": [
+          "/src/styles/_*.sass"
+        ]
+      },
+      "sourcemaps": true,
+      "watch": true,
+      "plugins": [
+        {
+          "name": "gulp-sass",
+          "options": {
+            "outputStyle": "compressed"
+          }
+        }
+      ]
+    },
+    {
+      "name": "script",
+      "dest": "/dest/public/scripts",
+      "src": {
+        "include": [
+          "/src/scripts/rubricator.js"
+        ]
+      },
+      "sourcemaps": true,
+      "browserify": {
+        "transforms": [
+          {
+            "name": "ractivate",
+            "options": {
+              "extensions": [
+                ".ihtml"
+              ]
+            }
+          }
+        ],
+        "watchify": true
+      },
+      "watch": true,
+      "plugins": [
+        {
+          "name": "gulp-debug",
+          "options": {
+            "title": "Js:"
+          }
+        },
+        {
+          "name": "gulp-babel",
+          "options": {
+            "compact": true
+          }
+        },
+        {
+          "name": "gulp-uglify"
+        },
+        {
+          "name": "gulp-concat",
+          "options": "rubricator.js"
+        }
+      ]
+    }
+  ]
+}

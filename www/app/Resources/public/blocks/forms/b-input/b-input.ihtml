@@ -1,0 +1,24 @@
+<label class="b-field b-field_input b-field_input_text {{highlighted ? 'b-field_input_text_highlighted' : ''}} b-field_input_{{type}} {{required ? 'b-field_required' : ''}}">
+    {{#label}}<div class="b-field__label">{{{label}}}</div>{{/label}}
+    <div class="b-field__wrapper">
+        <input-notification msg="{{errorMsg}}" off="5000" />
+        <input name="{{name}}" class="b-field__input b-field__input_text b-field__input_{{type}}" type="{{type}}" placeholder="{{placeholder}}" value="{{value}}" {{#maxlength}}maxlength="{{size}}"{{/maxlength}}>
+
+        {{#maxlength}}
+            {{#show}}
+                {{^backward}}
+                    <div class="b-field__maxlength">
+                        {{enteredValueLength}}/{{size}}
+                    </div>
+                {{/backward}}
+                {{#backward}}
+                    <div class="b-field__maxlength">
+                        {{enteredValueLength}}
+                    </div>
+                {{/backward}}
+            {{/show}}
+        {{/maxlength}}
+    </div>
+</label>
+
+

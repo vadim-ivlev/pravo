@@ -1,0 +1,59 @@
+/*
+ * Блок Иконок файлов
+ * 
+ */
+
+// Объявляем блок
+$block: '.b-file-icon'
+
+// Картинки
+#{$block}
+
+    &:before
+        background: url(#{$img-path}sprite_main.png) no-repeat
+
+    // Ретина
+    +bp-retina
+
+        &
+
+            &:before
+                background: url(#{$img-path}sprite_main_2.png) no-repeat
+                background-size: $retina-icon-width
+
+// Стили
+#{$block}
+
+    &
+    
+        &:before
+            content: ''
+            width: 23px
+            height: 32px
+
+            position: absolute
+            top: 4px
+            left: -30px
+
+    &-doc
+        
+        &:before
+            background-position: -2px -134px
+
+    &-pdf
+        
+        &:before
+            background-position: -27px -134px
+
+    &-img
+        
+        &:before
+            background-position: -2px -134px
+
+    &-zip
+        &:before
+            background-position: -77px -134px
+
+    &-xls
+        &:before
+            background-position: -102px -134px

@@ -1,0 +1,51 @@
+<!-- blocks.custom.rgdigital.footer.b-footer.b-footer -->
+<div class="container">
+
+    <div class="row">
+    
+        <div class="col-xs-12 col-sm-3">
+            <a href="//rg.ru">Обратно на сайт &rarr;<span><img src="//rg.ru/res/images/custom/projects/rgdigital/logo-to-footer.png" class="footer-logo" width="140" height="42" alt=""></span></a>
+        </div>
+
+        <div class="col-xs-12 col-sm-3 rubrics">
+            <h4>Рубрики</h4>
+            <ul>
+                <!--#include_se virtual="/ssi/blocks/custom/projects/rgdigital/footer/b-rubrics/b-rubrics.ssi"-->
+            </ul>
+        </div>
+
+        <div class="col-xs-12 col-sm-3 reg-info">
+            <h4>Информация</h4>
+            <p>&copy; 1998-<!--#config timefmt="%Y"--><!--#echo var="DATE_LOCAL" --> ФГБУ &quot;Редакция &quot;Российской газеты&quot;<br/> Интернет-портал &quot;Российской газеты&quot; зарегистрирован в Роскомнадзоре 21.06.2012 г. Номер свидетельства ЭЛ № ФС 77 - 50379.</p>
+        </div>
+        
+        <div class="col-xs-12 col-sm-3 counters-bottom">
+
+            <div id="top100counter" class="counter-item"></div>
+
+            <div id="mailruCounter" class="counter-item"></div>
+
+            <div id="liveInternetCounter" class="counter-item"></div>
+
+            <div id="tnsCounter"></div>
+
+            <div id="yaMetrika"></div>
+
+        </div>
+        
+    </div>
+</div>
+<!-- /blocks.custom.rgdigital.footer.b-footer.b-footer -->
+
+<script>
+
+  //ga
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga'); 
+
+  ga('create', 'UA-7039329-20', 'rg.ru', {'name': 'digital'});  // digital tracker.
+  ga('set', 'dimension4', '/digital/');
+  ga('digital.set', 'dimension5', '{{# authors__length}}{{# authors}}{{uri}}{{^ authors__LAST__}}, {{/ authors__LAST__}}{{/ authors}}{{/ authors__length}}');
+  ga('digital.require', 'displayfeatures');
+  ga('digital.send', 'pageview');
+
+</script>

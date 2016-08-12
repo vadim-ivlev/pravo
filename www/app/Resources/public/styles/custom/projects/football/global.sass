@@ -1,0 +1,429 @@
+// Глобальные переменные и служебные функции
+@import ../../../common
+
+// Normalize
+@import ../../../global/normalize
+
+// Инструменты
+@import ../../../global/instruments
+
+// Элементы
+@import ../../../global/elements
+
+// Иконки
+@import ../../../global/blocks/b-icon
+
+// формы
+@import ../../../global/blocks/b-field
+
+// Ссылки
+@import ../../../global/blocks/b-link
+
+// Модификаторы для блоков и элементов
+@import ../../../global/modify
+
+// Стили версии для печати
+@import ../../../global/print
+
+
+/*
+ * Переменные
+ *
+ */
+
+h1, h2, h3, h4, h5, h6
+    font-family: $f-sans
+
+//$width-wrapper-mobile: 100% 
+//$width-wrapper-tablet: 490px 
+//$width-wrapper-tabletLandscape: 650px 
+//$width-wrapper-desktop: 970px 
+//$width-wrapper-desktopFull: 1330px
+
+$id_prject: 'football'
+
+$dark-blue: #1c263f
+$cyan: #00bdd3
+$red: #d11445
+$light-blue: #1f77bb
+
+
+$yellow: #ffc907
+$blue: #00b4eb
+$green: #9cbc42
+
+body
+    background: #011A52 url(#{$img-path}custom/projects/football/eurobg.jpg) 50% 0 no-repeat 
+    // background-size: 200%
+
+    +bp-tablet
+        background-position: 50% 0
+
+    +bp-tabletLandscape
+        background-size: inherit
+
+.page
+
+    &_project-article
+        padding: 20px
+        background-color: white
+
+    &:after
+        display: block
+        clear: both
+        height: 0
+        font-size: 0
+        content: ''
+
+    +bp-tablet
+
+        &
+            padding: 20px 20px 0
+
+            &_project-article
+                margin-left: auto
+                margin-right: auto
+
+                padding-left: 60px
+                padding-right: 60px
+
+    +bp-desktop
+
+        &
+            width: 1140px
+            margin: 0 auto
+
+            &_project-article
+                margin-left: auto
+                margin-right: auto
+                
+                padding: 30px
+
+
+    +bp-desktopFull
+        &
+            width: 1340px
+
+.section-article
+
+    .b-broadcast-sport__info
+        // width: calc(100% - 60px)    
+
+    .b-broadcast-sport__menu, .b-broadcast-sport__menu.is-fixed
+        // width: calc(100% - 48px)
+        top: 0
+
+    .b-broadcast-sport
+        margin-right: -20px
+
+    +bp-tablet
+
+        &
+            width: calc(100% - 240px)
+            padding-right: 30px
+            float: left
+            margin: 30px 0
+
+            .b-broadcast-sport
+                margin-right: 0px
+
+    +bp-tabletLandscape
+
+        &
+            width: calc(100% - 310px)
+
+    +bp-desktop
+
+        &
+            //width: calc(100% - 360px)
+            width: calc(100% - 430px)
+            padding-right: 60px
+
+.b-broadcast-sport
+    margin-right: -80px
+    overflow: hidden
+
+    +bp-tablet
+
+        &
+            margin-right: 0            
+
+$countryFlagsUrl: $img-path + 'custom/projects/football/countryFlags/'
+
+.team-flag
+    width: 130px
+    height: 130px
+    background: url(#{$countryFlagsUrl}Albania.png) 0 0 no-repeat
+
+    &_albania
+        background-image: url(#{$countryFlagsUrl}Albania.png)
+
+    &_austria
+        background-image: url(#{$countryFlagsUrl}Austria.png)
+
+    &_belgium
+        background-image: url(#{$countryFlagsUrl}Belgium.png)
+
+    &_croatia
+        background-image: url(#{$countryFlagsUrl}Croatia.png)
+
+    &_czech-republic
+        background-image: url(#{$countryFlagsUrl}Czech_Republic.png)
+
+    &_england
+        background-image: url(#{$countryFlagsUrl}England.png)
+
+    &_france
+        background-image: url(#{$countryFlagsUrl}France.png)
+
+    &_germany
+        background-image: url(#{$countryFlagsUrl}Germany.png)
+
+    &_hungary
+        background-image: url(#{$countryFlagsUrl}Hungary.png)
+
+    &_ireland
+        background-image: url(#{$countryFlagsUrl}Ireland.png)
+
+    &_island
+        background-image: url(#{$countryFlagsUrl}Iceland.png)
+
+    &_italy
+        background-image: url(#{$countryFlagsUrl}Italy.png)
+
+    &_northern-ireland
+        background-image: url(#{$countryFlagsUrl}Northern_Ireland.png)
+
+    &_poland
+        background-image: url(#{$countryFlagsUrl}Poland.png)
+
+    &_portugal
+        background-image: url(#{$countryFlagsUrl}Portugal.png)
+
+    &_romania
+        background-image: url(#{$countryFlagsUrl}Romania.png)
+
+    &_russia
+        background-image: url(#{$countryFlagsUrl}Russia.png)
+
+    &_slovakia
+        background-image: url(#{$countryFlagsUrl}Slovakia.png)
+
+    &_spain
+        background-image: url(#{$countryFlagsUrl}Spain.png)
+
+    &_sweden
+        background-image: url(#{$countryFlagsUrl}Sweden.png)
+
+    &_switzerland
+        background-image: url(#{$countryFlagsUrl}Switzerland.png)
+
+    &_turkey
+        background-image: url(#{$countryFlagsUrl}Turky.png)
+
+    &_ukraine
+        background-image: url(#{$countryFlagsUrl}Ukraine.png)
+
+    &_wales
+        background-image: url(#{$countryFlagsUrl}Wales.png)
+
+
+#{$bIconCountry}
+    width: 20px
+    height: 20px
+    background: url(#{$img-path}custom/projects/football/countryRoundFlags.png) 0 0 no-repeat
+    margin-top: 1px
+    border: 1px solid #fff
+    +rounded-corners(20px)
+
+    &_albania
+        background-position: 0 -0px
+
+    &_austria
+        background-position: 0 -18px
+
+    &_belgium
+        background-position: 0 -36px
+
+    &_croatia
+        background-position: 0 -54px
+
+    &_czech-republic
+        background-position: 0 -72px
+
+    &_england
+        background-position: 0 -90px
+
+    &_france
+        background-position: 0 -108px
+
+    &_germany
+        background-position: 0 -126px
+
+    &_hungary
+        background-position: 0 -144px
+
+    &_ireland
+        background-position: 0 -180px
+
+    &_island
+        background-position: 0 -162px
+
+    &_italy
+        background-position: 0 -198px
+
+    &_northern-ireland
+        background-position: 0 -216px
+
+    &_poland
+        background-position: 0 -234px
+
+    &_portugal
+        background-position: 0 -252px
+
+    &_romania
+        background-position: 0 -270px
+
+    &_russia
+        background-position: 0 -288px
+
+    &_slovakia
+        background-position: 0 -306px
+
+    &_spain
+        background-position: 0 -324px
+
+    &_sweden
+        background-position: 0 -342px
+
+    &_switzerland
+        background-position: 0 -360px
+
+    &_turkey
+        background-position: 0 -378px
+
+    &_ukraine
+        background-position: 0 -396px
+
+    &_wales
+        background-position: 0 -414px
+
+    &_
+        background: none
+
+            
+
+/*
+ * Глобальные блоки страницы
+ * 
+ */
+
+
+/*
+ * Блоки
+ *
+ */
+
+@import ../../../../blocks/custom/projects/football/header/b-header/styles/b-header
+
+@import ../../../../blocks/custom/projects/football/header/b-menu/styles/b-menu
+
+@import ../../../../blocks/custom/projects/football/main/b-schedule/styles/b-schedule
+
+@import ../../../../blocks/custom/projects/football/main/b-news/styles/b-news
+
+@import ../../../../blocks/custom/projects/football/main/b-scores/styles/b-scores
+
+@import ../../../../blocks/custom/projects/football/main/b-goalscorers/styles/b-goalscorers
+
+@import ../../../../blocks/custom/projects/football/main/b-media/styles/b-media
+
+@import ../../../../blocks/custom/projects/football/main/b-teams/styles/b-teams
+
+@import ../../../../blocks/overlays/b-auth/styles/b-auth
+
+@import ../../../../blocks/crosslayouts/b-social/styles/b-social
+
+@import ../../../../blocks/custom/projects/football/footer/b-footer/styles/b-footer
+
+@import ../../../../blocks/main/b-material-wrapper/styles/b-material-wrapper
+
+@import ../../../../blocks/custom/projects/football/main/b-material-wrapper/styles/b-material-wrapper
+
+@import ../../../../blocks/main/b-material-head/styles/b-material-head
+
+@import ../../../../blocks/custom/projects/football/main/b-material-head/styles/b-material-head
+
+@import ../../../../blocks/crosslayouts/b-share/styles/b-share
+
+@import ../../../../blocks/custom/projects/football/crosslayouts/b-share/styles/b-share
+
+@import ../../../../blocks/custom/projects/football/crosslayouts/b-feed/styles/b-feed
+
+// Правый сайтбар
+@import ../../../../blocks/sidebar/b-sidebar-right/styles/b-sidebar-right
+
+@import ../../../../blocks/custom/projects/football/sidebar/b-sidebar-right/styles/b-sidebar-right
+
+@import ../../../../blocks/custom/projects/football/main/b-gmap/styles/b-gmap
+
+@import ../../../../blocks/custom/projects/football/main/b-diary/styles/b-diary
+
+@import ../../../../blocks/custom/projects/football/main/b-judges/styles/b-judges
+
+/*
+ * Блоки от Лёхи
+ *
+ */
+
+@import ../../../../blocks/main/b-read-more/styles/b-read-more
+@import ../../../../blocks/main/b-video/styles/b-video
+@import ../../../../blocks/main/b-comment/styles/b-comment
+@import ../../../../blocks/main/b-post/styles/b-post
+@import ../../../../blocks/main/b-gallery/styles/b-gallery
+@import ../../../../blocks/main/b-material-img/styles/b-material-img
+@import ../../../../blocks/main/b-broadcast-online/styles/b-broadcast-online
+@import ../../../../blocks/main/b-broadcast-sport/styles/b-broadcast-sport
+@import ../../../../blocks/crosslayouts/b-partners/styles/b-partners
+
+// Добавил Леха! потом смержим, стили для статьи
+@import material 
+
+
+
+// Абстрактный блок стандартных элементов
+@import ../../../global/blocks/b
+
+// Ссылки в виде кнопок
+@import ../../../global/blocks/b-link-btn
+
+// Блок раскрыть/скрыть
+@import ../../../global/blocks/b-content-toggler
+
+// Блок раскрыть/скрыть
+@import ../../../global/blocks/b-content-handler
+
+// Блок абзац p
+@import ../../../global/tags/p
+
+// Блок списка ul
+@import ../../../global/tags/ul
+
+// Блок таблицы table
+@import ../../../global/tags/table
+
+// Блок формы form
+@import ../../../global/tags/form
+
+// Правый сайтбар
+@import ../../../../blocks/crosslayouts/b-ads/styles/b-ads
+
+/*
+ * Стили плагинов и библиотек
+ * 
+ */ 
+
+// Colorbox
+@import ../../../vendors/vendor.colorbox.custom
+// Fotorama
+@import ../../../vendors/vendor.fotorama.custom

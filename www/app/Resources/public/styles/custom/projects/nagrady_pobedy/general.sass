@@ -1,0 +1,57 @@
+*, :after, :before
+    box-sizing: border-box
+
+html, body
+    width: 100%
+    height: 100%
+
+body
+    background: url($img-path + 'bg.jpg') no-repeat 0 -12px / cover fixed #c8d4cc
+
+a
+    color: inherit
+    line-height: inherit
+    text-decoration: none
+
+.hide,
+.hide:before,
+.hide:after
+    display: none
+
+.show,
+.show:before,
+.show:after
+    display: block!important
+
+.root
+    width: 100%
+    height: 100%
+    background: url(//www.rg.ru/i/loader.gif) no-repeat center center rgba(black, .8)
+
+%group-pseudo
+    content: ''
+    display: table
+
+.group
+    &:before
+        @extend %group-pseudo
+    &:after
+        @extend %group-pseudo
+        clear: both
+
+%aside-decor
+    content: ''
+    width: $meta-width/2 + $meta-width/5.5
+    height: 100%
+    position: absolute
+    top: 0
+    left: 0
+    background-color: rgba(0, 0, 0, .15)
+
+%meta-b
+    font-family: $font-condensed
+    @include size($meta-width)
+    text-align: center
+    color: $invert-text-color
+    background: url($img-path + 'pie.png') no-repeat 0 0
+    border-radius: 100%

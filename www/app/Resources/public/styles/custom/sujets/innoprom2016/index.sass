@@ -1,0 +1,22 @@
+// Глобальные переменные и служебные функции
+@import ../../../common
+
+// Дополнительные элементы для брендинга
+@import ../../../branding
+
+.b-content,
+.b-list-head,
+.b-material-head
+    
+    +bp-desktop
+
+        &:before
+            //top: 564px
+
+.b-list-head__related
+    display: none
+
+.b-follow_sujets
+    display: none
+
+@import ../../../../blocks/custom/sujets/innoprom2016/main/b-branding-head/styles/b-branding-head

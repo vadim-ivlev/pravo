@@ -1,0 +1,27 @@
+{
+  "name": "sujets:proroditel",
+  "subTasks": [
+    {
+      "name": "style",
+      "dest": "/dest/public/styles/custom/sujets/proroditel",
+      "src": {
+        "include": [
+          "/src/styles/custom/sujets/proroditel/index.sass"
+        ],
+        "exclude": [
+          "/src/styles/_*.sass"
+        ]
+      },
+      "sourcemaps": true,
+      "watch": true,
+      "plugins": [
+        {
+          "name": "gulp-sass",
+          "options": {
+            "outputStyle": "compressed"
+          }
+        }
+      ]
+    }
+  ]
+}

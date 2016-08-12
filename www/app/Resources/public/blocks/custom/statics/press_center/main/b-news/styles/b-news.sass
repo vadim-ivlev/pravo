@@ -1,0 +1,57 @@
+
+// Объявляем блок
+$block: '.b-news'
+
+// Стили
+#{$block}
+	&-inner
+		border-top: 0
+		.b-link-btn
+			float: none
+
+	&__list-item:nth-child(5),
+	&__list-item:nth-child(6)
+		display: inline-block
+
+	&__list-no-x-lagre
+
+	&__list-no-x-lagre &__list-item-title
+		line-height: 1em
+
+	&__list-item:nth-child(3n+3)
+		margin-right: 0
+
+	+bp-tablet
+		&__list-no-x-lagre
+			margin-left: 20px
+		&__list-item
+			width: 230px
+		&__list-item-title
+			.b-link
+				+font(16px)
+
+		&__list-no-x-lagre
+			margin-left: 20px
+
+	+bp-tabletLandscape
+		&-inner
+			width: 900px
+
+		&__list-item:nth-child(3n+3)
+			margin-right: 30px
+
+		&__list-item
+			width: 280px
+
+		&__list-no-x-lagre
+			margin-left: 0
+			margin-right: 30px
+
+
+	+bp-desktopFull
+		&-inner
+			width: 990px
+		&__list-item
+			width: 310px
+
+

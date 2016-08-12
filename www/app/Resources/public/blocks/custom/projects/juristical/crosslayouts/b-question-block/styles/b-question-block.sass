@@ -1,0 +1,187 @@
+/*
+    * Блок вопроса
+    *
+    */
+
+// Объявляем блок
+$block: '.b-question-block'
+
+// Стили
+#{$block}
+    border: 1px solid $border-color
+    padding: 20px
+    margin-bottom: 20px
+    font-size: 13px
+    word-wrap: break-word
+
+    &_card
+        position: relative
+        margin-bottom: 24px
+        &:after
+            content: ""
+            position: absolute
+            bottom: -5px
+            height: 4px
+            border-width: 0 1px 1px
+            border-style: solid
+            border-color: $border-color
+            right: 9px
+            left: 9px
+
+    &__img-col
+        display: none
+
+        &_visible
+            display: inline-block
+
+    &__top
+        margin-bottom: 10px
+
+    &__author,
+    &__date
+        +font(13px)
+        color: $comment-color
+
+    &__date
+        margin-left: 15px
+
+    &__title
+        font-family: "NotoSerif", serif
+        font-weight: bold
+        margin-bottom: 10px
+        font-size: 16px
+
+    &__text
+        line-height: 22px
+        margin-bottom: 10px
+        & > p
+            margin-bottom: 7px
+
+    &__tags
+        +font(13px)
+        color: $comment-color
+        display: inline-block
+
+    &__bottom
+        +font(13px)
+        border-top: 1px solid $border-color
+        margin-top: 15px
+        padding-top: 18px
+
+        &_highlighted
+            border-color: $highlighted-question-border
+
+    &__reply-link
+        display: inline-block
+        margin-left: 6px
+
+    &__media
+        border-radius: 50%
+        vertical-align: middle
+        margin-right: 1px
+
+    &_highlighted
+        background: $highlighted-question-bg
+        border-color: $highlighted-question-border
+        padding-top: 20px
+
+        & > .b-img-col .b-round-image
+            display: none
+
+        & .b-question-block__bottom .b-round-image
+            display: inline-block
+
+        & .b-question-block__body
+            display: inline-block
+            vertical-align: top
+
+    &_latest
+        border-width: 0 0 1px 0
+        margin-bottom: 10px
+        &:last-child
+            border: none
+            margin-bottom: 5px
+
+        & .b-question-block__title
+            font-size: 13px
+            font-weight: normal
+
+
+    +bp-tablet
+
+        &
+            padding: 15px 20px
+
+            &__img-col
+                &_visible
+                    display: none
+
+            &_card
+                &:after
+                    width: 430px
+                    left: 9px
+
+            &__body
+                width: 100%
+                margin: 0
+
+            &_latest
+                padding: 0
+
+    +bp-tabletLandscape
+
+        &
+            margin-bottom: 30px
+            font-size: 14px
+
+            &_latest
+                font-size: 13px
+
+            &__img-col
+                &_visible
+                    display: inline-block
+
+            &__title
+                font-size: 17px
+
+            &_card
+                margin-bottom: 30px
+                &:after
+                    width: 626px
+                    left: 7px
+
+            &_highlighted
+                & > .b-img-col .b-round-image
+                    display: inline-block
+
+                & .b-question-block__bottom .b-round-image
+                    display: none
+
+                & .b-question-block__body
+                    margin-left: 30px
+                    width: calc(100% - 131px)
+
+            &_latest
+                margin-bottom: 10px
+
+    +bp-desktop
+
+        &
+            &_card
+                &:after
+                    width: 626px
+
+    +bp-desktopFull
+
+        &
+            padding: 25px 30px 15px
+
+            &__bottom
+                margin-bottom: 10px
+
+            &_card
+                &:after
+                    width: 696px
+
+            &_latest
+                padding: 0

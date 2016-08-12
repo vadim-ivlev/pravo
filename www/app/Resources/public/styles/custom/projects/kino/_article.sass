@@ -1,0 +1,404 @@
+/*
+ * Article
+ *
+ */
+
+
+$article: '.article'
+
+#{$article}
+
+    .article-left
+
+        .article-author-wrapper
+            font-size: 0
+
+            .article-author-box
+                font-size: initial
+
+
+        .article-author
+            background: $article-author-bg
+
+            padding: $indent*2
+            margin: 0 0 $indent*3 0
+
+            &__heading
+
+                &__pic
+                    
+                    width: 80px
+                    margin: 0 auto
+                    
+                    &__item
+                        
+                        border-radius: 100%
+
+                &__who
+
+                    text-transform: uppercase
+                    text-align: center
+
+                    color: $color-gray
+                    
+                    font-size: 12px
+
+                    margin: $indent 0 0 0
+
+                &__name
+
+                    font-size: $font-size-h6
+                    color: $color-blue
+                    text-align: center
+
+                    &__item
+                        color: inherit
+
+            &__recent
+
+                &__title
+                    text-transform: uppercase
+                    text-align: center
+
+                    font-weight: $font-weight-bold
+                    font-size: $font-size-small
+                    
+                    margin: $indent 0
+
+                    &__articles
+                        text-align: center
+
+
+                        &__item
+                            font-size: $font-size-medium
+                            padding: $indent 0
+                            border-top: 1px solid $items-divider-color
+
+    .article-right
+
+        &__banner
+
+            margin: 0 0 $indent*3 0
+
+    .article-popular
+
+        &__item
+
+            &__pic
+                margin: $indent*2 0 0 0
+
+            &__unit
+
+                padding: $indent*2 0
+                border-top: 1px solid $items-divider-color
+
+                &__rating
+                    position: relative
+
+                    width: 85px
+                    height: 11px
+
+                    background: url($img-sprite-url) no-repeat 0 -136px
+
+                    &__overlay
+                        position: absolute
+
+                        width: 30%
+                        height: 100%
+
+                        background: url($img-sprite-url) no-repeat 0 -118px
+
+        &__item:first-child
+
+            &__unit
+                border: none
+                    
+
+
+
+
+            
+.article-other-materials
+    margin: $indent*4 -$indent*2
+
+    &__item-wrapper
+        width: 30.3333%
+        margin-right: 4.3333%
+        float: left
+        //padding: 0 $indent*2
+
+    &__item-wrapper:last-child
+        margin-right: 0
+
+    &__item
+
+        &__unit
+
+            &__heading
+
+                &__link
+                    font-size: $font-size-base
+                    font-weight: $font-weight-normal
+
+                    padding: $indent*2 0
+
+                    color: #3f3e41
+
+                    border-top: 1px solid #e5eaef
+
+            &__heading:first-child
+
+                &__link
+                    border: none
+
+        &__tag
+            font-size: $font-size-h5
+            font-weight: $font-weight-light
+
+            color: $color-gray
+            
+            text-align: center
+
+            margin: 0 0 $indent*2 0
+
+    .extra-materials-heading
+        margin-bottom: $indent*2
+
+.extra-materials-heading
+    text-align: center
+    position: relative
+    display: none
+    
+
+    &__item
+        display: inline-block
+
+        font-size: $font-size-medium
+        font-weight: $font-weight-bold
+
+        text-transform: uppercase
+
+        padding: 0 $indent
+
+        background: $color-white
+
+    &__item:before
+        content: ""
+
+        position: absolute
+        top: 6px
+        left: 0
+
+        width: 100%
+        height: 1px
+
+        background: $items-divider-color
+
+        z-index: -1
+
+    .extra_article_materials
+        padding: 0 $indent/2
+
+    .extra_article_materials:before
+        top: $indent
+
+
+.article-read-more-materials
+    //margin-top: $indent*4
+
+
+.article-left-wrapper, .article-right-wrapper
+    width: 25%
+    padding: 0 $indent*2
+
+.article-left-wrapper
+    float: left
+
+
+.article-right-wrapper
+    float: right
+
+.article-main-wrapper
+    width: 50%
+
+    padding: 0 $indent*2
+    margin: 0 auto
+
+    float: left
+
+.article-side-wrapper
+    width: 75%
+    margin: 0 auto
+    clear: both
+
+.article-main
+
+    p
+        padding: 8px 0
+
+    a
+        color: #0066cc
+
+    a:hover
+        color: #0099ff
+
+    a:visited
+        color: #003399
+
+    iframe
+        max-width: 600px
+        width: 100%
+
+    .lead
+
+        font-weight: $font-weight-medium
+
+        margin: $indent*2 0
+
+    &__main-pic
+
+        &__item
+
+            border-bottom: 1px solid  $items-divider-color
+
+        &__meta
+
+            font-size: $font-size-small
+            color: $color-gray
+            text-align: center
+            padding: $indent/2 0
+
+    &__heading
+
+        &__item
+
+            font-size: $font-size-h2
+            font-weight: $font-weight-light
+
+            line-height: $line-height-base
+            text-align: center
+
+            margin: $indent 0
+
+        &__subtitle
+            font-size: $font-size-large
+            font-weight: $font-weight-medium
+
+            text-align: center
+
+    &__meta
+        font-size: $font-size-small
+
+        margin: $indent*2 0
+        
+        text-align: center
+        text-transform: uppercase
+
+        &__item_rubr
+            margin-right: $indent
+
+        &__item_date
+            color: $color-gray
+
+    // Блок социалки + рейтинга + кнопка обсудить
+    &__vote-soc
+        height: 26px
+        margin: $indent*2 0
+        position: relative
+        text-align: center
+
+        &.show-rating
+            height: 100px
+
+        &__socials
+            position: absolute
+            top: 0
+            left: 0
+
+            .show-rating &
+                top: 30px
+
+        &__comment-anchor
+            display: none // СКРЫЛ, т.к. не работают
+
+            position: absolute
+            top: 0
+            right: 0
+
+            .show-rating &
+                top: 30px
+
+        &__voting
+            display: none
+
+            .show-rating &
+                display: inline-block
+
+.relap-wrapper
+    padding: 0 $indent*2
+
+.relap__with-under-header-line .relap__block-title
+    display: none
+
+.relap__with-under-header-line .relap__items-container
+    border-top: 0!important
+
+.relap__item-title
+    font-size: $font-size-base!important
+
+.js-relap__item-title-text
+    color: #3f3e41
+
+.relap__full-item-link .relap__item-inner:hover
+    background: none!important
+
+
+
+
+
+// New version
+
+.page_article
+    
+    .article
+        width: 76.2%
+        float: left
+
+        .article-left-wrapper
+            width: 33.3%
+            padding-right: $indent*2
+            padding-left: 0
+            padding-bottom: 1px
+
+        .article-main-wrapper
+            width: 66.6%
+
+    .article-side-wrapper
+        width: 100%
+
+        .article-side
+
+            .banner500x240
+                margin-bottom: 25px
+
+                .single-banner > div
+                    margin: 0 auto
+
+        .article-other-materials
+            margin: $indent*2 0
+
+    .article-right-wrapper
+        width: 23.7%
+        float: left
+
+    .page_layout_comments
+
+        .comments
+            width: 75%
+
+            .comments-wrapper
+                width: 100%
+
+                .comment-box,
+                .comList-box
+                    margin-left: $indent*4

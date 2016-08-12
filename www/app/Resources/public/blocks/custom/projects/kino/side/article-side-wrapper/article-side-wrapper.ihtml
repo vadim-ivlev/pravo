@@ -1,0 +1,31 @@
+<!-- blocks.custom.kino.sidebar.article-side-wrapper.article-side-wrapper -->
+
+	<div class="article-side">
+
+		<div class="article-other-materials group">
+			<div class="extra-materials-heading">
+				<h3 class="extra-materials-heading__item extra_article_materials">Другие материалы по темам</h3>
+			</div>
+			<div id="articleOtherMaterialsBox" class="article-other-materials-box"></div>
+		</div>
+
+		<!-- banner 500x240 -->
+		
+		<div class="banner500x240">
+		<!-- Центральный блок (над комментариями - 500х240) -->
+		<!-- tmpl_include name='ads/8/art_tmpl_8.ihtml' -->
+		<!-- /Центральный блок (над комментариями - 500х240) -->                            
+		</div>
+
+		<!-- banner 500x240 -->  
+
+		<div class="article-read-more-materials group">
+			<div class="extra-materials-heading">
+				<h3 class="extra-materials-heading__item extra_article_materials">Читайте также</h3>
+			</div>
+			<!--#include_se virtual="/ssi/read_more/relap-rg-kino.ssi"-->
+		</div>                 
+
+	</div> 
+
+<!-- /blocks.custom.kino.sidebar.article-side-wrapper.article-side-wrapper -->

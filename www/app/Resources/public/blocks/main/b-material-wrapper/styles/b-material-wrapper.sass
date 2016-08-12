@@ -1,0 +1,272 @@
+/*
+ * Тело статьи
+ * 
+ */
+
+// Объявляем блок
+$block: '.b-material-wrapper'
+
+// Стили
+#{$block}
+    // добавил по просьбе Оли и Макса и Агимы (было 14px)
+    +font(16px)
+
+    margin: 0 20px
+    padding: 20px 0 5px
+
+    // добавил по просьбе Оли и Макса и Агимы
+    line-height: 1.7
+
+    border-top: 5px solid $time-color
+
+    &__text,
+    p
+        margin-bottom: 20px
+
+    p, div, h3
+
+        img
+            max-width: 100%
+            height: auto
+
+    // Очищаем тидс видео
+    .teads-inread
+        clear: both
+
+    // Скрываем старые врезки
+    .insert_left
+        display: none
+
+    // Фикс для совсем кривых вставок
+    // картинки да
+    div
+
+        div
+        
+            img
+                max-width: 100%
+                height: auto
+
+    // Плеер NativeRoll
+    .seedr-player
+        margin-bottom: 20px
+
+    .lead
+        font-weight: bold
+        margin-bottom: 20px
+
+    .Section
+        font-size: 14px!important
+        font-weight: bold
+
+        margin: 40px 0
+        padding: 20px 40px!important
+
+        position: relative
+        clear: both 
+        background-color: transparent!important
+
+        &:before,
+        &:after
+            content: ''
+
+            width: 40%
+            margin: auto
+            
+            position: absolute
+            right: 0
+            left: 0            
+
+        &:before
+            top: 0
+            border-top: 3px solid $time-color
+
+        &:after
+            bottom: 0
+            border-bottom: 3px solid $time-color
+
+        a
+            font-style: inherit
+            color: $link-color
+            text-decoration: underline
+
+            &:hover
+                color: $link-color
+                text-decoration: none
+
+    // Цитата
+    .incut
+        font-style: italic
+        font-family: $f-serif
+        
+        margin-bottom: 15px
+        padding: 0 20px 0 40px
+
+        position: relative
+        clear: both
+
+        line-height: 1.6em
+        
+        &:before
+            content: "\201c" 
+
+            +font(62px)
+            font-family: $f-serif
+            font-style: italic
+
+            height: 30px
+            margin-left: -40px
+            display: block
+
+            line-height: 0.6em
+            color: $link-color
+
+            +opacity(0.4)
+
+
+    &__subtitle
+        //font-family: $f-serif Оля переделала дизайн
+
+        +font(16px)        
+
+        margin-bottom: 20px
+        padding-top: 0
+
+    &__teaser
+        +font(13px)
+
+        padding: 20px
+        margin: 20px -20px
+        
+        overflow: hidden
+        background-color: $article-color
+
+    &__teaser-image
+        width: 100px
+        margin: 0 10px 10px 0
+        float: left
+
+    &__teaser-description
+
+    &__teaser-title
+        +font(14px)
+
+        font-weight: bold
+        margin-bottom: 10px
+
+    &__teaser-text
+
+    &__attachments
+        border-top: 1px solid $border-color
+        
+        &__item
+            position: relative
+            margin: 20px 0
+            margin-left: 30px
+
+            &__desc
+
+            &__meta
+                color: $comment-color
+
+
+    &_doc
+        padding-top: 0
+        border-top: 0
+    
+    &__child-wrapper
+        overflow: hidden
+        clear: both
+
+    // Tablet
+    +bp-tablet
+
+        &
+            +font(16px)
+            margin: 0
+
+            &__teaser
+                margin: 20px 0
+
+            &__teaser-image
+                width: auto
+                margin: 0 20px 10px 0
+
+            &__subtitle
+                +font(21px)     
+
+            &__text,
+            .lead,
+            p
+                line-height: 1.6em
+
+            .Section
+                font-size: 15px!important
+                margin: 20px 0
+
+            .incut
+                padding-top: 20px
+                padding-bottom: 10px
+
+                &:before
+                    +font(82px)
+
+
+    // Tablet landscape
+    +bp-tabletLandscape
+
+        &
+            &__text
+                margin-bottom: 20px
+
+            &__teaser
+                width: 240px
+                margin: 0 0 10px 20px
+                float: right
+
+            &__teaser-image
+                float: none
+
+            .Section
+                font-size: 18px!important
+                margin: 40px 0
+
+            .incut
+                width: 100%
+                padding: 20px 38px 10px
+
+                &:before
+                    margin-left: -44px
+            
+
+    // Desktop
+    +bp-desktop
+
+        &
+
+            .Section
+                font-size: 20px!important
+
+            .incut
+                +font(18px)
+                padding: 20px 50px 10px
+
+                &:before
+                    +font(92px)
+
+
+    // Desktop full
+    +bp-desktopFull
+
+        &
+
+            .incut
+                padding: 20px 40px 15px
+
+                &:before
+                    +font(92px)
+
+            &_doc
+                //width: 580px
+                width: 650px
+                display: inline-block

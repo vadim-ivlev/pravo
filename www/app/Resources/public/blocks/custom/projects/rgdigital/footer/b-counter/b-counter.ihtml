@@ -1,0 +1,9 @@
+<!-- blocks.custom.rgdigital.footer.b-counter.b-counter -->
+<script>
+
+  ga('create', 'UA-7039329-20', 'rg.ru', {'name': 'digital'});  // digital tracker.
+  ga('set', 'dimension4', '/digital/');
+  ga('digital.send', 'pageview');
+
+</script>
+<!-- /blocks.custom.rgdigital.footer.b-counter.b-counter -->

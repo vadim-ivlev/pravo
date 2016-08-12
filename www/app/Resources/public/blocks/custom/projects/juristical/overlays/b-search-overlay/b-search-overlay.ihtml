@@ -1,0 +1,17 @@
+<div class="b-search-overlay">
+
+	<search-bar type="redirect"/>
+
+    <div class="b-search-overlay__popular">
+        <div class="b-search-overlay__row">
+            <div class="b-search-overlay__popular-title">Сегодня чаще всего ищут:</div>
+            <ul class="b-search-overlay__popular-list">
+				{{#suggestions}}
+					<li class="b-search-overlay__popular-list-item">
+						<a class="b-link b-link_blue" href="#" on-click="suggest">{{.}}</a>
+					</li>
+				{{/suggestions}}
+            </ul>
+        </div>
+    </div>
+</div>

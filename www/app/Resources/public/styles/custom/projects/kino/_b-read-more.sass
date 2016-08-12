@@ -1,0 +1,232 @@
+/*
+ * Врезка в статье (маленькая картинка)
+ * 
+ */
+
+=bp-mobile
+    @media screen and (min-width: 530px)
+        @content
+
+// Tablet
+=bp-tablet
+    @media screen and (min-width: 768px)
+        @content
+
+// Tablet Landscape
+=bp-tabletLandscape
+    @media screen and (min-width: 1024px)
+        @content
+
+// Объявляем блок
+$block: '.b-read-more'
+$bMaterialWrapper: '.b-material-wrapper'
+
+// Модификаторы
+
+#{$block}
+    &_wide
+        width: 100%
+        padding-bottom: 20px
+        margin-top: 20px
+        max-width: initial!important
+
+        #{$block}
+            &__list
+                padding: 0
+            &__item
+                text-align: center
+            &__link
+                color: #003399!important
+                font-size: 16px
+
+                &:hover
+                    color: #0099ff!important
+
+
+        
+    &_left
+        float: left
+
+    &_right
+        float: right
+
+    &_50x50
+        width: 100%!important
+        max-width: initial!important
+        background: rgba(0, 51, 102, 0.04)!important
+        padding: 20px!important
+        font-size: 14px!important
+        margin-top: 10px
+        margin-bottom: 10px
+        +bp-mobile
+            &
+                width: 50%!important
+                max-width: 230px!important
+
+        #{$block}
+            &__img
+                width: 50px!important
+
+            &__name
+
+            &__title
+                padding-top: 0
+                background: none!important
+                position: static
+                margin-bottom: 0
+            &__item
+                margin-bottom: 0
+                a
+                    float: left
+            &__link
+                color: #0066cc!important
+
+    &_50x50 &__img
+        width: auto
+
+    &_50x50 &__title
+        margin-top: 0
+
+    &_230x200
+        width: 100%
+        max-width: initial!important
+        #{$block}
+            &__img
+
+            &__item
+                a
+                    float: left
+                    width: 30%
+            &__title
+                position: static
+                background: none
+                width: 70%
+                float: left
+                padding-top: 0
+                padding-left: 20px
+                a
+                    width: 100%
+            &__link
+                color: #0066cc!important
+
+            +bp-mobile
+                &
+                    &__item
+                        a
+                            width: 100%
+                    &__title
+                        width: 100%
+                        position: absolute
+                        background: rgba(0, 51, 102, 0.5)
+                    &__link
+                        color: #fff!important
+
+
+
+        +bp-mobile
+            width: 50%!important
+
+
+    &_230x200.b-read-more_left
+        margin: 0 20px 10px 0
+
+    &_230x200.b-read-more_right
+        margin: 0 0 10px 20px
+
+    &_50x50.b-read-more_left
+        margin: 0 20px 10px 0
+
+    &_50x50.b-read-more_right
+        margin: 0 0 10px 20px
+
+// Стили
+#{$block}
+    font-size: 13px
+
+    padding: 10px 15px
+    margin-bottom: 20px
+
+    background-color: #f2f2f2
+
+    &__name
+        font-size: 13px
+        font-style: italic
+        font-weight: bold
+
+    &__list
+
+    &__img
+        width: 100%
+        height: auto
+
+        margin: 0 10px 0 0
+
+    &__item
+        overflow: hidden
+        margin-bottom: 0
+
+    &__link
+
+        // Если проблем не возникнет, удалить 1 декабря
+        //#{$bMaterialWrapper} &
+            //color: $black
+            //text-decoration: none
+            //&:hover
+                //color: $black
+
+        &_230x200
+            font-size: 14px
+
+            display: block
+
+            font-weight: bold
+            margin-top: 5px
+
+
+    &__title
+        overflow: hidden
+        margin-top: -5px
+
+        #{$bMaterialWrapper} &
+            margin-bottom: 0
+
+    // Tablet
+    +bp-tablet
+
+        &
+            width: 50%
+        
+
+            //Модификаторы
+
+            &_wide
+                width: 100%
+                padding-bottom: 20px
+
+            &_left
+                margin: 0 20px 10px 0
+
+
+            &_right
+                margin: 0 0 10px 20px
+
+    // Tablet landscape
+    +bp-tabletLandscape
+
+        &
+            width: 310px
+            padding: 20px
+            padding-bottom: 0
+
+            //Модификаторы
+
+            &_wide
+                width: 100%
+                padding-bottom: 20px
+
+            &_left
+                margin: 0 30px 20px 0
+
+
+            &_right
+                margin: 0 0 20px 30px

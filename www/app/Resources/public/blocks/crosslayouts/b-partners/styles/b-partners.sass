@@ -1,0 +1,188 @@
+// Блок партнеров
+
+$block: '.b-partners'
+
+#{$block}
+    background: $white
+
+    &__body,
+    .b-ads__relap & .relap-default-wrapper
+        //margin-bottom: 20px отступы не прокатили
+        padding: 20px
+        background: $today-bg-color
+
+    .b-ads_partners-sidebar-right &__body
+        padding: 0
+
+    // чередуем серо-белое Если нет релапа
+    //&__body:nth-child(even)
+        //background: $white
+
+    &__body:nth-child(odd)
+        background: $white
+
+    //.b-ads_partners-sidebar-right &__head,
+    &__head
+        margin-bottom: 20px
+        padding-bottom: 16px
+        position: relative
+        text-align: right
+
+        border-bottom: 1px solid $border-color
+
+    &__name
+        +font(13px)
+        font-family: $f-serif
+        font-style: italic
+        font-weight: bold
+        color: $comment-color
+
+        display: inline-block
+
+    &__logo
+        height: 30px
+        position: absolute
+        top: 0
+        left: 0
+
+        background: url(#{$img-path}media/partners_logo.png) no-repeat
+
+        +bp-retina
+
+            &
+                background: url(#{$img-path}media/partners_logo2x.png) no-repeat
+                background-size: 462px 29px
+
+        // Логотипы
+        &_mediametrics
+            width: 100px
+            background-position: -462px 0
+
+        &_interfax
+            width: 100px
+            background-position: 0 0
+
+        &_rt
+            width: 90px
+            background-position: -100px 0
+
+        &_rambler
+            width: 98px
+            background-position: -190px 0
+
+        &_smi2
+            width: 74px
+            background-position: -288px 0
+
+        &_ria
+            width: 100px
+            background-position: -362px 0
+
+
+    &__list
+        font-size: $f-sz-zero
+        margin-left: -20px
+
+    .b-ads_partners-sidebar-right &__item
+
+    &__item
+        width: 100%
+        margin-left: 20px
+        margin-bottom: 20px
+        padding-right: 20px
+
+        display: inline-block
+        vertical-align: top
+
+        overflow: hidden
+
+        display: none
+        
+        &:nth-child(-n+4)
+            display: inline-block    
+
+        &:nth-child(4)        
+            margin-bottom: 0
+
+        &:last-child
+            margin-bottom: 0
+
+    //.b-ads_partners-sidebar-right &__media,
+    &__media
+        width: 70px
+        // height: 70px
+        margin-right: 20px
+        float: left
+        overflow: hidden
+
+    &__img
+        width: 100%
+        vertical-align: top
+
+    &__title
+        +font(14px)
+        line-height: 1.6em
+        margin-top: -3px
+
+        .b-ads_partners-sidebar-right &
+            margin-top: -5px
+            width: calc(100% - 90px)
+            float: right
+
+    // Модификаторы
+    &_grey
+        background: $today-bg-color
+
+    // Планшет
+    +bp-tablet
+
+        &__body,
+        .b-ads__relap & .relap-default-wrapper
+            padding: 0
+
+    // Планшет
+    +bp-tabletLandscape
+
+        // чередуем серо-белое если нет релапа в мобиле
+        //&__body:nth-child(even)
+            //background: $today-bg-color
+
+        //&__body:nth-child(odd)
+            //background: $white
+
+        .b-content &__head
+            padding-bottom: 0
+            border-bottom: none
+
+        .b-content &__item
+            width: calc(25% - 20px)
+            padding-right: 0
+
+            display: none
+
+            &:last-child
+                margin-bottom: 20px
+
+            &:nth-child(-n+4)
+                display: inline-block
+
+        .b-content &__media
+            width: auto
+            height: auto
+            margin-right: auto
+            margin-bottom: 16px
+
+            float: none
+
+        // Модификаторы
+        .b-content &_mediametrics &__media
+            width: 190px
+            height: 108px
+
+    // Планшет
+    +bp-desktopFull
+
+        // Модификаторы
+        .b-content &_mediametrics &__media
+            width: 259px
+            height: 146px

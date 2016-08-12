@@ -1,0 +1,292 @@
+/*
+ * Блок Таблица
+ * 
+ */
+
+$block: '.b-table'
+
+$b-field: '.b-field'
+
+$b: '.b'
+
+#{$block}
+
+    #{$b-field}
+
+        &__wrapper
+            margin-bottom: 9px
+
+
+    &_show
+        display: inline-table
+
+    &_hide
+        display: none
+
+
+    &__wrapper
+        width: 100%
+        background: $white
+        padding: 30px
+        padding-bottom: 0
+
+        +bp-tablet
+            &
+                #{$b}
+                    &__title
+                        +font(18px)
+
+        +bp-tabletLandscape
+            &
+                #{$b}
+                    &__title
+                        +font(22px)
+
+    &__item-wrapper
+
+        margin-bottom: 20px
+
+    &__col
+        +font(13px)
+        padding: 10px 0
+
+    &__title
+        +font(14px)
+        text-transform: uppercase
+        font-weight: bold
+        display: none
+
+    &__item:first-child
+        width: 30%
+
+    &__item
+        float: left
+        width: 70%
+
+        &:first-child
+
+            #{$block}
+                &__text-wrapper
+                    font-weight: bold
+
+    &__item-wrapper
+        clear: both
+
+    &__title-wrapper
+        text-align: center
+
+
+    &__subtitle:nth-child(2),
+    &__text:nth-child(2)
+        display: none
+
+    &__item:first-child
+        #{$block}
+            &__text,
+            &__title,
+            &__subtitle
+                width: auto
+                text-align: left
+                padding-left: 0
+
+            &__title-wrapper,
+            &__subtitle-wrapper,
+            &__text-wrapper,
+            &__subtitle
+                float: none
+
+            &__title-wrapper
+                margin: 0
+
+
+    &__subtitle-wrapper
+        +font(13px)
+        color: $comment-color
+
+    &__subtitle,
+    &__text
+        float: left
+        width: 50%
+
+    &__subtitle
+        min-height: 40px
+
+    &__text
+        min-height: 55px
+
+        &:nth-child(2)
+            text-decoration: line-through
+
+
+
+
+
+
+    &__subtitle-wrapper,
+    &__text-wrapper
+        text-align: center
+        border-bottom: 1px solid $today-bg-color
+
+
+    &__subtitle,
+    &__text
+        padding: 10px 0
+
+    &__title
+        padding-top: 10px
+
+    &__subtitle-wrapper
+        &:last-child
+            border: none
+
+    &__text-wrapper
+        +font(13px)
+
+        &:last-child
+            border: none
+
+    +bp-tablet
+
+        #{$b-field}
+            &_select
+                display: none
+
+        #sub-6-months
+            display: block
+
+        &
+            &__item
+                width: 41%
+                &:first-child
+                    width: 18%
+
+            &__subtitle
+                width: 33%
+                &:nth-child(2)
+                    display: block
+            &__text
+                min-height: inherit
+                width: 33%
+                &:nth-child(2)
+                    display: block
+
+            &__title
+                display: block
+
+
+
++bp-tablet
+    #sub-1-month,
+    #sub-6-months
+        display: block!important
+
+
+
+
+#sub-6-months
+    display: none
+
+.is-sms-item
+    #{$b}
+        &__title
+            +font(22px)
+
+        &__media
+            margin-left: auto
+            margin-right: auto
+        &__img
+            width: auto
+    #{$block}
+        &__item-wrapper
+            padding: 0
+            background: none
+
+        &__item
+
+            width: 100%
+            padding: 20px
+            margin-top: 10px
+            margin-bottom: 10px
+
+            background: $white
+            #{$block}
+                &__title
+                    display: block
+                    padding-left: 60px
+                    position: relative
+                    &:before
+                        content: '1'
+                        position: absolute
+                        top: 15px
+                        left: 0
+                        color: white
+                        background: #5c707b
+                        padding: 6px 14px
+                        border-radius: 20px
+
+            &:nth-child(1)
+                #{$block}
+                    &__title:before
+                        top: 5px
+
+
+            &:nth-child(2)
+                #{$block}
+                    &__title:before
+                        content: '2'
+
+
+            &:nth-child(3)
+                #{$block}
+                    &__title:before
+                        content: '3'
+
+            &:nth-child(4)
+                #{$block}
+                    &__title:before
+                        content: '4'
+
+        &__title
+            font-family: $f-sans
+            +font(18px)
+            text-transform: none
+
+        &__col
+            width: 33%
+            float: left
+            padding: 15px 0
+            text-align: center
+
+        &__row
+            border-bottom: 1px solid $today-bg-color
+            #{$block}
+                &__col
+                    &:first-child
+                        text-align: left
+                        font-weight: bold
+        &__row
+            &:nth-child(2)
+                #{$block}
+                    &__col
+                        font-weight: bold
+                        text-transform: uppercase
+
+        &__wrapper
+            width: 100%
+            #{$block}
+                &__title
+                    +font(14px)
+                    font-weight: bold
+
+
+
+
+
+
+
+
+
+
+
+
+

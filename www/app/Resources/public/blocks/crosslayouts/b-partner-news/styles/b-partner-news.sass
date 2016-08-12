@@ -1,0 +1,121 @@
+/*
+ * Партнерки
+ * 
+ */
+
+// Объявляем блок
+$block: '.b-partner-news'
+
+// Модификаторы
+
+// Стили
+#{$block}
+    +font(14px)
+
+    width: 100%
+    padding: 10px
+    margin-bottom: 20px
+
+    border: 1px solid $border-color
+
+    &__title
+        +font(12px)
+        font-family: $f-sans
+        font-weight: normal
+
+        float: right
+        color: $comment-color
+
+    &__head
+        overflow: hidden
+
+    &_type_sidebar
+        padding: 15px
+
+    &_type_sidebar &__list
+        margin-left: 0
+
+    &_type_sidebar &__list-item
+        width: 100%
+        margin-left: 0
+        margin-bottom: 10px
+
+    &_type_big
+        padding: 0
+
+        line-height: 1em
+        text-align: center
+
+        border: 0
+        background: url(#{$img-path}bg_big_ban.png) repeat
+
+    &_type_big &__banner
+        width: 100%
+
+    &_type_social
+        +font(13px)
+
+        padding: 0
+        border: 0
+
+    &_type_social &__title
+        float: none
+
+    &_type_social &__list
+        margin-left: 0
+        padding: 10px
+
+        border: 1px solid $border-color
+
+    &_type_social &__list-item
+        margin-left: 10px
+
+        &:first-child
+            margin-left: 0
+
+    &_type_social &__list-item-image
+        margin: 0 10px 10px 0
+        float: left
+
+    &__list
+        margin-left: -20px
+
+    &__list-item
+        width: 224px
+        margin-left: 20px
+
+        display: inline-block
+        vertical-align: top
+
+    // inline-block fix
+    &__list
+        font-size: 0
+
+    &__list-item
+        +font(14px)
+
+    &__list-item-image
+
+    &__list-item-text
+
+    // Tablet landscape
+    +bp-tabletLandscape
+
+        &
+            margin-bottom: 30px
+
+            &__list-item
+                width: 195px
+
+            &_type_big &__banner
+                width: auto
+            
+
+    // Desktop full
+    +bp-desktopFull
+
+        &
+
+            &_type_sidebar
+                margin-top: 40px
+            

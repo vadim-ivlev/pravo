@@ -1,0 +1,117 @@
+<div class="b-list-table b-list-table_{{type}}">
+    <div class="b-list-table__list">
+        {{#items}}
+            <div class="b-list-table__item
+                {{#if isSaved}}
+                    b-list-table__item_{{ readed ? 'selected' : removed ? '' : 'active'}}
+                {{elseif removed}}
+
+                {{else}}
+                    b-list-table__item_selected
+                {{/if}}
+            ">
+                {{#published}}
+                    <div class="b-list-table__date">{{dateFormat(published)}}</div>
+                {{/published}}
+
+                {{#isSujet}}
+                    <div class="b-list-table__info">
+
+                        <div class="b-list-table__title">{{{title}}}</div>
+
+                    </div>
+                {{/isSujet}}
+
+                <div class="b-list-table__content">
+
+                    {{#title}}
+                        <div class="b-list-table__title">
+                            <a href="{{url}}" class="b-link">{{{title}}}</a>
+                        </div>
+                    {{/title}}
+
+                    {{#isSaved}}
+                        <div class="b-list-table__announce">{{{announce}}}</div>
+                    {{/isSaved}}
+
+
+                    {{#isComments}}
+                        <div class="b-list-table__post">
+                            {{#comments}}
+                                <post post="{{.}}" />
+                            {{/comments}}
+                            {{#if count - comments.length > 0}}<a href="{{url}}" class="b-link b-link_blue">еще <span>{{count - comments.length}}</span> комментария</a>{{/if}}
+                        </div>
+                    {{/isComments}}
+
+                    {{#isSujet}}
+                        <div class="b-list-table__wrapper b-feed" decorator="scroll-bar">
+                            {{#materials}}
+                                <div class="b-feed__item">
+                                <span class="b-feed__date _date">{{dateFormat(published)}}</span>
+                                <a class="b-link b-link_title" href="{{url}}">{{{title}}}</a>
+                            </div>
+                            {{/materials}}
+                        </div>
+
+                        <a href="{{url}}"
+                           class="b-link b-link_blue b-list-table__link b-list-table__link_all-material">Все новости сюжета</a>
+                    {{/isSujet}}
+
+                </div>
+
+                <div class="b-list-table__meta">
+                    {{#isSaved}}
+
+                        <div class="b-input b-list-table__field b-list-table__field_checkbox">
+
+                            <label class="b-field b-field_input b-field_input_checkbox b-list-table__label"
+                                    on-click="read: {{.}}"
+                                    twoway="false">
+                                <div class="b-field__label">Прочитана</div>
+                                <div class="b-field__wrapper">
+                                    <input class="b-field__input b-field__input_checkbox"
+                                        type="checkbox"
+                                        {{ readed ? 'checked' : ''}}>
+                                    <span class="b-field__icon"></span>
+                                </div>
+                            </label>
+
+                        </div>
+
+                        {{#removed}}
+                            <div class="b-list-table__field b-list-table__field_repair">
+                                <a href="#"
+                                   class="b-link b-link_blue"
+                                   on-click="add: {{.}}">Восстановить</a>
+                            </div>
+                        {{/removed}}
+
+                        {{^removed}}
+                            <div class="b-list-table__field b-list-table__field_btn">
+                                <button type="button"
+                                        class="b-icon b-icon_type_close-btn b-list-table__close-btn"
+                                        on-click="remove: {{.}}">Удалить</button>
+                            </div>
+                        {{/removed}}
+                    {{/isSaved}}
+
+                    {{#isComments}}
+                        <div class="b-input b-list-table__field b-list-table__field_checkbox">
+                            <subscribe-comments txt="'Подписка на комментарии'" material="{{id}}" />
+
+                        </div>
+                    {{/isComments}}
+
+                    {{#isSujet}}
+                        <div class="b-list-table__field">
+                            <rg-follow-sujet txt="Следить за сюжетом"
+                                          sujet="{{id}}"/>
+                        </div>
+                    {{/isSujet}}
+                </div>
+            </div>
+        {{/items}}
+
+    </div>
+</div>

@@ -1,0 +1,108 @@
+<!-- blocks.custom.sila.sidebar.b-sidebar-right.b-sidebar-right -->
+
+    <div class="b-right-banner">
+        <!-- Правая колонка (она же левая на сайте) (первый экран) -->
+        <div id="ads36"></div>
+        <!-- /Правая колонка (первый экран) -->                   
+    </div>
+    <div class="b-right-rt">
+        <!--RT-->
+        <div class="teaser-box">
+            <div class="teaser-top">
+                <div class="teaser-logo"><img src="/res/images/custom/projects/sila/teaser-rt.png" alt="RT" /></div>
+                <div class="teaser-np">новости партнеров</div>
+            </div>
+
+            <div id="smi2adblock_80045"><a href="//smi2.net/">RT</a></div>
+                <script type="text/javascript" charset="utf-8">
+                  (function() {
+                    var sc = document.createElement('script'); sc.type = 'text/javascript'; sc.async = true;
+                    sc.src = '//news.smi2.ru/data/js/80045.js'; sc.charset = 'utf-8';
+                    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(sc, s);
+                  }());
+                </script>
+
+        </div>
+        <!--/RT-->
+    </div> 
+
+    <!-- mediametrics -->
+
+    <div class="mediametrics-block">
+        <div class="teaser2-top">
+            <div class="teaser2-logo">
+                <img src="/res/images/custom/projects/sila/teaser-mediam.png" alt="Mediametrics">
+            </div>
+            <div class="teaser2-np">новости<br>партнеров</div>
+        </div>
+        <script src='//partner.mediametrics.ru/inject/inject.js' type='text/javascript' id='MediaMetricsInject' data-width='240' data-height='310' data-bgcolor='FFFFFF' data-bordercolor='cccccc' data-linkscolor='232323' data-transparent='' data-rows='7' data-inline='' data-font='small' data-fontfamily='tahoma' data-border='' data-borderwidth='0' data-alignment='vertical' data-country='ru' data-site='mmet/rg_ru' data-hash='e8a778786bbd16929f2d35dcbc8e306c'>
+        </script>       
+    </div>
+
+    <!-- /mediametrics -->                     
+
+    <!--Direct--> 
+    <div class="single-banner direct">
+        <!-- Яндекс.Директ -->
+		<div id="yandex_ad_vert"></div>
+		<script type="text/javascript">
+
+            $(window).load(function(){
+
+                var typeDir = "posterVertical";
+                if ( $(window).width() < 943 ) {
+                    typeDir = "posterHorizontal";
+                }
+                yadirInit(typeDir); 
+            });
+
+            $(window).resize(function(){
+                var windowSize = $(window).width();
+                var typeDir = "posterVertical";
+                if ( $(window).width() < 943 && $(window).width() > 620) {
+                    typeDir = "posterHorizontal";
+                }
+                yadirInit(typeDir);
+            });
+            function yadirInit(typeDir){
+                (function(w, d, n, s, t) {
+                    w[n] = w[n] || [];
+                    w[n].push(function() {
+                        Ya.Direct.insertInto(29789, "yandex_ad_vert", {
+                            stat_id: 5,
+                            ad_format: "direct",
+                            type: typeDir,
+                            border_type: "ad",
+                            limit: 3,
+                            title_font_size: 3,
+                            links_underline: true,
+                            site_bg_color: "FFFFFF",
+                            border_color: "FBE5C0",
+                            title_color: "990000",
+                            url_color: "006699",
+                            text_color: "000000",
+                            hover_color: "0066FF",
+                            sitelinks_color: "990000",
+                            favicon: true,
+                            no_sitelinks: false
+                        });
+                    });
+                    t = d.getElementsByTagName("script")[0];
+                    s = d.createElement("script");
+                    s.src = "//an.yandex.ru/system/context.js";
+                    s.type = "text/javascript";
+                    s.async = true;
+                    t.parentNode.insertBefore(s, t);
+                })(window, document, "yandex_context_callbacks");
+            };                        
+		</script>
+    </div>
+    <!--/Direct-->   
+	
+	<div class="b-right-banner">
+        <!-- Правая колонка (первый экран) -->
+        <div id="ads39"></div>
+        <!-- /Правая колонка (первый экран) -->                   
+    </div>
+	
+<!-- /blocks.custom.sila.sidebar.b-sidebar-right.b-sidebar-right -->

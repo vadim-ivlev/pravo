@@ -1,0 +1,92 @@
+/*
+ * Фотогалерея внутри статьи
+ * 
+ */
+
+// Объявляем блок
+$block: '.b-gallery'
+
+// Стили
+#{$block}
+    // position: relative
+    width: 100%
+    // position: static
+
+
+    .fotorama__thumb-border
+        border-color: $active-color
+
+    &_jumbotron
+        display: none
+
+
+    &__name 
+        font-family: $f-sans
+        font-weight: bold
+        +font(18px)
+        padding: $indent-g-small 0 
+        color: $black        
+
+    &_jumbotron
+
+        .fotorama__nav-wrap
+            position: absolute
+            bottom: 0
+
+            .fotorama__dot
+                // border-color: $white
+                border: 1px solid $white
+                width: 10px
+                height: 10px
+                background-color: #a2a2a2
+
+            .fotorama__active .fotorama__dot
+                border-color: #3d3d3d
+                background-color: #3d3d3d
+
+        .fotorama__wrap .fotorama__pointer
+            background-color: #fff
+
+    .fotorama__stage__frame
+        cursor: pointer
+
+    +bp-tablet
+
+        &_jumbotron
+            display: block
+
+    +bp-desktop
+
+        &_jumbotron
+
+            #{$block}
+
+                &__body
+
+                    &:after
+                        left: 60px
+                        top: 60px
+                        width: 600px
+                        +font(30px)
+
+        .l-page_zilart_index &
+
+            width: 68%
+            padding-right: 30px
+            float: left
+
+            &_jumbotron
+                width: 100%
+                padding-right: 0
+                float: none
+
+    +bp-desktopFull
+
+        .l-page_zilart_index &
+
+            width: 77%
+            padding-right: 20px
+
+            &_jumbotron
+                width: 100%
+                padding-right: 0

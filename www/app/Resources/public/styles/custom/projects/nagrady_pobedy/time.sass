@@ -1,0 +1,201 @@
+/*
+ *  Time
+ *
+ */
+
+%va-middle
+    display: inline-block
+    vertical-align: middle
+
+.page-content__time
+    min-height: $page-content__time-min-h
+    margin-left: $meta-width/2 + $meta-width/5.5 - $border-width
+    padding-top: $meta-width/2
+    padding-bottom: $meta-width
+    position: relative
+    
+    &:after
+        content: ''
+        height: 100%
+        position: absolute
+        top: 0
+        left: 1px
+        border-left: $border-width solid $primary-light-color
+
+    .time-row
+        margin: $def-indent 0
+        position: relative
+        clear: both
+        z-index: 1
+
+        .time-month
+            font-family: $font-condensed
+
+            @include size($time-month-width + $border-width)
+            margin-left: $time-month-width/2*-1
+            
+            color: $invert-text-color
+            text-align: center
+            vertical-align: middle
+            line-height: $time-month-width - $border-width
+
+            background-color: $primary-light-color
+            border: $border-width solid transparent
+            border-radius: 100%
+
+        .time-content
+            height: 100%
+            position: relative
+
+            .item
+                width: 25%
+                height: $time-row_active - 20
+                margin-top: $def-indent*6*-1
+                float: left
+                position: relative
+                z-index: 1
+                cursor: pointer
+                transition: transform .2s ease
+
+                image-rendering: optimizeSpeed
+                image-rendering: -moz-crisp-edges
+                image-rendering: -o-crisp-edges
+                image-rendering: -webkit-optimize-contrast
+                image-rendering: optimize-contrast
+                -ms-interpolation-mode: nearest-neighbor
+
+                .item-fig
+                    height: 100%
+                    position: relative
+                    text-align: center
+                    z-index: 1
+
+                    img
+                        width: auto
+                        height: 100%
+
+                .item-desc
+                    width:  80%
+                    margin: $def-indent*-1 auto 0
+                    overflow: hidden
+                    border-radius: $def-indent
+                    background-color: darken($primary-color, 5%)
+                    box-shadow: 0 6px 12px rgba(0, 0, 0, .2)
+
+                    %item-el
+                        font-style: normal
+                        font-weight: normal
+                        padding: $def-indent
+                        display: block
+
+                    b
+                        font-size: .8em
+                        @extend %item-el
+                        color: $primary-text-color
+                        background-color: lighten($primary-color, 60%)
+
+                    i
+                        font-family: $font-condensed
+                        @extend %item-el
+                        float: left
+                        color: $invert-text-color
+
+                    em
+                        font-family: $font-condensed
+                        @extend %item-el
+                        float: right
+                        color: lighten($primary-light-color, 10%)
+
+            .item-two-col
+                margin-top: $def-indent*10
+
+            .item-offset-l-1
+                margin-left: 25%
+
+            .item-offset-l-2
+                margin-left: 50%
+
+            .item-offset-l-3
+                margin-left: 75%
+
+            .item-no-img
+                margin-top: 0
+
+            .item:hover
+                transform: scale(1.1, 1.1)
+
+    .time-row_active
+        height: $time-row_active
+        padding: $def-indent + 4 0
+
+        .time-month
+            font-size: 1.6em
+            @include size($time-month-width*1.5 + $border-width)
+            margin-left: $time-month-width*1.5/2*-1
+            position: absolute
+            line-height: $time-month-width*1.5 - $border-width
+            background-color: lighten($primary-light-color, 10%)
+            z-index: 1
+
+    .time-row_two-col
+        height: $time-row_active*2
+
+    .time-row_indent-bottom
+        margin-bottom: $def-indent*10
+
+    .time-row_indent-bottom_2x
+        margin-bottom: $def-indent*20!important
+
+    // Medal
+    .time-row_has-medal
+
+        .time-month
+            border-color: $medal-color
+
+        @each $i in $indent-var-arr
+            .time-content-#{$i}-item
+                background: url($img-path + "time-hr-#{$i}_medal.png") no-repeat 0 18px 
+
+    // Order
+    .time-row_has-order
+
+        .time-month
+            border-color: $order-color
+
+        @each $i in $indent-var-arr
+            .time-content-#{$i}-item
+                background: url($img-path + "time-hr-#{$i}_order.png") no-repeat 0 18px 
+
+
+.infograph-page-less1941
+
+    .page-content__time
+        background-image: none
+
+    .time-row 
+        margin-bottom: $def-indent*6
+
+        .time-content
+            background-position: 0 24px 
+
+        .time-month
+            font-size: .9em
+            @include size($time-month-width*1.5 + $border-width)
+            margin-left: $time-month-width*1.5/2*-1
+            position: absolute
+            line-height: $time-month-width*1.5 - $border-width
+            background-color: lighten($primary-light-color, 10%)
+
+    .time-row_active
+        height: $time-row_active/3
+
+        .time-month
+            font-size: 1.4em
+            @include size($time-month-width*2 + $border-width)
+            margin-left: $time-month-width*-1
+            position: absolute
+            line-height: $time-month-width*2 - $border-width
+            background-color: lighten($primary-light-color, 10%)
+
+
+    

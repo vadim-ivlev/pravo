@@ -1,0 +1,28 @@
+Запуск Gulp задач:
+
+Основные шаблоны:
+	sudo -u wwwrun gulp swig:pages - обновить все шаблоны
+	sudo -u wwwrun gulp swig:pages:index - обновить выбранные шаблон
+	
+	config/swig/pages.json - gulp config
+	
+	
+Кастомные проекты:
+	sudo -u wwwrun gulp swig:pages:custom:projects - все статические шаблоны
+    sudo -u wwwrun gulp swig:pages:custom:projects:rgdigital:article - выбранный шаблон
+	
+	config/swig/pages/custom/projects.json
+	
+Кастомные статические страницы:
+	sudo -u wwwrun gulp swig:pages:custom:static - все статические шаблоны
+	sudo -u wwwrun gulp swig:pages:custom:static:vacancies:index - выбранный шаблон
+	
+	config/swig/pages/custom/static.json
+
+Пример использования crosspages данных:
+
+1. src/pages/custom/projects/rgdigital/data/crosspages
+2. src/pages/custom/projects/data/crosspages
+3. src/pages/data/crosspages
+
+Приоритет по возрастанию

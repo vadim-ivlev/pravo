@@ -1,0 +1,471 @@
+/*
+ * Баннеры
+ * 
+ */
+
+// Объявляем блок
+$block: '.b-ads'
+
+// Блок баннера Adfox
+$adfox: '.adfox'
+
+// Стили
+#{$block}
+
+    // Настраиваем специфические свойства баннеров
+    iframe
+        margin: 0 auto
+        display: block
+
+    /*
+     * Разные типы баннерных мест
+     *
+     */
+
+    // Верхняя перетяжка
+    // Центральная перетяжка
+    &_top,
+    &_central-header
+
+        // Tablet 
+        +bp-tablet
+
+            &
+                width: $width-wrapper-tablet
+
+        // Tablet landscape
+        +bp-tabletLandscape
+
+            &
+                width: $width-wrapper-tabletLandscape
+
+        // Desktop
+        +bp-desktop
+
+            &
+                width: $width-wrapper-desktop
+
+        // Desktop full
+        +bp-desktopFull
+
+            &
+                width: $width-wrapper-desktopFull
+
+                #{$adfox}
+                    width: 1000px
+                    margin: 0 auto
+
+    &_central-header
+        margin-bottom: 6px
+
+        // Tablet 
+        +bp-tablet
+
+            &
+                margin-bottom: 0
+
+
+    // Левый сайтбар
+    // Правый сайтбар
+    &_sidebar-left,
+    &_sidebar-right,
+    &_sidebar-left-second,
+    &_index-rigth-bottom
+
+        // Если на одной площадке, несколько баннеров
+        & div[id^="AdFox_banner"]
+            width: 100%!important
+            height: 100%!important
+            overflow: hidden
+            margin-top: 0
+
+            img
+                width: auto !important
+
+            & > a
+                margin: 20px 35px
+                display: inline-block
+
+        // Tablet
+        +bp-tablet
+
+            &
+                #{$adfox}
+                    padding: 0
+
+        // Desktop full
+        +bp-desktopFull
+
+            &
+
+                div[id^="AdFox_banner"] + div iframe
+                    margin: 0
+
+                div[id^="AdFox_banner"]
+                
+                    & > a
+                       margin: 0
+
+    // На главной в рубрике
+    &_index-rubric-first
+        width: 240px!important
+        //margin-top: 60px
+        margin-top: 10px
+        margin-right: 55px
+        float: right
+
+    // Под текстом материала
+    &_under-materials
+        text-align: center
+        background-color: $white
+
+        #{$adfox}
+            display: block
+
+        #{$adfox}_loaded
+            margin: 20px auto
+
+        div[id^="AdFox_banner"] // живем по-новому
+            max-width: 100%!important
+            margin: 20px auto
+
+            iframe
+                width: 100%!important
+
+
+    &_yandex-under-materials
+        margin-bottom: 20px
+        padding: 0 10px
+
+    &__direct
+        background-color: $white
+
+        .yap-layout__content
+            font-size: 90%!important
+
+    // Партнеры
+    &_partners-under-materials
+        background-color: $white
+
+    // ТГБ
+    &__tgb
+        +font(13px)
+
+    .b-sidebar-right &__tgb
+        background-color: $white
+
+    &__tgb
+
+        & .adfox_item + .adfox_item 
+
+            & .b-ads__list:not(.b-ads__tgb_slide) a 
+                display: block
+                padding-top: 20px
+                margin-top: 20px
+                border-top: 1px solid $border-color
+
+    &__tgb div[id^="AdFox_banner"]
+        width: 100%!important
+        height: auto!important
+
+    &__tgb &__item
+        margin-bottom: 20px
+        position: relative
+        overflow: hidden
+
+    &__tgb &__name
+        +font(12px)
+        position: absolute
+        bottom: 0
+        right: 0
+        color: $comment-color
+
+    &__tgb &__name ~ &__description
+        margin-bottom: 20px
+
+    &__tgb &__media
+        margin-right: 5px
+        float: left
+        clear: both
+
+    &__tgb &__image
+        vertical-align: top
+
+    &__tgb &__description
+        overflow: hidden
+
+    &__tgb &__title
+        font-weight: bold
+        margin-bottom: 5px
+        color: $link-color
+
+    &__tgb &__text
+        margin-bottom: 5px
+
+    // Модификатор большой картинки
+    &__tgb_large
+        border-bottom: 0
+
+    &__tgb_large &__item
+        background-color: transparent
+
+    &__tgb_large &__media
+        float: none
+        margin-right: 0 
+
+    &__tgb_large &__image
+        width: 100%
+
+    &__tgb_large &__title
+        +font
+        color: $black
+
+    &__tgb_large &__description
+        padding: 10px 20px
+        background-color: $today-bg-color
+
+    &__tgb_large &__text
+        overflow: hidden
+
+    // Модификатор с выпадашкой
+    &__tgb_slide &__description
+        margin: 0
+        position: absolute
+        top: 0
+        padding: 0
+        background: none
+
+        +transition(all .4s ease)
+
+        &:after
+            content: ""
+            position: absolute
+            top: 17px
+            right: 17px
+            width: 7px
+            height: 7px
+            background: url(/res/images/sprite_main.png) -41px -32px no-repeat
+
+    &__tgb_slide &__title
+        margin-bottom: 0
+        background-color: rgba(224,232,243,0.9)
+        padding: 10px 20px
+        +font(13px)
+
+    &__tgb_slide &__item &__text
+        max-height: 0
+        height: 0
+        padding: 0 20px
+        overflow: hidden
+        background-color: rgba(224,232,243,0.9)
+
+        +transition(all .4s ease)
+
+    &__tgb_slide &__item:hover &__description
+        // height: calc(100% - 20px)
+
+        &:after
+            background-position: -41px -21px
+
+    &__tgb_slide &__item:hover &__text
+        max-height: 310px
+        height: 310px
+
+    // Прилипающая подписка
+    &_central-stick
+        position: relative
+        visibility: hidden
+        +opacity(0)
+        +transition(all 0.5s)
+
+        &.visible
+            visibility: visible
+            +opacity(1)
+        
+        .b-date-panel
+            height: 54px
+            overflow: hidden
+            position: absolute
+            top: -84px
+            background-color: $red
+
+            .b-btn-fresh
+                border: 1px solid $white
+
+                &:hover
+                    background-color: transparent
+
+            .b-btn-subs__btn
+                color: $red
+                background-color: $white
+
+        .b-date-panel.is-fixed
+            width: 100%
+
+            position: fixed
+            top: 0
+            left: 0
+            z-index: 10
+            padding-left: 230px
+
+        .b-date-panel__body
+            line-height: 54px
+            border-bottom: none
+
+        .b-date-panel__close
+            position: absolute
+            top: 15px
+            right: 24px
+
+            color: $white
+
+            &:before
+                content: '×'    
+                cursor: pointer   
+                font-weight: 100
+                +font(24px)
+                font-family: serif     
+
+        .b-date-panel__day
+            +font(12px)
+            display: inline-block
+            color: $white
+            vertical-align: middle
+
+        .b-date-panel__text
+            font-weight: bold
+            width: 600px
+            margin-left: 20px
+            overflow: hidden
+            display: inline-block
+            text-transform: uppercase
+            color: $white
+            vertical-align: middle
+
+        .b-date-panel__text-box
+            display: inline-block
+            padding-left: 100%
+
+            +animation(scroll 15s infinite linear)
+
+    // Tablet
+    +bp-tablet
+
+        &_yandex-under-materials,
+        .b-sidebar-right__item &__tgb
+            padding: 0
+
+        // Прилипающая подписка
+        &_central-stick
+
+            .b-date-panel
+                width: 510px
+                left: -20px
+
+            .b-date-panel__body
+                width: 1340px
+
+            .b-date-panel__text
+                position: relative
+                width: 330px
+                white-space: nowrap
+
+                &:before, &:after
+                    position: absolute
+                    content: ''
+                    display: block
+                    height: 54px
+                    width: 40px
+                    top: 0
+                    z-index: 10
+
+                &:before
+                    left: 0
+                    background-image: linear-gradient(to left, rgba(243, 104, 33, 0), #F36821 75%)
+
+                &:after
+                    right: 0
+                    background-image: linear-gradient(to right, rgba(243, 104, 33, 0), #F36821 75%)
+
+            .b-date-panel__day
+                margin-left: 30px
+
+
+    +bp-tabletLandscape
+
+        // Прилипающая подписка
+        &_central-stick
+
+            .b-date-panel
+                width: 680px
+                left: -30px
+
+            .b-date-panel__body
+                width: 680px
+
+            .b-date-panel__text
+                width: 415px
+
+            .b-date-panel__day
+                margin-left: 30px
+
+            .b-date-panel.is-fixed
+                padding-left: 240px
+
+    +bp-desktop
+
+        // Прилипающая подписка
+        &_central-stick
+
+            .b-date-panel
+                width: 1030px
+                left: -30px
+
+            .b-date-panel__body
+                width: 1000px
+
+            .b-date-panel__day
+                margin-left: 30px
+
+            .b-btn-fresh
+                right: 200px
+
+            .b-date-panel__text    
+
+                &:before, &:after
+                    display: none
+
+            .b-date-panel__text-box
+                padding-left: 0
+
+                +animation(none)
+
+            .b-date-panel__close
+                right: 10px
+
+            
+            
+
+    +bp-desktopFull
+
+        // Прилипающая подписка
+        &_central-stick
+
+            .b-date-panel
+                width: 1450px
+                left: -60px
+
+            .b-date-panel__body
+                width: 1390px
+
+            .b-date-panel__day
+                margin-left: 60px
+
+            .b-btn-fresh
+                right: 340px
+
+            .b-date-panel__close
+                right: 24px
+
+            .b-date-panel.is-fixed
+                padding-left: 310px

@@ -1,0 +1,81 @@
+// Объявляем блок
+$block: '.b-menu'
+
+// Стили
+#{$block}
+    +font(16px)
+    display: block
+
+    &__item
+        color: $main-color
+
+    &__nav-icon
+        width: 20px
+        height: 20px
+
+        float: right
+        vertical-align: middle
+
+        position: relative
+        top: -20px
+
+        cursor: pointer
+
+        > div
+            margin-bottom: 5px
+
+            width: 20px
+            height: 2px
+
+            background-color: $black
+
+
+    &__nav-icon.active + &__list
+        display: block
+        position: absolute
+        width: 100%
+        left: 0
+        top: 70px
+        z-index: 2
+        background-color: #fff
+
+    &__list
+        display: none
+        position: absolute
+
+    &__item        
+        padding: 3px 20px
+        
+        & a
+            display: block
+
+        &:hover
+            color: #fff
+            background-color: #e01d42
+
+
+
+    // Tablet
+    +bp-tablet
+
+        &
+            display: inline-block
+
+            &__nav-icon
+                display: none
+
+            &__list
+                display: inline-block
+                vertical-align: middle
+                position: static
+
+            &__item
+                margin-left: $indent-g-small
+                padding: 0
+
+                vertical-align: middle
+                display: inline-block
+
+                &:hover
+                    color: $active-color
+                    background: none

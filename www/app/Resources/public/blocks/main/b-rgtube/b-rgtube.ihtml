@@ -1,0 +1,26 @@
+<div class="b-rgtube__name">Видеоматериалы</div>
+<div class="b-rgtube__body">
+    <div class="b-rgtube__video">
+        <rg-video
+
+            title="{{active.title}}"
+            file="{{active.file}}"
+            image="{{active.image}}"
+            url="{{active.uri}}"
+        ></rg-video>
+    </div>
+    <div class="b-rgtube__list">
+        <div class="b-rgtube__list__title">Все видеоматериалы</div>
+        <div class="b-rgtube__list_wrapper mCustomScrollbar">
+            {{#list}}
+                <div class="b-rgtube__item {{#if activeIndex == @index}}active{{/if}}" on-click="videoTrigger:{{@index}}">
+                    <div class="b-rgtube__image">
+                        <img src="{{image}}" alt="">
+                    </div>
+                    <div class="b-rgtube__title">{{title}}</div>
+                    <div class="b-rgtube__link">{{url}}</div>
+                </div>
+            {{/list}}
+        </div>
+    </div>
+</div>

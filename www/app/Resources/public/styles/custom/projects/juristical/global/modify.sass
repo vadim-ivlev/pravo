@@ -1,0 +1,211 @@
+/*
+ * Модификаторы для блоков
+ *
+ */
+
+.font-zero
+    font-size: 0
+
+.has-half
+    width: 50%
+
+.is-fixed
+    position: fixed
+    top: 0
+
+.b-overlay
+    display: none
+
+    +overlay(fixed)
+    z-index: 20
+
+    overflow: hidden
+    background-color: $black
+    +opacity(0.7)
+
+
+    &__content
+        position: absolute
+        top: 40px
+        right: -20px
+        z-index: 21
+
+        display: none
+        text-align: left
+
+        &.is-active
+            display: block
+
+    &.is-active
+        display: block
+
+.is-cursor-pointer
+    cursor: pointer
+
+// Если у блока есть тень
+.has-shadow
+    +box-shadow(0 1px 2px rgba($black, .12))
+    
+/*
+ * Модификаторы сдвигающихся блоков
+ *
+ */
+
+.shiftContainer
+    display: none
+
+.shiftContainer_active
+    display: block
+
+
+
+
+/*
+ * Модификаторы адаптивного поведения
+ *
+ */
+
+.is-mobile
+    display: inline-block !important
+
+    &_block
+        display: block !important
+
+    // Tablet
+    +bp-tablet
+
+        &
+        	display: none !important
+
+        &_block
+            display: none !important
+
+
+
+
+.is-tablet
+    display: none !important
+
+    &_block
+        display: none !important
+
+    // Tablet
+    +bp-tablet
+
+        &
+        	display: inline-block !important
+
+        &_block
+            display: block !important
+
+
+
+
+.is-tablet-landscape
+    display: none !important        	
+
+    // Tablet landcape
+    +bp-tabletLandscape
+
+        &
+        	display: inline-block !important
+
+
+
+.not-tablet-landscape
+
+	// Tablet landcape
+	+bp-tabletLandscape
+
+		&
+			display: none !important
+
+
+.is-desktop
+    display: none !important
+    
+    // Desktop
+    +bp-desktop
+
+        &
+        	display: inline-block !important
+
+
+
+.not-desktop
+
+	// Desktop
+	+bp-desktop
+
+		&
+			display: none !important
+
+
+
+
+.is-desktop-full
+    display: none !important
+
+    // Desktop full
+    +bp-desktopFull
+
+        &
+        	display: inline-block !important
+
+
+
+.has-sidebar
+	
+	// Desktop
+	+bp-desktop
+
+		&
+			display: none !important
+
+
+	// Desktop full
+    +bp-desktopFull
+
+        &
+			display: none !important
+
+
+.scroll-disabled
+    width: 100% // добавил, а то плыла ширина
+    position: fixed
+    top: 0
+    
+    overflow: hidden
+
+    // Desktop
+    +bp-desktop
+
+        &
+            position: static
+
+
+.i-follow
+    position: relative
+    margin-right: 20px
+
+    &.is-active
+        color: $white
+
+    &__sup
+        +font(11px)
+        
+        position: absolute
+        top: -5px
+        left: 20px
+
+
+
+/*
+ * Слой модификаторов поведения (скрыть/показать)
+ * (называются с нижним подчеркиванием)
+ * Никакие стили к ним не применять!!
+ *
+ */
+
+._hide_date ._date
+    display: none

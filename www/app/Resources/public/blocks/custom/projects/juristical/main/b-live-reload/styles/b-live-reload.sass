@@ -1,0 +1,88 @@
+/*
+ * Блок трансляций в материале
+ * 
+ */
+
+
+// Объявляем блок
+$block: '.b-live-reload'
+
+// Стили
+
+#{$block}
+
+    &_text-answer
+        font-weight: normal
+
+    &_text-important
+        border-left: 3px solid $red
+        padding-left: 20px
+
+    &_text_quote
+        position: relative
+        padding: 65px 0 30px 73px
+
+        font-family: $f-serif
+        font-style: italic
+        @include font(18px)
+
+        &:before
+            content: '“'
+
+            @include font(110px)
+            position: absolute
+            top: 21px
+            left: 35px
+
+            margin-left: -26px
+
+            font-family: $f-serif
+            font-style: italic
+
+            line-height: 0.6em
+            color: $link-color
+
+            @include opacity(0.4)
+
+
+    &__question
+        margin-bottom: 35px
+        font-weight: bold
+
+    &__info
+        //Заменить на group после 28.12.15
+        overflow: hidden
+        margin-bottom: 12px
+
+    &__text
+        line-height: 1.6
+
+    &__item
+        border-bottom: 1px dashed $comment-color
+        padding-bottom: 15px
+        margin-bottom: 15px
+
+
+
+    &__time
+        +font(13px)
+        font-family: $f-sans
+        color: $comment-color
+        margin-right: 6px
+        float: left
+
+    &__author
+        +font(13px)
+        font-weight: bold
+        font-family: $f-sans
+        float: left
+
+    &__media
+        max-width: 650px
+        margin: 15px 0
+
+    &__img
+        width: 100%
+        display: block
+
+

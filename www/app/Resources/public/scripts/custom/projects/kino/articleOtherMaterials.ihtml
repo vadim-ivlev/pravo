@@ -1,0 +1,23 @@
+ <!-- blocks.custom.kino.main.articleOtherMaterials.articleOtherMaterials -->
+
+        {{ #materials:tag }}
+            <div class="article-other-materials__item-wrapper">
+                <div class="article-other-materials__item">
+                    <div class="article-other-materials__item__tag"><a href="//kino.rg.ru/tag/{{ tag }}/">#{{ tag }}</a></div>
+                    {{ #list:i }}
+                    <div class="article-other-materials__item__unit">
+                        {{ #if i < 1}}
+                        <div class="article-other-materials__item__unit__img">
+                            <a href="{{ link }}"><img src="{{ img }}" alt="" class="article-other-materials__item__unit__img__item"></a>
+                        </div>
+                        {{ /if }}
+                        <div class="article-other-materials__item__unit__heading">
+                            <h3 class="icle-other-materials__item__unit__heading__link"><a href="{{ link }}">{{ title }}</a></h3>
+                        </div>
+                    </div>
+                    {{ /list }}
+                </div>
+            </div>
+        {{ /materials }}
+        
+<!-- /blocks.custom.kino.main.articleOtherMaterials.articleOtherMaterials -->

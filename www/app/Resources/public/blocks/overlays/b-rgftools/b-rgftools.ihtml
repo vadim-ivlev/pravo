@@ -1,0 +1,12 @@
+<div class="b-rgftools__pokeball {{toolsShow ? 'is-active' : ''}}" on-click="toolTrigger">
+    <div class="b-rgftools__pokeball-button"></div>
+</div>
+
+<div class="b-rgftools__body">
+    {{#tools}}
+        <div class="b-rgftools__item">
+            <div class="b-rgftools__name">{{name}}</div>
+            <div class="b-rgftools__content" decorator="select-text-to-clipboard">{{{content}}}</div>
+        </div>
+    {{/tools}}
+</div>

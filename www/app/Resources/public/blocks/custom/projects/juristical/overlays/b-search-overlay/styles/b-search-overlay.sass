@@ -1,0 +1,154 @@
+/*
+ * Поиск
+ * 
+ */
+
+// Объявляем блок
+$block: '.b-search-overlay'
+
+// Модификаторы
+$bSearchBar: '.b-search-bar'
+
+// Стили
+#{$block}
+    background-color: $white
+
+    &__popular
+        width: 100%
+        padding: 6px 20px
+
+    &__popular-title
+        margin-bottom: 10px
+        color: $comment-color
+
+    &__popular-list
+
+    &__popular-list-item
+        margin-bottom: 12px
+
+    // Модификация search bar
+    #{$bSearchBar}
+        //width: 100%
+        margin-bottom: 10px
+        padding: 10px
+        
+        //border-bottom: 1px solid $border-color
+
+        // Контейнер
+        & .b-field_input_text
+            +font(15px)
+            width: calc(100% - 100px)
+
+            display: inline-block
+
+            position: relative
+            border: 0
+
+            &:before
+                content: 'Найти на сайте:'
+                position: absolute
+                top: 6px
+                left: 0
+                color: $comment-color
+
+                display: none
+
+        // Элемент
+        & .b-field__input_text
+            border: 0
+
+        // Элемент
+        & .b-field__input_submit
+            padding-left: 8px
+            padding-right: 8px
+
+        &:after
+            content: ''
+            width: 100%
+            position: absolute
+            top: 58px
+            left: 0
+            border-bottom: 1px solid $border-color
+    
+
+    // Tablet
+    +bp-tablet
+
+        &
+            padding: 0 20px
+
+            &__popular-title
+                //margin-bottom: 20px
+
+            &__popular-list-item
+                //margin-bottom: 15px
+
+            // Модификация search bar
+            #{$bSearchBar}
+                //width: 490px
+                //margin-left: 270px
+
+                &__field_search
+                    //width: 340px
+
+            &__popular
+                //width: 490px
+                //margin-left: 270px
+
+
+    // Tablet Landscape
+    +bp-tabletLandscape
+
+        //&
+            // Модификация search bar
+            //#{$bSearchBar}
+                //width: 650px
+                //margin-left: 310px
+
+                //&__field_search
+                    //width: 500px
+
+            //&__popular
+                //width: 650px
+                //margin-left: 310px
+            
+
+    // Desktop
+    +bp-desktop
+
+        &
+            padding: 0
+
+            // Модификация search bar
+            #{$bSearchBar}
+                width: 1240px
+                padding-left: 260px
+
+                &__field_search
+                    width: 840px
+
+            &__popular
+                //width: 990px
+                width: 970px
+                //margin-left: 340px
+                margin-left: 250px
+
+    // Desktop
+    +bp-desktopFull
+
+        &
+
+            // Модификация search bar
+            #{$bSearchBar}
+                //width: 1330px
+                width: 1710px
+                padding-left: 360px
+
+                &__field_search
+                    width: 1180px
+
+            &__popular
+                //width: 1330px
+                width: 1310px
+                margin-left: 350px
+            

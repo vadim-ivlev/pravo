@@ -1,0 +1,54 @@
+$block: '.b-mailing'
+
+#{$block}
+    text-align: center
+    padding: $indent-g-small $indent-g/2
+    border: 1px solid $border-color
+    position: relative
+    margin-bottom: 20px
+
+    & .b-input-notification
+        bottom: 100px
+
+        &__msg
+            color: $black
+
+    &__name
+        margin-top: 0
+
+    &__active_name
+        color: $red
+
+
+    & .faq 
+        width: 20px
+        height: 20px
+        +rounded-corners($radius: 20px)
+        background-color: $today-bg-color
+        color: $comment-color
+        +font(14px)
+        display: inline-block
+        font-style: normal
+        font-family: $f-sans
+        margin-left: $indent-g-small/2
+        cursor: pointer
+
+    &__action_btn
+        cursor: pointer
+
+    +bp-tablet
+
+        &
+
+
+    +bp-tabletLandscape
+
+        &
+                 
+    +bp-desktop
+
+        &
+            
+    +bp-desktopFull
+
+        &

@@ -1,0 +1,280 @@
+// Глобальные переменные и служебные функции
+@import common
+
+
+// Normalize
+@import global/normalize
+
+// Стили анимации
+@import global/animation
+
+// Глобальные стили страницы
+@import global/user
+
+// Стили версии для печати
+@import global/print
+
+
+
+
+/*
+ * Глобальные блоки страницы
+ *
+ */
+
+// Основная сетка сайта
+@import layouts/l-page
+
+// Обсновной блок боковой разметки
+@import layouts/l-aside
+
+
+
+/*
+ * Баннеры
+ *
+ */
+
+// Баннер
+//@import blocks/b-banner/styles/b-banner
+// Реклама текстовая
+@import ../blocks/crosslayouts/b-advert/styles/b-advert
+// Реклама директ
+@import ../blocks/crosslayouts/b-yadirect/styles/b-yadirect
+// Баннеры (все баннеры идут через эти блоки)
+@import ../blocks/crosslayouts/b-ads/styles/b-ads
+// Баннеры адфокс
+@import ../blocks/crosslayouts/b-adfox/styles/b-adfox
+
+/*
+ * Сайдбар
+ *
+ */
+
+// Левый сайтбар
+@import ../blocks/sidebar/b-sidebar-left/styles/b-sidebar-left
+// Правый сайтбар
+@import ../blocks/sidebar/b-sidebar-right/styles/b-sidebar-right
+// Блок рубрик
+@import ../blocks/crosslayouts/b-categories/styles/b-categories
+
+
+
+/*
+ * Шапка
+ *
+ */
+
+// Основной блок шапки
+@import ../blocks/header/b-header/styles/b-header
+// Блок меню в шапке
+@import ../blocks/header/b-menu/styles/b-menu
+// Блок меню пользователя в шапке
+@import ../blocks/header/b-menu-user/styles/b-menu-user
+// Блок переключалки региона в шапке
+@import ../blocks/header/b-switch-region/styles/b-switch-region
+// Блок логотипа в шапке
+@import ../blocks/header/b-logo/styles/b-logo
+// Блок новости в шапке
+@import ../blocks/header/b-header-news/styles/b-header-news
+// Блок онлайн трансляций в шапке
+@import ../blocks/header/b-broadcast/styles/b-broadcast
+
+
+
+
+
+/*
+ * Футер
+ *
+ */
+
+// Основной блок футера
+@import ../blocks/footer/b-footer/styles/b-footer
+// Ссылки в футере
+@import ../blocks/footer/b-footer-links/styles/b-footer-links
+// Счетчики
+@import ../blocks/footer/b-counter/styles/b-counter
+
+
+
+
+
+/*
+ * Основной контент
+ *
+ */
+
+// Блок основного контента
+@import ../blocks/main/b-content/styles/b-content
+// Блок шпишельной ленты новостей
+@import ../blocks/main/b-news/styles/b-news
+// Блок сквозной ленты новостей
+@import ../blocks/main/b-news-inner/styles/b-news-inner
+// Блок новостей рубрик
+@import ../blocks/main/b-news-rubric/styles/b-news-rubric
+// Шапка ленты контента
+@import ../blocks/main/b-list-head/styles/b-list-head
+// Тело ленты контента
+@import ../blocks/main/b-list-wrapper/styles/b-list-wrapper
+// Тело статической страницы
+@import ../blocks/main/b-static-wrapper/styles/b-static-wrapper
+// Шапка страницы рубрик
+@import ../blocks/main/b-rubricator-head/styles/b-rubricator-head
+// Актуальные сюжеты
+@import ../blocks/main/b-themetopic/styles/b-themetopic
+// Блок статей из сюжета в рубриках
+@import ../blocks/main/b-news-themetopic/styles/b-news-themetopic
+// Блок меню рубрик на странице рубрики
+@import ../blocks/main/b-rubricator-menu/styles/b-rubricator-menu
+// Блок рубрик на странице рубрики
+@import ../blocks/main/b-rubricator-rubrics/styles/b-rubricator-rubrics
+// Блок видео
+@import ../blocks/main/b-video/styles/b-video
+//блок дополнительного контента в заге статической страницы
+@import ../blocks/main/b-head-info/styles/b-head-info
+// Блок брендирования под шапкой
+@import ../blocks/main/b-branding-head/style/b-branding-head
+// Блок с границами
+@import ../blocks/crosslayouts/b-bounded-row/styles/b-bounded-row
+
+
+/*
+ * Переносимые блоки
+ *
+ */
+
+// Блок лоадер
+@import ../blocks/crosslayouts/b-spinner/styles/b-spinner
+// Блок лоадер
+@import ../blocks/crosslayouts/b-dummy/styles/b-dummy
+// Блок акцентов
+@import ../blocks/crosslayouts/b-accents/styles/b-accents
+// Блок онтактов для спецвыпусков
+@import ../blocks/crosslayouts/b-contacts/styles/b-contacts
+// Блок ленты акцентов
+@import ../blocks/crosslayouts/b-feed-accents/styles/b-feed-accents
+// Блок главной ленты новостей
+@import ../blocks/crosslayouts/b-feed/styles/b-feed
+// Блок фото/видео
+@import ../blocks/crosslayouts/b-media/styles/b-media
+// Блок спецпроекты
+//@import ../blocks/crosslayouts/b-projects/styles/b-projects
+// Блок мнения
+// Блок удалили и переименовали в _views @import ../blocks/crosslayouts/b-views/styles/b-views
+// Блок выбор редакции
+//@import ../blocks/crosslayouts/b-editor/styles/b-editor
+// Блок документы
+@import ../blocks/crosslayouts/b-docs/styles/b-docs
+// Блок персоны
+//@import ../blocks/crosslayouts/b-person/styles/b-person
+// Блок социальных кнопок
+@import ../blocks/crosslayouts/b-social/styles/b-social
+// Блок поделиться в статье
+@import ../blocks/crosslayouts/b-share/styles/b-share
+// Подписка на сюжет
+@import ../blocks/crosslayouts/b-follow/styles/b-follow
+// Комментарии
+// Перенесено в material.sass @import ../blocks/crosslayouts/b-comment/styles/b-comment
+// Один комментарий
+// Перенесено в material.sass @import ../blocks/crosslayouts/b-post/styles/b-post
+// Партнерки
+@import ../blocks/crosslayouts/b-partner-news/styles/b-partner-news
+
+// Табы, используются во всплывающих окнах (свежий выпуск)
+//@import ../blocks/crosslayouts/b-tab/styles/b-tab
+// Блок с названием полосы
+@import ../blocks/crosslayouts/b-broadside/styles/b-broadside
+// Блок метаинформации
+@import ../blocks/crosslayouts/b-material-meta/styles/b-material-meta
+// Блок связей материала
+@import ../blocks/crosslayouts/b-material-related/styles/b-material-related
+// Блок связей материала
+@import ../blocks/crosslayouts/b-material-sujet/styles/b-material-sujet
+// Автор статьи
+@import ../blocks/crosslayouts/b-author/styles/b-author
+// Поле поиска
+@import ../blocks/crosslayouts/b-search-bar/styles/b-search-bar
+// Таб-меню
+@import ../blocks/crosslayouts/b-tabs/styles/b-tabs
+// Календарь
+@import ../blocks/crosslayouts/b-calendar/styles/b-calendar
+// Блок алфавита (в интервью)
+@import ../blocks/crosslayouts/b-alphabet/styles/b-alphabet
+// Блок подсказок в инпутах
+@import ../blocks/forms/b-input-notification/styles/b-input-notification
+// Лента партнеров
+@import ../blocks/crosslayouts/b-vendors/styles/b-vendors
+// Блок возрастного ограничения
+@import ../blocks/crosslayouts/b-age/styles/b-age
+// Блок downloads
+@import ../blocks/crosslayouts/b-downloads/styles/b-downloads
+// Блок карточек данных
+@import ../blocks/crosslayouts/b-card/styles/b-card
+// Боковая картинка проекта
+@import ../blocks/crosslayouts/b-issue-picture/styles/b-issue-picture
+
+// Партнеры
+@import ../blocks/crosslayouts/b-partners/styles/b-partners
+
+// Блок видеозакон
+@import ../blocks/crosslayouts/b-video-laws/styles/b-video-laws
+
+// Сообщение формы
+@import ../blocks/forms/b-form-message/styles/b-form-message
+
+// Кнопка с подпиской
+@import ../blocks/crosslayouts/b-mailing/styles/b-mailing
+
+// Календарь
+@import ../blocks/crosslayouts/b-custom-datepicker/styles/b-custom-datepicker
+
+// Видеопоток
+@import ../blocks/crosslayouts/b-video-inner/styles/b-video-inner
+
+
+/*
+ * Блоки во всплывающих окнах
+ *
+ */
+
+// Блок выбора региона
+@import ../blocks/overlays/b-region/styles/b-region
+
+// Блок поиска модальное окно
+@import ../blocks/overlays/b-search-overlay/styles/b-search-overlay
+
+// Блок свежий выпуск
+//@import ../blocks/crosslayouts/b-fresh/styles/b-fresh
+// Блок свежий выпуск - лента новостей
+//@import ../blocks/crosslayouts/b-fresh-news/styles/b-fresh-news
+
+// Блок прочитанных статей
+@import ../blocks/overlays/b-viewed/styles/b-viewed
+//@import ../blocks/crosslayouts/b-viewed/styles/b-viewed
+
+// Блок отслеживаемых статей
+@import ../blocks/overlays/b-followed/styles/b-followed
+//@import ../blocks/crosslayouts/b-followed/styles/b-followed
+
+// Блок авторизации
+@import ../blocks/overlays/b-auth/styles/b-auth
+
+// Блок авторизации
+@import ../blocks/overlays/b-rgftools/styles/b-rgftools
+
+// Блок курсов валют
+@import ../blocks/crosslayouts/b-exchange/styles/b-exchange
+
+
+/*
+ * Стили плагинов и библиотек
+ *
+ */
+
+// Colorbox
+@import vendors/vendor.colorbox.custom
+// Scrollbar
+@import vendors/vendor.scrollbar.custom
+// Fotorama
+@import vendors/vendor.fotorama.custom

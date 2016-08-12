@@ -1,0 +1,133 @@
+<div class="{{ !rgb ? 'b-search-filters b-search-filters_doc' : 'b-search-filters__body'}} {{ show ? 'is-show' : 'is-hide' }} group">
+
+    <!-- <div class="b-search-filters__wrapper b-search-filters__wrapper_doc-status group">
+        <div class="b-search-filters__name">Статус</div>
+        <div class="b-search-filters__content">
+            {{#filters.statuses:i}}
+                <label class="b-field b-field_input b-field_input_checkbox" 
+                    on-click="addFilter: 'statuses'">
+                    
+                    <div class="b-field__label">{{name}}</div>
+                    <div class="b-field__wrapper">
+                        <input class="b-field__input b-field__input_checkbox" 
+                        type="checkbox"
+                        {{checked ? 'checked' : ''}}>
+                        <span class="b-field__icon"></span>
+                    </div>
+                </label>
+            {{/filters.statuses}}
+        </div>
+    </div> -->
+    <div class="b-search-filters__wrapper b-search-filters__wrapper_doc-datepub group">
+        <div class="b-search-filters__name">Дата публикации</div>
+        <div class="b-search-filters__content">
+            <label class="b-field b-field_input b-field_input_text b-search-filters__item_datepicker-from b-custom-datepicker_input" on-click="datepiker">
+                <div class="b-field__label">c</div>
+                <div class="b-field__wrapper">
+                    <input class="b-field__input b-field__input_text"
+                           type="text"
+                           value="{{searchFilters.from}}"
+                           decorator="date-picker">
+                </div>
+            </label>
+            <label class="b-field b-field_input b-field_input_text b-search-filters__item_datepicker-to b-custom-datepicker_input" on-click="datepiker">
+                <div class="b-field__label">по</div>
+                <div class="b-field__wrapper">
+                    <input class="b-field__input b-field__input_text"
+                           type="text"
+                           value="{{searchFilters.to}}"
+                           decorator="date-picker">
+                </div>
+            </label>
+        </div>
+    </div>
+    <div class="b-search-filters__wrapper b-search-filters__wrapper_doc-type group">
+        <div class="b-search-filters__name">Тип документа</div>
+        <div class="b-search-filters__content">
+            {{#filters.doctype:i}}
+                <label class="b-field b-field_input b-field_input_checkbox" 
+                    on-click="addFilter: 'doctype'">
+                    
+                    <div class="b-field__label">{{name}}</div>
+                    <div class="b-field__wrapper">
+                        <input class="b-field__input b-field__input_checkbox" 
+                        type="checkbox"
+                        {{checked ? 'checked' : ''}}>
+                        <span class="b-field__icon"></span>
+                    </div>
+                </label>
+            {{/filters.doctype}}
+        </div>
+    </div>
+    <div class="b-search-filters__wrapper b-search-filters__wrapper_doc-department group">
+        <div class="b-search-filters__name">Ведомства</div>
+        <div class="b-search-filters__content">
+            {{#filters.org:i}}
+                <label class="b-field b-field_input b-field_input_checkbox" 
+                    on-click="addFilter: 'org'">
+                    
+                    <div class="b-field__label">{{name}}</div>
+                    <div class="b-field__wrapper">
+                        <input class="b-field__input b-field__input_checkbox" 
+                        type="checkbox"
+                        {{checked ? 'checked' : ''}}>
+                        <span class="b-field__icon"></span>
+                    </div>
+                </label>
+            {{/filters.org}}
+        </div>
+    </div>
+    <div class="b-search-filters__wrapper b-search-filters__wrapper_doc-theme group">
+        <div class="b-search-filters__name">Тема документа</div>
+        <div class="b-search-filters__content">
+            {{#filters.themes:i}}
+                <label class="b-field b-field_input b-field_input_checkbox" 
+                    on-click="addFilter: 'themes'">
+                    
+                    <div class="b-field__label">{{name}}</div>
+                    <div class="b-field__wrapper">
+                        <input class="b-field__input b-field__input_checkbox" type="checkbox" {{checked ? 'checked' : ''}} />
+                        <span class="b-field__icon"></span>
+                    </div>
+                </label>
+            {{/filters.themes}}
+        </div>
+    </div>
+
+    <!-- <div class="b-search-filters__wrapper b-search-filters__submit group">
+        Кнопка найти
+        <label class="b-field b-field_input b-field_input_submit b-field_accent  {{loading ? 'b-spinner' : ''}}">
+            <div class="b-field__wrapper">
+    
+                <input class="b-field__input b-field__input_submit" 
+                type="submit"
+                value="Найти"
+                on-click="find">
+    
+            </div>
+        </label>
+        /Кнопка найти
+    </div> -->
+
+    <div class="b-search-filters__wrapper b-search-filters__submit group">
+
+        <!--Кнопка применить-->
+        <label class="b-field b-field_input b-field_input_submit {{loading ? 'b-spinner' : ''}}">
+            <div class="b-field__wrapper">
+
+                <input class="b-field__input b-field__input_submit" 
+                type="submit"
+                value="Применить"
+                on-click="find">
+
+            </div>
+        </label>
+        <!--/Кнопка применить-->
+
+    </div>
+
+    <div class="b-search-filters__wrapper b-search-filters__reset group">
+        <a class="b-link b-link_blue">Сбросить фильтр</a>
+    </div>
+
+</div>

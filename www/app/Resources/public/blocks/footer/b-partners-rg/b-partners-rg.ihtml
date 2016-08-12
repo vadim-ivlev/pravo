@@ -1,0 +1,23 @@
+<div id="partnersRg" class="b-partners-rg">
+    <div class="b-partners-rg__item">
+        <a class="b-link b-partners-rg__icon b-partners-rg__icon_rg" href="#"></a>
+    </div>
+    <div class="b-partners-rg__item">
+        <a class="b-link b-partners-rg__icon b-partners-rg__icon_nedelya" href="#"></a>
+    </div>
+    <div class="b-partners-rg__item">
+        <a class="b-link b-partners-rg__icon b-partners-rg__icon_rodina" href="#"></a>
+    </div>
+    <div class="b-partners-rg__item">
+        <a class="b-link b-partners-rg__icon b-partners-rg__icon_biznes" href="#"></a>
+    </div>
+    <div class="b-partners-rg__item">
+        <a class="b-link b-partners-rg__icon b-partners-rg__icon_soyuz" href="#"></a>
+    </div>
+    <div class="b-partners-rg__item">
+        <a class="b-link b-partners-rg__icon b-partners-rg__icon_bibliotechka" href="#"></a>
+    </div>
+    <div class="b-partners-rg__item">
+        <a class="b-link b-partners-rg__icon b-partners-rg__icon_rbth" href="#"></a>
+    </div>
+</div>

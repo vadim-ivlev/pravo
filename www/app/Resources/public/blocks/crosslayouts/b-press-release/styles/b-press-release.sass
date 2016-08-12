@@ -1,0 +1,29 @@
+/*
+ * Блок ленты контента
+ *
+ */
+
+// Объявляем блок
+$block: '.b-press-release'
+
+// Стили
+#{$block}
+    margin-bottom: 30px
+    padding: 0 20px
+
+    &__name
+        +font(15px)
+        font-style: italic
+        margin-bottom: 20px
+
+    &__list
+        padding: 20px
+        border: 1px solid $border-color
+
+    +bp-tablet
+        padding: 0
+
+    // Desktop
+    +bp-desktop
+
+        &

@@ -1,0 +1,25 @@
+/*
+ * Видео
+ * 
+ */
+
+// Объявляем блок
+$block: '.b-audio'
+
+// Стили
+#{$block}
+
+    .jwplayer
+    	width: 100%
+        vertical-align: top
+
+    &__title
+    	+font(14px)
+    	font-style: italic
+
+    +bp-tablet
+
+    	&
+
+    		.jwplayer
+    			max-width: 80%

@@ -1,0 +1,76 @@
+/*
+ * Шапка статьи
+ * 
+ */
+
+// Объявляем блок
+$block: '.b-material-head'
+
+// Стили
+#{$block}
+    +font(13px)
+    color: $comment-color
+    margin-bottom: 12px
+
+    &__title
+        // добавил по просьбе Оли и Макса и Агимы (было 18px)
+        +font(21px)
+
+        color: $black
+        line-height: 1.2em
+
+        margin-bottom: 10px
+
+    &__date,
+    &__rubric
+        width: 50%
+        float: right
+
+    &__date
+        padding-right: 20px
+
+    &__date-name
+        margin-left: 15px
+
+    &__rubric-name
+        color: $black
+
+    &__date,
+    &__rubric
+        +font(13px)
+
+    // Tablet
+    +bp-tablet
+
+        &
+            &__title
+                +font(21px)
+
+            &__date,
+            &__rubric
+                width: auto
+                float: right
+
+    // Tablet landscape
+    +bp-tabletLandscape
+
+        &
+            &__title
+                +font(26px)
+
+    // Desktop
+    +bp-desktop
+
+        &
+            //margin: 0
+
+            &__title
+                +font(32px)
+
+    // Desktop full
+    +bp-desktopFull
+
+        &
+            &__title
+                +font(22px)
+                font-weight: bold

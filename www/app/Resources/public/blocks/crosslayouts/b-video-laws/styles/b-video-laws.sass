@@ -1,0 +1,55 @@
+/*
+ * Блок видеозакон
+ *
+ */
+
+// Объявляем блок
+$block: '.b-video-laws'
+$b-news-rubric: '.b-news-rubric'
+
+
+// Стили
+#{$block}
+    background: $today-bg-color
+    padding: 20px
+    padding-bottom: 10px
+    margin-top: 30px
+    &__name
+        +font(14px)
+        font-weight: bold
+        font-family: $f-serif
+        font-style: italic
+
+    &__item
+        position: relative
+        &:after
+            content: ""
+            width: 30px
+            height: 30px
+            position: absolute
+            top: 36px
+            right: 0
+            background: url(#{$img-path}sprite_main.png) no-repeat
+            background-position: -90px 0
+
+
+    &__content
+        margin-bottom: 0
+
+    #{$b-news-rubric}
+        &__list-item-link
+            margin-top: 10px
+            display: block
+            font-family: $f-sans
+            +font(13px)
+
+        &__list-item
+            margin-top: 0
+
+
+        &__list-item-time
+            display: none
+
+        &__list-item-image
+            margin-top: 0
+            position: relative

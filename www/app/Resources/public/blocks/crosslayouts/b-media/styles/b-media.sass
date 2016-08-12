@@ -1,0 +1,167 @@
+/*
+ * Блок фото/видео
+ * 
+ */
+
+// Объявляем блок
+// Превью
+$block: '.b-media'
+
+// Стили
+#{$block}
+    +font(15px)
+
+    padding: 0 20px
+    margin-bottom: 20px
+
+    &__title
+        font-family: $f-serif
+        font-weight: bold
+        font-style: italic
+
+        margin-bottom: $indent-title
+
+    &__link
+        color: $link-color
+
+        &:hover
+            color: $time-color
+
+    &__list
+        // inline-block fix
+        font-size: $f-sz-zero
+        letter-spacing: 0
+        
+        margin-left: -0.8%
+
+    &__list-item
+        width: 32.5%
+        margin-left: .8%
+        margin-bottom: .8%
+
+        position: relative
+        display: inline-block
+        vertical-align: top
+        line-height: 0
+
+        // inline-block fix
+        letter-spacing: $letterSpacingDefault
+
+    &__list-item-image
+        width: 100%
+
+    &__icon-video
+        width: 30px
+        height: 30px
+
+        position: absolute
+        bottom: 0
+        right: 0
+
+        background-position: -90px 0
+
+    &__icon-photo
+        display: none
+
+    &__full
+        opacity: 0
+        visibility: hidden
+
+        +transition(all 0.2s cubic-bezier(0.43, 0.19, 0.31, 1.13))
+        +transform(scale(0.3))
+
+    &__list-item.is-active &__full
+        opacity: 1
+        visibility: visible
+        z-index: 5
+
+        +transition(all 0.2s cubic-bezier(0.43, 0.19, 0.31, 1.13))
+        +transform(scale(1))
+    
+
+    // Tablet
+    +bp-tablet
+
+        &
+            margin-bottom: 23px
+            padding: 0
+
+            &__list
+                margin-left: -7px
+
+            &__list-item
+                width: 92px
+                margin: 0 0 7px 7px
+
+                &:nth-last-child(1),
+                &:nth-last-child(2)
+                    display: none
+            
+
+    // Tablet landscape
+    +bp-tabletLandscape
+
+        &
+
+            &__list
+                margin-left: -10px
+
+            &__list-item
+                width: 100px
+                margin: 0 0 10px 10px
+
+                &:nth-last-child(1),
+                &:nth-last-child(2)
+                    display: inline-block
+            
+
+    // Desktop
+    +bp-desktop
+
+        &
+
+            &__title
+                +font(17px)
+
+            .b-sidebar-right__item &__list
+                margin-left: -5px
+
+            .b-sidebar-right__item &__list-item
+                width: 100px
+                margin: 0 0 5px 5px
+
+
+
+#{$block}-full
+    width: 310px
+
+    position: absolute
+    top: 0
+    right: 50px
+    line-height: 1em
+
+    &__image
+        width: 100%
+
+    &__description
+        +font(13px)
+
+        width: 100%
+        padding: 10px 20px
+
+        position: absolute
+        bottom: 0
+        left: 0
+        line-height: 1.4em
+        color: $white
+        background-color: $time-color
+
+    &__icon
+        width: 30px
+        height: 30px
+
+        position: absolute
+        top: -35px
+        right: 5px
+
+        background-position: -90px 0

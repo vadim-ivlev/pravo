@@ -872,6 +872,21 @@ class ApiController extends Controller implements ContainerAwareInterface
         return $numeric_page;
     }*/
 
+    protected function ProcessingRequestForPaginationAction ()
+    {
+        $value_get_pagination = '?';
+
+        $request = Request::createFromGlobals();
+        foreach ($request->query->all() as $keys_query_get => $values_query_get) {
+            $value_get_pagination .= $keys_query_get . '=' . $values_query_get . '&';
+        }
+        if ($value_get_pagination[strlen($value_get_pagination)-1] === '&') {
+            $value_get_pagination = substr($value_get_pagination, 0, strlen($value_get_pagination)-1);
+        }
+        
+        return $value_get_pagination;
+    }
+
     /**
      * @param array $query - select * по заданной выборки
      * @param $count_numeric_page - количество пагинация на странице
@@ -931,6 +946,8 @@ class ApiController extends Controller implements ContainerAwareInterface
                         'first' => ($i == $firstPage) ? true : false,
                         'middle' => ($i != $firstPage && $i != $totalPages) ? true : false,
                         'last' => ($i == $totalPages) ? true : false,
+                        /*'left_hellip' => false,
+                        'left_hellip' => false,*/
                     ];
                 } else {
                     $numeric_page[] = [
@@ -970,7 +987,7 @@ class ApiController extends Controller implements ContainerAwareInterface
                         'middle' => ($i != $firstPage && $i != $totalPages) ? true : false,
                         'last' => ($i == $totalPages) ? true : false,
                     ];
-                } elseif ($i == $count_numeric_page){
+                } elseif ($i == $count_numeric_page) {
                     $numeric_page[] = [
                         'number_page' => $totalPages,
                         'link' => $link . "$i/html/" . (($totalPages-1)*self::COUNT_RECORDS_ON_PAGE_JURISTS) . $condition_id . self::REDIRECT . $get_string,
@@ -999,7 +1016,11 @@ class ApiController extends Controller implements ContainerAwareInterface
                     'last' => false,
                 ];
                 $arrow = $this::PaginationGenerateArrowAction($i, $current_page, $link, $condition_id, $get_string);
-            } elseif (($current_page-2 < $i && $current_page+2 > $i) && $current_page != $firstPage && $current_page != $firstPage+1 && $current_page != $totalPages && $current_page != $totalPages - 1) {//в середине
+            } elseif (
+                ($current_page-2 < $i && $current_page+2 > $i)
+                && $current_page != $firstPage && $current_page != $firstPage+1
+                && $current_page != $totalPages && $current_page != $totalPages - 1
+            ) {//в середине
                 $numeric_page[0] = [
                     'number_page' => $firstPage,
                     'link' => $link . "$firstPage/html/0" . $condition_id . self::REDIRECT . $get_string,
@@ -1008,7 +1029,7 @@ class ApiController extends Controller implements ContainerAwareInterface
                     'middle' => false,
                     'last' => false,
                 ];
-                if($current_page-2 < $i && count($numeric_page)){
+                if ($current_page-2 < $i && count($numeric_page)){
                     $numeric_page[] = [
                         'number_page' => $i,
                         'link' => $link . "$i/html/" . (($i-1)*self::COUNT_RECORDS_ON_PAGE_JURISTS) . $condition_id . self::REDIRECT . $get_string,
@@ -1018,7 +1039,7 @@ class ApiController extends Controller implements ContainerAwareInterface
                         'last' => ($i == $totalPages) ? true : false,
                     ];
                 }
-                if(count($numeric_page) == $count_numeric_page-1){//если массив заполнился до нужного значения
+                if (count($numeric_page) == $count_numeric_page-1) {//если массив заполнился до нужного значения
                     $numeric_page[] = [
                         'number_page' => $totalPages,
                         'link' => $link . "$totalPages/html/" . (($totalPages-1)*self::COUNT_RECORDS_ON_PAGE_JURISTS) . $condition_id . self::REDIRECT . $get_string,
@@ -1036,9 +1057,9 @@ class ApiController extends Controller implements ContainerAwareInterface
          * end numeric_page
          */
 
-        if(!$numeric_page)throw new Exception("Не определена логика вывода страниц пагинации");
+        if (!$numeric_page) throw new Exception("Не определена логика вывода страниц пагинации");
 
-        if($totalPages > 0){
+        if ($totalPages > 0) {
             $this->result['pagination'] = [
                 'total__pages' => $totalPages,
                 'limit__pages' => ($totalPages > self::PAGINATION_FOR_JURISTS) ? true : false,//для многоточия в мусташе
@@ -1048,6 +1069,14 @@ class ApiController extends Controller implements ContainerAwareInterface
                 'all__pages' => $numeric_page,
                 'arrow' => $arrow
             ];
+
+            //если больше 5 страниц, то у нас есть точки
+            if($this->result['pagination']['total__pages'] > 5)
+            {
+                $this->result['pagination']['all__pages'][0]['__FIRST__'] = true;
+                $this->result['pagination']['all__pages'][count($this->result['pagination']['all__pages'])-1]['__LAST__'] = true;
+            }
+            dump($this->result['pagination']);die;
         }
 
     }

@@ -1,0 +1,55 @@
+/*
+ * Абстрактный блок стандартных элементов
+ * 
+ */
+
+// Объявляем блок
+$block: '.b'
+
+
+// Стили
+
+#{$block}
+
+	&__wrapper
+		float: none
+
+
+	&__title
+		+font(16px)
+
+	&__text
+		+font(14px)
+
+	+bp-desktop
+
+		&
+
+			&__wrapper
+				float: left
+				width: 660px
+
+
+	+bp-desktopFull
+
+		&
+
+			&__wrapper
+				width: 960px
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+
+

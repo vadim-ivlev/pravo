@@ -1,0 +1,319 @@
+{
+  "name": "includes:common",
+  "subTasks": [
+	{
+		"name": "b-media",
+		"dest": "/dest/templates/includes",
+		"src": {
+			"include": [ "/src/pages/includes/route.html" ]
+		},
+		"plugins": [
+			{
+				"name": "gulp-rgswig",
+				"options": {
+					"data": {
+						"type": "include",
+						"name": "b-media",
+						"tmplFile": "b-media.swig",
+						"object": "objects__",
+						"info": "{{# internal_tags}}{{.}}{{/ internal_tags}}"
+					}
+				}
+			},
+			{
+				"name": "gulp-minify-html",
+				"options": {
+					"conditionals": true,
+					"comments": true,
+					"quotes": true
+				}
+			},
+			{
+				"name": "gulp-rename",
+				"options": {
+					"basename": "b-media"
+				}
+			}
+		]
+	},
+	{
+		"name": "b-docs",
+		"dest": "/dest/templates/includes",
+		"src": {
+			"include": [ "/src/pages/includes/route.html" ]
+		},
+		"plugins": [
+			{
+				"name": "gulp-rgswig",
+				"options": {
+					"data": {
+						"type": "include",
+						"name": "b-docs",
+						"tmplFile": "b-docs.swig",
+						"object": "objects__",
+						"info": "{{# internal_tags}}{{.}}{{/ internal_tags}}"
+					}
+				}
+			},
+			
+			"~gulp-minify-html",
+			
+			{
+				"name": "gulp-rename",
+				"options": {
+					"basename": "b-docs"
+				}
+			}
+		]
+	},
+	{
+		"name": "b-feed",
+		"dest": "/dest/templates/includes",
+		"src": {
+			"include": [ "/src/pages/includes/route.html" ]
+		},
+		"plugins": [
+			{
+				"name": "gulp-rgswig",
+				"options": {
+					"data": {
+						"type": "include",
+						"name": "b-feed",
+						"tmplFile": "b-feed.swig",
+						"object": "objects__",
+						"info": "{{# internal_tags}}{{.}}{{/ internal_tags}}"
+					}
+				}
+			},
+			
+			"~gulp-minify-html",
+			
+			{
+				"name": "gulp-rename",
+				"options": {
+					"basename": "b-feed"
+				}
+			}
+		]
+	},
+	{
+		"name": "b-feed-tags",
+		"dest": "/dest/templates/includes",
+		"src": {
+			"include": [ "/src/pages/includes/route.html" ]
+		},
+		"plugins": [
+			{
+				"name": "gulp-rgswig",
+				"options": {
+					"data": {
+						"type": "include",
+						"name": "b-feed",
+						"tmplFile": "b-feed.swig",
+						"object": "objects__",
+						"mod": "tags",
+						"showBlocks": {
+							"tags": true
+						},
+						"info": "{{# internal_tags}}{{.}}{{/ internal_tags}}"
+					}
+				}
+			},
+			
+			"~gulp-minify-html",
+			
+			{
+				"name": "gulp-rename",
+				"options": {
+					"basename": "b-feed-tags"
+				}
+			}
+		]
+	},
+	{
+		"name": "b-feed-accents",
+		"dest": "/dest/templates/includes",
+		"src": {
+			"include": [ "/src/pages/includes/route.html" ]
+		},
+		"plugins": [
+			{
+				"name": "gulp-rgswig",
+				"options": {
+					"data": {
+						"type": "include",
+						"name": "b-feed-accents",
+						"tmplFile": "b-feed-accents.swig",
+						"object": "objects__",
+						"info": "{{# internal_tags}}{{.}}{{/ internal_tags}}"
+					}
+				}
+			},
+			
+			"~gulp-minify-html",
+			
+			{
+				"name": "gulp-rename",
+				"options": {
+					"basename": "b-feed-accents"
+				}
+			}
+		]
+	},
+	{
+		"name": "b-news",
+		"dest": "/dest/templates/includes",
+		"src": {
+			"include": [ "/src/pages/includes/route.html" ]
+		},
+		"plugins": [
+			{
+				"name": "gulp-rgswig",
+				"options": {
+					"data": {
+						"type": "include",
+						"name": "b-news",
+						"tmplFile": "b-news.swig",
+						"object": "objects__",
+						"info": "{{# internal_tags}}{{.}}{{/ internal_tags}}"
+					}
+				}
+			},
+			
+			"~gulp-minify-html",
+			
+			{
+				"name": "gulp-rename",
+				"options": {
+					"basename": "b-news"
+				}
+			}
+		]
+	},
+	{
+		"name": "b-news-inner",
+		"dest": "/dest/templates/includes",
+		"src": {
+			"include": [ "/src/pages/includes/route.html" ]
+		},
+		"plugins": [
+			{
+				"name": "gulp-rgswig",
+				"options": {
+					"data": {
+						"type": "include",
+						"name": "b-news-inner",
+						"tmplFile": "b-news-inner.swig",
+						"object": "objects__",
+						"showBlocks": {
+							"theme": true, 
+							"fascicles": true
+						},
+						"info": "{{# internal_tags}}{{.}}{{/ internal_tags}}"
+					}
+				}
+			},
+			
+			"~gulp-minify-html",
+			
+			{
+				"name": "gulp-rename",
+				"options": {
+					"basename": "b-news-inner"
+				}
+			}
+		]
+	},
+	{
+		"name": "b-news-inner_doc",
+		"dest": "/dest/templates/includes",
+		"src": {
+			"include": [ "/src/pages/includes/route.html" ]
+		},
+		"plugins": [
+			{
+				"name": "gulp-rgswig",
+				"options": {
+					"data": {
+						"type": "include",
+						"name": "b-news-inner",
+						"tmplFile": "b-news-inner.swig",
+						"object": "objects__",
+						"mod": "doc",
+						"info": "{{# internal_tags}}{{.}}{{/ internal_tags}}"
+					}
+				}
+			},
+			
+			"~gulp-minify-html",
+			
+			{
+				"name": "gulp-rename",
+				"options": {
+					"basename": "b-news-inner_doc"
+				}
+			}
+		]
+	},
+	{
+		"name": "b-news-rubric",
+		"dest": "/dest/templates/includes",
+		"src": {
+			"include": [ "/src/pages/includes/route.html" ]
+		},
+		"plugins": [
+			{
+				"name": "gulp-rgswig",
+				"options": {
+					"data": {
+						"type": "include",
+						"name": "b-news-rubric",
+						"tmplFile": "b-news-rubric.swig",
+						"object": "objects__",
+						"info": "{{# internal_tags}}{{.}}{{/ internal_tags}}"
+					}
+				}
+			},
+			
+			"~gulp-minify-html",
+			
+			{
+				"name": "gulp-rename",
+				"options": {
+					"basename": "b-news-rubric"
+				}
+			}
+		]
+	},
+	{
+		"name": "b-news-rubric-spiegel",
+		"dest": "/dest/templates/includes",
+		"src": {
+			"include": [ "/src/pages/includes/route.html" ]
+		},
+		"plugins": [
+			{
+				"name": "gulp-rgswig",
+				"options": {
+					"data": {
+						"type": "include",
+						"name": "b-news-rubric-spiegel",
+						"tmplFile": "b-news-rubric-spiegel.swig",
+						"object": "objects__",
+						"info": "{{# internal_tags}}{{.}}{{/ internal_tags}}"
+					}
+				}
+			},
+			
+			"~gulp-minify-html",
+			
+			{
+				"name": "gulp-rename",
+				"options": {
+					"basename": "b-news-rubric-spiegel"
+				}
+			}
+		]
+	}
+  ]
+}

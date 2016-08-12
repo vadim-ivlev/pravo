@@ -1,0 +1,32 @@
+/*
+ * Тело ленты контента
+ * 
+ */     
+
+// Объявляем блок
+$block: '.b-list-wrapper'
+
+// Основной блок
+#{$block}
+    +font(14px)
+
+    &.b-news-inner
+        //border-top: 1px solid $border-color
+        border-top: 0
+        padding-top: 0
+
+    &__picture
+        //margin-top: 42px
+        //float: right
+
+        &__image
+            //border: 1px solid $border-color
+
+        .b-sidebar__item &
+            //margin-top: 0
+            margin-bottom: 20px
+            float: none
+
+
+    .l-main-content__item_gazeta &
+        border-top: 0

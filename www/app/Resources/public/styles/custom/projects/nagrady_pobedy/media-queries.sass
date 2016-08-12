@@ -1,0 +1,37 @@
+/*
+ * Media Queries
+ *
+ */
+
+@media (min-width: $width-large + 40)
+    .page
+        width: $width-large
+
+    .page-content__time
+
+        .time-row
+
+            .time-month
+                font-size: 1.2em
+                @include size($time-month-width*1.5 + $border-width)
+                margin-left: $time-month-width*1.5/2*-1
+                line-height: $time-month-width*1.5 - $border-width
+
+        .time-row_active
+            height: $time-row_active + 40
+
+            .time-month
+                font-size: 2em
+                @include size($time-month-width*2 + $border-width)
+                margin-left: $time-month-width*2/2*-1
+                line-height: $time-month-width*2 - $border-width
+
+            .time-content
+
+                .item
+                    margin: 0
+
+                    .item-fig
+
+                        img
+                            height: 100%!important

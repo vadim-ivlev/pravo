@@ -1,0 +1,158 @@
+{
+  "name": "projects:sila",
+  "subTasks": [
+    {
+      "name": "libStyles",
+      "dest": "/dest/public/styles/custom/projects/sila",
+      "src": {
+        "include": [
+          "/src/styles/vendors/**/*.css",
+          "/src/styles/custom/projects/sila/vendors/**/*.css"
+        ]
+      },
+      "watch":  [
+          "/src/styles/custom/projects/sila/vendors/**/*.css"
+		  ],
+      "plugins": [
+		    {
+          "name": "gulp-concat",
+          "options": "lib.css"
+        },
+        {
+          "name": "gulp-sass",
+          "options": {
+            "outputStyle": "compressed"
+          }
+        }
+      ]
+    },
+	  {
+      "name": "globalStyles",
+      "dest": "/dest/public/styles/custom/projects/sila",
+      "src": {
+        "include": [
+          "/src/styles/custom/projects/sila/*.css",
+          "/src/styles/custom/projects/sila/blocks.sass"
+        ]
+      },
+      "watch":  [
+          "/src/styles/custom/projects/sila/*"
+		  ],
+      "plugins": [
+        {
+          "name": "gulp-sass",
+          "options": {
+            "outputStyle": "compressed"
+          }
+        },
+		    {
+          "name": "gulp-concat",
+          "options": "global.css"
+        }
+      ]
+    },
+    {
+      "name": "libScripts",
+      "dest": "/dest/public/scripts/custom/projects/sila",
+      "src": {
+        "include": [
+          "/src/scripts/custom/projects/sila/vendors/jquery.sidr.min.js",
+          "/src/scripts/custom/projects/sila/vendors/adfox.asyn.code.ver3.js",
+          "/src/scripts/custom/projects/sila/vendors/adfox.asyn.code.scroll.js",
+          "/src/scripts/custom/projects/sila/vendors/adfox.reload_code.embeds.js",
+          "/src/scripts/custom/projects/sila/vendors/Gall.route.js",
+          "/src/scripts/custom/projects/sila/vendors/Gall.builder.js",
+          "/src/scripts/custom/projects/sila/vendors/Gall.core_full.js"
+        ]
+      },
+      "sourcemaps": true,
+      "watch":  [
+          "/src/scripts/custom/projects/sila/vendors/**/*.js"
+      ],
+      "plugins": [
+        {
+          "name": "gulp-concat",
+          "options": "lib.js"
+        }
+      ]
+    },
+    {
+      "name": "globalScript",
+      "dest": "/dest/public/scripts/custom/projects/sila",
+      "src": {
+        "include": [
+          "/src/scripts/custom/projects/sila/script.js"
+        ]
+      },
+      "sourcemaps": true,
+      "browserify": {
+        "transforms": [
+          {
+            "name": "ractivate",
+            "options": {
+              "extensions": [
+                ".ihtml"
+              ]
+            }
+          }
+        ],
+        "watchify": true
+      },
+      "watch": true,
+      "plugins": [
+        {
+          "name": "gulp-debug",
+          "options": {
+            "title": "Js:"
+          }
+        },
+        {
+          "name": "gulp-babel"
+        },
+        {
+          "name": "gulp-rename",
+          "options": "script.js"
+        }
+      ]
+    },
+    {
+      "name": "globalScriptArticle",
+      "dest": "/dest/public/scripts/custom/projects/sila",
+      "src": {
+        "include": [
+          "/src/scripts/custom/projects/sila/script_article.js"
+        ]
+      },
+      "sourcemaps": true,
+      "browserify": {
+        "transforms": [
+          {
+            "name": "ractivate",
+            "options": {
+              "extensions": [
+                ".ihtml"
+              ]
+            }
+          }
+        ],
+        "watchify": true
+      },
+      "watch": true,
+      "plugins": [
+        {
+          "name": "gulp-debug",
+          "options": {
+            "title": "Js:"
+          }
+        },
+        {
+          "name": "gulp-babel"
+        },
+        {
+          "name": "gulp-rename",
+          "options": "script_article.js"
+        }
+      ]
+    }
+  ]
+}

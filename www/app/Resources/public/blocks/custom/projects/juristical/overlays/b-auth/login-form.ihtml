@@ -1,0 +1,17 @@
+<div class="b-auth__login">
+    <div class="b-auth__description">
+        <p class="b-auth__text">Для использования сервисов сайта и возможности комментирования укажите свой e-mail. На этот e-mail мы пришлем код авторизации.</p>
+    </div>
+
+    <email-form email="{{email}}"/>
+
+    <div class="b-auth__description b-auth__description_centered">
+        <p class="b-auth__text b-auth__title_midle b-auth__title_or">Авторизация через аккаунты в соцсетях</p>
+    </div>
+    <div class="b-auth__social">
+        <social-form />
+    </div>
+    <div class="b-auth__description">
+        <p class="b-auth__title b-auth__title_agreement" href="#">Входя на сайт, вы принимаете условия соглашения <a class="b-auth__link b-link b-link_inner" target="_blank" href="/useragreement/">"О размещении комментариев и иной информации пользователей на интернет-портале "Российской Газеты" (www.rg.ru)"</a></p>
+    </div>
+</div>

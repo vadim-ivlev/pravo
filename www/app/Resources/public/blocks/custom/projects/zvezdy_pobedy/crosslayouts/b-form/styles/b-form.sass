@@ -1,0 +1,34 @@
+/*
+ * Блок ввода данных
+ * Совмещает в себе все стандартные
+ * элементы формы
+ * 
+ */
+
+// Объявляем блок
+$block: '.b-form'
+
+// Стили
+#{$block}
+    padding-bottom: 10px
+    &__body_grey
+        padding: 20px
+
+    &__title
+        +font(17px)
+        font-family: $f-serif
+        font-style: italic
+        font-weight: bold
+
+    +bp-tablet
+        &__body_grey
+            padding: 20px 100px
+
+    +bp-tabletLandscape
+        &__body_grey
+            padding: 30px
+
+
+    
+
+

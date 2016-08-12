@@ -1,0 +1,27 @@
+{% import '../macro/crosspage.swig' as macro %}
+
+{% if type %}<!-- {[ type ]} {[ name ]}{% if mod %}_{[ mod ]}{% endif %} -->{% endif %}
+
+{% if info %}
+
+	{[ info ]}
+
+{% endif %}
+
+{% if object %}{{# {[ object|replace('__$', '', 'g') ]}}}{% endif %}
+		
+	{% if rgb %}
+		
+		{% set opt = rgb | getRGB %}
+
+		{[ macro.RGBi(opt) ]}
+
+	{% elseif tmplFile %}
+				
+		{% include tmplFile %}
+	
+	{% endif %}
+
+{% if object %}{{/ {[ object|replace('__$', '', 'g') ]}}}{% endif %}
+
+{% if type %}<!-- /{[ type ]} {[ name ]}{% if mod %}_{[ mod ]}{% endif %} -->{% endif %}

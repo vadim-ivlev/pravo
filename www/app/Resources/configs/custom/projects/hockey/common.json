@@ -1,0 +1,78 @@
+{
+  "name": "projects:hockey",
+  "subTasks": [
+    {
+      "name": "style",
+      "dest": "/dest/public/styles/custom/projects/hockey",
+      "src": {
+        "include": [
+          "/src/styles/custom/projects/hockey/global.sass"
+        ]
+      },
+      "sourcemaps": true,
+      "watch": true,
+      "plugins": [
+        {
+          "name": "gulp-sass",
+          "options": {
+            "outputStyle": "compressed"
+          }
+        }
+      ]
+    },
+    {
+      "name": "script",
+      "dest": "/dest/public/scripts/custom/projects/hockey",
+      "src": {
+        "include": [
+          "/src/scripts/custom/projects/hockey/global.js"
+        ]
+      },
+      "sourcemaps": true,
+      "browserify": {
+        "transforms": [
+          {
+            "name": "ractivate",
+            "options": {
+              "extensions": [
+                ".ihtml"
+              ]
+            }
+          }
+        ],
+        "watchify": true
+      },
+      "watch": false,
+      "plugins": [
+        {
+          "name": "gulp-debug",
+          "options": {
+            "title": "Js:"
+          }
+        },
+        {
+          "name": "gulp-babel",
+          "options": {
+            "compact": true
+          }
+        },
+        {
+          "name": "gulp-uglify"
+        },
+        {
+          "name": "gulp-concat",
+          "options": "global.js"
+        }
+      ]
+    },
+    {
+      "name": "images",
+      "dest": "/dest/public/images/custom/projects/hockey",
+      "src": {
+        "include": [
+          "/src/images/custom/projects/hockey/**/*.*"
+        ]
+      }
+    }
+  ]
+}

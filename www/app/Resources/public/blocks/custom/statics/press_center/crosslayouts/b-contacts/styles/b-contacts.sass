@@ -1,0 +1,42 @@
+/*
+ * Блок контактов для спецвыпусков
+ * 
+ */
+
+// Объявляем блок
+$block: '.b-contacts'
+
+// Стили
+#{$block}
+    overflow: hidden
+    &__name
+        color: $black
+
+    &__title
+        
+        padding-bottom: 0
+        margin-bottom: 10px
+
+    &__item
+        padding-bottom: 10px
+        margin-bottom: 10px
+        border-bottom: 1px solid $border-color
+        &:last-child
+            border-bottom: none
+            padding-bottom: 0
+            margin-bottom: 0
+        .b-link
+            margin-bottom: 0
+
+    +bp-tablet
+        &__item
+            width: 50%
+            float: left
+            border-bottom: 0
+
+    +bp-tabletLandscape
+        &__item
+            width: 100% 
+            float: none
+            border-bottom: 1px solid $border-color
+

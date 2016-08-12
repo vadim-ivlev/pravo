@@ -1,0 +1,10 @@
+
+<div class="b-account b-account_profile">
+
+    <div class="b-account__list">
+
+        <user />
+        <subscriptions />
+        <social />
+    </div>
+</div>

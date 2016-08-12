@@ -1,0 +1,48 @@
+/*
+ * Видео
+ *
+ */
+
+// Объявляем блок
+$block: '.b-video-inner'
+
+// Стили
+#{$block}
+    margin-bottom: 20px
+    line-height: 1.4
+
+    &__video
+
+    &__content
+        padding: 20px
+        background-color: $today-bg-color
+
+    &__name
+        +font(17px)
+        font-style: italic
+
+    &__title,
+    &__uannounce
+        +font(15px)
+
+    &__name,
+    &__title,
+    &__uannounce
+        margin-bottom: 14px
+
+    &__feed-link
+        +font(13px)
+
+    +bp-tablet
+
+        &
+            // Модификатор
+            .b-news__list &
+                margin-left: 20px
+
+    +bp-tabletLandscape
+
+        &
+            // Модификатор
+            .b-news__list &
+                margin-left: 30px

@@ -1,0 +1,405 @@
+/*
+ * Абстрактный блок стандартных элементов
+ *
+ */
+
+// Объявляем блок
+$block: '.b'
+$b-link: '.b-link'
+
+.has-secondary
+    color: $comment-color
+
+
+// Стили
+#{$block}
+    &__row
+        width: 100%
+    &__wrapper
+        width: auto
+        float: none
+
+        padding-left: 0
+
+    &__col
+        padding-right: 30px
+        padding-bottom: 25px
+
+        padding-left: 25px
+    &__wrapper
+        clear: both
+
+    &__row
+        &:nth-child(2)
+            border-top: none
+            border-bottom: none
+
+    &__text
+        margin-bottom: 15px
+        +font(14px)
+        &:first-child
+            margin-bottom: 30px
+        &:last-child
+            margin-top: 30px
+            margin-bottom: 0
+
+    &__wrapper.is-main-text
+        #{$block}
+            &__col
+                padding-left: 0
+
+    &__wrapper.is-contact
+        margin-top: 25px
+        #{$block}
+            &__title
+                +font(22px)
+                font-family: $f-sans
+                font-weight: normal
+
+            &__subtitle
+                +font(18px)
+                font-family: $f-sans
+                font-weight: normal
+
+            &__col
+                width: 100%
+                padding-bottom: 10px
+                padding-right: 0
+                padding-left: 0
+            &__row
+                padding-right: 0
+                &.is-contact-general
+                    #{$block}
+                        &__col
+                            &:last-child
+                                width: 100%
+                                #{$block}
+                                    &__title
+                                        +font(24px)
+                                        float: left
+                                        font-weight: normal
+                                        clear: both
+                                        &:first-child
+                                            margin-left: 0
+                                    &__subtitle
+                                        width: 100%
+                                        clear: both
+
+
+                &:nth-child(2)
+                    border-top: 1px solid #dedede
+                    border-bottom: 1px solid #dedede
+
+                #{$block}
+                    &__title
+                        +font(14px)
+                        font-weight: bold
+                        margin-bottom: 10px
+
+                    &__subtitle
+                        +font(14px)
+                        font-weight: normal
+                        margin-bottom: 10px
+                    &__text
+                        margin-top: 10px
+                #{$b-link}
+                    margin-bottom: 10px
+
+        &_region
+            display: none
+
+
+
+    &__wrapper.is-page
+        #{$block}
+            &__row.is-page-main
+                background: $today-bg-color
+                padding: 30px
+                #{$block}
+                    &__title
+                        +font(18px)
+                        font-weight: bold
+                        font-family: $f-serif
+                        margin-bottom: 5px
+
+                    &__text
+                        margin-bottom: 30px
+                        margin-top: 0
+                        &:last-child
+                            margin-bottom: 0
+
+                    &__media
+                        width: 140px
+                        height: 190px
+                        margin: auto
+                        margin-bottom: 25px
+
+                    &__img
+                        width: 100%
+
+                    &__subtitle
+                        +font(14px)
+                        font-weight: normal
+                        color: $comment-color
+
+                    &__col
+                        width: 70.125%
+                        padding: 0
+                        &.col-is-title
+                            width: 100%
+                            border-bottom: 1px solid $border-color
+                            margin-bottom: 20px
+                            #{$block}
+                                &__row
+                                    width: 100%
+                                &__col:first-child
+                                    padding: 0
+                                &__col
+                                    width: 100%
+
+
+                        &.col-is-main
+                            width: 100%
+                            #{$block}
+                                &__text
+                                    margin-bottom: 20px
+                                    margin-top: 0
+                        &.col-is-content
+                            width: 100%
+
+
+                    &__row.is-content
+                        #{$block}
+                            &__col
+                                width: 100%
+            &__row.is-page-side
+                margin-top: 20px
+
+    &__wrapper.is-page-themed
+        #{$block}
+            &__row.is-title
+                #{$block}
+                    &__col
+                        width: 58%
+                        &:last-child
+                            width: 42%
+
+
+            &__col.is-main
+                #{$block}
+                    &__row
+                        &:last-child
+                            #{$block}
+                                &__text
+                                    margin-bottom: 10px
+                                    &:last-child
+                                        padding-left: 50px
+
+                                        color: $comment-color
+    &__wrapper.is-extra-content
+        #{$block}
+            &__row
+                width: 100%
+            &__col
+                padding: 0
+
+    +bp-tablet
+        &
+
+            &__wrapper.is-page
+                #{$block}
+                    &__row.is-page-main
+                        #{$block}
+                            &__col
+                                &.col-is-title
+                                    #{$block}
+                                        &__col
+                                            width: 50%
+                                            float: left
+
+                                &.col-is-main, &.col-is-content
+                                    width: 50%
+                                    float: left
+                                    #{$block}
+                                        &__row
+                                            width: 100%
+
+                                &.col-is-main
+                                    width: 37%
+                                    padding-right: 25px
+
+                                &.col-is-content
+                                    width: 63%
+
+                            &__title
+                                +font(24px)
+                                font-weight: normal
+
+                            &__media
+                                width: 240px
+                                height: 340px
+
+            &__wrapper.is-contact
+                #{$block}
+                    &__row
+                        width: 100%
+                        #{$block}
+                            &__col
+                                width: 50%
+                                display: inline-block
+                                vertical-align: top
+                                &:nth-child(2)
+                                    clear: both
+                        &.is-contact-general
+                            #{$block}
+                                &__col
+                                    float: left
+                                    &:last-child
+                                        width: 50%
+                                        margin-top: -125px
+                                        float: right
+
+
+
+    +bp-tabletLandscape
+        &
+            &__wrapper.is-main-text
+                #{$block}
+                    &__col
+                        float: left
+                        width: 70%
+                        &:last-child
+                            width: 30%
+                            padding-left: 30px
+            &__wrapper.is-page
+                #{$block}
+                    &__row.is-page-main
+                        #{$block}
+                            &__col
+                                &.col-is-title
+                                    width: 60%
+                                    float: right
+                                    #{$block}
+                                        &__col
+                                            width: 50%
+                                            float: left
+                                &.col-is-main
+                                    width: 40%
+                                    float: left
+                                    padding-right: 45px
+
+                                &.col-is-content
+                                    width: 60%
+                                    float: right
+
+                            &__media
+                                width: 310px
+                                height: 435px
+
+                            &__img
+                                width: auto
+            &__wrapper.is-page-themed
+                #{$block}
+                    &__row.is-title
+                        #{$block}
+                            &__col
+                                width: 58%
+                                &:last-child
+                                    width: 42%
+
+            &__wrapper.is-extra-content
+                #{$block}
+                    &__col
+                        padding-right: 20px
+                        width: 50%
+                        float: left
+
+
+            &__wrapper.is-contact
+                #{$block}
+                    &__row
+                        #{$block}
+                            &__col
+                                width: 33%
+                                padding-right: 25px
+                        &.is-contact-general
+                            #{$block}
+                                &__col
+                                    &:nth-child(2)
+                                        clear: none
+                                    &:last-child
+                                        width: 33%
+                                        margin-top: 0
+                                        #{$block}
+                                            &__title
+                                                clear: none
+                                                +font(24px)
+
+
+    +bp-desktop
+        &
+            &__wrapper.is-contact
+                #{$block}
+                    &__row
+                        #{$block}
+                            &__title
+                                +font(22px)
+                                font-family: $f-sans
+                                font-weight: normal
+
+                            &__col
+                                width: 25%
+                                display: inline-block
+                                vertical-align: top
+                                margin-bottom: 10px
+                                padding-right: 35px
+
+                                &:last-child
+                                    padding-left: 0
+
+                                #{$block}
+                                    &__title
+                                        +font(14px)
+                                        font-weight: bold
+
+                                    &__subtitle
+                                        +font(14px)
+                                        font-weight: normal
+
+                        &.is-contact-general
+                            #{$block}
+                                &__col
+                                    &:nth-child(2)
+                                        clear: none
+                                    &:last-child
+                                        width: 50%
+                                        margin-top: 0
+                                        #{$block}
+                                            &__title
+                                                +font(24px)
+                                                margin-left: 40px
+                                            &__subtitle
+                                                width: 50%
+
+    +bp-desktopFull
+        &
+            &__wrapper.is-contact
+                #{$block}
+                    &__row
+                        &.is-contact-general
+                            #{$block}
+                                &__col
+                                    &:last-child
+                                        #{$block}
+                                            &__title
+                                                margin-left: 90px
+
+
+
+
+
+
+
+
+
+

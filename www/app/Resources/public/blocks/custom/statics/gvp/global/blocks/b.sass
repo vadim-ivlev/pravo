@@ -1,0 +1,74 @@
+/*
+ * Абстрактный блок стандартных элементов
+ * 
+ */
+
+// Объявляем блок
+$block: '.b'
+
+// Стили
+#{$block}
+
+    &__text
+        +font(15px)
+        line-height: 1.5
+
+    &-list-head__title
+        margin-bottom: 10px
+
+    &-head-info__row
+        border-bottom: none
+        padding-bottom: 0
+
+    &-form
+
+        &__title
+            font-weight: bold
+            font-style: italic
+            font-family: $f-serif
+
+        &__body
+            padding: 30px
+            padding-bottom: 50px
+    
+        &__fieldset
+            margin-bottom: 15px
+
+    &-field
+
+        &__textarea
+            min-height: 120px
+            resize: none
+
+        &__input, textarea
+            +font(14px)
+
+            &_submit
+                margin-top: -5px
+
+        &_input
+
+            &_submit
+
+                & .b-field__wrapper
+
+                    &:after
+                        display: inline-block
+                        content: 'Все поля обязательны для заполнения'
+                        color: #B4B4B4 
+                        margin-left: 10px
+                        +font(13px)
+
+    +bp-desktopFull
+
+        &__item
+            width: 310px
+            margin-left: 30px
+            margin-bottom: 35px
+
+            +font(14px)
+
+            float: left
+
+
+

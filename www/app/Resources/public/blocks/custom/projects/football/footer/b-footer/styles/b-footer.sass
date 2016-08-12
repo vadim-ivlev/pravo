@@ -1,0 +1,60 @@
+$block: '.b-footer'
+
+#{$block}  
+    //background-color: $dark-blue
+    width: 100%
+    //margin-top: 20px
+
+    &__body
+        width: 100%
+        padding: 20px
+        margin: 0 auto
+
+    &__copy
+        +font(12px)
+        color: rgba(255,255,255,.25)
+
+    .b-menu
+        margin-bottom: 20px
+        text-align: left
+
+        .b-menu__link
+
+            &:hover:before
+                display: none
+
+            &:first-child
+                margin-left: 0
+
+    // Tablet
+    +bp-tablet
+
+        &
+
+    // Tablet Landscape
+    +bp-tabletLandscape
+
+        &
+            //margin-top: 30px
+
+            &__body
+                padding: 30px
+
+    // Desktop
+    +bp-desktop
+
+        &
+
+            &__body
+                //width: 1120px
+                width: 1140px
+                padding: 30px 0
+
+    // Desktop Full
+    +bp-desktopFull
+
+        &
+
+            &__body
+                //width: 1290px
+                width: 1340px

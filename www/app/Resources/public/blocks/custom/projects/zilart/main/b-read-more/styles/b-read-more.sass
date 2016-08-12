@@ -1,0 +1,21 @@
+/*
+ * Врезка в статье (маленькая картинка)
+ * 
+ */
+
+// Объявляем блок
+$block: '.b-read-more'
+
+// Модификаторы
+
+#{$block}
+    background-color: $active-color
+
+    &__name, &__title, &__item
+        color: $white
+    ul
+        li
+            padding-left: 0
+            margin-bottom: 15px
+            &:before
+                content: none

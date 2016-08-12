@@ -1,0 +1,32 @@
+/*
+ * Хлебные крошки
+ *
+ */
+
+// Объявляем блок
+$block: '.b-breadcrumbs'
+
+// Стили
+#{$block}
+
+    &__item
+        list-style: none
+        display: inline-block
+        &:after
+            content: "/"
+            margin: 0 5px
+        &:last-child
+            &:after
+                content: ""
+
+    +bp-tablet
+
+        &
+            &__list
+                margin: -5px 0 15px
+
+    +bp-tabletLandscape
+
+        &
+            &__list
+                margin: -5px 0 25px

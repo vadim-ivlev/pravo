@@ -1,0 +1,152 @@
+/*
+ * Шапка ленты контента
+ * 
+ */
+
+// Объявляем блок
+$block: '.b-list-head'
+
+// Основной блок
+#{$block}
+    +font(14px)
+    //padding: 0 20px
+    margin: 20px
+    //position: relative может лишнее
+
+    &__title,
+    &__subtitle
+        font-family: $f-sans
+        +font(18px)
+        text-transform: uppercase
+
+    &__title-item
+        //cursor: pointer надо придумать как разрулить
+    
+        &:after
+            content: "/"
+            margin-left: 10px
+            color: initial
+
+        &:last-child:after
+            content: initial
+
+        &.is-active
+            color: initial
+
+    &__row
+        //margin-bottom: 20px
+        position: relative // добавил вместо указания на родительском блоке
+        overflow: hidden // fix for gazeta-issue floated el-s
+
+    &__related
+        margin-bottom: 20px
+
+    &__name_related
+        margin-right: 14px
+
+        &:last-child
+            margin-right: 0
+
+    &__date
+        
+
+    &__download
+        position: relative
+        margin-top: 14px
+        margin-left: 30px
+
+        &__size
+            color: $comment-color
+            display: block
+
+
+    // Модификаторы
+    // Если в сюжетах и выпусках
+    //&_sujets,
+    //&_gazeta
+        //position: static
+
+    // Если в шаблоне спецвыпусков
+    &_fascicles-index &__title
+        margin-bottom: 0
+
+    // Если после брендирования
+    .b-branding-head + &
+        margin-top: 0
+
+    &_sujets .b-list-head__row
+        overflow: visible
+
+    // Tablet
+    +bp-tablet
+
+        &
+            width: 490px
+            margin-left: 0
+            margin-right: 0
+            //margin: 0 auto
+            //margin-left: 30px
+            padding-top: 20px
+
+            &__row
+                //margin-bottom: 20px
+
+            &__title
+                +font(20px)
+
+            &__date
+                //float: left
+                display: inline-block
+
+            &__download
+                margin-top: 0
+                margin-left: 0
+                float: right
+
+    // Tablet landscape
+    +bp-tabletLandscape
+
+        &
+            width: $width-wrapper-tabletLandscape
+
+            &__title
+                +font(26px)
+
+        // Модификатор статики
+        &_static,
+        &_catalog,
+        .l-page_rf &_project
+            width: $width-wrapper-tabletLandscape
+
+
+    // Desktop
+    +bp-desktop
+
+        &
+            width: $width-wrapper-tabletLandscape // add
+            //margin: 0
+
+            &__title
+                +font(30px)
+
+        // Модификатор статики
+        &_static,
+        &_catalog,
+        .l-page_rf &_project
+            width: $width-wrapper-desktop
+
+
+    // Desktop full
+    +bp-desktopFull
+
+        &
+            width: $width-wrapper-desktop
+
+            &__title
+                +font(30px)
+
+        // Модификатор статики
+        &_static,
+        &_catalog,
+        .l-page_rf &_project
+            width: $width-wrapper-desktopFull

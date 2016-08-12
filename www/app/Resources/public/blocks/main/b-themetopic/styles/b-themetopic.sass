@@ -1,0 +1,150 @@
+/*
+ * Основные темы
+ * 
+ */
+
+// Объявляем блок
+$block: '.b-themetopic'
+
+// Стили
+#{$block}
+	font-weight: bold
+	margin-bottom: 20px
+	padding: 20px
+	background: $today-bg-color
+
+	clear: both // добавил недавно, на мобиле не очищался
+
+	&__head
+		+font(17px)
+		font-family: $f-serif
+		font-style: italic
+		margin-bottom: 20px
+
+	&__list
+		// inline-block fix
+    	font-size: $f-sz-zero
+    	letter-spacing: 0
+
+	&__item
+		+font(14px)
+		width: 100%
+		height: 54px
+		margin-bottom: 5px
+
+		background: $white
+
+		// inline-block fix
+        letter-spacing: $letterSpacingDefault
+
+		&__title
+			//width: calc(100% - 80px)
+			width: 100%
+			height: 100%
+			//padding: 0 5px 0 20px
+			padding: 0 20px
+			//float: left
+
+			display: table
+
+			//&:before
+				//content: ''
+				//height: 54px
+				//display: inline-block
+				//vertical-align: middle
+
+			a
+				display: table-cell
+				vertical-align: middle
+
+		&__image
+			width: 80px
+			height: 100%
+			float: right
+			overflow: hidden
+
+			&__src
+				width: 100%
+
+		&:last-child
+			margin-bottom: 0
+
+	+bp-tablet
+
+		&
+
+			&__list
+				margin-left: -10px
+				margin-bottom: -10px
+
+			&__item
+				width: 220px
+				height: 80px
+				margin-left: 10px
+				margin-bottom: 10px
+
+				display: inline-block
+				vertical-align: top
+
+				&__title
+					//width: 140px
+
+					&:before
+						//height: 80px
+
+				&:last-child
+					margin-bottom: 10px
+
+	+bp-tabletLandscape
+
+		&
+
+			&__list
+				margin-left: -20px
+				margin-bottom: -20px
+
+			&__item
+				width: 295px
+				margin-left: 20px
+				margin-bottom: 20px
+
+				&__title
+					//width: 175px
+
+				&__image
+					width: 120px
+
+				&:last-child
+					margin-bottom: 20px
+					
+
+
+	+bp-desktop
+		
+		&
+			width: 310px
+
+			&__list
+				margin-left: 0
+				margin-bottom: 0
+
+			&__item
+				width: 270px
+				margin-left: 0
+				margin-bottom: 5px
+
+				&__title
+					//width: 150px
+
+				&:last-child
+					margin-bottom: 0
+
+
+	+bp-desktopFull
+
+		&
+			float: right
+
+		.b-sidebar-right &
+			float: none
+			

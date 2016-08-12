@@ -1,0 +1,26 @@
+<!-- blocks.custom.rgdigital.sidebar.b-sidebar-left.b-sidebar-left -->
+<div class="similar col-md-3 col-sm-12">
+			
+	<div id="authorLastArticlesBox" class="similar-border col-xs-12 not-content">
+		<div></div>
+	</div>
+
+	<!--<div id="popsArticle" class="similar-border col-xs-12 not-content">
+		<h4>Популярное</h4>
+		<div></div>
+	</div>-->
+
+	<div id="similarArticle" class="similar-border col-xs-12 not-content">
+		<h4>Похожие материалы</h4>
+		<div></div>
+	</div>
+	
+	<div id="rubricArticle" class="similar-border col-xs-12 not-content">
+		<h4>Материалы рубрики</h4>
+		<div></div>
+	</div>				
+	
+	<!--#include_se virtual="/ssi/rating/digital/rating_block_{{art_id}}.ssi"-->
+
+</div>
+<!-- /blocks.custom.rgdigital.sidebar.b-sidebar-left.b-sidebar-left -->

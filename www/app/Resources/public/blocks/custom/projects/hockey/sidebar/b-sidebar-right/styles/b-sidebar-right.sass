@@ -1,0 +1,73 @@
+$block: '.b-sidebar-right'
+
+#{$block}
+
+    margin-left: 0
+
+
+    .b-scores
+        width: 100%
+        margin-left: 0
+        margin-right: 0
+        padding: 20px
+        float: none
+
+        h2
+            +font(16px)
+
+    &__item
+        margin-bottom: 20px
+
+    .b-ads .adfox_item > div
+        margin-top: 0
+
+    +bp-tablet
+
+        &
+            width: 240px
+            display: inline-block
+            padding-top: 200px
+
+            .b-scores
+
+                table
+                    width: 100%
+                    margin-left: 0
+                    margin-right: 0
+                    float: none
+
+                    td
+                        padding: 8px
+
+                table + table
+                    margin-top: 20px
+
+    +bp-tabletLandscape
+
+        &
+            width: 310px
+            padding-top: 135px
+
+            .b-ads_sidebar-right iframe,
+            .b-ads_sidebar-right img
+                margin: 20px 35px
+
+            .b-scores
+
+                table td
+                    padding: 15px
+
+    +bp-desktop
+
+        &
+            width: 360px
+            padding-top: 155px
+
+            .b-ads_sidebar-right iframe,
+            .b-ads_sidebar-right img
+                margin: 20px auto
+
+    +bp-desktopFull
+
+        &
+            padding-top: 170px

@@ -1,0 +1,184 @@
+/*
+ *Author
+ */
+
+$author: '.author'
+
+#{$author}
+	width: 100%
+
+	font-size: 14px
+
+	margin: 0 0 30px 0
+	padding: 0 0 0 10px
+
+	display: inline-block
+	
+
+	p 
+		margin: 27px 0 0 0  
+
+	&__heading
+
+
+		&__img
+
+			width: 80px
+			float: left
+			margin: 0 19px 0 0px
+
+
+			&__item
+
+				border-radius: 100%
+
+		&__name
+
+			&__item
+
+				font-size: $font-size-h1
+				font-weight: $font-weight-light
+				line-height: 1
+
+		&__meta
+
+			margin: 16px 0 0 142px
+
+			&__item
+
+				text-transform: uppercase
+
+				font-weight: $font-weight-bold
+				font-size: $font-size-small
+
+				position: relative
+
+			&__item:before
+				content: ""
+
+				position: absolute
+				top: -8px
+				left: -45px
+
+				width: 26px
+				height: 26px
+				
+				background: url($img-sprite-url) -74px -54px no-repeat
+
+	&__description
+
+		overflow: hidden
+		font-size: $font-size-base
+		line-height: $line-height-large
+		transition: max-height 1s ease;
+	
+
+	.author_descr_height_auto
+		max-height: 700px!important
+
+
+.author_has-descr
+	width: 50%
+
+	.author__hide-pannel
+		height: 15px
+
+		cursor: pointer
+
+		background: url($more-button-pattern) 0 7px repeat-x
+
+		margin: 7px auto 0 auto
+
+		position: relative
+
+
+		&:after
+
+			content: ''
+			
+			width: 100%
+			height: 80px
+
+			position: absolute
+			bottom: 18px
+			left: 0
+
+		&:after
+
+            /* Chrome10+,Safari5.1+ */
+            background: -webkit-linear-gradient(top, rgba(255,255,255,0)  0%, rgba(255,255,255,1) 100%)
+            /* Opera 11.10+ */
+            background: -o-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 100%)
+            /* IE10+ */
+            background: -ms-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 100%)
+            /* W3C */
+            background: linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 100%)
+            /* IE6-9 */
+            filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#007db9e8', endColorstr='#ffffff',GradientType=0 )		
+
+            transition: background 0.3s ease
+
+		&__button
+
+			width: 25px
+			height: 25px
+
+			position: relative
+
+			border: 1px solid $color-gray
+			border-radius: 25px
+			-webkit-box-shadow: 0px 20px 0px 20px rgba(255,255,255,1);
+			-moz-box-shadow: 0px 20px 0px 20px rgba(255,255,255,1);
+			box-shadow: 0px 20px 0px 20px rgba(255,255,255,1);
+
+			background: $color-white
+
+			margin: 0 auto
+
+			&:before
+
+				content: ""
+				
+				position: absolute
+				top: 8px
+				left: 5px
+
+				width: 0
+				height: 0
+
+				border-style: solid
+				border-width: 7px 6px 0 6px
+				border-color: $color-blue transparent transparent transparent
+
+			&:after
+
+				content: ""
+
+				position: absolute
+				top: 5px
+				left: 4px
+
+				width: 0
+				height: 0
+
+				border-style: solid
+				border-width: 8px 7px 0 7px
+				border-color: $color-white transparent transparent transparent
+
+	.top-arrow:before
+		top: 7px
+		border-width: 0 6px 7px 6px
+		border-color:  transparent transparent $color-blue transparent
+
+	.top-arrow:after
+		top: 9px
+		border-width: 0 7px 8px 7px
+		border-color:  transparent transparent $color-white transparent
+
+	.reveal-pannel:after
+		background: none
+
+
+
+
+

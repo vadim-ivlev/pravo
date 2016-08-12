@@ -1,0 +1,27 @@
+{
+  "name": "sujets:sochiautodrom",
+  "subTasks": [
+    {
+      "name": "style",
+      "dest": "/dest/public/styles/custom/sujets/sochiautodrom",
+      "src": {
+        "include": [
+          "/src/styles/custom/sujets/sochiautodrom/index.sass"
+        ],
+        "exclude": [
+          "/src/styles/_*.sass"
+        ]
+      },
+      "sourcemaps": true,
+      "watch": true,
+      "plugins": [
+        {
+          "name": "gulp-sass",
+          "options": {
+            "outputStyle": "compressed"
+          }
+        }
+      ]
+    }
+  ]
+}

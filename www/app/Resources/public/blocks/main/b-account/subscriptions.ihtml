@@ -1,0 +1,82 @@
+<div class="b-account__item b-account__item_2 b-account__item_notify">
+
+    <div class="b-account__subtitle">Уведомления:</div>
+
+    <div class="b-account__info">Получать уведомления на электронную почту <b>{{email}}</b> о следующих события:</div>
+
+    <div class="b-account__field b-account__field_checkbox">
+        <label class="b-field b-field_input b-field_input_checkbox" 
+            on-click="subscribe: 'sujets'">
+            <div class="b-field__label">Обновления в отслеживаемых сюжетах</div>
+            <input-notification msg="{{sujetsMsg}}" off="2000" class="{{notificationClass}}"/>
+            <div class="b-field__wrapper">
+                <input class="b-field__input b-field__input_checkbox" 
+                    type="checkbox" 
+                    {{user.sujets ? 'checked' : ''}}>
+
+                <span class="b-field__icon"></span>
+            </div>
+        </label>
+    </div>
+
+    <div class="b-account__field b-account__field_checkbox">
+        <label class="b-field b-field_input b-field_input_checkbox" 
+            on-click="subscribe: 'comments'">
+            <div class="b-field__label">Ответы на мои комментарии</div>
+            <input-notification msg="{{commentsMsg}}" off="2000" class="{{notificationClass}}"/>
+            <div class="b-field__wrapper">
+                <input class="b-field__input b-field__input_checkbox" 
+                    type="checkbox" 
+                    {{user.comments ? 'checked' : ''}}>
+
+                <span class="b-field__icon"></span>
+            </div>
+        </label>
+    </div>
+
+    <div class="b-account__field b-account__field_checkbox">
+        <label class="b-field b-field_input b-field_input_checkbox" 
+            on-click="subscribe: 'mentions'">
+            <div class="b-field__label">Новые комментарии в материалах с отслеживаемым обсуждением</div>
+            <input-notification msg="{{mentionsMsg}}" off="2000" class="{{notificationClass}}"/>
+            <div class="b-field__wrapper">
+                <input class="b-field__input b-field__input_checkbox" 
+                    type="checkbox" 
+                    {{user.mentions ? 'checked' : ''}}>
+
+                <span class="b-field__icon"></span>
+            </div>
+        </label>
+    </div>
+
+    <div class="b-account__field b-account__field_checkbox">
+        <label class="b-field b-field_input b-field_input_checkbox"
+            on-click="subscribe: 'fresh'">
+            <div class="b-field__label">Рассылка свежего номера</div>
+            <input-notification msg="{{freshMsg}}" off="2000" class="{{notificationClass}}"/>
+            <div class="b-field__wrapper">
+                <input class="b-field__input b-field__input_checkbox"
+                    type="checkbox"
+                    {{user.fresh ? 'checked' : ''}}>
+
+                <span class="b-field__icon"></span>
+            </div>
+        </label>
+    </div>
+
+    <div class="b-account__field b-account__field_checkbox">
+        <label class="b-field b-field_input b-field_input_checkbox"
+            on-click="subscribe: 'doc'">
+            <div class="b-field__label">Рассылка документов</div>
+            <input-notification msg="{{docMsg}}" off="2000" class="{{notificationClass}}"/>
+            <div class="b-field__wrapper">
+                <input class="b-field__input b-field__input_checkbox"
+                    type="checkbox"
+                    {{user.doc ? 'checked' : ''}}>
+
+                <span class="b-field__icon"></span>
+            </div>
+        </label>
+    </div>
+
+</div>

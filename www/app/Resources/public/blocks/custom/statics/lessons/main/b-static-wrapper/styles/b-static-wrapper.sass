@@ -1,0 +1,29 @@
+/*
+ * Статическая страница
+ *
+ */
+
+// Объявляем блок
+$block: '.b-static-wrapper'
+$b-feed: '.b-feed'
+$b-news: '.b-news'
+
+
+// Основной блок
+
+#cboxLoadedContent
+    overflow: auto!important
+#{$block}
+    &_static
+
+        +bp-desktopFull
+
+            #{$b-feed}
+                width: 310px
+                float: right
+
+
+
+
+
+

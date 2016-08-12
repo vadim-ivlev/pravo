@@ -1,0 +1,80 @@
+/*
+ * Стили для брендирования в шапке
+ *
+ */
+
+// Объявляем блок
+$block: '.b-branding-head'
+
+$id: 'innoprom2016'  
+
+// Стили
+#{$block}
+
+    &__media
+        margin-bottom: 0px
+        padding-bottom: 22%
+
+        background: url(#{$img-path}custom/sujets/#{$id}/branding_tabletLandscape.png) no-repeat 0 0
+        background-size: contain
+
+    // Tablet 
+    +bp-tablet
+
+        &
+            &:before
+                //width: 20px
+                //left: -20px
+                //display: none
+
+            &__media
+                height: 98px
+                margin-bottom: 0
+                padding-bottom: 0
+
+    // Tablet landscape
+    +bp-tabletLandscape
+
+        &
+
+            &:before
+                //width: 30px
+                //left: -30px
+
+            &__media
+                height: 130px
+
+    // Desktop
+    +bp-desktop    
+
+        &
+
+            &__media
+                height: 182px
+                background: none
+
+    +bp-desktopFull
+
+        &
+
+            &:before
+                //width: 60px
+                //left: -60px
+
+// Стилизуем бекграунд
++bp-desktop
+
+    body
+        background: url(#{$img-path}custom/sujets/#{$id}/bg.png) no-repeat 210px 206px
+
+    .b-content:before,
+    .b-list-head:before,
+    .b-material-head:before
+        //top: 573px
+
++bp-desktopFull
+
+    body
+        background-position: 310px 206px
+
+    

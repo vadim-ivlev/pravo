@@ -1,0 +1,39 @@
+/*
+ * Абстрактный блок ненумерованного списка
+ * 
+ */
+
+// Объявляем блок
+$block: '.b-ul'
+
+// Стили
+#{$block}
+    &__item
+        position: relative
+
+        padding-left: 25px
+        margin-bottom: 25px
+
+    &__item:before
+        content: ''
+        position: absolute
+        top: 9px
+        left: 0
+
+        width: 5px
+        height: 5px
+
+        border-radius: 50%
+        -webkit-border-radius: 50%
+        -moz-border-radius: 50%
+
+        background-color: $red
+
+    &__list
+        margin: 0 0 35px 0
+
+    &__title
+        font-weight: bold
+        margin-bottom: 25px
+
+

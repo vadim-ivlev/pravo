@@ -1,0 +1,84 @@
+/*
+ * Прочитанные статьи
+ * 
+ */
+
+// Объявляем блок
+$block: '.b-viewed'
+
+// Модификаторы
+
+// Стили
+#{$block}
+    +font(13px)
+
+    padding: 20px 0
+    
+    background-color: $today-bg-color
+
+    &__title
+        +font(14px)
+        font-weight: bold
+        font-family: $f-sans
+        
+        margin: 0 20px 10px
+
+    &__list
+        margin: 0
+
+    &__item
+        padding: 0 20px
+        margin: 0
+
+        border-bottom: 1px solid $border-color
+
+        &:last-child
+            border: 0
+
+    &__link
+        width: 100%
+        padding: 10px 0
+        
+        display: inline-block
+
+    &__item_type_view
+        color: $comment-color
+
+    &__item.is-active,
+    &__item:hover
+        margin-top: -1px
+        color: $link-color
+        background-color: $white
+        border-top: 1px solid transparent
+        border-bottom: 1px solid transparent
+    
+
+    // Tablet
+    +bp-tablet
+
+        &
+            width: 390px
+            padding: 0
+
+            &__title
+                margin: 0 30px 10px
+                padding-top: 20px
+
+            &__list
+                height: 400px
+                padding-bottom: 20px
+
+            &__item
+                padding: 0 30px
+
+            &__link
+                padding: 15px 0
+            
+
+    // Desktop
+    +bp-desktop
+
+        &
+            +font(14px)
+            //width: 400px
+            

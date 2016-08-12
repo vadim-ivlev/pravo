@@ -1,0 +1,66 @@
+<div class="b-region">
+    <div class="b-region__current">
+        Текущий регион: <span class="b-region__current-city">{{selectedRegion.originName}}</span>
+    </div>
+
+    <div class="b-region__choose">
+        <div class="b-region__choose-title">Выберите интересующий регион:</div>
+        <div class="b-region__choose-item is-mobile">
+
+            <label class="b-field b-field_select b-field_select_select">
+                <div class="b-field__wrapper">
+                    <select class="b-field__select b-field__select_select" 
+                        name="select-region"
+                        on-change="setRegion"
+                        value="{{selectedRegionOption}}" 
+                        type="select">
+                        {{#regions}}
+                            <option value="{{id}}">{{originName}}</option>
+                        {{/regions}}
+                    </select>
+                </div>
+            </label>
+
+        </div>
+        <div class="b-region__choose-item is-tablet">
+            <ul class="b-region__list">
+                {{# filterRegions(regions)}}
+                    <li class="b-region__list-item" on-click="switch: {{.}}">
+                        <a class="b-link b-link_blue b-region__link {{selectedRegion.id === id ? 'b-region__link_active' : ''}}" href="#">{{originName}}</a>
+                    </li>
+                {{/regions}}
+            </ul>
+        </div>
+    </div><!--
+    --><div class="b-region__search">
+        <form class="b-form b-text-actions__form" on-submit="send">
+            <fieldset class="b-form__fieldset b-text-actions__fieldset">
+                <label class="b-field b-field_input b-field_input_text">
+                    <div class="b-field__label">Если вы не знаете, к какому Федеральному округу принадлежит город, введите его название в поле:</div>
+                    <div class="b-field__wrapper">
+                        <input class="b-field__input b-field__input_text"
+                               type="text"
+                               placeholder="Введите город..."
+                               value="{{searchingRegion}}">
+                        {{#showRegions}}
+                            <div class="b-field__search-results b-region__result">
+                                <ul class="b-region__list">
+                                    {{# searchingRegions}}
+                                        <li class="b-region__list-item" on-click="switch: {{.}}">
+                                            <a class="b-link b-link_blue b-region__link"
+                                               href="#">{{originName}}</a>
+                                        </li>
+                                    {{/searchingRegions}}
+                                    {{^searchingRegions}}
+                                        <li class="b-region__list-item"><p>Совпадений не найдено</p></li>
+                                    {{/searchingRegions}}
+
+                                </ul>
+                            </div>
+                        {{/showRegions}}
+                    </div>
+                </label>
+            </fieldset>
+        </form>
+    </div>
+</div>

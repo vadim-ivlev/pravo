@@ -1,0 +1,35 @@
+$block: '.b-material-wrapper'
+
+#{$block}
+    +font(14px)
+
+    margin: 0
+
+    padding-top: 0
+    border-top: 0
+
+    &__subtitle
+        display: none
+
+    &__content
+        position: relative
+
+    .b-social
+        height: 100%
+        position: absolute
+        top: 0
+        right: 0
+        z-index: 10
+
+    +bp-tablet
+
+        &
+            +font(15px)
+
+            &__content-wrapper
+                padding-right: 60px
+
+    +bp-tabletLandscape
+
+        &
+            +font(16px)

@@ -1,0 +1,171 @@
+/*
+ * Блок библиотечки
+ *
+ */
+
+
+// Объявляем блок
+$block: '.b-bibliotechka-advert'
+
+// Стили
+#{$block}
+    font-size: 13px
+
+    &__name
+        font-size: 16px
+        font-family: "NotoSerif",sans-serif
+        font-style: italic
+        font-weight: bold
+        margin-bottom: 15px
+        line-height: 20px
+
+    .b-sidebar-right__item &__name
+        width: 175px
+
+    &__body
+        border: 2px solid $border-color
+        margin-bottom: 25px
+        overflow: hidden
+
+    &__issue,
+    &__description
+        width: calc(100% - 125px)
+        float: right
+
+    &__issue
+        color: $light-grey
+        padding-bottom: 10px
+
+    &__image-wrapper
+        float: left
+        position: relative
+        max-width: 114px
+
+    &__ribbon
+        +font(14px)
+        background: #8dbb1f
+        font-family: "NotoSerif", serif
+        font-weight: bold
+        font-style: italic
+        color: $white
+        display: inline-block
+        padding: 1px 4px 1px 6px
+        position: absolute
+        left: -9px
+        bottom: 45px
+        white-space: nowrap
+        &:before
+            content: ""
+            border: 4px solid transparent
+            border-top: 3px solid #729915
+            border-right: 5px solid #729915
+            position: absolute
+            bottom: -7px
+            left: 0
+        &:after
+            content: ""
+            border-bottom: 19px solid transparent
+            border-left: 7px solid #8dbb1f
+            border-top: 19px
+            position: absolute
+            top: 0
+            right: -7px
+
+    &__title
+        font-family: "NotoSerif", sans-serif
+        font-weight: bold
+        font-size: 17px
+        line-height: 20px
+
+    &__text
+        line-height: 20px
+
+    &__bottom
+        overflow: hidden
+        clear: both
+
+    &__purchase
+        float: right
+
+    &__purchase-link
+        display: inline-block
+
+    &__price
+        line-height: 30px
+        font-weight: bold
+
+    .b-sidebar-right &
+        & .b-bibliotechka-advert__image-wrapper
+            float: none
+            margin: 0 auto 15px
+
+        & .b-bibliotechka-advert__issue,
+        & .b-bibliotechka-advert__description
+            width: 100%
+            float: none
+
+        & .b-bibliotechka-advert__issue
+            text-align: center
+            padding-bottom: 15px
+
+        & .b-bibliotechka-advert__title
+            font-size: 15px
+
+        & .b-biliotechka-advert__text
+            margin-bottom: 20px
+
+        & .b-bibliotechka-advert__purchase
+            overflow: hidden
+            padding-top: 15px
+            display: block
+
+        & .b-bibliotechka-advert__purchase-link
+            float: right
+
+        & .b-bibliotechka-advert__bottom
+            width: 100%
+            float: none
+
+        & .b-bibliotechka-advert__name
+            margin-bottom: 10px
+
+    +bp-tablet
+
+        &
+            &__body
+                padding: 25px 20px 15px
+
+            &__title
+                margin-bottom: 5px
+
+            &__issue
+                padding-bottom: 5px
+
+            &__text
+                margin-bottom: 15px
+
+            &__purchase-link
+                margin-left: 45px
+
+    +bp-tabletLandscape
+
+        &
+
+            &__body
+                padding: 15px 20px 20px
+
+            &__bottom
+                width: calc(100% - 125px)
+                float: right
+
+            &__issue
+                padding-bottom: 10px
+
+            &__title
+                margin-bottom: 10px
+
+            &__text
+                margin-bottom: 20px
+
+            &__purchase-link
+                margin-left: 50px

@@ -1,0 +1,32 @@
+/*
+ * Список юристов
+ *
+ */
+
+
+// Объявляем блок
+$block: '.b-jurists'
+
+// Стили
+#{$block}
+
+    &_feed
+        padding: 15px 20px
+        background: $today-bg-color
+
+        & > .b-jurists__name
+            +font(16px)
+            font-family: "NotoSerif", serif
+            font-style: italic
+            font-weight: bold
+            margin-bottom: $indent-title
+            color: $red-orange
+
+    &_top
+
+        & > .b-jurists__name
+            font-size: 16px
+            font-family: "NotoSerif", sans-serif
+            font-style: italic
+            font-weight: bold
+            margin-bottom: 15px

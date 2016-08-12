@@ -1,0 +1,1 @@
+<rg-search-filters type="{[data.type | default('search')]}" rgb="true" />

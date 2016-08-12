@@ -1,0 +1,178 @@
+$block: '.b-header'
+
+#{$block}  
+    position: relative
+    overflow: hidden
+
+    &:before
+        height: 2px
+        background-color: rgba(255,255,255, .44)
+        content: ''
+        display: block
+        position: absolute
+        top: 58px
+        left: 0
+        width: 100%
+        z-index: 3
+
+    &:after 
+        height: 60px
+        background-color: rgba(255,255,255, .56)
+        content: ''
+        position: absolute
+        top: 0
+        z-index: 1
+        width: 100%        
+
+    &__wrapper
+        margin-top: -65px
+        height: 60px
+        line-height: 70px
+
+    &__link
+        padding: 0 20px
+        margin-top: 19px
+        height: 32px
+        line-height: 32px
+        display: inline-block
+        color: #fff
+        text-align: center
+
+        & span
+            font-family: $f-sans
+            font-style: italic
+            font-weight: bold
+            display: block
+            +font(13px)
+
+        &__left
+            float: left            
+            background-color: $cyan
+            +skew(28)
+            border-top-left-radius: 3px
+            border-bottom-right-radius: 3px
+
+            margin-left: -28px
+            padding-left: 35px
+
+            & span
+                +skew(-28)
+                
+
+        &__right
+            display: none
+            float: right            
+            background-color: $red
+            +skew(-28)
+            border-top-right-radius: 3px
+            border-bottom-left-radius: 3px
+
+            margin-right: -28px
+            padding-right: 35px
+
+            & span
+                +skew(28)
+
+        // Ссылка на главную проекта
+        &-home
+            width: 100%
+            height: 180px
+            margin: 0
+            padding: 0
+
+            position: absolute
+            top: 0
+            left: 0
+
+            //background: red
+            //opacity: .5
+
+    &__body 
+        border-top: 60px solid $dark-blue
+        width: 100%
+        margin: 0 auto
+        padding: 0 18px
+        position: relative
+        z-index: 2
+
+        &:after
+            display: inline-block
+            content: ''
+            width: 100%
+            height: 117px
+            margin: 30px 0
+            background: url(/res/images/custom/projects/hockey2016/text_head.png) 45% 0 no-repeat
+            background-size: contain
+
+    // Tablet
+    +bp-tablet
+
+        &
+
+            &__body
+                // width: 768px
+
+                &:after
+                    height: 143px
+                    margin: 40px 0
+
+            &__link-home
+                height: 225px
+
+    // Tablet Landscape
+    +bp-tabletLandscape
+
+        &
+            &:before
+                top: 68px
+
+            &:after
+                height: 70px
+
+            &__wrapper
+                margin-top: -70px
+                height: 70px
+
+            &__body
+                border-top: 70px solid $dark-blue
+                // width: 990px
+
+                &:after
+                    height: 187px
+                    margin: 65px 0
+
+            &__link
+
+                &__right
+                    display: block
+
+                &-home
+                    height: 320px
+
+    // Desktop
+    +bp-desktop
+
+        &
+
+            &__body
+                border-left: 34px solid transparent
+                border-right: 34px solid transparent
+                width: 1260px
+
+            &__link
+
+                &__left
+                    padding: 0 20px
+                    margin-left: 0
+
+                &__right
+                    padding: 0 20px
+                    margin-right: 0
+
+    // Desktop Full
+    +bp-desktopFull
+
+        &
+
+            &__body
+                width: 1400px

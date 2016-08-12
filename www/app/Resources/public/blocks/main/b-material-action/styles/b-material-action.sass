@@ -1,0 +1,69 @@
+/*
+ * Следить за сюжетом + социальный шаринг
+ * 
+ */
+
+// Объявляем блок
+$block: '.b-material-action'
+
+// Стили
+#{$block}
+    +font(14px)
+
+    padding: 0 20px 10px
+    margin-bottom: 20px
+
+    border-bottom: 1px solid $border-color
+
+    &__list
+        // inline-block fix
+        font-size: $f-sz-zero
+        letter-spacing: 0
+
+    &__list-item
+        // inline-block fix
+        +font(14px)
+        letter-spacing: $letterSpacingDefault
+        
+        margin-bottom: 20px
+
+        &.is-mobile
+            display: block !important
+
+    // Tablet
+    +bp-tablet
+
+        &
+            margin-bottom: 30px
+            padding: 20px 0 0
+            
+
+    // Tablet landscape
+    +bp-tabletLandscape
+
+        &
+            margin-bottom: 40px
+
+            &__list
+                //overflow: hidden обрезает шаринг
+
+            &__list-item
+                width: 50%
+                margin-top: 5px
+                display: inline-block
+
+            &__list-item_type_right
+                width: auto
+                //text-align: right
+                float: right
+
+            &__list-item + &__list-item_type_right
+                margin-top: 0
+                text-align: right
+            
+
+    // Desktop full
+    +bp-desktopFull
+
+
+            //padding-right: 340px странный отступ, убрал

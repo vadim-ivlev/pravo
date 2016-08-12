@@ -1,0 +1,298 @@
+{
+	"name": "mailer",
+	"subTasks": [
+		{
+			"name": "auth",
+			"dest": "/dest/public/templates/mailer",
+			"src": {
+				"include": [ "/src/pages/includes/route.html" ]
+			},
+			"plugins": [
+				{
+					"name": "gulp-rgswig",
+					"options": {
+						"data": {
+							"type": "public",
+							"name": "b-mailer",
+							"rgb": "mailer:auth"
+						}
+					}
+				},
+				{
+					"name": "gulp-minify-html",
+					"options": {
+						"conditionals": true,
+						"comments": true,
+						"quotes": true
+					}
+				},
+				{
+					"name": "gulp-rename",
+					"options": {
+						"basename": "b-mailer_auth"
+					}
+				}
+			]
+		},
+		{
+			"name": "doc",
+			"dest": "/dest/public/templates/mailer",
+			"src": {
+				"include": [ "/src/pages/includes/route.html" ]
+			},
+			"plugins": [
+				{
+					"name": "gulp-rgswig",
+					"options": {
+						"data": {
+							"type": "public",
+							"name": "b-mailer",
+							"rgb": "mailer:doc"
+						}
+					}
+				},
+				"~gulp-minify-html",
+				{
+					"name": "gulp-rename",
+					"options": {
+						"basename": "b-mailer_doc"
+					}
+				}
+			]
+		},
+		{
+			"name": "change",
+			"dest": "/dest/public/templates/mailer",
+			"src": {
+				"include": [ "/src/pages/includes/route.html" ]
+			},
+			"plugins": [
+				{
+					"name": "gulp-rgswig",
+					"options": {
+						"data": {
+							"type": "public",
+							"name": "b-mailer",
+							"rgb": "mailer:change"
+						}
+					}
+				},
+				"~gulp-minify-html",
+				{
+					"name": "gulp-rename",
+					"options": {
+						"basename": "b-mailer_change"
+					}
+				}
+			]
+		},
+		{
+			"name": "change-conf",
+			"dest": "/dest/public/templates/mailer",
+			"src": {
+				"include": [ "/src/pages/includes/route.html" ]
+			},
+			"plugins": [
+				{
+					"name": "gulp-rgswig",
+					"options": {
+						"data": {
+							"type": "public",
+							"name": "b-mailer",
+							"rgb": "mailer:change-conf"
+						}
+					}
+				},
+				"~gulp-minify-html",
+				{
+					"name": "gulp-rename",
+					"options": {
+						"basename": "b-mailer_change-conf"
+					}
+				}
+			]
+		},
+		{
+			"name": "latest",
+			"dest": "/dest/public/templates/mailer",
+			"src": {
+				"include": [ "/src/pages/includes/route.html" ]
+			},
+			"plugins": [
+				{
+					"name": "gulp-rgswig",
+					"options": {
+						"data": {
+							"type": "public",
+							"name": "b-mailer",
+							"rgb": "mailer:latest"
+						}
+					}
+				},
+				"~gulp-minify-html",
+				{
+					"name": "gulp-rename",
+					"options": {
+						"basename": "b-mailer_latest"
+					}
+				}
+			]
+		},
+		{
+			"name": "newonsite",
+			"dest": "/dest/public/templates/mailer",
+			"src": {
+				"include": [ "/src/pages/includes/route.html" ]
+			},
+			"plugins": [
+				{
+					"name": "gulp-rgswig",
+					"options": {
+						"data": {
+							"type": "public",
+							"name": "b-mailer",
+							"rgb": "mailer:newonsite"
+						}
+					}
+				},
+				"~gulp-minify-html",
+				{
+					"name": "gulp-rename",
+					"options": {
+						"basename": "b-mailer_newonsite"
+					}
+				}
+			]
+		},
+		{
+			"name": "pub-comment",
+			"dest": "/dest/public/templates/mailer",
+			"src": {
+				"include": [ "/src/pages/includes/route.html" ]
+			},
+			"plugins": [
+				{
+					"name": "gulp-rgswig",
+					"options": {
+						"data": {
+							"type": "public",
+							"name": "b-mailer",
+							"rgb": "mailer:pub-comment"
+						}
+					}
+				},
+				"~gulp-minify-html",
+				{
+					"name": "gulp-rename",
+					"options": {
+						"basename": "b-mailer_pub-comment"
+					}
+				}
+			]
+		},
+		{
+			"name": "text_subscribers",
+			"dest": "/dest/public/templates/mailer",
+			"src": {
+				"include": [ "/src/pages/includes/route.html" ]
+			},
+			"plugins": [
+				{
+					"name": "gulp-rgswig",
+					"options": {
+						"data": {
+							"type": "public",
+							"name": "b-mailer",
+							"rgb": "mailer:text_subscribers"
+						}
+					}
+				},
+				"~gulp-minify-html",
+				{
+					"name": "gulp-rename",
+					"options": {
+						"basename": "b-mailer_text_subscribers"
+					}
+				}
+			]
+		},
+		{
+			"name": "text_subscribers_on_docs",
+			"dest": "/dest/public/templates/mailer",
+			"src": {
+				"include": [ "/src/pages/includes/route.html" ]
+			},
+			"plugins": [
+				{
+					"name": "gulp-rgswig",
+					"options": {
+						"data": {
+							"type": "public",
+							"name": "b-mailer",
+							"rgb": "mailer:text_subscribers_on_docs"
+						}
+					}
+				},
+				"~gulp-minify-html",
+				{
+					"name": "gulp-rename",
+					"options": {
+						"basename": "b-mailer_text_subscribers_on_docs"
+					}
+				}
+			]
+		},
+		{
+			"name": "text_subscribe_on_docs",
+			"dest": "/dest/public/templates/mailer",
+			"src": {
+				"include": [ "/src/pages/includes/route.html" ]
+			},
+			"plugins": [
+				{
+					"name": "gulp-rgswig",
+					"options": {
+						"data": {
+							"type": "public",
+							"name": "b-mailer",
+							"rgb": "mailer:text_subscribe_on_docs"
+						}
+					}
+				},
+				"~gulp-minify-html",
+				{
+					"name": "gulp-rename",
+					"options": {
+						"basename": "b-mailer_text_subscribe_on_docs"
+					}
+				}
+			]
+		},
+		{
+			"name": "text_nots_for_new",
+			"dest": "/dest/public/templates/mailer",
+			"src": {
+				"include": [ "/src/pages/includes/route.html" ]
+			},
+			"plugins": [
+				{
+					"name": "gulp-rgswig",
+					"options": {
+						"data": {
+							"type": "public",
+							"name": "b-mailer",
+							"rgb": "mailer:text_nots_for_new"
+						}
+					}
+				},
+				"~gulp-minify-html",
+				{
+					"name": "gulp-rename",
+					"options": {
+						"basename": "b-mailer_text_nots_for_new"
+					}
+				}
+			]
+		}
+	]
+}

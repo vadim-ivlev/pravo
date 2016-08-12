@@ -1,0 +1,32 @@
+<!-- <div class="b-partner-news">
+    <div class="b-partner-news__head">
+        <h3 class="b-partner-news__title">Новости партнеров</h3>
+        <img class="b-partner-news__logo" src="{[_meta.host.img]}{[_meta.path.public.img]}/media/partners/logo-01.jpg" alt="logo">
+    </div>
+    <div class="b-partner-news__list">
+        <div class="b-partner-news__list-item">
+            <img class="b-partner-news__list-item-image" src="{[_meta.host.img]}{[_meta.path.public.img]}/media/partners/img-01.jpg" alt="image">
+            <p class="b-partner-news__list-item-text">
+                <a class="b-link" href="#">
+                    Новый Patriot преподносит сюрпризы уже на выезде из автосалона (фото)
+                </a>
+            </p>
+        </div>
+        <div class="b-partner-news__list-item">
+            <img class="b-partner-news__list-item-image" src="{[_meta.host.img]}{[_meta.path.public.img]}/media/partners/img-02.jpg" alt="image">
+            <p class="b-partner-news__list-item-text">
+                <a class="b-link" href="#">
+                    Задавшая вопрос Путину жительница Приморья попала в трудную ситуацию
+                </a>
+            </p>
+        </div>
+        <div class="b-partner-news__list-item is-tablet-landscape">
+            <img class="b-partner-news__list-item-image" src="{[_meta.host.img]}{[_meta.path.public.img]}/media/partners/img-03.jpg" alt="image">
+            <p class="b-partner-news__list-item-text">
+                <a class="b-link" href="#">
+                    Яценюк под следствием. Порошенко готовит переворот?
+                </a>
+            </p>
+        </div>
+    </div>
+</div> -->

@@ -1,0 +1,91 @@
+/*
+ * Кастомизируем теги
+ * 
+ */
+
+// Газим бордер на фокусе элементов
+*:focus
+    outline: none
+
+// Элементы
+html
+    +box-sizing
+
+    // better font in os
+    -webkit-font-smoothing: antialiased
+
+html,
+body
+    min-height: 100%
+    height: auto
+
+body
+    +font(14px)
+    font-family: $f-sans
+
+    position: relative
+
+    letter-spacing: $letterSpacingDefault
+    overflow-y: scroll
+
+body,
+body *,
+body *:after,
+body *:before
+    +box-sizing(inherit)
+
+a
+    text-decoration: none
+    color: inherit
+    outline: none
+
+p
+    margin: 0
+
+ul
+    list-style: none
+    padding: 0
+
+h1, h2, h3, h4, h5, h6
+    font-family: $f-serif
+    margin-top: 0
+
+input[type="text"],
+select,
+textarea
+    +rounded-corners(0)
+    background-image: none
+    resize: none
+    outline: none
+    -webkit-appearance: none
+    -ms-appearance: none
+    -moz-appearance: none
+
+fieldset
+    margin: 0
+    padding: 0
+    border: 0
+
+// Убираем подсветку в полях
+input:-webkit-autofill,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+select:-webkit-autofill
+    color: inherit!important
+    -webkit-text-fill-color: inherit!important
+    background-color: transparent!important
+    +box-shadow(inset 0 0 0 100px white)
+
+input[disabled]
+    background-image: none
+    background-color: $border-color
+
+// Кастомное выделение
+.b-material-wrapper *::-moz-selection
+    background: rgba($green-accent, .3)
+
+.b-material-wrapper *::-webkit-selection
+    background: rgba($green-accent, .3)
+
+.b-material-wrapper *::selection
+    background: rgba($green-accent, .3)

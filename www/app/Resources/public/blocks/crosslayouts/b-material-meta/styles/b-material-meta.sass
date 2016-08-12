@@ -1,0 +1,34 @@
+/*
+ * Блок метаинформации
+ * 
+ */
+
+// Объявляем блок
+$block: '.b-material-meta'
+
+// Стили
+#{$block}
+	+font(13px)
+	margin-bottom: 20px
+	padding: 0 20px
+	
+	&__item
+		margin-bottom: 6px
+
+	&__item + .b-material-related__item
+		margin-top: 20px
+
+	+bp-tablet
+		padding: 0
+
+	+bp-desktop
+
+		&
+			width: 310px
+			margin-bottom: 0
+
+
+	+bp-desktopFull
+
+		&
+			margin-bottom: 20px

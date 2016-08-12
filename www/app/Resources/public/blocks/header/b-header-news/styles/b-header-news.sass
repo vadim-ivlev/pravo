@@ -1,0 +1,54 @@
+/*
+ * Новость в шапке
+ * 
+ */
+
+// Объявляем блок
+$block: '.b-header-news'
+
+// Модификаторы
+
+// Стили 
+#{$block}
+    display: none
+    vertical-align: middle
+
+    // Desktop
+    +bp-desktop
+
+        &
+            +font(13px)
+
+            margin-left: 40px
+            padding-left: 40px
+            
+            border-left: 1px solid $border-color
+
+            &__date
+                color: $comment-color
+
+            &__item
+                width: 220px
+
+                display: inline-block
+                vertical-align: middle
+            
+
+    // Desktop full
+    +bp-desktopFull
+
+        &
+            +font(13px)
+
+            margin-left: 40px
+            padding-left: 40px
+            
+            border-left: 1px solid $border-color
+
+            &__date
+                color: $comment-color
+
+            &__item
+                width: 220px
+                display: inline-block
+                vertical-align: middle

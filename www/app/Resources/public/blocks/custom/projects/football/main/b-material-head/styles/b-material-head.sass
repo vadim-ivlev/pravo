@@ -1,0 +1,106 @@
+$block: '.b-material-head'
+
+#{$block}
+    +font(20px)
+    font-weight: normal
+
+    width: 100%
+    margin: 0
+
+    &__print
+        margin-top: 5px
+        margin-left: 10px
+
+    .b-link_tag:after
+        display: none
+
+    &__row
+        line-height: 2
+
+    &__anchor
+        width: auto
+        vertical-align: middle
+
+        & + .b-material-head__print
+            margin-top: 0
+
+        & a
+            margin-right: 10px
+
+            &:last-child
+                margin-right: 0
+
+    &__title
+        font-weight: normal
+
+    &__date,
+    &__rubric,
+    &__authors
+        margin-bottom: 10px
+        display: block
+
+    &__date,
+    &__rubric
+        width: auto
+
+    &__date-day
+        font-weight: bold
+        margin-right: 7px
+        position: relative
+        z-index: 0
+
+        color: $black
+
+        &:before
+            content: ''
+
+            width: 300px
+            height: 300px
+            
+            position: absolute
+            top: -30px
+            left: -170px
+
+            background: url(/res/images/custom/projects/football/confetti_data_article.png) 0 0 no-repeat
+
+        &:after
+            content: ''
+
+            width: calc(100% + 10px)
+            height: calc(100% + 4px)
+            
+            display: block
+            
+            position: absolute
+            top: -2px
+            left: -5px
+            z-index: -1
+            
+            background-color: $yellow
+            +box-shadow(0 0 3px 1px $yellow)
+            
+            +transform(rotate(-5deg))
+
+    +bp-tablet
+
+        &
+            +font(26px)
+
+    +bp-tabletLandscape
+
+        &
+            +font(32px)
+
+            &__date,
+            &__rubric,
+            &__authors
+                width: auto
+                margin-bottom: 0
+                padding-right: 47px
+                display: inline-block
+                vertical-align: top
+
+    +bp-desktop
+
+        &
+            +font(38px)          

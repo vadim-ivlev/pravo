@@ -1,0 +1,285 @@
+/*
+ * Блок ленты на
+ * подписанные сервисы
+ * в личном кабинете
+ * 
+ */
+
+// Объявляем блок
+$block: '.b-followed'
+
+// Стили
+#{$block}
+    +font(13px)
+    padding: 20px
+    text-align: left
+
+    background-color: $today-bg-color
+
+    &__title
+        +font(14px)
+        font-family: "Noto Sans", Arial, sans-serif
+        font-weight: bold
+
+    &__list
+        margin: 0 -20px
+
+    &__item
+        padding: 13px 20px
+
+        border-bottom: 1px solid $border-color
+        cursor: pointer
+
+        &:last-child
+            border: 0
+
+    &__item_type_view
+        color: $comment-color
+
+    &__item.is-active,
+    &__item:hover, &__item.active
+        margin-top: -1px
+        color: $link-color
+        
+        background-color: $white
+        border-top: 1px solid transparent
+        border-bottom: 1px solid transparent
+
+    &__qty
+        +font(11px)
+        font-family: "Noto Serif", sans-serif
+        font-weight: bold
+
+        width: 20px
+        height: 20px
+        margin-right: 5px
+
+        display: inline-block
+        vertical-align: middle
+        line-height: 1.8em
+
+        text-align: center
+        color: $black
+        background-color: $green
+
+        +rounded-corners(50%)
+
+    &__item-text,
+    &__item-action
+        display: inline-block
+        vertical-align: middle
+
+    &__item-text
+        width: 80%
+        line-height: 1.6em
+
+    &__item-action
+        width: 20%
+        margin-left: -6px
+        margin-top: -1px
+        padding-right: 20px
+        text-align: right
+
+        float: right
+
+    // Tablet
+    +bp-tablet
+
+        &
+            padding: 0 20px
+            line-height: 1.6em
+
+            &__title
+                margin-bottom: 15px
+                padding-top: 20px
+
+            &__list
+                height: 400px
+                padding-bottom: 20px
+
+    // Промежуточный
+    @media screen and (min-width: 1200px)
+
+        &
+
+            .b-icon_type_follow
+                +opacity(0)
+                +transition
+
+            &__item:hover .b-icon_type_follow
+                +opacity(1)
+                +transition
+
+    // Desktop
+    +bp-desktop
+
+        &
+            +font(14px)
+            padding: 0 30px
+
+            &__list
+                margin: 0 -30px
+
+            &__item
+                padding: 13px 20px 13px 30px
+
+            &__item-text
+                width: 290px
+
+            &__item-action
+                width: 50px
+                margin-left: 4px
+
+/*
+ * Блок ленты на
+ * подписанные сервисы
+ * в личном кабинете
+ *
+ */
+
+#followed
+
+    width: 100%
+    text-align: left
+
+    +bp-tablet
+        width: 768px
+        text-align: right
+
+    +bp-tabletLandscape
+        width: 990px
+
+    +bp-desktop
+        width: 1050px
+
+#sujetList
+    overflow-y: auto
+
+// Объявляем блок
+$block: '.b-followed-full'
+
+// Стили
+#{$block}
+    position: relative
+    display: inline-block
+    overflow: hidden
+    transition: all .5s
+
+    left: 650px
+
+    &__title
+        padding: 20px 20px 0
+
+    & .b-news-inner__list
+        padding: 0
+        
+        &-item
+            padding: 0
+            margin: 0
+
+            &-wrapper
+                padding: 20px
+
+            &_type
+                &_new
+                    background-color: #fffdeb
+
+
+    &_expanded
+        left: 0
+    &_hidden
+        display: none
+
+    &__link
+        padding: 15px 20px
+
+    &__col
+        display: inline-block
+        vertical-align: top
+        width: 100%
+
+    &__col_side_left .b-news-inner
+        line-height: 1.4em
+        text-align: left
+
+    &__col_side_right
+        position: relative
+        z-index: 1
+
+        .b-dummy
+
+            &__name &.is-active &:hover
+                color: $red
+                cursor: default
+
+            &_empty
+                padding: 30px
+
+    // Tablet
+    +bp-tablet
+
+        &
+            position: absolute
+
+        &__link
+            display: none
+
+        & .b-news-inner__list
+
+            &-item
+
+                &-wrapper
+                    padding: 20px 20px 20px 90px
+
+        &__col_side_right
+            width: 240px
+
+        &__col_side_left
+            width: 528px
+
+        &__title
+            padding: 20px 10px 0
+
+    // Tablet Landscape
+    +bp-tabletLandscape
+
+        &__col_side_right
+            width: 340px
+
+        &__col_side_left
+            width: 650px
+
+    // Desktop
+    +bp-desktop
+
+        &
+
+            &__title
+                padding: 20px 30px 0
+
+        & .b-news-inner__list
+            padding: 19px
+            padding-right: 0
+
+            &-item
+                width: 100%
+
+                &-time
+                    padding-left: 10px
+
+        #sujetList
+            overflow: auto
+
+        &__col_side_left
+            width: 650px
+
+            &__col_side_left .b-news-inner
+                +font(14px)
+                width: 650px
+
+            &__list-item-title
+                +font(17px)
+
+        &__col_side_right
+            width: 400px
+

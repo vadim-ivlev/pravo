@@ -1,0 +1,50 @@
+$block: '.b-vendors'
+
+#{$block}
+    display: inline-block
+    vertical-align: middle
+
+    &__link
+        width: 100%
+        height: 100%
+        display: inline-block
+
+    &_zilart
+        width: 143px
+        height: 42px
+        background: url(#{$img-path}custom/projects/#{$id_prject}/media/zilart.png) no-repeat 0 0
+        background-size: cover
+
+        .b-footer &
+            margin-right: $indent-g-small
+            float: left
+
+    &_lsr
+        width: 114px
+        height: 36px
+        background: url(#{$img-path}custom/projects/#{$id_prject}/media/lsr.png) no-repeat 0 0
+
+        .b-footer &
+            margin-left: $indent-g-small
+            float: right
+
+    // Tablet
+    +bp-tablet
+
+        &
+
+    // Tablet landscape
+    +bp-tabletLandscape
+
+        &
+            
+    // Desktop
+    +bp-desktop
+
+        &
+
+    // Desktop full
+    +bp-desktopFull
+
+        &
+            

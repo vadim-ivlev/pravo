@@ -1,0 +1,204 @@
+/*
+ * Шапка статьи
+ *
+ */
+
+// Объявляем блок
+$block: '.b-material-head'
+
+// Родительские модификаторы
+$hasDocumentMaterial: '.l-page_document'
+
+// Стили
+#{$block}
+    +font(13px)
+
+    margin: 20px
+    color: $comment-color
+
+    &__title
+        // добавил по просьбе Оли и Макса и Агимы (было 18px)
+        +font(21px)
+
+        color: $black
+        line-height: 1.2em
+
+        margin-bottom: 10px
+
+    &_child
+        margin: 20px 0
+
+    &_child &__title
+        +font(16px)
+
+    &_child &__authors
+        width: auto
+
+    &__row
+        margin-bottom: 10px
+        display: block
+
+    &__print
+        display: none
+
+    &__date,
+    &__rubric
+        //margin-top: 6px
+
+    &__date
+        width: 50%
+        padding-right: 20px
+        display: inline-block
+        vertical-align: top
+
+    &__rubric
+        display: block
+        vertical-align: top
+
+    &__date-name
+        margin-left: 15px
+
+    &__rubric-name
+        color: $black
+
+    &__authors
+        margin-bottom: 10px
+
+        &-credentials
+            //white-space: nowrap // Я не помню, почему это включили. Но выключаю из-за того, что большой текст уезжает на плашку
+
+    &__authors-link
+        //display: block
+        display: inline-block
+
+    // Fix inline-block
+    &__row
+        font-size: 0
+
+    &__date,
+    &__rubric,
+    &__anchor,
+    &__authors
+        +font(13px)
+
+    // Tablet
+    +bp-tablet
+
+        &
+            width: 490px
+            //margin: 0 auto
+            //margin-left: 30px
+            margin: 25px 0 22px
+
+            &__row
+                margin-bottom: 14px
+
+            &__title
+                +font(21px)
+
+                #{$hasDocumentMaterial} &
+                    +font(18px)
+
+            &__date,
+            &__rubric
+                margin-top: auto
+                padding-right: 47px
+                display: inline-block
+
+            &__rubric + &__rubric
+                //margin-top: 6px
+
+            &__date-day
+                margin-right: 10px
+
+    // Tablet landscape
+    +bp-tabletLandscape
+
+        &
+            width: 650px
+
+            &__title
+                +font(26px)
+
+            &_child &__title
+                +font(18px)
+
+            &__authors,
+            &__anchor
+                display: inline-block
+                vertical-align: bottom
+
+            &__authors
+                width: 40%
+                margin-bottom: 0
+
+            &__anchor
+                width: 60%
+                // padding-left: 20px
+                // text-align: right
+
+            &__gazeta
+                padding-right: 47px
+                display: inline-block
+
+            &__gazeta &__anchor
+                width: auto
+                padding-left: 0
+                text-align: left
+                vertical-align: middle
+
+            &__rubric + &__rubric
+                //margin-top: auto
+
+    // Desktop
+    +bp-desktop
+
+        &
+            //margin: 0
+
+            &__title
+                +font(32px)
+
+                #{$hasDocumentMaterial} &
+                    +font(22px)
+
+            &_child &__title
+                +font(24px)
+
+            &__print
+                display: inline-block
+                vertical-align: middle
+
+            &__authors
+                width: 60%
+
+            &__anchor
+                width: 40%
+
+                & + .b-material-head__print
+                    margin-top: 5px
+
+
+    // Desktop full
+    +bp-desktopFull
+
+        &
+            width: 850px
+            //margin: 0 70px
+
+            #{$hasDocumentMaterial} &
+                width: 920px
+
+            &__title
+                +font(40px)
+
+            &_child &__title
+                +font(32px)
+
+            &__authors
+                width: 55%
+
+            &__anchor
+                width: 45%
+                padding-left: 0
+                text-align: left

@@ -1,0 +1,66 @@
+<div class="b-viewed">
+    <h2 class="b-viewed__title">Прочитанные статьи:</h2>
+
+    <div class="b-viewed__list js-scroll-bar js-height-list">
+        <div class="b-viewed__item">
+            <a class="b-link b-viewed__link" href="#">Перемирие на востоке Украины</a>
+        </div>
+        <div class="b-viewed__item">
+            <a class="b-link b-viewed__link" href="#">Парад победы</a>
+        </div>
+        <div class="b-viewed__item b-viewed__item_type_view">
+            <a class="b-link b-viewed__link" href="#">Россия и Китай</a>
+        </div>
+        <div class="b-viewed__item">
+            <a class="b-link b-viewed__link" href="#">Закон о национальной платежной системе</a>
+        </div>
+        <div class="b-viewed__item">
+            <a class="b-link b-viewed__link" href="#">Развитие туризма в России</a>
+        </div>
+        <div class="b-viewed__item b-viewed__item_active">
+            <a class="b-link b-viewed__link" href="#">Сведения о доходах чиновников</a>
+        </div>
+        <div class="b-viewed__item b-viewed__item_type_view">
+            <a class="b-link b-viewed__link" href="#">Министерство связи и массовых коммуникаций</a>
+        </div>
+        <div class="b-viewed__item">
+            <a class="b-link b-viewed__link" href="#">Землетрясение в Непале</a>
+        </div>
+        <div class="b-viewed__item b-viewed__item_type_view">
+            <a class="b-link b-viewed__link" href="#">Подготовка к 70-летию Победы</a>
+        </div>
+        <div class="b-viewed__item">
+            <a class="b-link b-viewed__link" href="#">Федеральная антимонопольная служба (ФАС)</a>
+        </div>
+        <div class="b-viewed__item">
+            <a class="b-link b-viewed__link" href="#">Перемирие на востоке Украины</a>
+        </div>
+        <div class="b-viewed__item">
+            <a class="b-link b-viewed__link" href="#">Парад победы</a>
+        </div>
+        <div class="b-viewed__item b-viewed__item_type_view">
+            <a class="b-link b-viewed__link" href="#">Россия и Китай</a>
+        </div>
+        <div class="b-viewed__item">
+            <a class="b-link b-viewed__link" href="#">Закон о национальной платежной системе</a>
+        </div>
+        <div class="b-viewed__item">
+            <a class="b-link b-viewed__link" href="#">Развитие туризма в России</a>
+        </div>
+        <div class="b-viewed__item b-viewed__item_active">
+            <a class="b-link b-viewed__link" href="#">Сведения о доходах чиновников</a>
+        </div>
+        <div class="b-viewed__item b-viewed__item_type_view">
+            <a class="b-link b-viewed__link" href="#">Министерство связи и массовых коммуникаций</a>
+        </div>
+        <div class="b-viewed__item">
+            <a class="b-link b-viewed__link" href="#">Землетрясение в Непале</a>
+        </div>
+        <div class="b-viewed__item b-viewed__item_type_view">
+            <a class="b-link b-viewed__link" href="#">Подготовка к 70-летию Победы</a>
+        </div>
+        <div class="b-viewed__item">
+            <a class="b-link b-viewed__link" href="#">Федеральная антимонопольная служба (ФАС)</a>
+        </div>
+    </div>
+</div>

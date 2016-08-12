@@ -1,0 +1,38 @@
+/*
+ * СТили для брендирования в шапке
+ *
+ */
+
+// Объявляем блок
+$block: '.b-address'
+
+// Стили
+#{$block}
+
+    
+
+    // Tablet 
+    +bp-tablet
+
+        &
+
+    // Tablet landscape
+    +bp-tabletLandscape
+
+        &
+
+    // Desktop
+    +bp-desktop
+
+        &
+
+            .b-static-wrapper__col
+                width: 100%
+
+                &:first-child
+                    margin-bottom: 20px
+
+    // Desktop full
+    +bp-desktopFull
+
+        &

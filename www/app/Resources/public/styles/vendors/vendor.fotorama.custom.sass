@@ -1,0 +1,171 @@
+/*
+ * Кастомизируем фотогалерею в статье
+ *  
+ */
+
+// Блок
+$fotorama: '.fotorama'
+
+// Стили
+#{$fotorama}
+
+    &__caption a
+        color: $comment-color
+        border-bottom: 0
+
+        &:hover
+            color: $comment-color + #222
+
+    &__thumb-border
+        border-color: $red
+
+    &__img
+        //max-width: 100% !important
+        //width: auto !important
+        //height: auto !important
+        //margin: 0 auto
+        //top: 0 !important
+        //left: 0 !important
+
+    &__video-play
+        width: 40px
+        height: 40px
+        margin-left: -20px
+        margin-top: -20px
+
+        background: none
+        background-color: $white
+        +rounded-corners(50%)
+
+        &:after
+            content: ''
+
+            width: 0
+            height: 0
+
+            position: absolute
+            left: 17px
+            top: 15px
+
+            border-width: 5px 10px 5px 10px
+            border-style: solid
+            border-color: transparent transparent transparent $red
+
+    &__thumb &__video-play
+        width: 20px
+        height: 20px
+        margin-left: -10px
+        margin-top: -10px
+
+        &:after
+            content: ''
+
+            left: 8px
+            top: 7px
+            border-width: 3px 6px 3px 6px
+
+    &__caption__wrap
+        +font(13px)
+        font-family: $f-sans
+
+        padding: 5px 10px
+
+        letter-spacing: 0
+        color: $white
+        
+        background-color: rgba(0, 0, 0, 0.7)
+
+    &__arr
+        width: 33px
+        height: 33px
+
+        background: url(#{$img-path}arrow.png) #fff
+        +rounded-corners(33px)
+        +opacity(1)
+
+    &__arr--next
+        right: 10px
+        background-position: -33px 0
+
+        &:hover
+            background-position: -33px -33px
+
+    &__arr--prev
+        left: 10px
+        background-position: 0 0
+
+        &:hover
+            background-position: 0 -33px
+
+    // Добавил Леша 29.10.2015
+    // Кастомизация дефолтной иконки фулскрина
+    &__fullscreen-icon
+        width: 20px
+        height: 20px
+
+        position: absolute
+        top: -20px
+        right: 10px
+        z-index: 2
+        
+        background: url(#{$img-path}sprite_main.png) -100px -100px no-repeat
+        +transition(0.2s all)
+
+    &:hover &__fullscreen-icon
+        top: 10px
+
+        +transition(0.2s all)
+
+    &--fullscreen &__fullscreen-icon
+        background-position: -100px -100px
+
+    &__wrap &__pointer
+        background-color: $black
+    
+    // Retina
+    +bp-retina
+
+        &
+            &__arr
+                background-size: 66px
+
+            &__arr--next
+                background-position: -33px -33px
+
+                &:hover
+                    background-position: -33px -66px
+
+            &__arr--prev
+                background-position: 0 -33px
+
+                &:hover
+                    background-position: 0 -66px
+
+            &__fullscreen-icon
+                background: url(#{$img-path}sprite_main_2.png) -100px -100px no-repeat
+                background-size: $retina-icon-width
+
+
+    // Tablet
+    +bp-tablet
+
+        &
+
+            &__video-play
+                width: 60px
+                height: 60px
+                margin-left: -30px
+                margin-top: -30px
+
+                &:after
+                    content: ''
+                    width: 0
+                    height: 0
+
+                    position: absolute
+                    left: 25px
+                    top: 22px
+                    
+                    border-width: 7px 15px
+                    border-style: solid
+                    border-color: transparent transparent transparent $red

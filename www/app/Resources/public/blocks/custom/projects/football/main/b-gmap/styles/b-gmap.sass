@@ -1,0 +1,97 @@
+$block: '.b-gmap'
+
+#{$block}
+    margin: 0
+
+    & .page
+        padding: 0 20px
+
+    &__map
+        width: 100%
+        height: 500px
+
+    &__top
+        height: 120px
+        background-color: $white
+
+    h2
+        text-transform: uppercase
+        +font(18px)
+        font-weight: normal
+        position: relative
+        z-index: 1
+        padding: 40px 0 0
+        // float: left
+        text-align: center
+
+    &__links
+        text-align: right
+        padding: 0
+        max-width: 60%
+        // float: right
+        white-space: nowrap
+        margin: 0 auto
+        position: relative
+
+        & a
+            text-decoration: underline
+            display: inline-block
+            margin-left: 10px
+            +font(14px)
+            color: $blue
+            font-weight: bold
+            text-align: center
+
+    .slick-prev, .slick-next
+        width: 7px
+        height: 11px
+        background: url(#{$img-path}custom/projects/football/football2016sprite.png) 0 -30px no-repeat
+        margin-top: -5px
+        top: 50%
+
+        &:before
+            display: none
+
+    .slick-prev
+        background-position: 0 -41px
+
+    +bp-tablet
+
+        &
+
+            & .page
+                padding: 0 30px
+
+            &__top
+                height: 100px
+
+            h2
+                float: left
+            
+            &__links
+                margin: 0
+                margin-top: 42px
+                float: right
+
+    +bp-tabletLandscape
+
+        &
+
+            h2
+                text-align: left
+                +font(21px)
+                float: left
+
+    +bp-desktop
+
+        &
+
+            &__links
+                max-width: 60%
+
+            & .page
+                padding: 0
+
+            h2
+                +font(28px)
+                padding-top: 30px

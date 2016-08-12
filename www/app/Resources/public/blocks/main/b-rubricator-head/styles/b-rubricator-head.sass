@@ -1,0 +1,24 @@
+/*
+ * Шапка страницы рубрик
+ * 
+ */     
+
+// Объявляем блок
+$block: '.b-rubricator-head'
+
+// Основной блок
+#{$block}
+    margin-bottom: 30px
+    border-bottom: 1px solid $border-color
+
+    &__row
+
+        // Сдвигаем на 1px, чтобы бордер блока заехал на бордер меню
+        &:last-child
+            margin-bottom: -1px
+
+    // Планшет горизонтальный
+    +bp-desktop
+
+        &
+            width: 100%

@@ -1,0 +1,31 @@
+/*
+ * Блок следить за сюжетом
+ * 
+ */
+
+// Объявляем блок
+$block: '.b-top-news'
+
+// Стили
+#{$block}
+    padding: 0 20px
+
+    &__list
+        margin-bottom: 10px
+
+    &__body
+        margin-bottom: 30px
+        padding: 20px
+        border: 1px solid $border-color
+    &__name
+        +font(16px)
+        font-family: $f-sans
+
+    +bp-tablet
+        padding: 0
+
+
+
+
+
+

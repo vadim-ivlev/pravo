@@ -1,0 +1,30 @@
+/*
+ * Панель данных
+ * 
+ */
+
+// Объявляем блок
+$block: '.b-date-panel-spiegel'
+
+// Стили
+#{$block}
+
+    &__item
+        //margin-right: 30px
+        display: inline-block
+        vertical-align: top
+
+        & .b-custom-datepicker
+            font-size: 0
+            position: static
+            //top: 24px
+
+            & .ui-datepicker-trigger
+                position: static
+
+
+    // Время в сегодня
+    &__date
+        +font(12px)
+
+        color: $comment-color

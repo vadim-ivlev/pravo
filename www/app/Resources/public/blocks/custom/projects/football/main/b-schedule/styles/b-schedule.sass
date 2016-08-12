@@ -1,0 +1,661 @@
+$block: '.b-schedule'
+
+#{$block}
+    position: relative
+    overflow: hidden
+    margin-bottom: 30px
+
+    & .fake_schedule
+
+        & .media_blank
+            width: 100%
+
+        & .trans_status
+            min-width: 130px
+
+            +bp-tabletLandscape
+
+                &
+                    min-width: 200px
+
+            +bp-desktopFull
+
+                &
+                    min-width: 270px
+
+    // & .page
+    //     padding: 0
+
+    &__body
+        padding: 0
+        position: relative
+        z-index: 1
+    
+    &:before
+        display: block
+        content: ''
+        width: 100%
+        height: 100%
+        background-color: rgba(47,38,93,.63)
+        position: absolute
+        left: 0
+        top: 49px
+
+    &.colorbox
+        background: none
+
+        #{$block} 
+
+            &__body
+                padding: 0
+
+            &__table
+                margin: 20px
+                padding: 0
+
+    &_full
+        padding-bottom: 25px
+        background-color: $white
+
+        & .page
+            padding: 0 30px
+
+        &:before
+            background-color: #f3f3f3
+            top: 159px
+
+
+        & #{$block}
+
+            &__mobile
+                color: #000
+
+                &__item
+                    background-color: $white
+
+                &__date
+                    color: #000
+
+            &__head
+                margin: 30px 0
+
+                &__name
+                    margin-top: -5px
+
+                &__uri
+                    font-weight: bold
+
+                    span
+                        color: #000
+
+                    &.active
+                        span
+                            color: $white
+
+            &__table
+                margin-top: 30px
+
+                & tr.first
+
+                    & td, & td:nth-child(1)
+                        text-align: center
+                        +font(16px)
+                        color: $black
+                        text-transform: uppercase
+                        font-weight: bold
+                        border-top: 30px solid #f3f3f3
+
+                    &:first-child
+                        & td
+                            border-top: none
+
+                & tr td
+                    background-color: #fff
+                    color: #000
+                    border-bottom: 2px solid #f3f3f3
+
+                    &.schedule_date
+                        font-weight: bold
+                        text-transform: uppercase
+
+                    &.game_place
+                        color: #000
+                        font-weight: normal
+
+                    &.trans_status
+                        min-width: 0
+
+                    &.first-team
+                        text-align: right
+
+                    &.group_name, &.game_time
+                        color: #999
+                        font-weight: normal
+
+                    &.first_team_flag,
+                    &.first-team,
+                    &.score,
+                    &.second-team,
+                    &.second_team_flag
+                        background-color: $white
+
+
+        & a.disabled
+            display: none
+
+    .media-icon_tv
+        display: inline-block
+        width: 20px
+        height: 20px
+        margin-left: 20px
+        background: url(#{$img-path}custom/projects/hockey2016/hockey2016sprite.png) -12px 0 no-repeat
+
+    .media-icon_ort
+        display: inline-block
+        vertical-align: middle
+        margin-left: 10px
+        width: 38px
+        height: 18px
+        background: url(#{$img-path}custom/projects/football/logo_pervi.png) 50% -36px no-repeat
+    
+    &-full
+        .media-icon_ort
+            background-position: 50% 0
+
+    .media-icon_match
+        display: inline-block
+        vertical-align: middle
+        margin-left: 10px
+        margin-top: -2px
+        width: 37px
+        height: 10px
+        background: url(#{$img-path}custom/projects/hockey2016/logo_match.png) 0 0 no-repeat
+
+    .media-icon_rossia-one
+        display: inline-block
+        vertical-align: middle
+        margin-left: 10px
+        margin-top: -2px
+        width: 37px
+        height: 10px
+        background: url(#{$img-path}custom/projects/football/rus1.png) 0 0 no-repeat
+
+    .media-icon_match-arena
+        display: inline-block
+        vertical-align: middle
+        margin-left: 10px
+        margin-top: -12px
+        margin-bottom: -12px
+        width: 38px
+        height: 27px
+        background: url(#{$img-path}custom/projects/hockey2016/match_arena.png) 0 0 no-repeat
+
+    .media-icon_match-game
+        display: inline-block
+        vertical-align: middle
+        margin-left: 10px
+        margin-top: -12px
+        margin-bottom: -12px
+        width: 38px
+        height: 27px
+        background: url(#{$img-path}custom/projects/hockey2016/match_game.png) 0 0 no-repeat
+
+    .media-icon_match-football-one
+        display: inline-block
+        vertical-align: middle
+        margin-left: 10px
+        margin-top: -12px
+        margin-bottom: -12px
+        width: 37px
+        height: 21px
+        background: url(#{$img-path}custom/projects/football/match_football1.png) 0 0 no-repeat
+
+    .media-icon_match-football-two
+        display: inline-block
+        vertical-align: middle
+        margin-left: 10px
+        margin-top: -12px
+        margin-bottom: -12px
+        width: 37px
+        height: 21px
+        background: url(#{$img-path}custom/projects/football/match_football2.png) 0 0 no-repeat
+
+
+
+    .translation span
+        display: inline-block
+        padding: 0 10px
+        +font(11px)
+        text-transform: lowercase
+        height: 18px
+        line-height: 16px
+        +rounded-corners(19px)
+        border: none
+        white-space: nowrap
+
+        &.false
+            color: $white
+            background-color: $blue
+
+        &.is_active
+            color: $white
+            background-color: $green
+
+        &.is_over
+            color: #999
+            background-color: none
+            border-color: #999
+
+    .media_block
+        text-align: center
+
+    &__head
+        margin-bottom: 30px
+
+        &__full-schedule
+            display: none
+
+            &.mobile
+                display: block
+                padding: 5px 0
+
+            & a 
+                text-align: center
+                +font(13px)
+                font-weight: bold
+                color: $blue
+                text-decoration: underline
+
+        &__name
+            text-align: center
+            text-transform: uppercase
+            +font(18px)
+            font-weight: bold
+            padding: 10px 0
+
+        &__links
+            overflow: hidden
+            text-align: center
+
+        &__uri
+            text-transform: uppercase
+            +font(14px)
+            color: $white
+            margin: 0
+            display: inline-block
+
+            &.active
+
+                & span
+                    background-color: $yellow
+
+            & span
+                display: block
+                padding: 5px 15px
+                +rounded-corners(40px)
+
+    // #colorbox .b-schedule__part
+    //     display: block
+
+    .page &__part
+        display: none
+
+        &.active
+            display: block
+
+    &__table
+        display: none
+
+    &__mobile
+        display: block
+        text-align: center
+        // background-color: #f3f3f3
+        padding: 0 20px 10px
+        color: $white
+
+        &__date
+            color: $white
+            font-weight: bold
+            text-transform: uppercase
+            +font(14px)
+            padding-bottom: 5px
+
+        &__item
+            padding: 15px 0
+            border-bottom: 2px solid rgba(255,255,255,.17)
+            // background-color: $white
+            position: relative
+
+        &__arrow
+            display: block
+            position: absolute
+            top: 40px
+            right: 20px
+            width: 12px
+            height: 8px
+            margin-top: -4px
+            background: url(#{$img-path}custom/projects/football/football2016sprite.png) 0 0 no-repeat
+
+            &.is-open
+                background-position: 0 -8px
+
+        &__top
+            +font(11px)
+            text-transform: uppercase
+            padding-bottom: 5px
+
+            & span
+                display: inline-block
+                padding: 0 5px
+
+        &__mid
+            display: table
+            width: 100%
+            +font(13px)
+            width: 100%
+            padding-bottom: 5px
+
+            & > div
+                display: table-cell
+                width: 120px
+
+            & .left-team
+                text-align: right
+
+            & .right-team
+                text-align: left
+
+            & .scores
+                width: 60px
+
+                & span
+                    font-weight: bold
+
+        &__bottom
+            margin-bottom: 5px
+
+        &__hidden
+            overflow: hidden
+            +font(13px)
+            +transition(all 0.3s)
+
+            &.is-closed
+                height: 0 !important
+
+            & > div
+                display: table
+                width: 100%
+                min-height: 30px
+
+            & > div > div
+                display: table-cell
+                // padding: 5px 0 0
+
+                &:first-child, &:last-child
+                    width: 40px
+
+                &:nth-child(2)
+                    text-align: center
+
+                &:last-child > div
+                    display: block
+
+
+    +bp-tablet
+
+        &
+
+            &:before
+                top: 59px
+
+            &_full               
+
+                &:before
+                    top: 119px                         
+
+            &__head
+                padding-bottom: 20px
+                margin-bottom: 0
+
+                &__full-schedule
+
+                    &.tablet
+                        display: block
+                        padding: 5px 0
+                        text-align: center
+
+                &__name
+                    padding-top: 0
+
+                &__links
+                    text-align: center
+
+                &__uri
+                    width: auto
+                    display: inline-block
+                    float: none
+                    margin: 0 20px
+        
+                    & span
+                        padding: 5px 20px
+
+            &__table
+                // display: block
+                // padding: 0 30px
+                color: $white
+
+                table
+                    display: table
+                    width: 100%
+                    +font(13px)
+
+                    & .translation
+                        margin-bottom: -15px
+                    
+                    & tr:last-child
+                        & td
+                            border-bottom: none
+
+                    & tr td
+                        padding: 20px 10px
+                        // background-color: $white
+                        border-bottom: 2px solid rgba(255,255,255,.17)
+                        vertical-align: top
+                        // position: relative                        
+                        white-space: nowrap
+
+                        & .media-icon_tv
+                            // position: absolute
+                            top: 16px
+                            left: 10px
+                            margin: -5px
+
+                        &.group_name
+                            padding-left: 20px
+                            font-weight: bold
+
+                        &.media
+                            padding-right: 20px   
+                            width: 100%
+                            text-align: center  
+
+                        &:nth-child(5)   
+                            text-align: right
+
+                        &.first_team_flag,
+                        &.first-team,
+                        &.score,
+                        &.second-team,
+                        &.second_team_flag
+                            padding: 20px 15px
+                            background-color: rgba(255,255,255,.17)
+
+                        &.game_place
+                            padding: 20px
+                            color: $blue
+                            font-weight: bold
+                            display: none
+
+                        &.group_name,
+                        &.game_time
+                            text-transform: uppercase
+                            white-space: nowrap
+
+                        &.trans_status
+
+                            & .translation
+                                display: none
+
+                        &.score
+                            text-align: center
+
+                            .translation
+                                margin: 0 -100px -15px
+
+                        span.tv
+                            display: none
+                        
+
+            &__mobile
+                // display: none
+
+    +bp-tabletLandscape
+
+        &
+
+            &:before
+                top: 69px
+
+            &_full
+
+                &:before
+                    top: 119px
+                
+            .media_block
+                text-align: center
+
+            &__head
+                position: relative
+            
+                &__name
+                    float: left
+                    margin-left: 30px
+                    line-height: 36px
+                    position: absolute
+
+                &__full-schedule
+                    display: block
+                    position: absolute
+                    right: 30px
+                    top: 0px
+                    
+                    &.tablet
+                        display: none
+
+            .translation
+                display: block 
+
+            &__table
+                display: block
+
+                & + table
+                    margin-top: 25px
+
+                table
+                    // margin-bottom: 25px
+
+                    & tr td
+
+                        &.media
+                            span
+                                display: none
+
+                        &.trans_status
+                            min-width: 120px
+                            text-align: center
+
+                            & .translation 
+                                display: none
+
+                                & span
+                                    // +font(11px)
+                                    // height: 17px
+                                    // line-height: 16px
+                                    padding: 0 10px
+
+                                    +font(11px)
+                                    height: 18px
+                                    line-height: 16px
+                
+            &__mobile
+                display: none
+
+            &_full
+
+                & #{$block}
+                    &__head
+                        margin: 50px 0
+
+    +bp-desktop
+
+        &
+
+            &:before
+                top: 49px
+
+            &_full
+
+                &:before
+                    top: 119px
+
+
+            & .page
+                padding: 0
+
+            &__table
+
+                table
+
+                    & tr td
+
+                        &.trans_status
+                            display: table-cell
+                            min-width: 255px
+
+                            & .translation
+                                display: block
+
+                        &.media
+                            padding-left: 20px
+                            padding-right: 10px
+
+                        &.game_place
+                            display: table-cell
+
+                        &.score
+                            & .translation
+                                display: none
+    
+    +bp-desktopFull
+
+        &
+
+            &__table
+
+                table
+
+                    & tr td
+
+                        &:last-child
+                            span
+                                display: inline
+
+                        &.trans_status
+                            min-width: 335px
+
+                        &.game_time
+                            padding: 20px
+
+                        span.tv
+                            display: inline
+

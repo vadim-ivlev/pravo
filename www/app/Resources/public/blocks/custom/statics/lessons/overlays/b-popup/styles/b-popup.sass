@@ -1,0 +1,50 @@
+/*
+ * Блок ввода данных
+ * Совмещает в себе все стандартные
+ * элементы формы
+ * 
+ */
+
+// Объявляем блок
+$block: '.b-popup'
+
+$b: '.b'
+
+#cboxLoadedContent
+    overflow: auto!important
+
+// Стили
+#{$block}
+
+    &_regulations
+        display: none
+
+    &_years
+        display: none
+
+    &__wrapper
+        padding: 20px 45px 20px 30px
+
+
+    &__dest
+
+        &_years
+
+            #{$b}
+
+                &__title
+                    font-family: $f-serif
+                    font-weight: bold
+
+                &__subtitle
+                    font-family: $f-serif
+                    font-style: italic
+                    margin-bottom: 20px
+
+                &__wrapper
+                    border-bottom: 1px solid $border-color
+                    padding-bottom: 20px
+                    margin-bottom: 20px
+
+
+

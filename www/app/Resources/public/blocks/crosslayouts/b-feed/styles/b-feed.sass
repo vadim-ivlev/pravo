@@ -1,0 +1,351 @@
+/*
+ * Блок ленты контента
+ *
+ */
+
+// Объявляем блок
+$block: '.b-feed'
+
+// Модификаторы
+$hasDocumentMaterial: '.b-feed_doc-binding'
+
+$hasArticleMaterial: '.b-feed_art-binding'
+
+// Если это матерал сюжета в сайтбаре
+$hasBMaterialSujet: '.b-material-sujet'
+
+//Блок сайдбара партнеров
+$partnersSidebar: '.b-partners_sidebar'
+
+
+// Стили
+#{$block}
+
+    &__body
+        margin-bottom: 20px
+        padding: $indent-title 20px
+
+        background-color: $today-bg-color
+
+    // Модификатор авто высоты
+    &__body_height-auto &__list
+        height: auto
+
+    &__name
+        +font(15px)
+        font-style: italic
+        font-weight: bold
+
+        margin-bottom: $indent-title
+
+        color: $red
+
+        &_com
+            padding-right: 3px
+
+    &__name_com.is-active &__link,
+    &__name_reg.is-active &__link,
+    &__name &__name_com.is-active &__link:hover,
+    &__name &__name_reg.is-active &__link:hover
+        color: $red
+        cursor: default
+
+    &__name_reg.is-active &__link,
+    &__name &__name_reg.is-active &__link:hover
+        cursor: pointer
+
+    &__name &__name_reg.is-active &__link:hover
+        color: #5c707c
+
+    // Заголовки переключалок регионов
+    &__name_com,
+    &__name_reg
+        display: inline-block
+        vertical-align: top
+
+    &__name_reg
+        width: 58%
+        height: 19px
+        position: relative
+        overflow: hidden
+        white-space: nowrap
+
+        &:before
+            content: ''
+
+            width: 30px
+            height: 100%
+
+            position: absolute
+            top: 0
+            right: 0
+
+            +linear-gradient('to right', rgba($today-bg-color, 0) 0%, $today-bg-color 80%, $today-bg-color 100%)
+
+    // Уменьшаем количество новостей
+    .b-content &__list_com &__item,
+    .b-content &__list_reg &__item
+        display: none
+
+    .b-content &__list_com &__item:nth-child(-n+10),
+    .b-content &__list_reg &__item:nth-child(-n+10)
+        display: block
+
+    &__name &__link
+        // color: $black
+        color: $link-color
+
+    &__name &__link:hover
+        color: $time-color
+
+    &__date
+        color: $comment-color
+
+        .b-news-themetopic__item__feed &
+            display: block
+
+    &__title
+        font-weight: bold
+
+    // Когда мы внутри контента,
+    // и блок последние новости
+    &_last-news &__body
+        padding-bottom: 15px
+
+    &_last-news &__item
+        width: calc(100% - 20px) // вычитаем правый отступ
+
+    // ограничиваем высоту
+    &_last-news &__list
+
+        .b-content
+            height: 210px
+
+            .mCustomScrollBox
+                max-height: 100%!important
+
+
+    &__item
+        +font(13px)
+
+        width: 100%
+        margin-bottom: 10px
+        padding-bottom: 10px
+
+        display: inline-block
+        vertical-align: top
+        border-bottom: 1px solid $border-color
+
+        &:last-child
+            margin-bottom: 0
+            padding-bottom: 0
+            border-bottom: 1px solid transparent
+
+        #{$hasBMaterialSujet} &
+            padding-bottom: 0
+            border-bottom: 0
+
+        &_more
+            text-align: center
+
+    //&-item_type_warning &__date
+        //font-weight: bold
+        //color: $red
+
+    // Обратить внимание, первым идет модификатор
+    // следом за ним элемент BLOCK_col BLOCK__col
+
+    &_col
+        // fix for inline-block
+        font-size: 0
+
+    &_col &__col
+        margin-bottom: 10px
+        border-bottom: 1px solid $border-color
+
+        &:last-child
+            border-bottom: 1px solid transparent
+
+
+    // Если это блок в материале документа или статьи
+    &#{$hasDocumentMaterial} &__body,
+    &#{$hasArticleMaterial} &__body
+        width: 100%
+
+        padding-top: 0 // добавил, если пусто, чтобы не было отступа
+        padding-bottom: 0 // добавил, если пусто, чтобы не было отступа
+
+    &#{$hasDocumentMaterial} &__name
+        padding-top: 15px
+        margin-bottom: 0
+
+    #{$hasDocumentMaterial} &__name,
+    #{$hasArticleMaterial} &__name
+        color: inherit
+
+    #{$hasDocumentMaterial} &__list,
+    #{$hasArticleMaterial} &__list
+        margin-left: 0
+
+        padding-top: 15px // добавил, если пусто, чтобы не было отступа
+        padding-bottom: 15px // добавил, если пусто, чтобы не было отступа
+
+    // Если в блоке b-press-release
+    .b-press-release__list &__date
+        display: none
+
+    .b-press-release__list &__item
+        margin-bottom: 6px
+        border-bottom: none
+
+        &:after
+            content: ''
+            width: 30px
+            height: 2px
+            margin-top: 16px
+            display: block
+            background-color: $black
+
+    // Tablet
+    +bp-tablet
+
+        &
+            &__body
+                width: 490px
+
+            &_col &__list
+                margin-left: -20px
+
+            &_col &__col
+                width: 214px
+                margin-left: 20px
+
+                display: inline-block
+                vertical-align: top
+                border-bottom: 0
+
+        // Модификатор Блок используется в сайдбаре
+        &.b-sidebar-left__item &__name
+            padding-left: 20px
+
+        &.b-sidebar-left__item &__body
+            width: 100%
+            margin-bottom: 0
+            padding: 15px 0
+
+        &.b-sidebar-left__item &__list
+            height: 265px
+            // height: 300px
+            margin-left: 20px
+            overflow: auto
+
+        &.b-sidebar-left__item &__item
+            width: calc(100% - 20px) // вычитаем правый отступ
+
+        //&.b-sidebar-left__item,
+        //&.b-sidebar-right__item
+            //width: 100%
+            //margin-bottom: 0
+            //padding: 20px 0
+
+        //&.b-sidebar-left__item &__name,
+        //&.b-sidebar-right__item &__name
+            //padding: 0 20px
+
+        //&.b-sidebar-left__item &__list,
+        //&.b-sidebar-right__item &__list
+            //height: 420px убрали, помещалось 7 новостей
+            //height: 300px
+            //margin-left: 20px
+            //overflow: auto
+
+        //&.b-sidebar-left__item &__item,
+        //&.b-sidebar-right__item &__item
+            //margin: 0 0 0 -20px
+            //padding: 10px 0 10px 20px
+
+        // Модификатор авто высоты
+        //&_height-auto &__list
+            //height: auto
+
+
+    // Tablet landscape
+    +bp-tabletLandscape
+
+        &
+            &__body
+                width: 650px
+                margin-bottom: 20px
+                padding-top: 15px
+
+            &__name
+                margin-bottom: 11px
+
+            //&_article
+                //margin-bottom: 30px
+
+            &_col &__list
+                margin-left: -30px
+
+            &_col &__col
+                width: 290px
+                margin-left: 30px
+
+            &__item
+                line-height: 1.6em
+
+            &#{$hasDocumentMaterial} &__body
+                //padding-top: 0
+
+            &#{$hasDocumentMaterial} &__name
+                padding-top: 0
+
+            &#{$hasDocumentMaterial} &__name:first-child
+                padding-top: 15px
+
+        // Модификатор Блок используется в сайдбаре
+        //&.b-sidebar-left__item,
+        //&.b-sidebar-right__item
+            //width: 100%
+            //margin: 0
+
+
+    // Desktop
+    +bp-desktop
+
+        &
+            +font(13px)
+
+            //&.b-sidebar-left__item &__col,
+            //&.b-sidebar-right__item &__col
+                //width: auto
+                //margin-left: 0
+
+            //&.b-sidebar-left__item &__name,
+            &.b-sidebar-right__item &__body
+                width: 100%
+
+            &.b-sidebar-right__item &__name
+                +font(17px)
+
+            // Увеличиваем ширину заголовка
+            &__name_reg
+                //width: 65%
+
+        // Если это блок в материале документа
+        &#{$hasDocumentMaterial} &__body
+            width: 310px
+
+        // Блок пресс релизы
+        .b-press-release__list &__item
+            width: calc(34% - 20px)
+            margin-left: 20px
+
+            &:first-child
+                margin-left: 0
+
+#{$partnersSidebar}
+
+    #{$block}
+        padding: 15px 15px 0 15px
+        background: $today-bg-color

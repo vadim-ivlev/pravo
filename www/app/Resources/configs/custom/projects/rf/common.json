@@ -1,0 +1,50 @@
+{
+  "name": "projects:rf",
+  "subTasks": [
+    {
+      "name": "script",
+      "dest": "/dest/public/scripts/custom/projects/rf",
+      "src": {
+        "include": [
+          "/src/scripts/custom/projects/rf/index.js"
+        ]
+      },
+      "sourcemaps": true,
+      "browserify": {
+        "transforms": [
+          {
+            "name": "ractivate",
+            "options": {
+              "extensions": [
+                ".ihtml"
+              ]
+            }
+          }
+        ],
+        "watchify": true
+      },
+      "watch": true,
+      "plugins": [
+        {
+          "name": "gulp-debug",
+          "options": {
+            "title": "Js:"
+          }
+        },
+        {
+          "name": "gulp-babel",
+          "options": {
+            "compact": true
+          }
+        },
+        {
+          "name": "gulp-uglify"
+        },
+        {
+          "name": "gulp-concat",
+          "options": "index.js"
+        }
+      ]
+    }
+  ]
+}

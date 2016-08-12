@@ -1,0 +1,227 @@
+/*
+ * Лента новостей основных тем
+ * 
+ */
+
+// Объявляем блок
+$block: '.b-news-themetopic'
+
+// Блок аккаунта
+$bAccount: '.b-account'
+
+// Основной блок
+#{$block}
+    +font(14px)
+
+    &__item
+        margin: 20px
+        padding: 20px 0
+        background: $today-bg-color
+        
+        // inline-block fix
+        font-size: $f-sz-zero
+        letter-spacing: 0
+
+        &__info,
+        &__feed
+            padding: 0 20px
+
+            display: inline-block
+            vertical-align: top
+
+            // inline-block fix
+            letter-spacing: $letterSpacingDefault
+
+        &__info
+            margin-bottom: 5px
+
+            &__title
+                +font(14px)
+                font-weight: bold
+
+                //margin-top: 24px
+                //margin-left: 20px
+                margin-bottom: 10px
+
+                //float: right
+
+            //&__image
+                //width: 100px
+                //height: 65px
+
+                //float: left
+                //overflow: hidden
+
+                //&__src
+                    //width: 100%
+
+        &__feed
+            
+
+        &__all-material
+            +font(14px)
+            margin-left: 20px
+
+                        
+    +bp-tablet
+
+        &
+
+            &__item
+                margin: 0 0 20px 0
+
+    +bp-tabletLandscape
+
+        &
+
+            &__item
+                padding: 30px 0
+            
+                &__info,
+                &__all-material
+                    width: 230px
+
+                &__info
+
+                    &__title
+                        +font(22px)
+                        margin-top: 0
+                        margin-bottom: 30px
+                        margin-left: 10px
+                        float: none
+
+                    //&__image
+                        //width: auto
+                        //height: 160px
+                        //float: none
+
+                &__feed
+                    // Пришлось использовать important,
+                    // нечем перебить класс b-feed
+                    width: 420px!important
+                    padding: 0 30px!important
+
+                &__all-material
+                    margin-left: 30px
+
+
+    +bp-desktopFull
+
+        &
+
+            &__item
+            
+                &__info,
+                &__all-material
+                    width: 426px
+
+                &__info
+
+                    &__title
+                        width: 230px
+                        margin-left: 80px
+
+                    //&__title,
+                    //&__image
+                        width: 230px
+                        margin-left: 100px
+
+                &__feed
+                    // Пришлось использовать important,
+                    // нечем перебить класс b-feed
+                    width: 466px!important
+
+                &__all-material
+                    margin-left: 100px
+
+
+// Если блок внутри блока аккаунта
+#{$bAccount} #{$block}
+
+    &__item
+        margin: 0
+        padding: 0
+
+        &__info
+            width: 100%
+            // min-height: 67px
+            //padding-left: 100px
+            position: relative
+            display: table
+
+            padding: 0
+
+            &__title
+                //max-width: calc(100% - 100px)
+                //margin-top: 0
+                //margin-left: 20px
+                //display: inline-block
+                display: table-cell
+                vertical-align: middle
+                float: none
+
+                padding: 0
+
+            //&__image
+                //max-height: 70px
+                //margin-left: -20px
+                //position: absolute
+                //left: 0
+
+        &__feed
+            width: 100%
+            margin: 0
+            padding-left: 0
+
+            //max-height: 156px
+            max-height: 190px
+            overflow: hidden
+
+            &__item
+
+                &:last-child
+                    border-bottom: 0
+
+
+    +bp-tabletLandscape
+
+        // Если блок внутри блока аккаунта
+        &
+
+            &__item
+                margin: 0
+                padding: 0
+
+                &__info,
+                &__all-material
+                    width: 100%
+
+                &__info
+
+                    &__title
+                        +font(14px)
+                        margin-bottom: 0
+
+                    //&__image
+                        //width: 100px
+                        //margin-left: -30px
+                        //float: none
+
+                &__feed
+                    width: 100%!important
+                    margin: 0
+                    padding: 10px 0 0!important
+
+    +bp-desktopFull
+
+        &
+
+            &__item
+
+                &__info
+                    //padding-left: 120px
+
+                    &__title
+
+                    //&__image
+                        //margin-left: 0

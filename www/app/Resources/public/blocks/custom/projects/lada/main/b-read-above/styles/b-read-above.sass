@@ -1,0 +1,83 @@
+/*
+ * Главные новости
+ *
+ */
+
+// Объявляем блок
+$block: '.b-read-above'
+
+// Стили
+#{$block}
+    margin-top: $indent-g-small*2
+    padding: $indent-g-small
+    border: 1px solid $border-color
+
+    &:after
+        display: block
+        clear: both
+        content: ''
+        height: 0
+
+    &__name
+        +font(16px)
+        font-family: $f-serif
+        font-style: italic
+        padding-bottom: $indent-g-small
+        font-weight: bold
+
+
+$news-block: '.b-read-above .b-news__list'
+
+// Стили
+#{$news-block}
+    width: 100%
+
+    &-item
+        display: block
+        padding-bottom: $indent-g-small
+        clear: both
+
+        &-image-wrapper
+            display: block
+            float: left
+            margin-right: $indent-g-small/2
+            width: 100px
+            height: 70px
+            margin-bottom: $indent-g-small
+
+            & img
+                display: block
+
+
+        &:last-child
+            border: none
+            margin-bottom: 0
+
+        & h2.b-news__list-item-title
+            +font(13px)
+            font-family: $f-sans
+            font-weight: normal
+            margin: 0
+
+        &-time
+            display: none
+
+    +bp-tablet
+
+        &
+            display: table
+
+            &-item
+                display: table-cell
+                padding-right: $indent-g-small
+                padding-bottom: 0
+
+                &-image-wrapper
+                    float: none
+                    margin-right: 0
+                    margin-bottom: $indent-g-small/2
+    
+
+
+
+

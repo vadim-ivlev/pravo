@@ -1,0 +1,63 @@
+/*
+ * Основная сетка сайта
+ *
+ */
+
+// Объявляем блок
+$block: '.l-main'
+
+// Стили
+#{$block}
+
+    &__advert
+        
+        &__dummy
+            margin-bottom: 20px
+            padding: 0 20px
+            position: relative
+            border-bottom: 1px solid $border-color
+
+    // Tablet
+    +bp-tablet
+
+        &
+            margin-left: 240px
+
+            &__advert
+        
+                &__dummy
+                    width: 490px
+                    margin: 0 auto 20px
+                    padding: 0
+
+    // Tablet landscape
+    +bp-tabletLandscape
+
+        &
+            margin-left: 280px
+
+            &__advert
+        
+                &__dummy
+                    width: 650px
+
+    // Desktop
+    +bp-desktop
+
+        &
+            margin-left: 310px
+
+            &__advert
+        
+                &__dummy
+                    width: 990px
+
+    // Desktop full
+    +bp-desktopFull
+
+        &
+        
+            &__advert
+        
+                &__dummy
+                    width: 1330px

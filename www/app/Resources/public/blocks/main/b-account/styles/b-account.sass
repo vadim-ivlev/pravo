@@ -1,0 +1,299 @@
+/*
+ * Аккаунт
+ * 
+ */
+
+// Объявляем блок
+$block: '.b-account'
+
+// Основной блок
+#{$block}
+    +font(13px)
+    //padding: 20px
+
+    &__popular-list
+
+        & .b-follow_sujets
+            display: none
+
+        & .b-news-inner__action_btn
+            display: none
+
+        & .b-field__wrapper
+            display: none
+
+        & .b-list-wrapper
+            margin-top: 20px
+
+    //& .b-dymmy_empty - перенес в b-dummy
+        //background-color: $today-bg-color
+        //padding: 30px
+
+    & .b-icon_type_star
+        background-color: $time-color
+
+    &__spinner
+        color: $link-color
+
+    &__list
+        // inline-block fix
+        font-size: $f-sz-zero
+        letter-spacing: 0
+
+        //margin-right: -30px // fix display-inline
+        margin: 20px
+
+    &__item
+        +font(13px)
+        width: 100%
+        margin-bottom: 20px
+        padding: 20px
+        position: relative
+
+        background-color: $today-bg-color
+
+        // add
+        display: inline-block
+        vertical-align: top
+        margin-right: 30px
+
+        &_user
+            text-align: center
+
+    &__title
+        +font(20px)
+        margin-bottom: 20px
+
+    &__subtitle
+        +font(15px)
+        font-weight: bold
+        margin-bottom: 10px
+
+        &_material
+            font-family: $f-serif
+            +font(16px)
+
+    &__text
+        +font(14px)
+
+    &__info
+        margin-bottom: 10px
+
+    &__meta
+        width: calc(100% - 40px)
+        margin-top: 14px
+        padding: 20px 0
+
+        position: absolute
+        bottom: 0
+
+        border-top: 1px solid $border-color
+        background-color: inherit
+
+
+    &__link
+        +font(14px)
+
+    // Пользователь
+    &__user-media
+        width: 80px
+        height: 80px
+        margin-bottom: 20px
+        display: inline-block
+
+        overflow: hidden
+        border-radius: 100%
+
+    &__user-img
+        width: 100%
+        height: 100%
+
+    // Социальные кнопки
+    &__social-item
+        position: relative
+        margin-bottom: 10px
+
+        .b-social__item
+            margin-left: 0
+            margin-right: 10px
+
+    &__social-name
+        color: $comment-color
+        display: inline-block
+
+        &.is-active
+            color: initial
+
+    &__close-btn
+        position: absolute
+        top: 4px
+        right: 0
+
+        text-indent: -9999px
+        border: 0
+
+    &__status
+        margin-top: 10px
+        float: right
+        color: $comment-color
+        display: none
+
+        &_comment
+
+        &_saved
+
+    // Поля
+    &__field
+        margin-bottom: 10px
+
+        &_input,
+        &_select
+            background-color: $white
+
+        &_checkbox
+            margin-bottom: 0
+            padding: 0
+            border: none
+
+        &_submit .b-submit_account
+            margin-top: 10px
+            background-color: $red
+
+            &:hover
+                background-color: $red + #111
+
+    &__item_user &__field_select
+        //margin-bottom: 0
+
+
+    // Сервисы
+    &_services &__item
+        min-height: 370px
+
+    &_services &__content
+        height: 233px
+        position: relative
+        // выключил ибо картинка режется overflow: hidden
+
+        &_comment
+            overflow: hidden
+
+    &_services &__content:after
+        content: ''
+        width: 100%
+        height: 10px
+        position: absolute
+        bottom: 0
+        left: 0
+        
+        +linear-gradient('to bottom', rgba($today-bg-color, 0) 0%, $today-bg-color 100%)
+
+
+    // Tablet
+    +bp-tablet
+
+        &
+            padding: 0
+
+            &__list
+                //margin: 0 -30px 0 0
+                margin: 0
+
+            &__item_user &__content
+                width: 270px
+                display: inline-block
+
+            &__social-item
+                width: 45%
+                margin-right: 20px
+                display: inline-block
+
+    // Tablet landscape
+    +bp-tabletLandscape
+
+        &
+
+            &__title
+                margin-bottom: 20px
+
+            &__item
+                width: 310px
+                padding: 30px
+
+                &_2
+                    margin-right: 0
+
+                &_1,
+                &_2
+                    //width: 50%
+                    //height: 340px
+                    //margin-bottom: 0
+                    //display: inline-block
+                    //vertical-align: top
+
+                &_1
+                    //margin-right: 30px
+
+                &_3
+                    width: 100%
+                    margin-right: 0
+
+            &__item_user &__content
+                width: 250px
+
+            &__info
+                margin-bottom: 20px
+
+            &__meta
+                width: calc(100% - 60px)
+
+            &__status_saved
+                margin-right: 76px
+                display: block
+
+        // Профиль
+        &_profile &__item
+            height: 360px
+
+    // Desktop
+    +bp-desktop
+
+        &
+
+            &__item
+                width: 300px
+
+                &_2
+                    margin-right: 30px
+
+                &_3
+                    //width: 310px
+                    width: 300px
+                    //height: 340px
+                    //margin-top: 0
+                    //display: inline-block
+                    //vertical-align: top
+
+            &__social-item
+                width: 100%
+
+            &__status_comment
+                margin-right: 170px
+                display: block
+
+            &__status_saved
+                margin-right: 130px
+
+    // Desktop
+    +bp-desktopFull
+
+        &
+
+            &__item
+                width: 420px
+
+            &__status_comment
+                margin-right: 200px
+
+            &__status_saved
+                margin-right: 160px

@@ -1,0 +1,25 @@
+{
+	"list": [
+		{
+			"send": [
+				{
+					"tagLabel": "[data-blocksshifterid=bFeedMainToday].shiftContainer_active",
+					"event": "click",
+					"hitType": "event",
+					"eventCategory": "Главное сегодня",
+					"eventAction":  "Клик на блоке"
+				},
+				{
+					"tagLabel": "[data-blocksshifterid=bFeedMainToday].shiftContainer_active",
+					"event": "mouseenter",
+					"hitType": "event",
+					"eventCategory": "Главное сегодня",
+					"eventAction":  "Наведение на блоке",
+					"eventLabel": "Тест лейбл",
+					"eventValue": "Значение"
+				}
+			]
+		}
+
+	]
+}

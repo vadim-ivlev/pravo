@@ -1,0 +1,40 @@
+/*
+ * Шапка сайта
+ *
+ */
+// Объявляем блок
+$block: '.b-main'
+
+// Переменные
+
+// Стили
+#{$block}
+    display: inline-block
+
+    // Tablet
+    +bp-tablet
+
+        &
+            width: 450px
+            margin: 0 0 0 20px
+
+    // Tablet landscape
+    +bp-tabletLandscape
+
+        &
+            width: 640px
+            margin: 0 0 0 30px
+
+    // Desktop
+    +bp-desktop
+
+        &
+            width: 640px
+            margin: 0 30px
+
+    // Desktop full
+    +bp-desktopFull
+
+        &
+            width: 710px
+            margin: 0 30px

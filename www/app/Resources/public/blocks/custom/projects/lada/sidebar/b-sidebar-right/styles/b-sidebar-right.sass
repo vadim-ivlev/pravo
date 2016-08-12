@@ -1,0 +1,29 @@
+$block: '.b-sidebar-right'
+
+#{$block}
+    padding-top: 34px
+    display: block
+
+    &__item
+        margin-top: $indent-g
+    
+    .l-page_zilart_article &
+        margin-top: $indent-g-small
+
+
+    // Tablet
+    +bp-tablet
+
+        &
+            display: inline-block
+            // width: 100%
+
+            &__item
+                margin-top: $indent-g
+    // desktop
+    +bp-desktop
+
+        &
+
+            &__item
+                margin-top: $indent-g

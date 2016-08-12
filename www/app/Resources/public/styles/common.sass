@@ -1,0 +1,301 @@
+// Fonts
+$f-sans: "NotoSans", Arial, sans-serif
+$f-serif: "NotoSerif", sans-serif
+
+// Zero font-size
+// for Android bug
+$f-sz-zero: .001px
+
+// Letter spacing
+$letterSpacingDefault: 0.2px
+
+
+// Common var & mix
+// Colors
+// Colors for text
+
+$black: #000
+$white: #fff
+$red: #f36821
+$red-warn: #f44b3f
+$red-orange: #f26922
+$green: #8ed8b3
+$green-accent: #59bd17
+$yellow: #fffdeb
+$light-grey: #999
+$attention: #f32121
+$grey-cloud: #e0e0e0
+
+// Social colors
+$facebook-color: #3a5897
+$google-color: #dd4a39
+$twitter-color: #54aced
+$vkontakte-color: #4e6e92
+$odnoklassniki-color: #fc6719
+$youtube-color: #cc171e
+$instagram-color: #3e719b
+
+$article-color: #f2f2f2
+$border-color: #dedede
+$blue-border-color: #6d7f89
+$link-color: #1f77bb
+$comment-color: #9a9a9a
+$time-color: #5c707c
+$is-read-color: #666666
+$today-bg-color: #f3f3f3
+$highlighted-question-bg: rgba(245, 147, 0, 0.149)
+$highlighted-question-border: #ece4df
+
+
+
+// Путь до картинок
+$img-path: "/res/images/"
+
+// Путь до прелоадера
+$spinner: $img-path + "spinner.svg"
+
+// Ширина спрайта иконок для ретины
+$retina-icon-width: 210px
+
+// Ширина/высота спрайта партнеров для ретины
+$retina-partners-width: 141px
+$retina-partners-height: 202px
+
+
+// Ширина шапки
+$width-wrapper-mobile: 100% 
+$width-wrapper-tablet: 490px 
+$width-wrapper-tabletLandscape: 650px 
+$width-wrapper-desktop: 970px 
+$width-wrapper-desktopFull: 1330px
+
+// Ширина блока
+$width-block-small: 240px
+$width-block: 310px
+
+// Ширина контента
+
+// Стандартные горизонтальные отступы
+$indent-g-small: 20px // в мобиле и планшете
+$indent-g: 30px // горизонтальный планшет и выше
+
+// Отступы вертикальные
+$indent-v-block: 30px // отступы между блоками
+$indent-v-el: 20px // отступы между элементами блока
+$indent-title: 15px // отступ от заголовка до текста
+
+// Media query breakpoints
+
+// Tablet
+=bp-tablet
+    @media screen and (min-width: 768px)
+        @content
+
+// Tablet Landscape
+=bp-tabletLandscape
+    @media screen and (min-width: 990px)
+        @content
+
+// Desktop
+=bp-desktop
+    //@media screen and (min-width: 1366px)
+    @media screen and (min-width: 1260px)
+        @content
+
+// Desktop Full
+=bp-desktopFull
+    //@media screen and (min-width: 1600px)
+    @media screen and (min-width: 1760px)
+        @content
+
+// Retina
+=bp-retina
+    @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi)
+        @content
+
+
+/// Примесь позволяет определять `font-size`.
+//
+// / @author Stepanenko Nikita (AGIMA)
+// / @access public
+//
+// / @param {Length} $size - `size` элемента
+//
+// / @example scss - Использование
+// / .foo {
+// /   @include font(10em);
+// / }
+//
+// / .bar {
+// /   @include font(16px);
+// / }
+//
+// / @example css - Вывод CSS
+// / .foo {
+// /   font-size: 10em;
+// / }
+//
+// / .bar {
+// /   font-size: 16px;
+// / }
+
+=font($size: 16px)
+    font-size: $size
+
+// Columns width
+=columns($width:45%, $count:2, $gap:10%)
+    -webkit-column-width: $width
+    -moz-column-width: $width
+    column-width: $width
+
+    -webkit-column-count: $count
+    -moz-column-count: $count
+    column-count: $count
+
+    -webkit-column-gap: $gap
+    -moz-column-gap: $gap
+    column-gap: $gap
+
+// Rounding corners for blocks
+=rounded-corners($radius: 5px)
+    -webkit-border-radius: $radius
+    -moz-border-radius: $radius
+    border-radius: $radius
+
+// Algorithm for calculating the width and height for blocks (
+=box-sizing($type: border-box)
+    -webkit-box-sizing: $type
+    -moz-box-sizing: $type
+    box-sizing: $type
+
+// Shadow mixin
+=box-shadow($shadow: 1px 1px 2px)
+    -webkit-box-shadow: $shadow
+    -moz-box-shadow: $shadow
+    box-shadow: $shadow
+
+// User select (default - none)
+=user-select($select: none)
+    -webkit-user-select: $select
+    -moz-user-select: $select
+    user-select: $select
+
+// Transition use
+=transition($item: all 0.5s)
+    -webkit-transition: $item
+    -moz-transition: $item
+    -o-transition: $item
+    transition: $item
+
+// Rotation use
+=transform($item: rotate(90deg))
+    /* Для Firefox */
+    -moz-transform: $item
+    /* Для IE */
+    -ms-transform: $item
+
+    /* Для Safari, Chrome, iOS */
+    -webkit-transform: $item
+
+    //* Для Opera */
+    -o-transform: $item
+
+    transform: $item
+
+// Opacity & alpha filter
+=opacity($item: 0.5)
+    /* IE 8 */
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)"
+
+    /* IE 5-7 */
+    filter: alpha(opacity = $item * 100)
+
+    /* Netscape */
+    -moz-opacity: $item
+
+    /* Safari 1.x */
+    -khtml-opacity: $item
+
+    /* Good browsers */
+    opacity: $item
+
+=filter($item)
+    -webkit-filter: $item
+    filter: $item
+
+// Overlay
+=overlay($item: absolute)
+    position: $item
+    top: 0
+    bottom: 0
+    left: 0
+    right: 0
+
+// Linear gradient
+=linear-gradient($direction, $color-stops...)
+
+    $_angle-with-vendor-prefix: ""
+    $_angle: ""
+
+    @if $direction == "to top" or $direction == "bottom"
+        $_angle-with-vendor-prefix: bottom
+        $_angle: to top
+    @else if $direction == "to right" or $direction == "left"
+        $_angle-with-vendor-prefix: left
+        $_angle: to right
+    @else if $direction == "to bottom" or $direction == "top"
+        $_angle-with-vendor-prefix: top
+        $_angle: to bottom
+    @else if $direction == "to left" or $direction == "right"
+        $_angle-with-vendor-prefix: right
+        $_angle: to left
+    @else if $direction == "to top right" or $direction == "bottom left"
+        $_angle-with-vendor-prefix: bottom left
+        $_angle: to top right
+    @else if $direction == "to bottom right" or $direction == "top left"
+        $_angle-with-vendor-prefix: top left
+        $_angle: to bottom right
+    @else if $direction == "to bottom left" or $direction == "top right"
+        $_angle-with-vendor-prefix: top right
+        $_angle: to bottom left
+    @else if $direction == "to top left" or $direction == "bottom right"
+        $_angle-with-vendor-prefix: bottom right
+        $_angle: to top left
+    @else
+        $_angle-with-vendor-prefix: $direction % 360
+        $_angle: (90 - $direction) % 360
+
+    background: -webkit-linear-gradient($_angle-with-vendor-prefix, $color-stops)
+    background: -moz-linear-gradient($_angle-with-vendor-prefix, $color-stops)
+    background: -o-linear-gradient($_angle-with-vendor-prefix, $color-stops)
+    background: linear-gradient($_angle, $color-stops)
+
+// поворот на угол
+=skew($deg: 0)
+    -webkit-transform: skew(#{$deg}deg)
+    -moz-transform: skew(#{$deg}deg)
+    -o-transform: skew(#{$deg}deg)
+    -ms-transform: skew(#{$deg}deg)
+    transform: skew(#{$deg}deg)
+
+// Анимация
+// Animation mixin
+=animation($item)
+    -webkit-animation: $item
+    -moz-animation: $item
+    animation: $item
+    
+// Keyframes mixin
+=keyframes($animation-name)
+  @-webkit-keyframes #{$animation-name}
+    @content
+  
+  @-moz-keyframes #{$animation-name}
+    @content
+  
+  @keyframes #{$animation-name}
+    @content
+
+// Добавляем flexbox инструменты
+// https://github.com/philipwalton/solved-by-flexbox
+@import vendors/tools/flexbox

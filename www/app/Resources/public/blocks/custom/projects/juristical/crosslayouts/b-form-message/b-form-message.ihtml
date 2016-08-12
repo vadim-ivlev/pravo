@@ -1,0 +1,9 @@
+<div class="b-form-message b-form-message{{show ? '_show' : ''}}">
+    <div class="b-form-message__content">
+        <p class="b-form-message__title">{{{title}}}</p>
+        <p class="b-form-message__text">{{{txt}}}</p>
+        <div class="b-form-message__button">
+            <rg-button txt="{{button}}" topic="'form.{{form}}.message.hide'"></rg-button>
+        </div>
+    </div>
+</div>

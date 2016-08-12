@@ -1,0 +1,45 @@
+<!-- blocks.custom.sila.footer.b-footer.b-footer -->
+<div class="b-footer__wrapper">
+    <div class="b-footer__logo">
+        <a class="b-footer-back-to-rg" href="//rg.ru">Обратно на сайт →</a>
+    </div>
+    <div class="b-block-rubrics-wrapper">
+        <ul class="b-footer__block__rubrics">
+            <h2 class="b-footer__block__head">Рубрики</h2>
+            <!--#include_se virtual="/ssi/blocks/custom/projects/sila/footer/b-rubrics/b-rubrics.ssi"-->
+        </ul>
+    </div>
+    <div class="b-block-info-wrapper">
+        <div class="b-footer__block__info">
+            <h2 class="b-footer__block__head">Информация</h2>
+            <p class="b-footer__block__info__about">© 1998-<!--#config timefmt="%Y"--><!--#echo var="DATE_LOCAL" -->&nbsp;ФГБУ "Редакция "Российской газеты" Интернет-портал "Российской газеты" зарегистрирован в Роскомнадзоре 21.06.2012 г. Номер свидетельства ЭЛ № ФС 77 - 50379.</p>
+        </div>
+    </div>  
+    <div class="b-footer__counts">
+       
+	   <div id="top100counter" class="counter-item"></div>
+
+        <div id="mailruCounter" class="counter-item"></div>
+
+        <div id="liveInternetCounter" class="counter-item"></div>
+
+        <div id="tnsCounter"></div>
+
+        <div id="yaMetrika"></div>
+
+    </div>
+</div>
+<!-- /blocks.custom.sila.footer.b-footer.b-footer -->
+
+<script>
+
+  //ga
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga'); 
+
+  ga('create', 'UA-7039329-23', 'rg.ru', {'name': 'sila'});  // sila tracker.
+  ga('set', 'dimension4', '/sila/');
+  ga('sila.set', 'dimension5', '{{# authors__length}}{{# authors}}{{uri}}{{^ authors__LAST__}}, {{/ authors__LAST__}}{{/ authors}}{{/ authors__length}}');
+  ga('sila.require', 'displayfeatures');
+  ga('sila.send', 'pageview');
+
+</script>

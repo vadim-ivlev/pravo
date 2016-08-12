@@ -1,0 +1,15 @@
+<!-- blocks.custom.sila.sidebar.b-sidebar-left.b-sidebar-left -->
+
+	<div class="b-author-recent-posts">
+	    <div id="authorLastArticlesBox"><div></div></div>
+	</div>
+	<div class="b-posts-order" id="similarArticle">
+	    <h2 class="b-posts__title">Похожие материалы</h2> 
+	    <div></div>
+	</div> 
+	<div class="b-posts-order" id="rubricArticle">
+	    <h2 class="b-posts__title">Материалы рубрики</h2> 
+	    <div></div>
+	</div>  
+
+<!-- /blocks.custom.sila.sidebar.b-sidebar-left.b-sidebar-left -->

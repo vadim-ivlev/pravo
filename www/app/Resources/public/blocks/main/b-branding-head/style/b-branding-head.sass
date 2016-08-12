@@ -1,0 +1,54 @@
+/*
+ * СТили для брендирования в шапке
+ *
+ */
+
+// Объявляем блок
+$block: '.b-branding-head'
+
+// Стили
+#{$block}
+    margin-top: -4px
+    position: relative
+    //background-color: $white
+    background-color: transparent
+
+    &:before
+        content: ''
+
+        width: 0
+        height: 100%
+
+        position: absolute
+        top: 0
+        left: 0
+
+        background-color: $white
+
+    &__media
+        background: inherit
+
+    // Tablet 
+    +bp-tablet
+
+        &
+            width: $width-wrapper-tablet
+            margin-top: -1px
+
+    // Tablet landscape
+    +bp-tabletLandscape
+
+        &
+            width: $width-wrapper-tabletLandscape
+
+    // Desktop
+    +bp-desktop
+
+        &
+            width: $width-wrapper-desktop
+
+    // Desktop full
+    +bp-desktopFull
+
+        &
+            width: $width-wrapper-desktopFull

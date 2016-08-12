@@ -1,0 +1,24 @@
+/*
+ * Баннеры
+ * 
+ */
+
+// Объявляем блок
+$block: '.b-yadirect'
+
+// Стили
+#{$block}
+    background-color: $white
+
+    .yap-layout__content
+        font-size: 90%!important
+
+    &_under-materials
+        margin-bottom: 20px
+        padding: 0 10px
+
+    // Tablet
+    +bp-tablet
+
+        &_under-materials
+            padding: 0

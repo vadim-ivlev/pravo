@@ -1,0 +1,242 @@
+$block: '.b-media'
+
+#{$block}
+    padding: 20px 0
+    overflow: hidden
+    background: url(#{$img-path}custom/projects/football/mediaback.jpg) 0 0
+    
+    & .page
+        padding: 0
+
+    .slick-track
+        // background-color: $white
+
+    .slick-list
+        //overflow: visible
+
+    .slick-prev, .slick-next
+        width: 35px
+        height: 68px
+        background: url(#{$img-path}custom/projects/football/football2016sprite.png) -31px 0 no-repeat
+        margin-top: -34px
+        top: 50%
+        z-index: 10
+
+        &:before
+            display: none
+
+    .slick-prev
+        left: 5px
+        background-position: -66px 0
+
+    .slick-next
+        right: 5px
+        
+    &__list-item
+        position: relative
+        display: block
+        overflow: hidden
+        background: none
+        margin: 0 10px
+
+        &:before
+            position: absolute
+            top: 0
+            left: 0
+            width: 100%
+            height: 100%
+            content: ''
+            background-color: rgba(29,37,62,.35)
+        
+        & > img
+            display: block
+            width: 100%
+            top: -100%
+
+        &:nth-child(n + 5)
+            //z display: none
+
+    &__list-item + &__list-item
+        //z margin-top: 20px
+
+    // &__list-item-action,
+    &__list-item-time,
+    &__list-item-text,
+    &-full picture
+        display: none
+
+    &-full__description
+        +font(12px)
+        font-weight: bold
+        padding: 20px
+        position: absolute
+        bottom: 0
+        left: 0
+        margin: auto
+        width: 100%
+        color: $white
+        z-index: 1
+
+        &:before
+            position: absolute
+            bottom: 0
+            left: 0
+            content: ''
+            display: block
+            width: 100%
+            height: 100%
+            z-index: -1
+            +linear-gradient("top",  rgba(125,185,232,0) 0%, rgba(0,0,0,.7) 100%)
+
+        &-icons
+            display: block
+            padding-bottom: 10px
+
+        & .b-icon
+            display: inline-block
+            margin-right: 10px
+            width: auto
+            height: 20px
+            line-height: 20px
+            background: none
+            +font(10px)
+            color: #ffc907
+            text-transform: uppercase
+
+            &:before
+                width: 22px
+                height: 20px
+                content: ''
+                display: inline-block
+                background: url(#{$img-path}custom/projects/football/football2016sprite.png) -101px 0 no-repeat
+                vertical-align: -5px
+                margin-right: 10px
+
+        & .b-media__icon-photo
+            color: #00b4eb
+
+            &:before
+                background-position: -101px -20px
+
+    +bp-tablet
+
+        &
+            // width: 50%
+            width: 100%
+            //z margin: 0 auto 30px
+            //z padding: 0 30px
+            //z overflow: visible
+
+            &:after
+                display: block
+                clear: both
+                height: 0
+                content: ''
+                font-size: 0
+
+            &__list-item
+                //z margin: 0
+                //z width: calc(50% - 15px)
+                //z margin-right: 15px
+                //z float: left
+
+                &:nth-child(n + 3)
+                    // display: none
+
+            &__list-item + &__list-item
+                //z margin-right: 0
+                //z margin-left: 15px
+                //z float: right
+                //z margin-top: 0
+
+            &-full__description
+                +font(18px)
+
+                & .b-icon
+                    +font(13px)
+
+
+    +bp-tabletLandscape
+
+        &
+            // width: 75%
+
+            &__list-item
+                //z margin: 0
+                //z width: calc(25% - 23px)
+                //z margin-right: 15px
+                //z float: left
+                margin: 0 15px
+
+                // & > img
+                //     position: absolute
+                //     top: -100%
+
+                &:nth-child(n + 3)
+                    //z display: block
+
+                &:nth-child(n + 5)
+                    //z display: none
+
+            // &-full
+            //     display: block
+
+            //     & picture
+            //         display: block
+
+            //     & img
+            //         width: 100%
+            //         display: block
+
+            &__list-item + &__list-item
+                //z margin-right: 15px
+                //z margin-left: 15px
+                //z float: left
+                //z margin-top: 0
+
+                &:nth-child(n + 4)
+                    //z margin-right: 0
+
+    +bp-desktop
+
+        &
+
+            .page
+                width: 1170px
+
+            .slick-prev
+                left: -50px
+
+            .slick-next
+                right: -50px 
+            width: 100%
+            overflow: hidden
+            padding: 30px 0
+            margin-bottom: 0
+
+            float: none
+
+            &__list-item
+                // margin: 0 15px  
+                margin: 0 15px 
+
+                & > img
+                    position: absolute
+                    //z top: -100%  
+
+            &-full
+                display: block
+
+                & picture
+                    display: block
+
+                & img
+                    width: 100%
+                    display: block   
+                                       
+    +bp-desktopFull
+
+        &
+
+            .page
+                width: 1370px

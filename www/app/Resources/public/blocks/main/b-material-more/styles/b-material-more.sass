@@ -1,0 +1,57 @@
+/*
+ * Похожие статьи
+ * 
+ */
+
+// Объявляем блок
+$block: '.b-material-more'
+
+// Модификаторы
+
+// Стили
+#{$block}
+    +font(13px)
+
+    padding: 15px 10px 20px
+    margin: 0 20px 20px
+
+    border: 1px solid $border-color
+
+    &__list
+
+    &__item
+        margin-bottom: 20px
+        border-bottom: 1px solid $border-color
+
+        &:last-child
+            margin-bottom: 0
+            border-bottom: 0
+
+    &__item-title
+        +font(15px)
+
+        font-style: italic
+        font-weight: bold
+    
+
+    // Tablet
+    +bp-tablet
+
+        &
+            +font(14px)
+
+            margin: 0 0 20px
+            padding: 20px 0
+
+            &__item
+                padding: 0 20px
+
+            &__item-title
+                margin-bottom: 20px
+            
+
+    // Tablet landscape
+    +bp-tabletLandscape
+
+        &
+            margin-bottom: 30px

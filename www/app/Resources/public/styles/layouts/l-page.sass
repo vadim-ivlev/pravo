@@ -1,0 +1,98 @@
+/*
+ * Основная сетка сайта
+ *
+ */
+
+// Объявляем блок
+$block: '.l-page'
+
+// Стили
+#{$block}
+
+    //max-width: 1700px
+    max-width: 1760px
+    min-width: 320px
+    height: auto !important
+    min-height: 100%
+    //overflow: hidden // вернул, ибо лезет куча косяков, upd. убил, косяки ушли из-за sticker-a
+
+    margin-top: 60px // фиксированная шапка
+
+    // Таким макаром можно исправить, но мы в таком случае не узнаем высоты фиксового блока, а значит не сможет его остановить перед футером
+    // .b-scroll-block.b-scroll-block_sidebar-left.b-sidebar-left__item .b-ads_sidebar-left
+        position: absolute !important
+
+    &__body
+        position: relative
+
+    &.is-fixed
+        width: 100%
+        position: fixed
+
+    &__wrapper
+        display: block
+
+        position: relative
+        
+        //background-color: $white убрали, ибо улучшили кастомные сюжеты
+        //z-index: 1
+
+    // Tablet
+    +bp-tablet
+
+        margin-top: 0 // фиксированная шапка
+
+        &__wrapper
+            padding-left: $indent-g-small
+
+            display: inline-block
+
+            // Имитация паддинга
+            // +box-shadow(30px 0 0 0 $white)
+
+        .has-sidebar-left &__wrapper
+            //margin-left: 240px
+
+        &_promo
+
+            #{$block}
+            
+                &__wrapper
+                    padding: 0 $indent-g-small
+
+    // Tablet landscape
+    +bp-tabletLandscape
+
+        &__wrapper
+            padding-left: $indent-g
+
+        .has-sidebar-left &__wrapper
+            //margin-left: 280px
+
+        &_promo
+
+            #{$block}
+            
+                &__wrapper
+                    padding: 0 $indent-g
+
+    // Desktop
+    +bp-desktop
+
+        &__wrapper
+            padding-left: $indent-g
+
+        .has-sidebar-left &__wrapper
+
+        &_promo
+            #{$block}
+                &__wrapper
+                    padding: 0 $indent-g*2
+    //margin-left: 310px
+
+    // Desktop full
+    +bp-desktopFull
+
+        &__wrapper
+            padding-left: $indent-g*2
+

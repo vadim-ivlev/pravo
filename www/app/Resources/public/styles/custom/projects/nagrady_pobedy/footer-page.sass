@@ -1,0 +1,41 @@
+/*
+ * Footer
+ *
+ */
+
+.footer
+    font-size: .9em
+    font-family: $font-condensed
+    padding: $def-indent*4 $def-indent*2
+    position: relative
+    color: $primary-text-color
+    background-color: rgba($sand-light-color, .8)
+
+    .logo
+        width: 20%
+        padding-left: $def-indent*4
+        float: left
+        color: white
+
+        span
+            margin-bottom: $def-indent/2
+            display: block
+
+        span:after
+            content: '\2192'
+
+    .text
+        width: 33%
+        padding-left: $def-indent*4
+        float: left
+
+    .counter
+        width: 40%
+        float: right
+
+        .counter-item
+            margin: 0 $def-indent
+            float: left
+
+            &:first-child
+                margin-left: $def-indent*8

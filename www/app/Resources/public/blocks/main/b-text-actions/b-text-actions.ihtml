@@ -1,0 +1,48 @@
+<div class="b-text-actions" style="top: {{style.top}}px; display: {{style.display}};">
+
+    <div style="display: {{showComment ? 'block': 'none'}}">
+        <form class="b-form b-text-actions__form" on-submit="send">
+            <fieldset class="b-form__fieldset b-text-actions__fieldset">
+                <label class="b-field b-text-actions__comment b-field_input b-field_input_text">
+                    <div class="b-field__wrapper">
+                        <input class="b-field__input b-field__input_text"
+                               type="text"
+                               value="{{comment}}"
+                               placeholder="Введите Ваш комментарий(не обязательно)">
+                    </div>
+                </label>
+                <label class="b-field b-field_input b-field_input_submit b-field">
+                    <div class="b-field__wrapper">
+                        <input class="b-field__input b-field__input_submit"
+                               type="submit"
+                               value="Отправить"
+                                >
+                    </div>
+                </label>
+                <label class="b-field b-field_input b-field_input_submit b-field b-text-actions__cancel">
+                    <div class="b-field__wrapper">
+                        <a class="b-link b-link_blue"
+                           href="#"
+                           on-click="cancel">Отменить</a>
+                    </div>
+                </label>
+            </fieldset>
+        </form>
+    </div>
+
+    <div style="display: {{showComment ? 'none': 'block'}}">
+        <div class="b-text-actions__col">
+            <a class="b-text-actions__qoute b-text-actions__typo"
+               href="#"
+               on-click="quote">Цитировать в комментарии</a>
+        </div>
+        <div class="b-text-actions__col b-share">
+            <share owner="'share.material'" options="{}"/>
+        </div>
+        <div class="b-text-actions__col">
+            <a class="b-link b-link_blue b-text-actions__typo"
+               href="#"
+               on-click="typo">Сообщить об опечатке</a>
+        </div>
+    </div>
+</div>

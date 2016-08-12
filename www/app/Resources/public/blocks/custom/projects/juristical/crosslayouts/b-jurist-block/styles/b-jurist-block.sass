@@ -1,0 +1,111 @@
+/*
+ * Блок юриста
+ *
+ */
+
+
+// Объявляем блок
+$block: '.b-jurist-block'
+
+// Стили
+#{$block}
+    margin-bottom: 30px
+    padding: 20px 20px 10px
+
+    &__body
+        display: inline-block
+        vertical-align: top
+        width: calc(100% - 140px)
+        margin-left: 20px
+        line-height: 30px
+
+        &_feed
+            width: 100%
+            margin-left: 0
+            line-height: 24px
+
+        &_top
+            width: calc(100% - 65px)
+            padding: 10px 0 0 10px
+            margin-top: -5px
+            margin-left: 0
+            line-height: normal
+
+        &_profile
+            width: calc(100% - 180px)
+
+    &__title
+        font-size: 22px
+        font-weight: bold
+        line-height: 20px
+        margin-bottom: 10px
+
+        &_sidebar
+            +font(13px)
+            width: calc(100% - 65px)
+            display: inline-block
+            vertical-align: top
+            padding-left: 10px
+
+        &_top
+            +font(13px)
+            display: inline-block
+            vertical-align: top
+            margin-bottom: 0
+            line-height: normal
+
+    &__last-name
+        margin-bottom: 10px
+        &_feed
+            margin-bottom: 0
+
+    &__index
+        margin-top: 10px
+
+        &_inline
+            display: inline-block
+
+    &__info
+
+        &_inline
+            display: inline-block
+            &:first-child
+                margin-right: 40px
+
+        &_top
+            color: $light-grey
+
+        &_bio
+            line-height: 22px
+            margin-bottom: 20px
+
+    &__info-title
+        font-weight: bold
+
+        &_block
+            display: block
+            margin-top: 6px
+            margin-bottom: 8px
+
+    &_list,
+    &_profile
+        background: $today-bg-color
+
+    &_profile
+        padding-bottom: 30px
+
+    &_feed
+        +font(13px)
+        width: 100%
+        margin-bottom: 20px
+        border-bottom: 1px solid $border-color
+        padding: 0
+        &:last-child
+            margin-bottom: 0
+            padding-bottom: 0
+            border-bottom: 1px solid transparent
+
+    &_top
+        +font(13px)
+        padding: 0
+        margin-bottom: 25px

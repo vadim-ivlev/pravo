@@ -1,0 +1,42 @@
+// Объявляем блок
+$block: '.b-sidebar-left'
+
+// Стили
+#{$block}
+    display: none
+
+    &__advert
+
+        &.is-fixed
+            position: fixed
+            top: 0
+
+        &.is-bottom
+            position: absolute
+            top: auto
+            bottom: 25px
+
+    // Tablet
+    +bp-tablet
+
+        &
+            width: 240px
+            min-height: 1px
+            float: left
+            display: block
+            &__item
+                margin-bottom: 20px
+
+    // Tablet landscape
+    +bp-tabletLandscape
+
+        &
+            &__item
+                margin-bottom: 30px
+
+    // Desktop
+    +bp-desktop
+
+        &
+            &__item
+                margin-bottom: 30px

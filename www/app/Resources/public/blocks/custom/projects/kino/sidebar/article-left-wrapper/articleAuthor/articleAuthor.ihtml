@@ -1,0 +1,29 @@
+ <!-- blocks.custom.kino.sidebar.article-left-wrapper.articleAuthor.articleAuthor -->
+
+        {{ #if materials }}
+        <div class="article-author">
+            <div class="article-author__heading">
+                {{ #if img }}
+                <div class="article-author__heading__pic">
+                    <a href="//kino.rg.ru{{ link }}"><img src="//rg.ru{{ img }}" alt="" class="article-author__heading__pic__item"></a>
+                </div>
+                {{ /if }}
+                <div class="article-author__heading__who">Автор материала</div>
+                <div class="article-author__heading__name">
+                    <a href="//kino.rg.ru{{ link }}" class="article-author__heading__name__item">{{ abbr }}</a>
+                </div>
+            </div>
+            <div class="article-author__recent">
+                <div class="article-author__recent__title">Последние записи автора</div>
+                {{ #materials }}
+                    <div class="article-author__recent__title__articles">
+                        <div class="article-author__recent__title__articles__item">
+                            <a href="{{ url }}" class="article-author__recent__title__articles__item__link">{{ zag }}</a>
+                        </div>                                      
+                    </div>
+                {{ /materials }}
+            </div>
+        </div>
+        {{ /if }}
+        
+<!-- /blocks.custom.kino.sidebar.article-left-wrapper.articleAuthor.articleAuthor -->

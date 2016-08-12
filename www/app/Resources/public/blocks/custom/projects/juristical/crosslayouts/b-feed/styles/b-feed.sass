@@ -1,0 +1,112 @@
+/*
+ * Блок ленты контента
+ * 
+ */
+
+// Объявляем блок
+$block: '.b-feed'
+
+// Модификаторы
+$hasDocumentMaterial: '.b-feed_doc-binding'
+
+$hasArticleMaterial: '.b-feed_art-binding'
+
+// Если это матерал сюжета в сайтбаре
+$hasBMaterialSujet: '.b-material-sujet'
+
+//Блок сайдбара партнеров
+$partnersSidebar: '.b-partners_sidebar'
+
+
+// Стили
+#{$block}
+
+    .b-feed.b-sidebar-left__item &__body
+        margin-bottom: 20px
+        background-color: $today-bg-color
+        padding: 15px 20px
+
+    &__name
+        +font(16px)
+        font-style: italic
+        font-weight: bold
+
+        margin-bottom: $indent-title
+
+        color: $red-orange
+
+    &__item
+        +font(13px)
+        
+        width: 100%
+        margin-bottom: 20px
+        display: inline-block
+        vertical-align: top
+        border-bottom: 1px solid $border-color
+
+        &:last-child
+            margin-bottom: 0
+            padding-bottom: 0
+            border-bottom: 1px solid transparent
+
+    &__row
+        padding-bottom: 14px
+
+    &__item-title
+        display: inline-block
+        vertical-align: top
+        width: calc(100% - 65px)
+        padding-left: 10px
+        margin-top: -5px
+
+    // Tablet
+    +bp-tablet
+
+        .b-feed.b-sidebar-left__item &__item
+            width: 100%
+
+        &
+            &__body
+                width: 490px
+                padding: 20px
+
+        // Модификатор Блок используется в сайдбаре
+        &.b-sidebar-left__item &__name
+            padding-left: 0
+
+        &.b-sidebar-left__item &__body
+            width: 100%
+            margin-bottom: 0
+
+    // Tablet landscape
+    +bp-tabletLandscape
+
+        &
+            &__body
+                width: 650px
+                margin-bottom: 20px
+                padding-top: 15px
+
+            &__name
+                margin-bottom: 11px
+
+            &__item
+                line-height: 1.6em
+    
+    // Desktop
+    +bp-desktop
+
+        &
+            +font(13px)
+
+            &.b-sidebar-right__item &__body
+                width: 100%
+
+            &.b-sidebar-right__item &__name
+                +font(17px)
+
+    +bp-desktopFull
+
+        &
+            &__name
+                margin-bottom: 17px

@@ -1,0 +1,124 @@
+// Таб-меню
+@import ../../../../blocks/crosslayouts/b-tabs/styles/b-tabs
+
+/*
+ * Разметка страницы
+ *
+ */
+
+.page-wrapper
+    background-color: $white
+    overflow: hidden
+
+    .page
+        padding-left: 20px
+        padding-right: 20px
+
+    .section-article
+        margin-top: 14px
+
+    +bp-desktop
+
+        &
+            .page
+                padding-left: 0
+                padding-right: 0
+
+.jsWrapperForStick:after
+    display: block
+    content: ''
+    clear: both
+    height: 0
+    font-size: 0
+
+/* Для главной */
+
+/* непонятное с хоккейного проекта */
+
+.b-comment
+    margin: 30px 0
+    padding: 0
+
+
+.b-news__direct
+    padding: 6px 0
+    // margin-bottom: 0
+
+    .adfox_item
+        width: 240px
+        margin: 0 auto
+
+    +bp-tablet
+
+        &
+            padding: 15px 0
+
+    +bp-tabletLandscape
+
+        &
+            padding: 2px
+
+    +bp-desktop
+
+        &
+            padding: 2px 0
+
+.b-field__input_submit
+    background-color: $green
+
+.b-field__input_submit:hover
+    background-color: lighten($green, 10%)
+
+// Центральная перетяжка в статике
+.b-ads_central-header
+    width: 100%!important
+    margin: 0 auto!important
+    overflow: hidden
+
+    .b-ads__banner .adfox_item
+        margin-bottom: 0
+
+        div[id^="AdFox_banner"]
+            height: auto!important
+            margin: auto
+            display: block
+            
+            > *
+                margin-bottom: 30px
+                display: inline-block
+                vertical-align: top
+                line-height: 1
+
+// Реклама в статье боковая
+.b-ads_sidebar-right
+    
+    div[id^="AdFox_banner"][style*="240px"]
+        margin-bottom: 30px
+
+// Блок новостей
+.b-feed.b-sidebar-right__item .b__name
+    margin-top: 0
+
+
+.b-broadcast-sport__menu.is-fixed
+    width: 100%
+
+    +bp-tablet
+
+        &
+            width: calc(100% - 370px);
+
+    +bp-tabletLandscape
+
+        &
+            width: calc(100% - 440px); 
+
+    +bp-desktop
+
+        &
+            width: 590px
+
+    +bp-desktopFull
+
+        &
+            width: 790px            

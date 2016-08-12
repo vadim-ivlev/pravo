@@ -1,0 +1,179 @@
+$block: '.b-judges'
+
+#{$block}
+
+    &__head
+        padding: 30px
+        background-color: $white
+
+        & .page
+            padding: 0
+
+        & h1
+            +font(28px)
+            text-transform: uppercase
+            display: inline-block
+            vertical-align: middle
+            font-weight: normal
+            padding: 0
+            margin: 0
+            margin-right: 30px
+
+    &__item
+        background-color: $white
+        padding: 30px 
+        margin-bottom: 30px
+
+        &__photo
+            width: 130px
+            height: 130px
+            overflow: hidden
+            +rounded-corners(130px)
+            margin: 0 auto 30px
+
+            & img
+                display: block
+                max-width: 130px
+
+        &__name
+            text-align: center
+            +font(28px)
+            font-weight: bold
+            margin-bottom: 30px
+
+        &__right
+
+            & > div
+                padding-bottom: 15px
+
+                &:last-child
+                    padding-bottom: 0
+
+    &__description
+        width: 100%
+        margin-bottom: 40px
+
+    &__text
+        +font(16px)
+
+    &__body
+        background-color: #f3f3f3
+        padding: 40px 0 
+
+        & .page
+            padding: 0
+        
+        &:after
+            display: block
+            clear: both
+            height: 0
+            font-size: 0
+            content: ''
+
+    &__schedule
+        background-color: #F3F3F3
+        padding: 10px 0
+        margin-bottom: 30px
+
+        .b-schedule__head__name
+            float: none
+            text-align: left
+            position: static
+            margin-left: 0
+            +font(28px)
+            text-transform: uppercase;
+            font-weight: normal;
+
+        & .page
+            padding: 0
+
+        .b-schedule__part
+            display: block
+
+        .b-schedule__table
+            margin-top: 0
+
+        table
+            margin-bottom: 30px
+
+            & tr.first
+
+                & td
+                    text-align: center
+                    +font(16px)
+                    color: $black
+                    text-transform: uppercase
+                    font-weight: bold
+                    border-top: 30px solid #f3f3f3
+
+            & tr:first-child
+                & td
+                    border-top: none
+
+    &__mini-schedule
+
+        & #{$block}__schedule
+            background: none
+            padding: 0
+            margin: 0
+
+            .b-schedule__mobile
+                color: #000
+
+                &__date
+                    color: #000
+
+            &:before
+                display: none
+
+            & table tr:last-child td
+                border: none
+
+    +bp-tablet
+
+        &
+
+            &__body, &__head, &__schedule
+                padding: 30px 30px 30px 
+
+    +bp-tabletLandscape
+
+        &  
+
+            &__mini-schedule
+
+                & #{$block}__schedule   
+
+            &__item
+                overflow: hidden
+
+                &__left
+                    width: calc(50% - 15px)
+                    float: left
+
+                &__right
+                    width: calc(50% - 15px)
+                    float: right
+
+                &__person
+                    overflow: hidden
+
+                &__photo
+                    display: inline-block
+                    vertical-align: middle
+                    margin-right: 30px
+
+                &__name
+                    display: inline-block
+                    vertical-align: middle
+
+    +bp-desktop
+
+        &
+
+            &__description
+                width: calc(50% - 15px)
+                float: left
+                margin-right: 15px
+
+

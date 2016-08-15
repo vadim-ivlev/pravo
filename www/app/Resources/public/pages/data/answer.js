@@ -65,7 +65,7 @@ module.exports = {
 
             blocks: [
 
-                RGInclude('global', 'styles'), // стили
+                // RGInclude('global', 'styles'), // стили
 
                 // RGInclude('http://new-www.rg.ru/custom/projects/juristical/global', 'scripts'), // скрипты
 
@@ -74,7 +74,7 @@ module.exports = {
                 {
                     opt: {
                         contents: [
-                            { data: "<script src=\"https://jurist.dev.rg.ru/res/scripts/custom/projects/juristical/answer.js\"></script>" }
+                            { data: "<script src=\"https://rg.ru/res/scripts/custom/projects/juristical/answer.js\"></script>" }
                         ]
                     }
                 }

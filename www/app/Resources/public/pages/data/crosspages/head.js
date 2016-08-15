@@ -40,7 +40,7 @@ module.exports = {
 				tag: "link",
 				attrs: {
 					rel: "stylesheet",
-					href: "https://jurist.dev.rg.ru/res/styles/custom/projects/juristical/global.css"
+					href: "https://rg.ru/res/styles/custom/projects/juristical/global.css"
 				}
 			}
 		},

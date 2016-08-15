@@ -4,18 +4,21 @@
     {{# {[ data[mod].object ]} }}
         <div class="b-jurist-block{{# mods__length }}{{# mods }} b-jurist-block_{{ . }}{{/ mods }}{{/ mods__length }}">
 
-            {% if data[mod].showBlocks.img %}
+            {% if mod == "profile" %}
                 {{# jurist__img}}
-                    <!--<div class="b-img-col b-img-col_visible">-->
-                        {{# jurist__img__type_medium }}
-                            <img class="b-round-image" src="{{ jurist__img__file }}" width="{[ data[mod].img__width ]}" height="{[ data[mod].img__height ]}" alt="{{ jurist__img__title }}">
-                        {{/ jurist__img__type_medium }}
-            <!--</div>-->
+                    {{# jurist__img__type_medium }}
+                        <img class="b-round-image" src="{{ jurist__img__file }}" width="{[ data[mod].img__width ]}" height="{[ data[mod].img__height ]}" alt="{{ jurist__img__title }}">
+                    {{/ jurist__img__type_medium }}
                 {{/ jurist__img}}
             {% endif %}
 
             {% if mod == "feed" %}
                 <a class="b-link" href="{{ jurist__link }}">
+                    {{# jurist__img }}
+                        {{# jurist__img__type_medium }}
+                            <img class="b-round-image" src="{{ jurist__img__file }}" width="{[ data[mod].img__width ]}" height="{[ data[mod].img__height ]}" alt="{{ jurist__img__title }}">
+                        {{/ jurist__Img__type_medium }}
+                    {{/ jurist__img }}
                     <div class="b-jurist-block__title b-jurist-block__title_sidebar">
                         <div class="b-jurist-block__last-name b-jurist-block__last-name_feed">{{ jurist__last_name }}</div>
                         {{ jurist__first_name }}
@@ -28,17 +31,49 @@
                 </a>
             {% endif %}
 
+            {% if mod == "top" %}
+                <a href="{{ jurist__link }}" class="b-link">
+                    {{# jurist__img }}
+                        {{# jurist__img__type_medium }}
+                            <img class="b-round-image" src="{{ jurist__img__file }}" width="{[ data[mod].img__width ]}" height="{[ data[mod].img__height ]}" alt="{{ jurist__img__title }}">
+                        {{/ jurist__img__type_medium }}
+                    {{/ jurist__img }}
+                    <div class="b-jurist-block__body b-jurist-block__body_top">
+                        <div class="b-jurist-block__title b-jurist-block__title_top">
+                            
+                            {{ jurist__last_name }}
+
+                            {{ jurist__first_name }}
+
+                            {% if data[mod].showBlocks.patronymic %}
+                                {{ jurist_patronymic }}
+                            {% endif %}
+
+                        </div>
+                        <div class="b-jurist-block__index">
+                            <div class="b-jurist-block__info b-jurist-block__info_top">Консультаций: {{ jurist__consultations }}</div>
+                        </div>
+                    </div>
+                </a>
+            {% endif %}
+
+            {% if mod == "list" %}
+                <a href="{{ jurist__link }}" class="b-link">
+                    {{# jurist__img }}
+                        {{# jurist__img__type_medium }}
+                            <img class="b-round-image" src="{{ jurist__img__file }}" width="{[ data[mod].img__width ]}" height="{[ data[mod].img__height ]}" alt="{{ jurist__img__title }}">
+                        {{/ jursit__img__type_medium }}
+                    {{/ jurist__img }}
+                </a>
+            {% endif %}
+
             <div class="b-jurist-block__body{{# mods__length }}{{# mods }} b-jurist-block__body_{{ . }}{{/ mods }}{{/ mods__length }}">
 
-                {% if mod !== "feed" %}
+                {% if mod !== "feed" and mod !== "top" %}
                     <a class="b-link" href="{{ jurist__link }}">
-                        <div class="b-jurist-block__title{% if mod == "top" %} b-jurist-block__title_top{% endif %}">
+                        <div class="b-jurist-block__title">
 
-                            {% if mod !== "top" %}
-                                <div class="b-jurist-block__last-name">{{ jurist__last_name }}</div>
-                            {% else %}
-                                {{ jurist__last_name }}
-                            {% endif %}
+                            {{ jurist__last_name }}
 
                             {{ jurist__first_name }}
 
@@ -90,8 +125,6 @@
                                 <div class="b-jurist-block__info b-jurist-block__info_inline">
                                     <span class="b-jurist-block__info-title">Консультаций:</span> {{ jurist__consultations }}
                                 </div>
-                            {% else %}
-                                <div class="b-jurist-block__info b-jurist-block__info_top">Консультаций: {{ jurist__consultations }}</div>
                             {% endif %}
 
                         {% endif %}

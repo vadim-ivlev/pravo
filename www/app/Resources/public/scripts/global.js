@@ -59,6 +59,10 @@ $(function() {
 
     'use strict';
 
+    $('#openKartaProezda').colorbox({
+        title: "Редакция &laquo;Российской газеты&raquo;, ул. Правды, д. 24, строение 4",
+        className: "karta-proezda-ctx"
+    });
 
     var
 

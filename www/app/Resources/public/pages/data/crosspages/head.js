@@ -80,7 +80,7 @@ module.exports = {
 			name: "crosspageRgGlobalProjectJS",
 			opt: {
 				contents: [
-					{ data: "<script src=\"https://rg.ru/res/scripts/custom/projects/juristical/global.js\"></script>" }
+					{ data: "<script src=\"https://jurist.dev.rg.ru/res/scripts/custom/projects/juristical/global.js\"></script>" }
 				]
 			}
 		},

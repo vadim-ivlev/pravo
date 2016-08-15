@@ -76,7 +76,7 @@ var
                 if (this.get('required')) {
 
                     return pattern.test(value);
-                    
+
                 }
 
                 return true;

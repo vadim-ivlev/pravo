@@ -11,7 +11,7 @@
                        on-click="sujets">Отслеживаемые сюжеты</a>
                 </div>
 
-                <h2 class="b-followed-full__title"><a href="{{sujetUrl}}">{{sujetTitle}}</a></h2>
+                <h2 class="b-followed-full__title">{{sujetTitle}}</h2>
 
                 <sujet-materials items="{{materials}}"/>
             </div>

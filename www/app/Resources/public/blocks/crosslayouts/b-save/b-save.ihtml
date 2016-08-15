@@ -1,2 +1,0 @@
-<div class="b-save b-save_saved {{saved ? 'is-active' : ''}}"
-    on-click="save">{{txt}}</div>

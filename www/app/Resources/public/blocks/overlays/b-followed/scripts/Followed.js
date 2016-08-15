@@ -35,9 +35,6 @@ var SujetMaterials = require('../../b-sujet-materials/scripts/SujetMaterials'),
                     // Заголовок для левой колонки
                     this.set('sujetTitle', sujet.title);
 
-                    // Ссылка на весь сюжет для левой колонки
-                    this.set('sujetUrl', sujet.url);
-
                     // Отправляем событие получения материалов сюжета
                     RG.events.publish('subscribe.sujet.get', sujet.id);
 

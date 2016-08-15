@@ -1,45 +1,14 @@
-<div class="b-menu__col b-menu__col_side_right b-menu__services {{ isOpen ? 'is-open' : ''}}">
+<!--<div class="b-menu__col b-menu__col_side_right b-menu__services {{ isOpen ? 'is-open' : ''}}">-->
 
-    <div class="b-menu__item b-menu__item_type_actions">
+    <!--<div class="b-menu__item b-menu__item_type_actions">-->
 
-        <div class="b-menu__item-icon b-menu__item-icon_search">
+        <!--<div class="b-menu__item-icon b-menu__item-icon_search">-->
             <a class="b-icon b-icon_type_search"
 				href="#"
 				title="Поиск по сайту"
                 on-click="search"></a>
-        </div>
+        <!--</div>-->
 
-        <div class="b-menu__item-icon b-menu__item-icon_geo">
-            <a class="b-icon b-icon_type_geo"
-				href="#"
-				title="Геопределение"
-                on-click="choose"></a>
-        </div>
+    <!--</div>-->
 
-
-        {{#isAuthorized}}
-
-            <div class="b-menu__item-icon">
-                <a class="b-icon b-icon_type_viewed js-modal-header {{viewedActive ? 'is-active' : ''}}"
-                    href="#"
-					title="Просмотренные статьи"
-                    on-click="viewed"></a>
-            </div>
-
-            <div class="b-menu__item-icon">
-                <a class="b-icon b-icon_type_follow i-follow js-modal-header {{followedActive ? 'is-active' : ''}}"
-                    href="#"
-                    title="Отслеживаемые сюжеты"
-                    on-click="followed">
-                    <span class="i-follow__sup">{{materials}}</span>
-                </a>
-            </div>
-        {{/isAuthorized}}
-    </div>
-
-    <div class="b-menu__item b-menu__item_type_user">
-        <menu-user isAuthorized="{{isAuthorized}}" user="{{user}}" showList="{{showList}}"/>
-    </div>
-    
-    <menu-user--menu />
-</div>
+<!--</div>-->

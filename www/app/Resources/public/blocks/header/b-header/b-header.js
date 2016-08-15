@@ -1,5 +1,5 @@
 /*
- * Шапка сайта + RGB &info, &menu, &content
+ * Шапка
  * 
  */
  
@@ -14,27 +14,24 @@ module.exports = function(data){
 					param: {
 						
 						blocks: {
-						
-							info: RGB('header&info'), // информация + RGB vendors
-							
-							menu: RGB('header&menu'), // меню
-							
-							content: RGB('header&content'), // основной контент + RGB logo, accents
 							
 							logo: RGB('logo'), // логотип
 							
-							titlePromo: RGB('header&title:promo, tablet tabletLandscape desktop desktopFull:active') // заголовок на промо страницах
+							title: RGB('header&title'), // заголовок на страницах
+
+							adBanner: RGB('ads:top'), // верхий баннер-растяжка
+
+							menu: RGB('menu') // низ шапки
 							
 						},
 
 						sortBlocks: {
-						
-							'default': 'info menu content',
-							
-							promo: 'logo titlePromo',
-							
-							'not-found': 'logo'
-							
+
+							'default': "logo title menu",
+
+							rubric_questions: "logo title adBanner menu",
+
+							tag_questions: "logo title adBanner menu"
 						}
 						
 					}

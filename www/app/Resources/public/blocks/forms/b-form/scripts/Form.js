@@ -13,20 +13,23 @@ class Form {
         this.template = options.data.template;
         this.formData = {};
 
+        let components = [];
+
         if(!_.isEmpty(this.options.tmpl)) {
 
-            this._getTemplate();
+            this.template = this._getTemplate(this.options.tmpl);
+        }
+
+        if(!_.isEmpty(this.template)) {
+
+            return this.renderForm();
         } else {
 
-            let components = RG.parser.findComponents(this.el);
-            this.setAllComponents(components);
+            components = RG.parser.findComponents(this.el);
+
+            this.registerEvents(components);
+            this.fields = this.renderComponents(components);
         }
-    }
-
-    setAllComponents(components) {
-
-        this.registerEvents(components);
-        this.fields = this.renderComponents(components);
     }
 
     updateFormData(topic, value) {
@@ -36,8 +39,6 @@ class Form {
         let name = topic.split('.').pop();
 
         this.formData[name] = value;
-
-        RG.logger.log('name: ' + name + ' - ' + this.formData[name]);
     }
 
     setFormData(data) {
@@ -76,25 +77,36 @@ class Form {
         return data;
     }
 
-    renderForm(template) {
+    renderForm() {
 
-        $(this.el).html(template);
+        this.form = new Ractive({
+            data: this.options,
+            el: this.el,
+            template: this.template
+        });
 
-        let components = RG.parser.findComponents(this.el);
-        this.setAllComponents(components);
+        let components = this.form.findAllComponents();
+
+        this.fields = _.filter(components, component => {
+
+            return component.form === this.name;
+        });
+
+        RG.forms[this.options.name] = this;
+
+        return this.form;
     }
 
     renderComponents(items) {
 
         let fields = [];
 
-        RG.parser.init();
-
         if(items.length) {
 
             _.each(items, component => {
 
                 let instances = RG.parser.render(component.tag);
+
                 fields = fields.concat(instances);
             });
         }
@@ -134,16 +146,20 @@ class Form {
         return valid;
     }
 
-    _getTemplate() {
+    _getTemplate(url) {
 
-        $.get(this.options.tmpl).then(template => {
+        let template = '';
 
-            $(this.el).html(template);
+        $.ajax({
+            url,
+            success: tmpl => {
 
-            let components = RG.parser.findComponents(this.el);
-
-            this.setAllComponents(components);
+                template = tmpl;
+            },
+            async: false
         });
+
+        return template;
     }
 
     _submit(topic, context) {
@@ -169,8 +185,6 @@ class Form {
                             RG.events.publish(`form.${this.options.name}.empty`);
                         }
 
-                        RG.logger.log(response);
-
                         RG.events.publish(`form.${this.options.name}.message.show`, response);
 
                         _.each(this.fields, item => {
@@ -182,13 +196,11 @@ class Form {
                         });
 
                     });
-
                 }
             }
-
-
         }
     }
 }
 
 module.exports = Form;
+

@@ -20,17 +20,27 @@ module.exports = {
 				tag: "link",
 				attrs: {
 					rel: "stylesheet",
-					href: "/res/styles/lib.css"
+					href: "https://rg.ru/res/styles/lib.css"
 				}
 			}
 		},
-		{
+		/*{
 			name: "crosspageRgGlobalStyle",
 			opt: {
 				tag: "link",
 				attrs: {
 					rel: "stylesheet",
-					href: "/res/styles/global.css"
+					href: "//rg.ru/res/styles/global.css"
+				}
+			}
+		},*/
+		{
+			name: "crosspageRgGlobalProjectStyle",
+			opt: {
+				tag: "link",
+				attrs: {
+					rel: "stylesheet",
+					href: "https://jurist.dev.rg.ru/res/styles/custom/projects/juristical/global.css"
 				}
 			}
 		},
@@ -54,19 +64,39 @@ module.exports = {
 			name: "crosspageLibJs",
 			opt: {
 				contents: [
-					{ data: "{{^ preview }}<script src=\"/res/scripts/lib.js\"></script>{{/ preview }}" }
+					{ data: "<script src=\"https://rg.ru/res/scripts/lib.js\"></script>" }
 				]
 			}
 		},
+		// {
+		// 	name: "crosspageRgGlobalJS",
+		// 	opt: {
+		// 		contents: [
+		// 			{ data: "<script src=\"https://new-www.rg.ru/res/scripts/global.js\"></script>" }
+		// 		]
+		// 	}
+		// },
 		{
-			name: "crosspageRgGlobalJS",
+			name: "crosspageRgGlobalProjectJS",
 			opt: {
 				contents: [
-					{ data: "{{^ preview }}<script src=\"/res/scripts/global.js\"></script>{{/ preview }}" }
+					{ data: "<script src=\"https://rg.ru/res/scripts/custom/projects/juristical/global.js\"></script>" }
 				]
 			}
 		},
-		
+
+		/* 
+		 * Блок GTM для Агимы
+		 *
+		 */
+		{
+			opt: {
+				contents: [
+					{ data: "<noscript><iframe src=\"//www.googletagmanager.com/ns.html?id=GTM-5QP5L8\" height=\"0\" width=\"0\" styles=\"display:none;visibility:hidden\"></iframe></noscript>" }
+				]
+			}
+		}
+
 		//RGInclude('modules/GTM', 'scripts inline') // подключение GTM Agima
 	]
 

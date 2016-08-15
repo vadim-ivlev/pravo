@@ -1,7 +1,0 @@
-{{#loading}}
-    <div class="b-spinner {{class}}"></div>
-{{/loading}}
-
-{{^loading}}
-    {{txt}}
-{{/loading}}

@@ -7,12 +7,11 @@
     require('../test/Ajax-mock');
 }*/
 
-// Выключили из-за настроек сервера
-/*$.ajaxSetup({
+$.ajaxSetup({
     xhrFields: {
         withCredentials: true
     }
-});*/
+});
 
 var paths = require('../config').paths,
 

@@ -1,6 +1,0 @@
-<div class="b-audio">
-    <div class="b-audio-source jwplayer-root" decorator="jwplayeraudio"></div>
-    {{#if title }}
-    <div class="b-audio__title">{{ title }}</div>
-    {{/if }}
-</div>

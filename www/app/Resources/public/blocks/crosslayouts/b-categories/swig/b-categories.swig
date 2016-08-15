@@ -1,21 +1,16 @@
-<div class="b-categories__body b-categories__body_blue">
-
-    <div class="b-categories__list">
-		
-		{% for item in data.menu.main %}
-			<div class="b-categories__item {{# title__for__{[item.alias]}}}is-active{{/ title__for__{[item.alias]}}}">
-				<a class="b-link b-link_white b-categories__link {% if item.customClass %}{[item.customClass]}{% endif %}" href="{[item.uri]}">{[item.name]}</a>
-			</div>
-		{% endfor %}
-		
-    </div>
-
-    <div class="b-categories__list">
-        {% for item in data.menu.second %}
-			<div class="b-categories__item {{# title__for__{[item.alias]}}}is-active{{/ title__for__{[item.alias]}}}">
-				<a class="b-link b-link_white b-categories__link" href="{[item.uri]}">{[item.name]}</a>
-			</div>
-		{% endfor %}
-    </div>
-	
+<div class="b-categories__body{% if mod == "sidebar" %} b-categories__body_blue{% endif %}">
+	<div class="b-categories__list{% if mod == "sidebar" %} b-categories__list_sidebar js-categories-list{% endif %}">
+		{{# categories }}
+			{{# rubrics }}
+				<div class="b-categories__item{% if mod == "main" %} b-categories__item_main{% endif %}{{# rubrics__active }} b-categories__item_active{{/ rubrics__active }}">
+					{{^ rubrics__active }}
+						<a href="{{ rubrics__link }}" class="b-link{% if mod == "sidebar" %} b-link_white{% else %} b-link_blue{% endif %} b-categories__link">{{ rubrics__title }}</a>
+					{{/ rubrics__active }}
+					{{# rubrics__active }}
+						<span>{{ rubrics__title }}</span>
+					{{/ rubrics__active }}
+				</div>
+			{{/ rubrics }}
+		{{/ categories }}
+	</div>
 </div>

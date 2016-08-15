@@ -76,7 +76,7 @@ var root = '//front.rg.ru/',
 
         messages: {
 
-            inputNotValid: 'Не верный формат',
+            inputNotValid: 'Неверный формат',
             emailNotValid: 'Неверный формат адреса электронной почты',
             nameNotValid: 'Неверный формат имени',
             codeIsSent: 'Код уже отправлен, попробуйте позднее',

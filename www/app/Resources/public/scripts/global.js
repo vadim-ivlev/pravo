@@ -1,3 +1,8 @@
+/**
+ * Created by nsinetskiy on 16.05.2016.
+ */
+
+
 'use strict'
 
 /**
@@ -36,51 +41,16 @@ require('./global/extends');
 /**
  * Подключение блока модального поиска
  */
-var SearchOverlay = require('../blocks/overlays/b-search-overlay/scripts/SearchOverlay');
-
-/**
- * Подлючение блока выбора региона
- */
-var Region = require('../blocks/overlays/b-region/scripts/Region');
-
-/**
- * Подлючение блока региональных новостей
- */
-var FeedRegional = require('../blocks/crosslayouts/b-feed-regional/scripts/FeedRegional');
-
-window.$scrollTop = 0;
-//$bodyPosition = 0;
-window.$windowHeight = 0;
-window.$windowWidth = 0;
-window.$currentWindowWidth = 0;
+// var SearchOverlay = require('../../../../blocks/overlays/b-search-overlay/scripts/SearchOverlay');
 
 /**
  * Решение проблемы CORS
  */
-// Выключили из-за настроек сервера UP. Надо от этого избавится, но без него не работают комментарии
 $.ajaxSetup({
     xhrFields: {
         withCredentials: true
     }
 });
-
-/**
- * Получение шаблона новостей
- */
-$.get(RG.config.paths.tmpl.bNewsInner).then(tmpl => {
-
-    Ractive.partials.bNewsInner = tmpl;
-});
-
-/**
- * Инициалихация модуля геопределения и запрос на получение региона
- */
-RG.Geolocation.init();
-
-if(_.isEmpty(RG.session.getUserRegion()) /*&& RG.config.env !== 'prod'*/) {
-
-    RG.events.publish('geolocation.region.get');
-}
 
 /**************************************************************************************
  DOM READY
@@ -89,12 +59,13 @@ $(function() {
 
     'use strict';
 
+
     var
 
-        // Записываем в переменную элемент colorbox
+    // Записываем в переменную элемент colorbox
         $cbox = $('#colorbox'),
 
-        // Записываем в переменную элемент colorbox overlay
+    // Записываем в переменную элемент colorbox overlay
         $cboxOverlay = $('#cboxOverlay');
 
 
@@ -109,22 +80,22 @@ $(function() {
     /**
      * Ошибка при запросе
      */
-/*    $(document).ajaxError(function(event, jqxhr, settings, thrownError) {
+    /*    $(document).ajaxError(function(event, jqxhr, settings, thrownError) {
 
-        RG.logger.error(thrownError);
+     RG.logger.error(thrownError);
 
-        $.colorbox({
+     $.colorbox({
 
-            html: '<div class=""><p class="">Произошла ошибка. Обратитесь к разработчикам</p></div>',
+     html: '<div class=""><p class="">Произошла ошибка. Обратитесь к разработчикам</p></div>',
 
-            returnFocus: false,
-            scrolling: false,
-            opacity: 0.7,
+     returnFocus: false,
+     scrolling: false,
+     opacity: 0.7,
 
-            width: 360,
-            height: 100,
-        });
-    });*/
+     width: 360,
+     height: 100,
+     });
+     });*/
 
     // Регистрируем событие клика на документе
     $(document).on('click', function(event){
@@ -168,13 +139,13 @@ $(function() {
 
         // Этот код убивал все!!!
         /*if ($currentWindowWidth != $windowWidth) {
-            $.colorbox.close();
-        }*/
+         $.colorbox.close();
+         }*/
 
         // Реинициализация панели данных на главной странице
         /*if($('.js-slide').length) {
-            slidePosition($('.js-slide.is-active'), $('.js-slide'));
-        }*/
+         slidePosition($('.js-slide.is-active'), $('.js-slide'));
+         }*/
     });
 
     /**
@@ -182,36 +153,36 @@ $(function() {
      */
     // Панель данных на главной странице
     /*if($('.js-slide').length) {
-        slidePosition ($('.js-slide.is-active'), $('.js-slide'));
-    }*/
+     slidePosition ($('.js-slide.is-active'), $('.js-slide'));
+     }*/
 
     // Выбор таба на главной
     /*$(document).on('click', '.js-slide', function(){
 
-        var $this = $(this),
-            $collection = $('.js-slide');
+     var $this = $(this),
+     $collection = $('.js-slide');
 
-        slidePosition($this, $collection);
+     slidePosition($this, $collection);
 
-        return false;
-    });*/
+     return false;
+     });*/
 
     // Движение таба в панели данных
     /*function slidePosition (e, col) {
 
-        var $active = e.siblings('.is-border'),
-            $pos = e.position().left,
-            $itemWidth = e.width();
+     var $active = e.siblings('.is-border'),
+     $pos = e.position().left,
+     $itemWidth = e.width();
 
 
-        col.removeClass('is-active');
-        e.addClass('is-active');
+     col.removeClass('is-active');
+     e.addClass('is-active');
 
-        $active.css({
-            'left': $pos,
-            'width': $itemWidth
-        });
-    }*/
+     $active.css({
+     'left': $pos,
+     'width': $itemWidth
+     });
+     }*/
 
 
     /**
@@ -256,10 +227,14 @@ $(function() {
      */
     // Инициализация скролла в новостях левого сайтбара
     /*$('.b-feed_last-news .b-feed__list').mCustomScrollbar({
-        autoHideScrollbar: true
-    });*/
+     autoHideScrollbar: true
+     });*/
 
     RG.parser.render('rg-form');
+
+    $("label a").on("click", function(e) {
+        e.stopPropagation();
+    });
 
     /**
      * Инициализация блока подписок
@@ -277,7 +252,6 @@ $(function() {
 
     }
 
-
     /**
      * Сохранённых статей
      */
@@ -292,92 +266,92 @@ $(function() {
     // Отправляем событие, что баннеры начали грузиться
     /*RG.events.subscribe('Ads.init', function(){
 
-        RG.Analytics.Ga.sendTracker({
-            param: {
-                hitType: 'event',
-                eventCategory: 'JS',
-                eventAction: 'Banners init',
-                eventLabel: 'start'
-            }
-        });
+     RG.Analytics.Ga.sendTracker({
+     param: {
+     hitType: 'event',
+     eventCategory: 'JS',
+     eventAction: 'Banners init',
+     eventLabel: 'start'
+     }
+     });
 
-    });*/
+     });*/
 
     // Проверяем на то, инициализировались ли баннеры
     /*RG.events.subscribe('Adfox.platform.loaded', function(){
 
-        (function(){
+     (function(){
 
-            var bannersNotLoaded = true; // по-умолчанию баннер не загружен (предполагаем)
+     var bannersNotLoaded = true; // по-умолчанию баннер не загружен (предполагаем)
 
-            setTimeout(function() {
+     setTimeout(function() {
 
-                // Проходим по всем площадкам
-                $('[id^="ads"]').each(function(index, el) {
+     // Проходим по всем площадкам
+     $('[id^="ads"]').each(function(index, el) {
 
-                    // Если контейнер не пустой
-                    // все ок
-                    // выходим из цикла проверки
-                    if (!$(el).is(':empty')) {
+     // Если контейнер не пустой
+     // все ок
+     // выходим из цикла проверки
+     if (!$(el).is(':empty')) {
 
-                        // Говорим что баннер не загружен
-                        bannersNotLoaded = false;
+     // Говорим что баннер не загружен
+     bannersNotLoaded = false;
 
-                        // Выхдим из цикла
-                        return false;
-                    }
+     // Выхдим из цикла
+     return false;
+     }
 
-                });
+     });
 
-                // Если баннеры не были загружены
-                // то есть во всех контейнерах пусто,
-                // то отправляем запрос
-                if (bannersNotLoaded) {
+     // Если баннеры не были загружены
+     // то есть во всех контейнерах пусто,
+     // то отправляем запрос
+     if (bannersNotLoaded) {
 
-                    RG.Analytics.Ga.sendTracker({
-                        param: {
-                            hitType: 'event',
-                            eventCategory: 'JS',
-                            eventAction: 'Banners init',
-                            eventLabel: 'failed'
-                        }
-                    });
+     RG.Analytics.Ga.sendTracker({
+     param: {
+     hitType: 'event',
+     eventCategory: 'JS',
+     eventAction: 'Banners init',
+     eventLabel: 'failed'
+     }
+     });
 
-                    RG.logger.log('Баннеры не загрузились, блоки пустые');
-                    RG.logger.log($('[id^="ads"]'));
+     RG.logger.log('Баннеры не загрузились, блоки пустые');
+     RG.logger.log($('[id^="ads"]'));
 
-                } else {
+     } else {
 
-                    RG.Analytics.Ga.sendTracker({
-                        param: {
-                            hitType: 'event',
-                            eventCategory: 'JS',
-                            eventAction: 'Banners init',
-                            eventLabel: 'done'
-                        }
-                    });
+     RG.Analytics.Ga.sendTracker({
+     param: {
+     hitType: 'event',
+     eventCategory: 'JS',
+     eventAction: 'Banners init',
+     eventLabel: 'done'
+     }
+     });
 
-                    RG.logger.log('Баннеры все-таки загрузились, среди этих блоков есть');
-                    RG.logger.log($('[id^="ads"]'));
-                }
+     RG.logger.log('Баннеры все-таки загрузились, среди этих блоков есть');
+     RG.logger.log($('[id^="ads"]'));
+     }
 
-            }, 5000);
+     }, 5000);
 
-        })();
+     })();
 
-    });*/
+     });*/
 
     /*RG.Analytics.Ga.register({
-        type: 'send',
-        param: {
-            tagLabel: '.b-sidebar-left__item .b-categories__item',
-            event: 'click',
-            hitType: 'event',
-            eventCategory: 'Левое меню',
-            eventAction: 'Клик',
-            eventLabel: 'Элемент меню'
-        }
-    });*/
+     type: 'send',
+     param: {
+     tagLabel: '.b-sidebar-left__item .b-categories__item',
+     event: 'click',
+     hitType: 'event',
+     eventCategory: 'Левое меню',
+     eventAction: 'Клик',
+     eventLabel: 'Элемент меню'
+     }
+     });*/
 
     /*
      * Отправляем
@@ -386,14 +360,14 @@ $(function() {
      */
 
     /*RG.Analytics.Ga.sendTracker({
-        type: 'НазваниеСчетчика.send',
-        param: {
-            hitType: 'event',
-            eventCategory: 'Категория',
-            eventAction: 'По таймауту',
-            eventLabel: 'Какие-то элементы'
-        }
-    });*/
+     type: 'НазваниеСчетчика.send',
+     param: {
+     hitType: 'event',
+     eventCategory: 'Категория',
+     eventAction: 'По таймауту',
+     eventLabel: 'Какие-то элементы'
+     }
+     });*/
 
     /**
      * Тестовая аналитика
@@ -401,44 +375,44 @@ $(function() {
      */
 
     /*RG.Analytics.Ga.register({
-        type: 'send',
-        param: {
-            tagLabel: '[data-blocksshifterid="rgb_feed_last-news"]',
-            event: 'click',
-            hitType: 'Клик',
-            eventCategory: 'Лента новостей',
-            eventAction: 'Клик',
-            eventLabel: 'Блок правый сайтбар 240х400',
-            eventValue: 'Значение, просто так'
-        }
-    });
+     type: 'send',
+     param: {
+     tagLabel: '[data-blocksshifterid="rgb_feed_last-news"]',
+     event: 'click',
+     hitType: 'Клик',
+     eventCategory: 'Лента новостей',
+     eventAction: 'Клик',
+     eventLabel: 'Блок правый сайтбар 240х400',
+     eventValue: 'Значение, просто так'
+     }
+     });
 
-    RG.Analytics.Ga.registerList({
-        list: [
-            {
-                send: [
-                    {
-                        tagLabel: '.b-header',
-                        event: 'click',
-                        hitType: 'click',
-                        eventCategory: 'Шапка',
-                        eventAction: 'Клик',
-                        eventLabel: 'Блок шапки',
-                        eventValue: null
-                    },
-                    {
-                        tagLabel: '.b-logo',
-                        event: 'mouseenter',
-                        hitType: 'hover',
-                        eventCategory: 'Логотип',
-                        eventAction: 'Курсор над блоком',
-                        eventLabel: 'Логотип в шапке',
-                        eventValue: null
-                    }
-                ]
-            }
-        ]
-    });*/
+     RG.Analytics.Ga.registerList({
+     list: [
+     {
+     send: [
+     {
+     tagLabel: '.b-header',
+     event: 'click',
+     hitType: 'click',
+     eventCategory: 'Шапка',
+     eventAction: 'Клик',
+     eventLabel: 'Блок шапки',
+     eventValue: null
+     },
+     {
+     tagLabel: '.b-logo',
+     event: 'mouseenter',
+     hitType: 'hover',
+     eventCategory: 'Логотип',
+     eventAction: 'Курсор над блоком',
+     eventLabel: 'Логотип в шапке',
+     eventValue: null
+     }
+     ]
+     }
+     ]
+     });*/
 
     // ОТправка на печать
     (function toPrint(){
@@ -457,57 +431,49 @@ $(function() {
 
     /*
      * Инициализация счетчиков
-     * если это прод
      */
+    RG.Counters.init();
 
-    if (RG.config.env !== 'dev' && !RG.meta.getPreview()) {
-
-        // Инициализация счетчиков
-        RG.Counters.init();
-
-        // Включаем счетчики
-        RG.events.publish('Counters.run');
-    }
+    // Включаем счетчики
+    RG.events.publish('Counters.run');
 
     /*
      * Инициализация Рекламы
      */
-    if (!RG.meta.getPreview()) {
-        RG.Ads.init();
+    RG.Ads.init();
 
-        // Инициализируем компонент баннера adfox
-        RG.parser.render('rg-adfox');
+    // Инициализируем компонент баннера adfox
+    RG.parser.render('rg-adfox');
 
-        // Инициализируем баннер Adfox
-        RG.events.publish(`${RG.Ads.Adfox_modulePrefix}.run`);
+    // Инициализируем баннер Adfox
+    RG.events.publish(`${RG.Ads.Adfox_modulePrefix}.run`);
 
-        // Инициализируем Директ
-        RG.Ads.YaDirect.init();
+    // Инициализируем Директ
+    RG.Ads.YaDirect.init();
 
-        // Инициализируем компонент директа
-        RG.parser.render('rg-yadirect');
-    }
+    // Инициализируем компонент директа
+    RG.parser.render('rg-yadirect');
 
     // Инициализируем Ivengo
-    if (!RG.meta.getAdsHide() && !RG.meta.getPreview()) {
+    /*if (!RG.meta.getAdsHide()) {
 
         RG.logger.log('Ads Ivengo hide false');
 
         RG.Ads.Ivengo.init();
     } else {
         RG.logger.log('Ads Ivengo hide true');
-    }
+    }*/
 
     // Инициализируем Turboroller
     //RG.Ads.Turboroller.init(); Выключил пока они не поддреживают https
 
     // Инициализация Партнерок
     // После того, как получили путевой лист
-    RG.events.subscribe('Adfox.platform.loaded', function(topic, places){
+    /*RG.events.subscribe('Adfox.platform.loaded', function(topic, places){
 
         // Запускается один раз только
         RG.Partners.init(places);
-    });
+    });*/
 
     /*
      * Инициализация модуля ScreenViewer
@@ -567,13 +533,13 @@ $(function() {
      * Костыль, что бы не ломать авторизацию
      * TODO Избавиться от этого кода
      */
-    RG.storage.set('auth', {
+    /*RG.storage.set('auth', {
         email: '',
         firstName: '',
         lastName: ''
-    });
+    });*/
 
-    let auth = RG.storage.get('auth');
+    //let auth = RG.storage.get('auth');
     /**
      * TODO Избавиться от этого кода
      */
@@ -581,12 +547,12 @@ $(function() {
     /**
      * Инициализация модуля авторизации
      */
-    RG.Auth.init();
+    //RG.Auth.init();
 
     /**
      * Инициализация сессии пользователя
      */
-    RG.session.init();
+    //RG.session.init();
 
     /**
      * Проверка сессии пользователя
@@ -780,25 +746,25 @@ $(function() {
      */
     /*(function() {
 
-        $('.b-footer__categories').colorbox({
+     $('.b-footer__categories').colorbox({
 
-            onComplete() {
-                RG.events.publish('colorbox.opened');
-            },
+     onComplete() {
+     RG.events.publish('colorbox.opened');
+     },
 
-            onCleanup() {
-                RG.events.publish('colorbox.closed');
-            },
+     onCleanup() {
+     RG.events.publish('colorbox.closed');
+     },
 
-            className: 'b-categories b-categories_overlay',
-            inline: true,
-            href: $('.b-sidebar-left__item.b-categories').html(),
+     className: 'b-categories b-categories_overlay',
+     inline: true,
+     href: $('.b-sidebar-left__item.b-categories').html(),
 
-            width: '408px',
-            height: '360px'
-        });
+     width: '408px',
+     height: '360px'
+     });
 
-    })();*/
+     })();*/
 
     // ЧТО это мужики?!
     (() => {
@@ -1078,6 +1044,7 @@ $(function() {
         $.colorbox({
 
             html: '<div id="searchOverlay"></div>',
+            closeButton: false,
 
             onComplete() {
 
@@ -1312,18 +1279,35 @@ $(function() {
 
         return false;
     }
-
-    /*
-     * RGFTools запуск, если на dev
-     *
-     */
-
-    if (RG.config.env === 'dev') {
-
-        $('body').append($('<rg-ftools></rg-ftools>'));
-
-        RG.parser.init();
-        RG.parser.render('rg-ftools');
-    }
 });
 // END DOM READY
+
+
+
+$(function() {
+    (function () {
+
+        var share = new Ractive.components.share({
+            el: '#share',
+            data() {
+                return {
+                    owner: 'share',
+                    options: {
+                        theme: {
+                            counter: true
+                        }
+                    },
+                    content: 'Поделиться:'
+                }
+            }
+        });
+
+        RG.events.publish('share.set', {
+            url: $('meta[property="og:url"]').attr('content'),
+            title: $('meta[property="og:title"]').attr('content'),
+            description: $('meta[name="description"]').attr('content'),
+            image: $('meta[property="og:image"]').attr('content')
+        });
+
+    })();
+});

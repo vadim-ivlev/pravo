@@ -15,15 +15,9 @@ module.exports = function(data){
 						
 						blocks: {
 							
-							vendors: RGB('footer&vendors'), // наши издания + RGB partners
-							
-							toggle: RGB('footer&toggle'), // скрыть-показать рубрики
-							
-							links: RGB('footer&links'), // ссылки + RGB vendors footer-links
-							
-							bottom: RGB('footer&bottom'), // кнопки в подвале + RGB social
-							
-							//categories: RGB('footer&categories') // категории
+							top: RGB('footer&top'), // верх футера
+
+							bottom: RGB('footer&bottom') // низ футера
 						}
 						
 					}

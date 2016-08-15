@@ -54,7 +54,7 @@ class QuestionsController extends ApiController
 
         $this->SidebarAction('json');
 
-        $this->PaginationAction($AllQuestionsAfterCheck, self::PAGINATION_FOR_JURISTS, self::COUNT_RECORDS_ON_PAGE_JURISTS, $id, 'https://front.rg.ru/jurists/main/');
+        $this->PaginationAction($AllQuestionsAfterCheck, self::PAGINATION_FOR_JURISTS, self::COUNT_RECORDS_ON_PAGE_JURISTS, $id, /*'https://front.rg.ru*/'/jurists/main/');
 
         $this->getDate();
         

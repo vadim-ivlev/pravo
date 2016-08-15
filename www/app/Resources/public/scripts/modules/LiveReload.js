@@ -3,7 +3,7 @@
  */
 
 var LiveReload = require('../../blocks/main/b-live-reload/scripts/LiveReload'),
-	
+
     blocks = [],
     liveReloads = {},
     templates = {},
@@ -114,7 +114,7 @@ var LiveReload = require('../../blocks/main/b-live-reload/scripts/LiveReload'),
     },
 
     renderComponent = (parrent) => {
-				
+
         RG.logger.trace(_(blocks).where({json: parrent.json}));
 
         _.chain(blocks).where({json: parrent.json}).each(block => {
@@ -154,7 +154,7 @@ var LiveReload = require('../../blocks/main/b-live-reload/scripts/LiveReload'),
                     partials: {
                         part: partials[block.tmpl]
                     }
-                });;
+                });
             }
 
             RG.events.publish('livereload.init', block);

@@ -23,7 +23,7 @@ function Module(root, options) {
             attrFind: 'data-content-handler'
         };
 
-    this.options = _options = $.extend({}, defaults, options);
+    this.options = _options = $.extend({}, defaults, options);            
 
     // Родительский контейнер
     this.$root = $root;
@@ -79,7 +79,7 @@ Module.fn.select = function($btn, ctxLabel) {
         $ctx.addClass(this.options.active);
 
         // сохраняем выделенный элемент
-        this.storeCtx($ctx);
+        this.storeCtx($ctx);    
 
     } else {
         throw new Error(`Не найден выбранный элемент, проверьте аттрибут поиска элемента: ${this.options.attrFind}`);
@@ -153,8 +153,7 @@ Module.fn.init = function() {
         .$labelList.on('click', function(e) {
 
             var $btn = $(this),
-                ctxLabel = null,
-                userCallbOnSelect = self.options.onSelect;
+                ctxLabel = null;
 
             // на случай если будет ссылка на элементе
             e.preventDefault();
@@ -166,12 +165,6 @@ Module.fn.init = function() {
 
                 // выделяем элемент
                 self.select($btn, ctxLabel);
-
-                // Если есть обратный вызов
-                if ($.isFunction(userCallbOnSelect)) {
-
-                    userCallbOnSelect(e);
-                }
 
             } else {
                 throw new Error(`Не установлен аттрибут поиска элемента: ${self.options.attrFind}`);

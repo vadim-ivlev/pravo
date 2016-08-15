@@ -945,9 +945,7 @@ class ApiController extends Controller implements ContainerAwareInterface
                         'current' => ($i == $current_page) ? true : false,
                         'first' => ($i == $firstPage) ? true : false,
                         'middle' => ($i != $firstPage && $i != $totalPages) ? true : false,
-                        'last' => ($i == $totalPages) ? true : false,
-                        /*'left_hellip' => false,
-                        'left_hellip' => false,*/
+                        'last' => ($i == $totalPages) ? true : false
                     ];
                 } else {
                     $numeric_page[] = [
@@ -957,6 +955,7 @@ class ApiController extends Controller implements ContainerAwareInterface
                         'first' => false,
                         'middle' => false,
                         'last' => true,
+                        'right_three_dots' => true,
                     ];
                 }
             } elseif ($current_page == $totalPages && $i > $totalPages - $count_numeric_page) {//если на последний
@@ -975,6 +974,7 @@ class ApiController extends Controller implements ContainerAwareInterface
                     'first' => true,
                     'middle' => false,
                     'last' => false,
+                    'left_three_dots' => true,
                 ];
                 $arrow = $this::PaginationGenerateArrowAction($i, $current_page, $link, $condition_id, $get_string);
             } elseif ($current_page == $firstPage + 1) {//если на 2-ой
@@ -995,6 +995,7 @@ class ApiController extends Controller implements ContainerAwareInterface
                         'first' => false,
                         'middle' => false,
                         'last' => true,
+                        'right_three_dots' => true,
                     ];
                 }
                 $arrow = $this::PaginationGenerateArrowAction($i, $current_page, $link, $condition_id, $get_string);
@@ -1014,6 +1015,7 @@ class ApiController extends Controller implements ContainerAwareInterface
                     'first' => true,
                     'middle' => false,
                     'last' => false,
+                    'left_three_dots' => true,
                 ];
                 $arrow = $this::PaginationGenerateArrowAction($i, $current_page, $link, $condition_id, $get_string);
             } elseif (
@@ -1028,6 +1030,7 @@ class ApiController extends Controller implements ContainerAwareInterface
                     'first' => true,
                     'middle' => false,
                     'last' => false,
+                    'left_three_dots' => true,
                 ];
                 if ($current_page-2 < $i && count($numeric_page)){
                     $numeric_page[] = [
@@ -1047,6 +1050,7 @@ class ApiController extends Controller implements ContainerAwareInterface
                         'first' => false,
                         'middle' => false,
                         'last' => true,
+                        'right_three_dots' => true,
                     ];
                 }
                 $arrow = $this::PaginationGenerateArrowAction($i, $current_page, $link, $condition_id, $get_string);
@@ -1076,7 +1080,7 @@ class ApiController extends Controller implements ContainerAwareInterface
                 $this->result['pagination']['all__pages'][0]['__FIRST__'] = true;
                 $this->result['pagination']['all__pages'][count($this->result['pagination']['all__pages'])-1]['__LAST__'] = true;
             }
-            dump($this->result['pagination']);die;
+            //dump($this->result['pagination']);die;
         }
 
     }

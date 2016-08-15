@@ -22,7 +22,6 @@
 
         <div class="l-page__body group">
 
-				{% block sidebarLeft %}{% endblock %}
 				
                 <div 
 					class="l-page__wrapper"
@@ -30,6 +29,8 @@
 				>
 				
                     {% block main %}{% endblock %}
+					
+					{% block sidebarLeft %}{% endblock %}
 					
 					{% block sidebarRight %}{% endblock %}
 					

@@ -12,12 +12,15 @@ $block: '.b-footer-links'
 // УБИВАЕМ ССЫЛКИ
 .b-footer-links__list-item a[href="/spec.html"],
 .b-footer-links__list-item a[href="/izdania/"],
-.b-footer-links__list-item a[href="/subscr/"]
+.b-footer-links__list-item a[href="/subscr/"],
+.b-footer-links__list-item a[href="/webpartner/"],
+.b-footer-links__list-item a[href="/finansist.html"],
+.b-footer-links__list-item a[href="/zhurnalist/"]
     display: none
 
 // Стили 
 #{$block}
-    padding: 20px
+    padding: 20px 20px 0
 
     &__row
         // inline-block fix
@@ -70,13 +73,11 @@ $block: '.b-footer-links'
     +bp-tablet
 
         &
-            padding: 20px 0
             
             &__row
                 //width: auto
                 width: 100%
-                // margin: 20px 0 0
-                margin: 0
+                margin: 20px 0 0
                 padding-top: 0
                 display: inline-block
                 vertical-align: top
@@ -96,7 +97,6 @@ $block: '.b-footer-links'
                 &.has-3
                     padding-top: 20px
                     border-top: 1px solid $border-color
-                    margin-top: 15px
 
             &__list
                 //width: 145px
@@ -116,7 +116,6 @@ $block: '.b-footer-links'
     +bp-tabletLandscape
 
         &
-            padding-top: 0
 
             &__row
                 position: relative

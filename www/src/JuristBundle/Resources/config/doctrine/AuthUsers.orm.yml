@@ -73,6 +73,9 @@ JuristBundle\Entity\AuthUsers:
             type: datetime
             column: date_end_offers_services
             nullable: TRUE
+        totalRating:
+            type: integer
+            column: total_rating
 
     manyToMany:
         rubrics:

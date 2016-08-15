@@ -56,7 +56,7 @@ module.exports = function(data){
 						tag: "link",
 						attrs: {
 							rel: "shortcut icon",
-							href: "/favicon.ico"
+							href: "https://rg.ru/favicon.ico"
 						}
 					}
 				},
@@ -67,7 +67,7 @@ module.exports = function(data){
 						attrs: {
 							rel: "apple-touch-icon",
 							sizes: "76x76",
-							href: "/touch-icon-ipad.png"
+							href: "https://rg.ru/touch-icon-ipad.png"
 						}
 					}
 				},
@@ -78,7 +78,7 @@ module.exports = function(data){
 						attrs: {
 							rel: "apple-touch-icon",
 							sizes: "120x120",
-							href: "/touch-icon-iphone-retina.png"
+							href: "//rg.ru/touch-icon-iphone-retina.png"
 						}
 					}
 				},
@@ -89,7 +89,7 @@ module.exports = function(data){
 						attrs: {
 							rel: "apple-touch-icon",
 							sizes: "152x152",
-							href: "/touch-icon-ipad-retina.png"
+							href: "//rg.ru/touch-icon-ipad-retina.png"
 						}
 					}
 				},
@@ -103,6 +103,7 @@ module.exports = function(data){
 						}
 					}
 				}
+			
 			]
 		}
 	}

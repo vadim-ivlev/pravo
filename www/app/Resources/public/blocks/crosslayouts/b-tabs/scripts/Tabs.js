@@ -69,22 +69,14 @@ var template = require('../tabs.ihtml'), // подкючение шаблона
          */
         setPosition(element) {
 
-            var $element,
-                left,
-                width,
-                element;
-
             if(element) {
 
-                if($(this.el).find(element).length) {
-
-                    $element = $(element);
-                    left = $element.position().left;
+                var $element = $(element),
+                    left = $element.position().left,
                     width = $element.width();
 
-                    this.set('left', left);
-                    this.set('width', width);
-                }
+                this.set('left', left);
+                this.set('width', width);
             }
         }
     });

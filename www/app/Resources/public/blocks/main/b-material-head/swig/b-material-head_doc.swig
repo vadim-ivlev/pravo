@@ -1,9 +1,4 @@
 <div class="b-material-head__row">
-	<!-- дата и время -->
-	<div class="b-material-head__date">
-		<span class="b-material-head__date-day">{{{readable_release_date}}}</span>
-	</div>
-	<!-- /дата и время -->
 	<!-- привязка к выпуску -->
 	<div class="b-material-head__gazeta">
 		<!-- газетный выпуск -->

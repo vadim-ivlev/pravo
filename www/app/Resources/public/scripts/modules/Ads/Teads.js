@@ -1,6 +1,6 @@
 /*
  * Загрузчик баннеров Teads
- *
+ * 
  */
 
 var
@@ -49,7 +49,7 @@ var
                 ,components  : { skip: {delay : 0}}
                 ,mutable     : true
                 ,css         : "margin: 0px 0px 20px;"
-            },  */
+            },  */         
 
             {
                pid          : _placeId.mobile.inread[_ENV]
@@ -78,7 +78,7 @@ var
                ,components  : { skip: {delay : 0}}
                ,mutable     : true
                ,css         : "padding: 10px 0px;"
-            },*/
+            },*/           
 
             {
                    pid          : _placeId.desktop.inboard[_ENV]
@@ -96,7 +96,7 @@ var
             {
                 pid         : _placeId.desktop.inread[_ENV]
                 ,lang       : 'ru'
-                ,slot       : '[itemprop="articleBody"] > p'
+                ,slot       : '.b-material-wrapper article > p'
                 ,format     : 'inread'
                 ,className  : `${adsElementsClasses} teads_inread`
                 ,mobile      : false

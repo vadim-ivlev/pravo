@@ -13,7 +13,7 @@
 		fontLsKey = 'notoFamily_v1',
 
 		// ссылка на шрифт
-		fontUrl = '/res/fonts/rg/noto.woff.min.css',
+		fontUrl = 'https://rg.ru/res/fonts/rg/noto.woff.min.css',
 
 		localFont = null,
 

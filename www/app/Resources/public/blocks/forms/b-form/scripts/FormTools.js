@@ -20,10 +20,6 @@ var FormTools = Ractive.extend({
         let maxNum = this.get('maxlength.size'), // Максимальная длина инпута
             maxlengthback = this.get('maxlength.backward');  // Обратный отсчёт
 
-        if (this.get('maxlength') && typeof this.get('maxlength.show') === 'undefined') {
-            this.set('maxlength.show', true);
-        }
-
         // Слушатель изменения инпута
         this.observe('value', (nVal, oVal) => {
 
@@ -131,6 +127,8 @@ var FormTools = Ractive.extend({
         if (this.get('type') !== 'submit') {
 
             this.set('value', null);
+
+            $(".b-field__select option").each(function(){if(!+$(this).attr('value')){$(this).prop("selected", true);}})
 
         }
 

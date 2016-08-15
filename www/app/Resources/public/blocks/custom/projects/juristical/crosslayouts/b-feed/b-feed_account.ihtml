@@ -1,9 +1,0 @@
-<div class="b-feed__body b-news-themetopic__item__feed">
-    {{#materials}}
-        <div class="b-feed__item">
-            <span class="b-feed__date">{{dateFormat(published)}}</span>
-            <a class="b-link b-link_title"
-               href="{{url}}">{{title}}</a>
-        </div>
-    {{/materials}}
-</div>

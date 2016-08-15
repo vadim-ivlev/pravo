@@ -1,5 +1,0 @@
-<label class="b-field b-field_type_comment b-field_input b-field_input_submit">
-    <div class="b-field__wrapper">
-        <input class="b-field__input b-field__input_submit" type="submit" on-click="submit" value="{{text}}">
-    </div>
-</label>

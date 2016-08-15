@@ -15,7 +15,6 @@
     "gulp-babel": "^5.3.0",
     "gulp-concat": "^2.6.0",
     "gulp-debug": "^2.1.2",
-    "gulp-from-config": "git://github.com/kystkysto/gulp-from-config",
     "gulp-jshint": "^1.12.0",
     "gulp-minify-html": "^1.0.4",
     "gulp-print": "^2.0.1",
@@ -23,10 +22,9 @@
     "gulp-sass": "^2.1.0",
     "gulp-sourcemaps": "^1.6.0",
     "gulp-swig": "^0.7.4",
-    "gulp-rgswig": "git+https://github.com/nanomen/gulp-rgswig.git",
     "gulp-uglify": "^1.4.2",
     "gulp-util": "^3.0.7",
-	  "gulp-js-to-json": "^1.1.0",
+    "gulp-js-to-json": "^1.1.0",
     "jquery-colorbox": "~1.6.3",
     "jquery-mockjax": "^2.0.1",
     "keypather": "^1.10.1",
@@ -48,16 +46,11 @@
     "uglify-js": "^2.6.1",
     "yargs": "^3.29.0",
     "ractive-touch": "^0.4.0",
-    "gulp-html-minifier": "^0.1.8"
+    "gulp-html-minifier": "^0.1.8",
+    "gulp-from-config": "git://github.com/kystkysto/gulp-from-config",
+    "gulp-rgswig": "git+https://github.com/nanomen/gulp-rgswig.git"
   },
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://devrgru@bitbucket.org/devrgru/rg-frontend.git"
-  },
-  "author": "",
-  "license": "MIT",
-  "homepage": "https://bitbucket.org/devrgru/rg-frontend#readme"
+  "dependencies": {
+    "hammerjs": "^2.0.8"
+  }
 }

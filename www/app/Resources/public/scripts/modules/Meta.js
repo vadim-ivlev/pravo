@@ -1,33 +1,7 @@
 /**
  * Created by esolovyev on 06.12.2015.
  */
-var
-
-    getAll = (name) => {
-
-        var selector = (name) ? `meta[name="${name}"]` : 'meta',
-            metaList = [];
-
-        $(selector).each(function(i, el){
-
-            var attr = el.attributes,
-                attrItem = {};
-
-            $.each(attr, function(i, el){
-                attrItem[el.name] = el.nodeValue;
-            });
-
-            if (!$.isEmptyObject(attrItem)) {
-                metaList.push(attrItem);
-            }
-
-        });
-
-        return metaList;
-
-    },
-
-    getEnv = () => {
+var getEnv = () => {
 
         var env = $('meta[name="rg-data"][property="env"]').attr('content');
 
@@ -122,15 +96,9 @@ var
     getCustomLiveinternet = () => {
 
         return $('meta[name="rg-data"][property="customLiveinternet"]').attr('content');
-    },
-
-    getPreview = () => {
-
-        return $('meta[name="rg-data"][property="preview"]').attr('content');
     };
 
 module.exports = {
-    getAll,
     getEnv,
     getSujet,
     getMaterial,
@@ -147,6 +115,5 @@ module.exports = {
     getAdsHide,
     getGaId,
     getYaMetrikaId,
-    getCustomLiveinternet,
-    getPreview
+    getCustomLiveinternet
 };

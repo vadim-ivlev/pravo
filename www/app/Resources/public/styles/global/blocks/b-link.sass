@@ -102,7 +102,7 @@ $hasBMaterialSujet: '.b-material-sujet'
 
             position: absolute
             right: -25px
-            
+
             background: url(#{$img-path}sprite_main.png) no-repeat -150px -60px
 
         #{$hasBMaterialSujet} &
@@ -110,9 +110,12 @@ $hasBMaterialSujet: '.b-material-sujet'
 
 
     &_watch.is-active
-    
+
         &:after
             background-position: -150px -40px
+
+    &_block
+        display: block
 
     // Посещенная ссылка у материалов
     .b-news &:visited,
@@ -125,6 +128,12 @@ $hasBMaterialSujet: '.b-material-sujet'
         margin-top: 1px
         line-height: 21px
         padding-bottom: 0
+
+    &_alrf
+        display: block
+        background: #051945
+        padding: 0 5px
+        margin-bottom: 20px
 
     // Retina
     +bp-retina

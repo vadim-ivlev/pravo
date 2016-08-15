@@ -13,10 +13,22 @@ $block: '.b-categories'
         +font(12px)
 
         font-weight: bold
-        padding: 15px 0
-        text-transform: uppercase
+        padding: 12px 0 8px
         color: $black
         background-color: $white
+
+    &__item
+        padding: 5px 20px 8px
+
+        &_main
+            display: inline-block
+            font-weight: normal
+            font-size: 14px
+            padding: 5px 30px 8px 0
+
+        &_active
+            font-weight: bold
+            color: $black
 
     // Скин: белый фон
     &__body_white,
@@ -42,13 +54,18 @@ $block: '.b-categories'
         margin-top: 10px
         padding-top: 10px
         border-top: 1px solid $border-color
-
         position: relative
-
         &:first-child
             margin-top: 0
             padding-top: 0
             border-top: 0
+
+        &_sidebar
+            text-transform: uppercase
+            
+            .b-categories__item_active
+                color: $white
+                background: $red-orange
 
     // Если открыто в оверлее на мобиле
     &_overlay &__body_blue
@@ -65,7 +82,6 @@ $block: '.b-categories'
     // чтобы по всему размеру блока было кликабельно
     &__link
         width: 100%
-        padding: 5px 20px
         margin-bottom: 5px
         display: inline-block
 
@@ -87,6 +103,9 @@ $block: '.b-categories'
         bottom: -26px
 
         display: inline-block
+
+    &_main
+        margin-bottom: 10px
 
 
     // Tablet

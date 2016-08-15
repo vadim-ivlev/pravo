@@ -14,7 +14,9 @@ www/var/sessions/*
 !www/var/sessions/.gitkeep
 !www/var/SymfonyRequirements.php
 www/vendor/
+www/app/config/parameters_db.yml
 www/web/bundles/
 share/
 node_modules/
 npm-debug.log
+www/src/JuristBundle/Resources

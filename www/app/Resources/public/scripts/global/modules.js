@@ -8,7 +8,7 @@
 RG.config = RG.config || require('../config');
 
 /**
- * Подключения модуля работабщего с meta данными
+ * Подключения модуля, работающего с meta данными
  */
 RG.meta = RG.meta || require('../modules/Meta');
 
@@ -27,40 +27,40 @@ RG.config.paths.root = (RG.config.env === 'dev') ? 'https://front-dev.rg.ru/app_
 RG.logger = RG.logger || require('../modules/Logger');
 
 /**
- * Подключения модуля обробатывающего события
+ * Подключения модуля, обрабатывающего события
  * https://github.com/mroderick/PubSubJS
  */
 RG.events = RG.events || require('../modules/Events');
 
 /**
- * Подключения модуля работабщего с cookie
+ * Подключения модуля, работающего с cookie
  * https://github.com/ScottHamper/Cookies
  */
 RG.session = RG.session || require('../modules/Session');
 
 /**
- * Подключения модуля работабщего строкой поиска
+ * Подключения модуля, работающего строкой поиска
  */
 RG.query = RG.query || require('../modules/Query');
 
 /**
- * Подключения модуля работабщего с cookie
+ * Подключения модуля, работающего с cookie
  * https://github.com/ScottHamper/Cookies
  */
 RG.storage = RG.storage || require('../modules/Storage');
 
 /**
- * Подключения модуля работабщего со временем
+ * Подключения модуля, работающего со временем
  */
 RG.datetime = RG.datetime || require('../modules/DateTime');
 
 /**
- * Подключения модуля работабщего с выделением текста
+ * Подключения модуля, работающего с выделением текста
  */
 RG.selection = RG.selection || require('../modules/Selection');
 
 /**
- * Подключения модуля работабщего с DOM
+ * Подключения модуля, работающего с DOM
  */
 RG.parser = RG.parser || require('../modules/Parser');
 
@@ -70,7 +70,7 @@ RG.parser = RG.parser || require('../modules/Parser');
 RG.ScreenViewer = RG.ScreenViewer || require('../modules/ScreenViewer');
 
 /**
- * Подключение модуля Gподписок
+ * Подключение модуля подписок
  */
 RG.Subscribe = RG.Subscribe || require('../modules/Services/Subscribe');
 
@@ -110,11 +110,6 @@ RG.Counters = RG.Counters || require('../modules/Counters');
 RG.Ads = RG.Ads || require('../modules/Ads/Ads');
 
 /**
- * Подключение модуля партнеров
- */
-RG.Partners = RG.Partners || require('../modules/Partners/Partners');
-
-/**
  * Подключение модуля перестановки блоков
  */
 RG.BlocksShifter = RG.BlocksShifter || require('../modules/BlocksShifter');
@@ -145,14 +140,9 @@ RG.RegionalNews = RG.RegionalNews || require('../modules/Services/RegionalNews')
 RG.ListHeadToSelect = RG.ListHeadToSelect || require('../modules/ListHeadToSelect');
 
 /**
- * Подключение модуля верхнего меню
- */
+* Подключение модуля верхнего меню
+*/
 RG.Menu = RG.Menu || require('../../blocks/header/b-menu/scripts/main');
-
-/**
- * Подключение модуля авторизации
- */
-RG.Auth = RG.Auth || require('../../blocks/overlays/b-auth/scripts/main');
 
 /**
  * Формы РГ

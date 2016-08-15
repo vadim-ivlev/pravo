@@ -1,3 +1,0 @@
-<div class="b-button">
-    <button class="b-button__button b-field__input_submit" on-click="press">{{txt}}</button>
-</div>

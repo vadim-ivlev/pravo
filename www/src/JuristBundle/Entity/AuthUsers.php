@@ -137,6 +137,10 @@ class AuthUsers
      */
     private $dateEndOfferServices;
 
+    /**
+     * @var integer
+     */
+    private $totalRating;
 
     /**
      * Get id
@@ -747,6 +751,30 @@ class AuthUsers
     public function getDateEndOfferServices()
     {
         return $this->dateEndOfferServices;
+    }
+
+    /**
+     * Set totalRating
+     *
+     * @param integer $totalRating
+     *
+     * @return AuthUsers
+     */
+    public function setTotalRating($totalRating)
+    {
+        $this->totalRating = $totalRating;
+
+        return $this;
+    }
+
+    /**
+     * Get totalRating
+     *
+     * @return integer
+     */
+    public function getTotalRating()
+    {
+        return $this->totalRating;
     }
 }
 

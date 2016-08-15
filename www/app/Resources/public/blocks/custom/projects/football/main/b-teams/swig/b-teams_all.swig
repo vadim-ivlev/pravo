@@ -1,1 +1,0 @@
-<!--#include virtual='/ssi/blocks/custom/projects/{[ _meta.uri ]}/crosslayouts/b-team/b-team_all.ssi'-->

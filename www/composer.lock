@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "4ddead3c1a2ca81dd143a6bc90af224b",
-    "content-hash": "a33c77ef8985394d218a68ed67573b12",
+    "hash": "17edcaa5d0f769317c5380a0168ec4b6",
+    "content-hash": "85f61e4600ec09aa80256cdec38785c3",
     "packages": [
         {
             "name": "bobthecow/mustache-bundle",
@@ -820,6 +820,55 @@
                 "orm"
             ],
             "time": "2016-01-05 21:34:58"
+        },
+        {
+            "name": "iakumai/sphinxsearch-bundle",
+            "version": "dev-master",
+            "target-dir": "IAkumaI/SphinxsearchBundle",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/IAkumaI/SphinxsearchBundle.git",
+                "reference": "cf622949f64a7d10b5e5abc9e4d95f280095e43d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/IAkumaI/SphinxsearchBundle/zipball/cf622949f64a7d10b5e5abc9e4d95f280095e43d",
+                "reference": "cf622949f64a7d10b5e5abc9e4d95f280095e43d",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "type": "symfony-bundle",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "0.2-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "IAkumaI\\SphinxsearchBundle": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Valery Ozarnichuk",
+                    "email": "meru.no.akuma@gmail.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Sphinx search bundle for Symfony 2",
+            "homepage": "https://github.com/IAkumaI/SphinxsearchBundle",
+            "keywords": [
+                "Symfony2",
+                "sphinx",
+                "sphinxsearch"
+            ],
+            "time": "2016-03-11 05:59:35"
         },
         {
             "name": "incenteev/composer-parameter-handler",
@@ -2152,7 +2201,9 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "iakumai/sphinxsearch-bundle": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {

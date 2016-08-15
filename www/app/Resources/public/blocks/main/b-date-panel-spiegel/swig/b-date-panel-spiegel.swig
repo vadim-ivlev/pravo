@@ -1,1 +1,0 @@
-<div id="datePanel" class="b-date-panel-spiegel__body"></div>

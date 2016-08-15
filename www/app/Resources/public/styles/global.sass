@@ -1,270 +1,173 @@
 // Глобальные переменные и служебные функции
 @import common
 
-
 // Normalize
 @import global/normalize
 
-// Стили анимации
-@import global/animation
+// Инструменты
+@import global/instruments
 
-// Глобальные стили страницы
-@import global/user
+// Инструменты
+@import global/elements
+
+// Иконки
+@import global/blocks/b-icon
+
+// Ссылки
+@import global/blocks/b-link
+@import global/blocks/b-link-btn
+
+// Поля форм
+//@import ../../../custom/projects/juristical/global/blocks/b-field
+
+// Ссылка на скачивание
+@import global/blocks/b-file-icon
+
+// Модификаторы для блоков и элементов
+@import global/modify
 
 // Стили версии для печати
 @import global/print
 
 
 
+/*
+ * Переменные
+ *
+ */
+
+//$width-wrapper-mobile: 100% 
+//$width-wrapper-tablet: 490px 
+//$width-wrapper-tabletLandscape: 650px 
+//$width-wrapper-desktop: 970px 
+//$width-wrapper-desktopFull: 1330px
+
+//$id_prject: 'zilart'
+
+$main-color: #686868
+$active-color: #e01d42
+
 
 /*
  * Глобальные блоки страницы
- *
+ * 
  */
 
-// Основная сетка сайта
-@import layouts/l-page
+// @import ../../../../styles/custom/projects/zilart/global/modify
 
-// Обсновной блок боковой разметки
-@import layouts/l-aside
-
+@import juristical/layouts/l-page
 
 
 /*
- * Баннеры
+ * Блоки
  *
  */
-
-// Баннер
-//@import blocks/b-banner/styles/b-banner
-// Реклама текстовая
-@import ../blocks/crosslayouts/b-advert/styles/b-advert
-// Реклама директ
-@import ../blocks/crosslayouts/b-yadirect/styles/b-yadirect
-// Баннеры (все баннеры идут через эти блоки)
-@import ../blocks/crosslayouts/b-ads/styles/b-ads
-// Баннеры адфокс
-@import ../blocks/crosslayouts/b-adfox/styles/b-adfox
-
-/*
- * Сайдбар
- *
- */
-
-// Левый сайтбар
-@import ../blocks/sidebar/b-sidebar-left/styles/b-sidebar-left
-// Правый сайтбар
-@import ../blocks/sidebar/b-sidebar-right/styles/b-sidebar-right
-// Блок рубрик
-@import ../blocks/crosslayouts/b-categories/styles/b-categories
-
-
-
-/*
- * Шапка
- *
- */
-
-// Основной блок шапки
-@import ../blocks/header/b-header/styles/b-header
-// Блок меню в шапке
-@import ../blocks/header/b-menu/styles/b-menu
-// Блок меню пользователя в шапке
-@import ../blocks/header/b-menu-user/styles/b-menu-user
-// Блок переключалки региона в шапке
-@import ../blocks/header/b-switch-region/styles/b-switch-region
-// Блок логотипа в шапке
-@import ../blocks/header/b-logo/styles/b-logo
-// Блок новости в шапке
-@import ../blocks/header/b-header-news/styles/b-header-news
-// Блок онлайн трансляций в шапке
-@import ../blocks/header/b-broadcast/styles/b-broadcast
-
-
-
-
-
-/*
- * Футер
- *
- */
-
-// Основной блок футера
-@import ../blocks/footer/b-footer/styles/b-footer
-// Ссылки в футере
-@import ../blocks/footer/b-footer-links/styles/b-footer-links
-// Счетчики
-@import ../blocks/footer/b-counter/styles/b-counter
-
-
-
-
-
-/*
- * Основной контент
- *
- */
-
-// Блок основного контента
-@import ../blocks/main/b-content/styles/b-content
-// Блок шпишельной ленты новостей
-@import ../blocks/main/b-news/styles/b-news
-// Блок сквозной ленты новостей
-@import ../blocks/main/b-news-inner/styles/b-news-inner
-// Блок новостей рубрик
-@import ../blocks/main/b-news-rubric/styles/b-news-rubric
-// Шапка ленты контента
-@import ../blocks/main/b-list-head/styles/b-list-head
-// Тело ленты контента
-@import ../blocks/main/b-list-wrapper/styles/b-list-wrapper
-// Тело статической страницы
-@import ../blocks/main/b-static-wrapper/styles/b-static-wrapper
-// Шапка страницы рубрик
-@import ../blocks/main/b-rubricator-head/styles/b-rubricator-head
-// Актуальные сюжеты
-@import ../blocks/main/b-themetopic/styles/b-themetopic
-// Блок статей из сюжета в рубриках
-@import ../blocks/main/b-news-themetopic/styles/b-news-themetopic
-// Блок меню рубрик на странице рубрики
-@import ../blocks/main/b-rubricator-menu/styles/b-rubricator-menu
-// Блок рубрик на странице рубрики
-@import ../blocks/main/b-rubricator-rubrics/styles/b-rubricator-rubrics
-// Блок видео
-@import ../blocks/main/b-video/styles/b-video
-//блок дополнительного контента в заге статической страницы
-@import ../blocks/main/b-head-info/styles/b-head-info
-// Блок брендирования под шапкой
-@import ../blocks/main/b-branding-head/style/b-branding-head
-// Блок с границами
-@import ../blocks/crosslayouts/b-bounded-row/styles/b-bounded-row
-
-
-/*
- * Переносимые блоки
- *
- */
-
-// Блок лоадер
-@import ../blocks/crosslayouts/b-spinner/styles/b-spinner
-// Блок лоадер
-@import ../blocks/crosslayouts/b-dummy/styles/b-dummy
-// Блок акцентов
-@import ../blocks/crosslayouts/b-accents/styles/b-accents
-// Блок онтактов для спецвыпусков
-@import ../blocks/crosslayouts/b-contacts/styles/b-contacts
-// Блок ленты акцентов
-@import ../blocks/crosslayouts/b-feed-accents/styles/b-feed-accents
-// Блок главной ленты новостей
-@import ../blocks/crosslayouts/b-feed/styles/b-feed
-// Блок фото/видео
-@import ../blocks/crosslayouts/b-media/styles/b-media
-// Блок спецпроекты
-//@import ../blocks/crosslayouts/b-projects/styles/b-projects
-// Блок мнения
-// Блок удалили и переименовали в _views @import ../blocks/crosslayouts/b-views/styles/b-views
-// Блок выбор редакции
-//@import ../blocks/crosslayouts/b-editor/styles/b-editor
-// Блок документы
-@import ../blocks/crosslayouts/b-docs/styles/b-docs
-// Блок персоны
-//@import ../blocks/crosslayouts/b-person/styles/b-person
-// Блок социальных кнопок
-@import ../blocks/crosslayouts/b-social/styles/b-social
-// Блок поделиться в статье
-@import ../blocks/crosslayouts/b-share/styles/b-share
-// Подписка на сюжет
-@import ../blocks/crosslayouts/b-follow/styles/b-follow
-// Комментарии
-// Перенесено в material.sass @import ../blocks/crosslayouts/b-comment/styles/b-comment
-// Один комментарий
-// Перенесено в material.sass @import ../blocks/crosslayouts/b-post/styles/b-post
-// Партнерки
-@import ../blocks/crosslayouts/b-partner-news/styles/b-partner-news
-
-// Табы, используются во всплывающих окнах (свежий выпуск)
-//@import ../blocks/crosslayouts/b-tab/styles/b-tab
-// Блок с названием полосы
-@import ../blocks/crosslayouts/b-broadside/styles/b-broadside
-// Блок метаинформации
-@import ../blocks/crosslayouts/b-material-meta/styles/b-material-meta
-// Блок связей материала
-@import ../blocks/crosslayouts/b-material-related/styles/b-material-related
-// Блок связей материала
-@import ../blocks/crosslayouts/b-material-sujet/styles/b-material-sujet
-// Автор статьи
-@import ../blocks/crosslayouts/b-author/styles/b-author
-// Поле поиска
-@import ../blocks/crosslayouts/b-search-bar/styles/b-search-bar
-// Таб-меню
-@import ../blocks/crosslayouts/b-tabs/styles/b-tabs
-// Календарь
-@import ../blocks/crosslayouts/b-calendar/styles/b-calendar
-// Блок алфавита (в интервью)
-@import ../blocks/crosslayouts/b-alphabet/styles/b-alphabet
-// Блок подсказок в инпутах
-@import ../blocks/forms/b-input-notification/styles/b-input-notification
-// Лента партнеров
-@import ../blocks/crosslayouts/b-vendors/styles/b-vendors
-// Блок возрастного ограничения
-@import ../blocks/crosslayouts/b-age/styles/b-age
-// Блок downloads
-@import ../blocks/crosslayouts/b-downloads/styles/b-downloads
-// Блок карточек данных
-@import ../blocks/crosslayouts/b-card/styles/b-card
-// Боковая картинка проекта
-@import ../blocks/crosslayouts/b-issue-picture/styles/b-issue-picture
-
-// Партнеры
-@import ../blocks/crosslayouts/b-partners/styles/b-partners
-
-// Блок видеозакон
-@import ../blocks/crosslayouts/b-video-laws/styles/b-video-laws
-
-// Сообщение формы
-@import ../blocks/forms/b-form-message/styles/b-form-message
-
-// Кнопка с подпиской
-@import ../blocks/crosslayouts/b-mailing/styles/b-mailing
-
-// Календарь
-@import ../blocks/crosslayouts/b-custom-datepicker/styles/b-custom-datepicker
-
-// Видеопоток
-@import ../blocks/crosslayouts/b-video-inner/styles/b-video-inner
-
-
-/*
- * Блоки во всплывающих окнах
- *
- */
-
-// Блок выбора региона
-@import ../blocks/overlays/b-region/styles/b-region
+@import header/b-header/styles/b-header
+@import crosslayouts/b-logo/styles/b-logo
+@import header/b-menu/styles/b-menu
+@import crosslayouts/b-tabs/styles/b-tabs
+@import crosslayouts/b-btn/styles/b-btn
+@import crosslayouts/b-search/styles/b-search
+@import crosslayouts/b-top-jurist/styles/b-top-jurist
+@import crosslayouts/b-jurist-introduction/styles/b-jurist-introduction
+@import crosslayouts/b-ads/styles/b-ads
+@import crosslayouts/b-bibliotechka-advert/styles/b-bibliotechka-advert
+@import crosslayouts/b-download/styles/b-download
+@import sidebar/b-sidebar-left/styles/b-sidebar-left
+@import sidebar/b-sidebar-right/styles/b-sidebar-right
+@import crosslayouts/b-categories/styles/b-categories
+@import crosslayouts/b-feed/styles/b-feed
+@import crosslayouts/b-round-image/styles/b-round-image
+@import crosslayouts/b-right/styles/b-right
+@import crosslayouts/b-share/styles/b-share
+@import crosslayouts/b-questions/styles/b-questions
+@import crosslayouts/b-question-block/styles/b-question-block
+@import crosslayouts/b-jurists/styles/b-jurists
+@import crosslayouts/b-jurist-block/styles/b-jurist-block
+@import crosslayouts/b-img-col/styles/b-img-col
+@import crosslayouts/b-grey-text/styles/b-grey-text
+@import crosslayouts/b-list/styles/b-list
+@import crosslayouts/b-ul/styles/b-ul
+@import forms/b-select/styles/b-select
+@import forms/b-form/styles/b-form
+@import forms/b-form-message/styles/b-form-message
+@import forms/b-input-notification/styles/b-input-notification
+@import crosslayouts/b-field/styles/b-field
+@import main/b-main/styles/b-main
+@import main/b-breadcrumbs/styles/b-breadcrumbs
+@import main/b-material-head/styles/b-material-head
+@import main/b-rate/styles/b-rate
+@import main/b-pagination/styles/b-pagination
+@import main/b-arrow/styles/b-arrow
+@import main/b-to-page/styles/b-to-page
+@import main/b-answer/styles/b-answer
+@import main/b-answer-steps/styles/b-answer-steps
+@import main/b-article/styles/b-article
+@import main/b-tags/styles/b-tags
+@import main/b-users-selection/styles/b-users-selection
+@import main/b-users-specialization/styles/b-users-specialization
+@import footer/b-footer/styles/b-footer
+@import footer/b-footer-cols/styles/b-footer-cols
+@import footer/b-counter/styles/b-counter
 
 // Блок поиска модальное окно
-@import ../blocks/overlays/b-search-overlay/styles/b-search-overlay
+@import ../../../../blocks/overlays/b-search-overlay/styles/b-search-overlay
 
-// Блок свежий выпуск
-//@import ../blocks/crosslayouts/b-fresh/styles/b-fresh
-// Блок свежий выпуск - лента новостей
-//@import ../blocks/crosslayouts/b-fresh-news/styles/b-fresh-news
+// @import ../../../../blocks/main/b-material-wrapper/styles/b-material-wrapper
 
-// Блок прочитанных статей
-@import ../blocks/overlays/b-viewed/styles/b-viewed
-//@import ../blocks/crosslayouts/b-viewed/styles/b-viewed
+// @import ../../../../blocks/custom/projects/zilart/main/b-material-wrapper/styles/b-material-wrapper
 
-// Блок отслеживаемых статей
-@import ../blocks/overlays/b-followed/styles/b-followed
-//@import ../blocks/crosslayouts/b-followed/styles/b-followed
+// @import ../../../../blocks/main/b-material-img/styles/b-material-img
 
-// Блок авторизации
-@import ../blocks/overlays/b-auth/styles/b-auth
+// @import ../../../../blocks/main/b-material-head/styles/b-material-head
 
-// Блок авторизации
-@import ../blocks/overlays/b-rgftools/styles/b-rgftools
+// @import ../../../../blocks/custom/projects/zilart/main/b-material-head/styles/b-material-head
 
-// Блок курсов валют
-@import ../blocks/crosslayouts/b-exchange/styles/b-exchange
+// @import ../../../../blocks/main/b-content/styles/b-content
+
+// @import ../../../../blocks/main/b-gallery/styles/b-gallery
+
+// @import ../../../../blocks/custom/projects/zilart/main/b-gallery/styles/b-gallery
+
+// @import ../../../../blocks/main/b-news/styles/b-news
+
+// @import ../../../../blocks/custom/projects/zilart/main/b-news/styles/b-news
+
+
+
+
+// @import ../../../../blocks/sidebar/b-sidebar-right/styles/b-sidebar-right
+// @import ../../../../blocks/custom/projects/zilart/sidebar/b-sidebar-right/styles/b-sidebar-right
+
+
+
+// @import ../../../../blocks/main/b-read-more/styles/b-read-more
+
+// @import ../../../../blocks/custom/projects/zilart/main/b-read-more/styles/b-read-more
+
+
+
+
+// @import ../../../../blocks/custom/projects/zilart/crosslayouts/b-ads/styles/b-ads
+
+// @import ../../../../blocks/crosslayouts/b-best/styles/b-best
+
+// @import ../../../../blocks/crosslayouts/b-feed-accents/styles/b-feed-accents
+
+// @import ../../../../blocks/custom/projects/zilart/crosslayouts/b-share/styles/b-share
+
+// @import ../../../../blocks/crosslayouts/b-feed/styles/b-feed
+
+// @import ../../../../blocks/crosslayouts/b-social/styles/b-social
+
+// @import ../../../../blocks/custom/projects/zilart/crosslayouts/b-vendors/styles/b-vendors
+
+
+
+
+// @import ../../../../blocks/custom/projects/zilart/footer/b-footer/styles/b-footer
+// @import ../../../../blocks/custom/projects/zilart/footer/b-client-line/styles/b-client-line
+
 
 
 /*
@@ -273,8 +176,8 @@
  */
 
 // Colorbox
-@import vendors/vendor.colorbox.custom
+@import ../../../vendors/vendor.colorbox.custom
 // Scrollbar
-@import vendors/vendor.scrollbar.custom
+@import ../../../vendors/vendor.scrollbar.custom
 // Fotorama
-@import vendors/vendor.fotorama.custom
+@import ../../../vendors/vendor.fotorama.custom

@@ -1,8 +1,0 @@
-
-<div style="display: {{profile ? 'block' : 'none'}}">
-    <profile />
-</div>
-
-<div style="display: {{services ? 'block' : 'none'}}">
-    <services type="{{type}}" items="{{items}}"/>
-</div>

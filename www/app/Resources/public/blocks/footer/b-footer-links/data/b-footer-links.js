@@ -46,35 +46,36 @@ module.exports = {
 					]
 				},
 				{
-					title: "Тематические проекты",
+					title: "Спецпроекты",
 					links__list__item: [
 						{
 							title: "Digital",
 							uri: "//digital.rg.ru"
 						},
 						{
-							title: "Русское оружие",
-							uri: "//sila.rg.ru"
-						},
-						{
 							title: "Кинократия",
 							uri: "//kino.rg.ru"
 						},
 						{
-							title: "25 лет РГ",
-							uri: "//25.rg.ru/"
+							title: "Русское оружие",
+							uri: "//sila.rg.ru"
+						},
+						
+						{
+							title: "Пора бежать",
+							uri: "/sujet/5444/"
 						},
 						{
-							title: "Дубль дв@",
-							uri: "//d2.rg.ru/"
+							title: "25 лет РГ",
+							uri: "http://25.rg.ru/"
 						},
 						{
 							title: "ProРодитель",
 							uri: "/sujet/5325/"
 						},
 						{
-							title: "Пора бежать",
-							uri: "/sujet/5444/"
+							title: "Дубль дв@",
+							uri: "http://d2.rg.ru/"
 						},
 						{
 							title: "Все спецпроекты",
@@ -108,10 +109,6 @@ module.exports = {
 						{
 							title: "Звезды Победы",
 							uri: "/zvezdy_pobedy/index.html"
-						},
-						{
-							title: "Год литературы",
-							uri: "https://godliteratury.ru/"
 						}
 					]
 				}
@@ -135,12 +132,8 @@ module.exports = {
 							uri: "/reklama/"
 						},
 						{
-							title: "Подписка",
-							uri: "/subscription.html"
-						},
-						{
 							title: "Медиацентр",
-							uri: "//mc.rg.ru/"
+							uri: "http://mc.rg.ru/"
 						},
 						{
 							title: "Подписка",
@@ -177,7 +170,7 @@ module.exports = {
 							uri: "/inbox/"
 						},
 						{
-							title: "Использование материалов «РГ»",
+							title: "Использование материалов",
 							uri: "/webpartner/"
 						},
 						{

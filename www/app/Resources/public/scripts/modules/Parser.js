@@ -44,7 +44,7 @@ var components = [],
     /**
      * Возвращает атрибуты элемента в виде объекта
      **/
-    getAttributes = (el) => {  
+    getAttributes = (el) => {        
 
         var attributes = {};
 
@@ -85,8 +85,6 @@ var components = [],
                     }
                 }
 
-
-
                 return [item.name, value];
             }));
         }
@@ -114,20 +112,9 @@ var components = [],
 
                 _.each(foundComponents, item => {
 
-                    var data = item.data;
-
-                    // if(options && options.data) {
-
-                    //     data = _.extend(data, options.data);
-                    //     delete options.data;
-                    // }
-
                     let settings = _.extend({
                             el: item.el,
                             data: item.data
-                            // data: () => {
-                            //     return data;
-                            // }
                         }, options || {}),
 
                         instance = new Ractive.components[component](settings);

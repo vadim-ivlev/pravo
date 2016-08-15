@@ -1,1 +1,0 @@
-<rg-audio file="{[ data.src ]}" title="{[ data.title ]}" rgb="true" />

@@ -6,13 +6,7 @@
             value="{{selectedOption}}"
             type="select">
             {{#items}}
-                {{#isObject}}
-                    {{#if (value !== null && value !== undefined) }}
-                        <option value="{{value}}">{{{content}}}</option>
-                    {{else}}
-                        <option value="{{.}}">{{{content}}}</option>
-                    {{/if}}
-                {{/isObject}}
+                {{#isObject}}<option value="{{value}}">{{{content}}}</option>{{/isObject}}
                 {{^isObject}}<option value="{{.}}">{{{.}}}</option>{{/isObject}}
             {{/items}}
         </select>

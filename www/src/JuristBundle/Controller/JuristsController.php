@@ -209,7 +209,7 @@ class JuristsController extends ApiController
         //dump($get_string);
         $this->PaginationAction(
             $AllJurist, self::PAGINATION_FOR_JURISTS, self::COUNT_RECORDS_ON_PAGE_JURISTS,
-            $id, 'https://front.rg.ru/jurists/jurists/', 1, '', $this->ProcessingRequestForPaginationAction()
+            $id, /*'https://front.rg.ru*/'/jurists/jurists/', 1, '', $this->ProcessingRequestForPaginationAction()
         );
         /**
          * array $query, $count_numeric_page, $count_records_on_page,

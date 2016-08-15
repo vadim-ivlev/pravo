@@ -1,1 +1,0 @@
-<rg-yadirect project="{[ data[mod].project ]}" place="{[ data[mod].id ]}" items="{[ data[mod].items | json ]}"></rg-yadirect>

@@ -32,7 +32,6 @@
             </div>
         </div>
         {{/items}}
-        <div class="b-news-inner__list__all-materials"><a href="{{sujetUrl}}" class="b-link_blue">Все материалы сюжета</a></div>
     </div>
     {{/if}}
 {{/partial}}

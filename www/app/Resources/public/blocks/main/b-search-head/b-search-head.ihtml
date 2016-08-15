@@ -1,8 +1,0 @@
-<div class="b-search-head__row_search">
-
-	<search-bar />
-
-	<div class="b-search-head__filters-btn">
-		<a class="b-link b-link_blue" href="#" on-click="filters">{{filtersShown ? 'Скрыть расширенный поиск' : 'Расширенный поиск'}}</a>
-	</div>
-</div>

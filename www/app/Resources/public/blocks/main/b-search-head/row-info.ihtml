@@ -1,6 +1,0 @@
-{{#showResult}}
-    <div class="b-search-head__row_info group">
-        <div class="b-search-head__meta">{{materials}} найдено</div>
-        <div class="b-search-head__sort">Сортировать: <a class="b-link b-link_blue" href="#" on-click="sort">{{sort ? 'По дате' : 'По релевантности'}}</a></div>
-    </div>
-{{/showResult}}

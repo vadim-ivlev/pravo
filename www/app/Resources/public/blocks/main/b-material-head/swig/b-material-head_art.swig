@@ -6,24 +6,15 @@
 		<meta itemprop="datePublished" content="{{datetime__iso8601__ext}}" />
 	</div>
 	<!-- /дата и время -->
-
 	<!-- рубрика -->
-	{{# main_tema}}
+	{{# title__title}}
 	<div class="b-material-head__rubric">
-		Рубрика: <a itemprop="articleSection" class="b-link b-material-head__rubric-name" href="{{main_tema__uri}}">{{main_tema__title}}</a>
-		<meta itemprop="genre" content="{{main_tema__title}}" />
+		Рубрика: <a itemprop="articleSection" class="b-link b-material-head__rubric-name" href="{{title__uri}}">{{title__title}}</a>
+		<meta itemprop="genre" content="{{title__title}}" />
 	</div>
-	{{/ main_tema}}
+	{{/ title__title}}
+
 	<!-- /рубрика -->
-
-	<!-- проект -->
-	{{# main_project}}
-	<div class="b-material-head__rubric">
-		Проект: <a class="b-link b-material-head__rubric-name" href="{{main_project__uri}}">{{main_project__title}}</a>
-	</div>
-	{{/ main_project}}
-	<!-- /проект -->
-
 	<a class="b-icon b-icon_type_print b-material-head__print" href="#"></a>
 </div>
 
@@ -53,7 +44,7 @@
 				<a itemprop="author" href="{{author_uri}}" class="b-link b-link_tag b-material-head__authors-link">
 					{{name}}
 				</a>
-
+				
 				<!-- полномочия -->
 				{{# credentials}}
 					<span class="b-material-head__authors-credentials">({{credentials}})</span>
@@ -66,7 +57,7 @@
 		{{/ authors_by_kind}}
 	</div>
 	<!-- /авторы -->
-
+	
 	<!-- газетный выпуск -->
 	{{# fascicle_fulltitle}}
 	<div class="b-material-head__anchor">
@@ -74,5 +65,5 @@
 	</div>
 	{{/ fascicle_fulltitle}}
 	<!-- /газетный выпуск -->
-
+		
 </div>

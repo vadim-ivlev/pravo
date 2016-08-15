@@ -1,89 +1,10 @@
-/*
- * Поиск
- * 
- */
+/* Кнопки */
 
 // Объявляем блок
 $block: '.b-search'
 
-// Модификаторы
-
-// Стили
+//Стили
 #{$block}
-    +font(13px)
-
-    background-color: $white
-
-    &__bar
-        margin-bottom: 20px
-        padding: 10px 45px 10px 20px
-        
-        border-bottom: 1px solid $border-color
-
-    &__bar-input
-        +font(15px)
-
-        margin-left: -70px
-        padding-left: 70px
-
-    &__popular
-        padding: 6px 20px
-
-    &__popular-title
-        margin-bottom: 10px
-        color: $comment-color
-
-    &__popular-list
-
-    &__popular-list-item
-        margin-bottom: 12px
-    
-
-    // Tablet
-    +bp-tablet
-
-        &
-            +font(14px)
-
-            &__bar
-                position: relative
-
-            &__bar &__row
-
-                &:before
-                    content: 'Найти на сайте:'
-                    position: absolute
-                    top: 20px
-                    color: $comment-color
-
-            &__bar-input
-                +font(15px)
-                
-                margin-left: -95px
-                padding-left: 220px
-
-            &__bar-submit
-                +font(15px)
-
-            &__popular-title
-                margin-bottom: 20px
-
-            &__popular-list-item
-                margin-bottom: 15px
-            
-
-    // Desktop
-    +bp-desktop
-
-        &
-            &__row
-                width: 800px
-                position: relative
-                margin: 0 auto
-
-            &__bar &__row
-            
-                &:before
-                    left: 15px
-                    top: 10px
-            
+    display: inline-block
+    vertical-align: top
+    margin: 5px 30px 0 0

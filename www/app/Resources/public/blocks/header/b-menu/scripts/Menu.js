@@ -3,7 +3,6 @@
  */
 
 var Services = require('./Services'),
-    Geolocation = require('./Geolocation'),
 
     template = require('../b-menu.ihtml'), // подкючение шаблона
 
@@ -21,11 +20,9 @@ var Services = require('./Services'),
 
         components: {
             'menu-services': Services,
-            'menu-geolocation': Geolocation,
         },
 
         oninit() {
-
             RG.logger.debug('Menu');
         }
     });

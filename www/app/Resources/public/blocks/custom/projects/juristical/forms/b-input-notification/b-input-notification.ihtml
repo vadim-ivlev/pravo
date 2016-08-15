@@ -1,7 +1,0 @@
-{{#show}}
-    <div intro-outro='fade'
-         class="b-input-notification {{class}}"
-         on-click="notify">
-        <p class="b-input-notification__msg">{{{msg}}}</p>
-    </div>
-{{/show}}

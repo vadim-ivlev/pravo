@@ -11,7 +11,6 @@ $adfox: '.adfox'
 
 // Стили
 #{$block}
-    //background-color: $today-bg-color перенес в элементы
 
     // Настраиваем специфические свойства баннеров
     iframe
@@ -23,34 +22,16 @@ $adfox: '.adfox'
      *
      */
 
-    // Если в сайтбаре, удаляем нижний отступ у элемента
-    // потому что когда нет баннера, отступ есть
-    &.b-sidebar-right__item
-        margin-bottom: 0
-
-        //& div[id^="AdFox_banner"]
-            //margin-bottom: 20px
-
-    // Отступ у баннера в конце
-    &__banner .adfox_item
-        margin-bottom: 20px
-
     // Верхняя перетяжка
     // Центральная перетяжка
     &_top,
     &_central-header
-        //margin: 0 auto
-        //margin-left: 0
-
-        &__banner .adfox_item
-            margin-bottom: 0
 
         // Tablet 
         +bp-tablet
 
             &
                 width: $width-wrapper-tablet
-                //margin-left: 30px
 
         // Tablet landscape
         +bp-tabletLandscape
@@ -62,7 +43,6 @@ $adfox: '.adfox'
         +bp-desktop
 
             &
-                //width: 990px
                 width: $width-wrapper-desktop
 
         // Desktop full
@@ -75,18 +55,8 @@ $adfox: '.adfox'
                     width: 1000px
                     margin: 0 auto
 
-                #{$adfox}_loaded
-                    //padding: 10px 0
-
     &_central-header
-        //margin-top: 10px
         margin-bottom: 6px
-
-        #{$adfox}
-            //height: 120px
-        
-        #{$adfox} iframe
-            //height: 100px
 
         // Tablet 
         +bp-tablet
@@ -99,7 +69,6 @@ $adfox: '.adfox'
     // Правый сайтбар
     &_sidebar-left,
     &_sidebar-right,
-    &_sidebar-right-top,
     &_sidebar-left-second,
     &_index-rigth-bottom
 
@@ -107,19 +76,15 @@ $adfox: '.adfox'
         & div[id^="AdFox_banner"]
             width: 100%!important
             height: 100%!important
-            margin-top: 20px
             overflow: hidden
-
-            background-color: $today-bg-color
+            margin-top: 0
 
             img
                 width: auto !important
-                display: block
 
             & > a
-                margin: 0 auto
-                // display: inline-block
-                display: block
+                margin: 20px 35px
+                display: inline-block
 
         // Tablet
         +bp-tablet
@@ -128,40 +93,10 @@ $adfox: '.adfox'
                 #{$adfox}
                     padding: 0
 
-        // Tablet landscape
-        +bp-tabletLandscape
-
-            &
-
-                #{$adfox}_loaded
-                    //padding: 20px 0
-
-        // Desktop
-        +bp-desktop
-
-            &
-
-                iframe,
-                img
-                    //margin: 20px 35px
-                    margin: 20px auto
-                    
-                #{$adfox}_loaded
-                    //padding: 20px 35px
-
-                div[style*="300px"] iframe
-                    margin: 5px
-
-
         // Desktop full
         +bp-desktopFull
 
             &
-
-                iframe,
-                img
-                    //margin: 20px 35px
-                    margin: 20px auto
 
                 div[id^="AdFox_banner"] + div iframe
                     margin: 0
@@ -169,40 +104,7 @@ $adfox: '.adfox'
                 div[id^="AdFox_banner"]
                 
                     & > a
-                       margin: 0 
-
-                #{$adfox}_loaded
-                    //padding: 20px 35px
-
-    &_sidebar-right-top
-
-        & div[id^="AdFox_banner"]
-            margin-top: 0
-
-    // Только левый
-    &_sidebar-left
-        //background-color: transparent
-
-        // Desktop full
-        +bp-desktopFull
-
-            &
-                //background-color: $today-bg-color
-
-    // Только правый
-    &_sidebar-right
-        //margin-bottom: 0!important
-
-        // Desktop
-        +bp-desktop
-
-            &
-                #{$adfox}_loaded
-                    //padding: 20px 35px
-
-                //iframe,
-                //img
-                    //margin: 20px 35px
+                       margin: 0
 
     // На главной в рубрике
     &_index-rubric-first
@@ -221,8 +123,6 @@ $adfox: '.adfox'
             display: block
 
         #{$adfox}_loaded
-            //margin-bottom: 20px
-            //overflow: hidden
             margin: 20px auto
 
         div[id^="AdFox_banner"] // живем по-новому
@@ -267,29 +167,6 @@ $adfox: '.adfox'
     &__tgb div[id^="AdFox_banner"]
         width: 100%!important
         height: auto!important
-        // margin-bottom: 20px
-
-        // перенес, чтобы на пустых баннерах не было полосок
-        // да и вообще
-        //padding: 0 20px
-        
-        // background-color: $white
-        // border-bottom: 1px solid $border-color
-
-        // & a
-        //     display: block
-        //     padding-bottom: 20px
-        //     margin-bottom: 20px
-        //     border-bottom: 1px solid $border-color
-
-    &__tgb #{$adfox}_loaded
-        //width: 100%!important
-        //height: auto!important
-        //margin-bottom: 20px
-
-        //background-color: $white
-        //border-bottom: 1px solid $border-color
-
 
     &__tgb &__item
         margin-bottom: 20px
@@ -390,13 +267,9 @@ $adfox: '.adfox'
         &:after
             background-position: -41px -21px
 
-    &__tgb_slide &__item:hover &__title
-        // margin-bottom: 5px 
-
     &__tgb_slide &__item:hover &__text
         max-height: 310px
         height: 310px
-        // +opacity(1)
 
     // Прилипающая подписка
     &_central-stick
@@ -507,11 +380,11 @@ $adfox: '.adfox'
                     z-index: 10
 
                 &:before
-                    left: 0px
+                    left: 0
                     background-image: linear-gradient(to left, rgba(243, 104, 33, 0), #F36821 75%)
 
                 &:after
-                    right: 0px
+                    right: 0
                     background-image: linear-gradient(to right, rgba(243, 104, 33, 0), #F36821 75%)
 
             .b-date-panel__day
@@ -596,4 +469,3 @@ $adfox: '.adfox'
 
             .b-date-panel.is-fixed
                 padding-left: 310px
-

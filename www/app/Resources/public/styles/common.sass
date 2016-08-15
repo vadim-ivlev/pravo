@@ -113,32 +113,6 @@ $indent-title: 15px // отступ от заголовка до текста
     @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi)
         @content
 
-
-/// Примесь позволяет определять `font-size`.
-//
-// / @author Stepanenko Nikita (AGIMA)
-// / @access public
-//
-// / @param {Length} $size - `size` элемента
-//
-// / @example scss - Использование
-// / .foo {
-// /   @include font(10em);
-// / }
-//
-// / .bar {
-// /   @include font(16px);
-// / }
-//
-// / @example css - Вывод CSS
-// / .foo {
-// /   font-size: 10em;
-// / }
-//
-// / .bar {
-// /   font-size: 16px;
-// / }
-
 =font($size: 16px)
     font-size: $size
 
@@ -212,9 +186,6 @@ $indent-title: 15px // отступ от заголовка до текста
 
     /* Netscape */
     -moz-opacity: $item
-
-    /* Safari 1.x */
-    -khtml-opacity: $item
 
     /* Good browsers */
     opacity: $item

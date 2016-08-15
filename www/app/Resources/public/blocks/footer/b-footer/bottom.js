@@ -13,8 +13,9 @@ module.exports = function(data){
 					param: {
 						
 						blocks: {
-							social: RGB('footer&social'), // социальные сети + RGB social
-							developer: RGB('footer&developer') // разработка и дизайн сайта
+
+							counters: RGB('counter') // счётчики
+
 						}
 						
 					}

@@ -1,3 +1,0 @@
-<div class="b-date-panel-spiegel__item">
-    <tabs items={{superspTabs.items}} selected={{superspTabs.selected}} />
-</div>

@@ -1,1 +1,0 @@
-<div data-tmpl="/res/templates/b-exchange.html" class="liveReload" data-delay="0" data-request="jsonp"  data-json="https://front.rg.ru/api/currency/result.json"></div>

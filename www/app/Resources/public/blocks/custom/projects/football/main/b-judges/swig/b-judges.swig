@@ -1,1 +1,0 @@
-<!--#include virtual='/ssi/blocks/custom/projects/{[ _meta.uri ]}/crosslayouts/b-judges/b-judges.ssi'-->

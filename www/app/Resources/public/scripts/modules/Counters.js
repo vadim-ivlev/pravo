@@ -6,9 +6,9 @@
 var
     /*
      * Свойства
-     *
+     * 
      */
-
+    
     // Префикс событий
     _modulePrefix = 'Counters',
 
@@ -67,7 +67,7 @@ var
                 /*
                  * Настраиваем блок счетчика
                  *
-                 */
+                 */                
 
                 $a = $('<a />', {
                     target: '_blank',
@@ -108,7 +108,7 @@ var
                 RG.logger.info('mailruCounter init');
 
             }
-        },
+        }, 
 
         // LiveInternet
         {
@@ -152,25 +152,9 @@ var
                 // Настраиваем дополнительный hit
                 if (!!customHit) {
 
-                    // Обрабатываем доп hit
-                    // Удаляем лишние пробелы
-                    customHit = customHit.trim();
+                    new Image().src = protocol + "//counter.yadro.ru/hit;" + customHit + "?r"+ escape(document.referrer)+((typeof(screen)=="undefined")?"":";s"+screen.width+"*"+screen.height+"*"+(screen.colorDepth?screen.colorDepth:screen.pixelDepth))+";u"+escape(document.URL)+";"+Math.random();
 
-                    // hit может быть разделен пробелом
-                    // разбиваем на массив
-                    $.each(customHit.split(' '), function(i, hit) {
-
-                        // Проверка, если вдруг попадется пустой hit
-                        if (!!hit) {
-
-                            new Image().src = protocol + "//counter.yadro.ru/hit;" + hit + "?r"+ escape(document.referrer)+((typeof(screen)=="undefined")?"":";s"+screen.width+"*"+screen.height+"*"+(screen.colorDepth?screen.colorDepth:screen.pixelDepth))+";u"+escape(document.URL)+";"+Math.random();
-
-                            RG.logger.info('liveInternetCounter with custom Hit init: ' + hit);
-
-                        }
-
-                    });
-
+                    RG.logger.info('liveInternetCounter with custom Hit init');
                 }
 
             }
@@ -222,7 +206,7 @@ var
                 // Настраиваем счетчик
                 window.yandex_metrika_callbacks = window.yandex_metrika_callbacks || [];
 
-                window.yandex_metrika_callbacks.push(function() {
+                window.yandex_metrika_callbacks.push(function() { 
                     try {
 
                         window.yaCounter22322746 = new Ya.Metrika({
@@ -234,8 +218,8 @@ var
 
                     } catch(e) {
                         RG.logger.error(e + '. Yandex Metrika error');
-                    }
-                });
+                    } 
+                }); 
 
                 // Загружаем библиотеку
                 $.getScript(protocol + '//mc.yandex.ru/metrika/watch.js');

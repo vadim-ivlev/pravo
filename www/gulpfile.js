@@ -70,26 +70,26 @@ gulp.task('lib:scripts', function () {
 
     return gulp
         .src([
-            "/www/app/node_modules/underscore/underscore-min.js",
-            "/www/app/node_modules/ractive/ractive-legacy.min.js",
-            "/www/app/node_modules/jquery-mockjax/dist/jquery.mockjax.min.js",
-            "/www/app/node_modules/pubsub-js/src/pubsub.js",
-            "/www/app/node_modules/moment/min/moment.min.js",
-            "/www/app/node_modules/moment/locale/ru.js",
-            "/www/app/node_modules/cookies-js/dist/cookies.min.js",
-            "/www/app/node_modules/jquery-colorbox/jquery.colorbox-min.js",
-            "/www/app/node_modules/lockr/lockr.min.js",
-            "/www/app/node_modules/quill/dist/quill.js",
-            "/www/app/node_modules/fotorama/fotorama.js",
-            "/www/app/node_modules/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.js",
-            "/www/app/node_modules/slick-carousel/slick/slick.min.js",
-            "/www/app/node_modules/lsbridge/src/lsbridge.js",
+            "/var/www/pravo/node_modules/underscore/underscore-min.js",
+            "/var/www/pravo/node_modules/ractive/ractive-legacy.min.js",
+            "/var/www/pravo/node_modules/jquery-mockjax/dist/jquery.mockjax.min.js",
+            "/var/www/pravo/node_modules/pubsub-js/src/pubsub.js",
+            "/var/www/pravo/node_modules/moment/min/moment.min.js",
+            "/var/www/pravo/node_modules/moment/locale/ru.js",
+            "/var/www/pravo/node_modules/cookies-js/dist/cookies.min.js",
+            "/var/www/pravo/node_modules/jquery-colorbox/jquery.colorbox-min.js",
+            "/var/www/pravo/node_modules/lockr/lockr.min.js",
+            "/var/www/pravo/node_modules/quill/dist/quill.js",
+            "/var/www/pravo/node_modules/fotorama/fotorama.js",
+            "/var/www/pravo/node_modules/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.js",
+            "/var/www/pravo/node_modules/slick-carousel/slick/slick.min.js",
+            "/var/www/pravo/node_modules/lsbridge/src/lsbridge.js",
 
-            "./src/scripts/vendors/rg/colmaker.jquery.js",
-            "./src/scripts/vendors/adfox/adfox.reload_code.embeds.min.js",
-            "./src/scripts/vendors/jwplayer/jwplayer.min.js",
-            "./src/scripts/vendors/jquery.sticky-kit.js",
-            "./src/scripts/vendors/jquery.appear.js"
+            "./app/Resources/public/scripts/vendors/rg/colmaker.jquery.js",
+            "./app/Resources/public/scripts/vendors/adfox/adfox.reload_code.embeds.min.js",
+            "./app/Resources/public/scripts/vendors/jwplayer/jwplayer.min.js",
+            "./app/Resources/public/scripts/vendors/jquery.sticky-kit.js",
+            "./app/Resources/public/scripts/vendors/jquery.appear.js"
         ])
 
         .pipe(
@@ -105,7 +105,7 @@ gulp.task('lib:scripts', function () {
             this.emit('end');
         })
 
-        .pipe(gulp.dest(pathMap.dest.public + '/scripts'));
+        .pipe(gulp.dest(pathMap.dest.public + '/js'));
 
 });
 
@@ -114,13 +114,13 @@ gulp.task('lib:styles', function () {
 
     return gulp
         .src([
-            "/www/app/node_modules/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.css",
-            "/www/app/node_modules/slick-carousel/slick/slick.css",
+            "/var/www/pravo/node_modules/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.css",
+            "/var/www/pravo/node_modules/slick-carousel/slick/slick.css",
 
-            "./src/styles/vendors/colorbox/colorbox.css",
-            "./src/styles/vendors/fotorama/fotorama.css",
-            "./src/styles/vendors/slick/slick-theme.css",
-            "./src/styles/vendors/animate/animate.min.css"
+            "./app/Resources/public/styles/vendors/colorbox/colorbox.css",
+            "./app/Resources/public/styles/vendors/fotorama/fotorama.css",
+            "./app/Resources/public/styles/vendors/slick/slick-theme.css",
+            "./app/Resources/public/styles/vendors/animate/animate.min.css"
         ])
 
         .pipe(
@@ -138,7 +138,7 @@ gulp.task('lib:styles', function () {
             this.emit('end');
         })
 
-        .pipe(gulp.dest(pathMap.dest.public + '/styles'));
+        .pipe(gulp.dest(pathMap.dest.public + '/css'));
 
 });
 

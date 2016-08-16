@@ -72,7 +72,7 @@ module.exports = {
                 {
                     opt: {
                         contents: [
-                            { data: "<script src=\"https://jurist.dev.rg.ru/res/scripts/custom/projects/juristical/b-form.js\"></script>" }
+                            { data: "<script src=\"/bundles/jurist/js/b-form.js\"></script>" }
                         ]
                     }
                 }

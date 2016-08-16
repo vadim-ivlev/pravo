@@ -74,7 +74,7 @@ module.exports = {
                 {
                     opt: {
                         contents: [
-                            { data: "<script src=\"https://rg.ru/res/scripts/custom/projects/juristical/answer.js\"></script>" }
+                            { data: "<script src=\"/bundles/jurist/js/answer.js\"></script>" }
                         ]
                     }
                 }

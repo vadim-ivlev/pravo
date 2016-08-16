@@ -17,7 +17,7 @@
                     {{# jurist__img }}
                         {{# jurist__img__type_medium }}
                             <img class="b-round-image" src="{{ jurist__img__file }}" width="{[ data[mod].img__width ]}" height="{[ data[mod].img__height ]}" alt="{{ jurist__img__title }}">
-                        {{/ jurist__Img__type_medium }}
+                        {{/ jurist__img__type_medium }}
                     {{/ jurist__img }}
                     <div class="b-jurist-block__title b-jurist-block__title_sidebar">
                         <div class="b-jurist-block__last-name b-jurist-block__last-name_feed">{{ jurist__last_name }}</div>
@@ -62,7 +62,7 @@
                     {{# jurist__img }}
                         {{# jurist__img__type_medium }}
                             <img class="b-round-image" src="{{ jurist__img__file }}" width="{[ data[mod].img__width ]}" height="{[ data[mod].img__height ]}" alt="{{ jurist__img__title }}">
-                        {{/ jursit__img__type_medium }}
+                        {{/ jurist__img__type_medium }}
                     {{/ jurist__img }}
                 </a>
             {% endif %}

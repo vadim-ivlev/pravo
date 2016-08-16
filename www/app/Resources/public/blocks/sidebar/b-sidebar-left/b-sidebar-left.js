@@ -29,7 +29,7 @@ module.exports = function(data){
 
 							juristsFeed: RGB('jurists:feed'), // лента юристов, предлагающих услуги (в сайдбаре)
 
-							juristsTop: RGB('jurists:top') // список лучших юристов (в сайдбаре)
+							juristsTop: RGB('jurists:top', '#jurist_top') // список лучших юристов (в сайдбаре)
 
 						},
 						

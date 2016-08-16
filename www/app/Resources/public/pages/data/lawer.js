@@ -99,7 +99,7 @@ module.exports = {
 
             blocks: [
 
-                RGB('idebar-left:lawer', '#sidebar')
+                RGB('sidebar-left:lawer', '#sidebar')
 
             ]
         },

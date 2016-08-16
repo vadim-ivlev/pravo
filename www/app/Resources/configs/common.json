@@ -6,7 +6,7 @@
       "dest": "/src/JuristBundle/Resources/public/css",
       "src": {
         "include": [
-          "/app/Resources/public/public/styles/global.sass"
+          "/app/Resources/public/styles/global.sass"
         ]
       },
       "sourcemaps": true,
@@ -296,6 +296,24 @@
       "src": {
         "include": [
           "/app/Resources/public/images/**/*.*"
+        ]
+      }
+    },
+    {
+      "name": "root",
+      "dest": "/src/JuristBundle/Resources/public/root",
+      "src": {
+        "include": [
+          "/app/Resources/public/root/*.*"
+        ]
+      }
+    },
+    {
+      "name": "fonts",
+      "dest": "/src/JuristBundle/Resources/public/fonts",
+      "src": {
+        "include": [
+          "/app/Resources/public/fonts/**/*.*"
         ]
       }
     }

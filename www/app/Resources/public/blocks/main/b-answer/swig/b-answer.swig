@@ -34,12 +34,10 @@
         {{# answer__type_card}}
             <ol class="b-answer-steps">
                 {{# answer__steps}}
-                    {{# answer__steps__array }}
-                        <li class="b-answer-steps__item">
-                            <div class="b-answer-steps__title">{{ answer__steps__title }}</div>
-                            <div class="b-answer-steps__text">{{ answer__steps__text }}</div>
-                        </li>
-                    {{/ answer__steps__array }}
+                    <li class="b-answer-steps__item">
+                        <div class="b-answer-steps__title">{{ answer__steps__title }}</div>
+                        <div class="b-answer-steps__text">{{ answer__steps__text }}</div>
+                    </li>
                 {{/ answer__steps}}
             </ol>
         {{/ answer__type_card}}

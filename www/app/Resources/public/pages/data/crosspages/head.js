@@ -20,7 +20,7 @@ module.exports = {
 				tag: "link",
 				attrs: {
 					rel: "stylesheet",
-					href: "https://rg.ru/res/styles/lib.css"
+					href: "/bundles/jurist/css/lib.css"
 				}
 			}
 		},
@@ -40,7 +40,7 @@ module.exports = {
 				tag: "link",
 				attrs: {
 					rel: "stylesheet",
-					href: "https://rg.ru/res/styles/custom/projects/juristical/global.css"
+					href: "/bundles/jurist/css/global.css"
 				}
 			}
 		},
@@ -64,7 +64,7 @@ module.exports = {
 			name: "crosspageLibJs",
 			opt: {
 				contents: [
-					{ data: "<script src=\"https://rg.ru/res/scripts/lib.js\"></script>" }
+					{ data: "<script src=\"/bundles/jurist/js/lib.js\"></script>" }
 				]
 			}
 		},
@@ -80,7 +80,7 @@ module.exports = {
 			name: "crosspageRgGlobalProjectJS",
 			opt: {
 				contents: [
-					{ data: "<script src=\"https://jurist.dev.rg.ru/res/scripts/custom/projects/juristical/global.js\"></script>" }
+					{ data: "<script src=\"/bundles/jurist/js/global.js\"></script>" }
 				]
 			}
 		},

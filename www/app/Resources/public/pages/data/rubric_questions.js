@@ -72,8 +72,8 @@ module.exports = {
                 {
                     opt: {
                         contents: [
-                            { data: "<script src=\"https://jurist.rg.ru/res/scripts/custom/projects/juristical/rubric_questions.js\"></script>" },
-                            { data: "<script src=\"https://jurist.rg.ru/res/scripts/custom/projects/juristical/pagination.js\"></script>" }
+                            { data: "<script src=\"/bundles/jurist/js/rubric_questions.js\"></script>" },
+                            { data: "<script src=\"/bundles/jurist/js/pagination.js\"></script>" }
                         ]
                     }
                 }

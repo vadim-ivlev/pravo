@@ -56,7 +56,7 @@ module.exports = function(data){
 						tag: "link",
 						attrs: {
 							rel: "shortcut icon",
-							href: "https://rg.ru/favicon.ico"
+							href: "/bundles/jurist/root/favicon.ico"
 						}
 					}
 				},
@@ -67,7 +67,7 @@ module.exports = function(data){
 						attrs: {
 							rel: "apple-touch-icon",
 							sizes: "76x76",
-							href: "https://rg.ru/touch-icon-ipad.png"
+							href: "/bundles/jurist/root/touch-icon-ipad.png"
 						}
 					}
 				},
@@ -78,7 +78,7 @@ module.exports = function(data){
 						attrs: {
 							rel: "apple-touch-icon",
 							sizes: "120x120",
-							href: "//rg.ru/touch-icon-iphone-retina.png"
+							href: "/bundles/jurist/root/touch-icon-iphone-retina.png"
 						}
 					}
 				},
@@ -89,7 +89,7 @@ module.exports = function(data){
 						attrs: {
 							rel: "apple-touch-icon",
 							sizes: "152x152",
-							href: "//rg.ru/touch-icon-ipad-retina.png"
+							href: "/bundles/jurist/root/touch-icon-ipad-retina.png"
 						}
 					}
 				},

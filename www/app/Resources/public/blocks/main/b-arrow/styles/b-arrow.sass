@@ -12,7 +12,7 @@ $block: '.b-arrow'
     display: inline-block
     width: 10px
     height: 16px
-    background: url("/res/images/sprite_main.png") no-repeat
+    background: url("#{$img-path}sprite_main.png") no-repeat
     vertical-align: middle
     &:hover
         opacity: 0.5
@@ -28,3 +28,6 @@ $block: '.b-arrow'
     &_disabled
         opacity: 0.5
         display: none
+
+    +bp-retina
+        background: url("#{$img-path}sprite_main_2.png") no-repeat

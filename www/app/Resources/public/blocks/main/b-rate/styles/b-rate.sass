@@ -18,8 +18,13 @@ $block: '.b-rate'
         display: inline-block
         width: 8px
         height: 10px
-        background: url("/res/images/sprite_main.png") -78px -77px no-repeat
+        background: url("#{$img-path}sprite_main.png") -78px -77px no-repeat
 
     &__value
         display: inline-block
         padding-left: 2px
+
+    +bp-retina
+        &
+            &__icon
+                background: url("#{$img-path}sprite_main_2.png") -78px -77px no-repeat

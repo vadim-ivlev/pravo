@@ -48,7 +48,7 @@ module.exports = {
                     opt: {
                         contents: [
                             { data: "<meta name=\"rg-data\" property=\"ads:uri\" content=\"/static/juristical/ind\">" }, // Для подключения рекламы
-                            { data: "<script src=\"https://jurist.dev.rg.ru/res/scripts/custom/projects/juristical/pagination.js\"></script>" }
+                            { data: "<script src=\"/bundles/jurist/js/pagination.js\"></script>" }
                         ]
                     }
                 }

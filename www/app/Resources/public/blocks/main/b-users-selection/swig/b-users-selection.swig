@@ -1,2 +1,2 @@
 {[ macro.RGBi(blocks.usersSpecialization) ]}
-{#{[ macro.RGBi(blocks.usersSorting) ]}#}
+{[ macro.RGBi(blocks.usersSorting) ]}

@@ -1,14 +1,3 @@
-{#<a href="" class="b-arrow b-arrow_prev"></a>#}
-{#<a href="" class="b-to-page b-to-page_active">1</a>#}
-{#<a href="" class="b-to-page">2</a>#}
-{#<a href="" class="b-to-page">3</a>#}
-{#<a href="" class="b-to-page">4</a>#}
-{#<a href="" class="b-to-page">5</a>#}
-{#<a href="" class="b-to-page">&hellip;</a>#}
-{#<a href="" class="b-to-page">54</a>#}
-{#<a href="" class="b-arrow b-arrow_next"></a>#}
-
-
 {{# pagination }}
     <div class="b-arrow b-arrow_prev b-arrow_disabled js-arrow-prev-disabled"></div>
     {{# arrow }}
@@ -17,7 +6,21 @@
         {{/ arrow__prev }}
     {{/ arrow }}
     {{# all__pages }}
-        <a href="{{ link }}" class="js-to-page b-to-page{{# current }} b-to-page_active{{/ current }}">{{ number_page }}</a>
+        {{# __FIRST__ }}
+            <a href="{{ link }}" class="js-to-page b-to-page{{# current }} b-to-page_active{{/ current }}">{{ number_page }}</a>
+            {{# left_three_dots }}
+                &hellip;
+            {{/ left_three_dots }}
+        {{/ __FIRST__ }}
+        {{# middle }}        
+            <a href="{{ link }}" class="js-to-page b-to-page{{# current }} b-to-page_active{{/ current }}">{{ number_page }}</a>
+        {{/ middle }}
+        {{# __LAST__ }}
+            {{# right_three_dots }}
+                &hellip;
+            {{/ right_three_dots }}
+            <a href="{{ link }}" class="js-to-page b-to-page{{# current }} b-to-page_active{{/ current }}">{{ number_page }}</a>
+        {{/ __LAST__ }}
     {{/ all__pages }}
     {{# arrow }}
         {{# arrow__next }}

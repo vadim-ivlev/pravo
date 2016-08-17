@@ -4,7 +4,7 @@
             {% if mod == "main" %}
                 Все консультации
             {% else %}
-                <a href="/jurists/main/1/html/0/" class="b-link b-link_blue">Все консультации</a>
+                <a href="{{# routes}}{{# bread__crumbs}}{{ bread__crumbs__main }}{{/ bread__crumbs}}{{/ routes}}" class="b-link b-link_blue">Все консультации</a>
             {% endif %}
         </li>
         {% if mod !== "main" %}

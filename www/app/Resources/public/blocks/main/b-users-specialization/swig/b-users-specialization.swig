@@ -3,9 +3,9 @@
     <div class="b-field__wrapper b-field__wrapper_inline">
         <form>
             <label>
-                <select class="b-field__select b-field__select_select js-user-specialization" id="user-specialization">
+                <select class="b-field__select b-field__select_select b-users-specialization__select js-user-specialization" id="user-specialization">
                     {{# rubrics__conditions }}
-                        <option value="{{ rubrics__conditions__url }}" {{ rubrics__conditions__current_id }}>{{ rubrics__conditions__name }}</option>
+                        <option value="{{ rubrics__conditions__id }}" {{ rubrics__conditions__current_id }}>{{ rubrics__conditions__name }}</option>
                     {{/ rubrics__conditions }}
                 </select>
             </label>

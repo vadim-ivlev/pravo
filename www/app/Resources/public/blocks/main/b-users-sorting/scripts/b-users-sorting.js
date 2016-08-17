@@ -7,10 +7,13 @@ $(function() {
             'current_search' : window.location.search,
         };
 
+//[select#sortBy.b-users-sorting__select, context: select#sortBy.b-users-sorting__select]
+//[select#sortBy.b-users-sorting__select.has-loading, selector: "", context: select#sortBy.b-users-sorting__select.has-loading]
+//console.log('#' + $(this_local).attr('id') + ' option');
         $('#' + $(this_local).attr('id') + ' option').each(function () {
-            if ($(this_local).prop("selected")) {
+            if ($(this).prop("selected")) {
                 data['order_by'] = {};
-                data.order_by[this_local.parentNode.id] = $(this_local).val();
+                data.order_by[this.parentNode.id] = $(this).val();
             }
         });
 
@@ -21,12 +24,15 @@ $(function() {
             async: true,
             success: function(data) {
                 console.log(data);
-                console.log(select_id);
-                $(select_id).prop('disabled', false);
             },
             error: function(data) {
                 console.log('error');
-                $(select_id).prop('disabled', false);
+                //
+            },
+            complete: function(data) {
+                $(select_id)
+                .prop('disabled', false)
+                .removeClass('has-loading');
             }
         });
     }
@@ -37,7 +43,11 @@ $(function() {
 
     function callback () {
         callback_data['this'] = $(this);
-        $($('#' + $(this).attr('id')).prop('disabled', 'disabled')).ready(_.debounce(sendRequest, 1000));
+        $(
+            $('#' + $(this).attr('id'))
+            .prop('disabled', 'disabled')
+            .addClass('has-loading')
+            ).ready(_.debounce(sendRequest, 1000));
     }
 
     $('#user-specialization, #sortBy').on('change', callback);

@@ -1,6 +1,6 @@
-Сортировать по:
+Сортировать:
 <select name="" id="sortBy">
-    <option value="alphabet">Алфавиту</option>
-    <option value="rating">Рейтингу</option>
-    <option value="company">Компании</option>
+    <option value="alphabet">По алфавиту</option>
+    <option value="rating">По рейтингу</option>
+    <option value="company">По компании</option>
 </select>

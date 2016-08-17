@@ -6,21 +6,21 @@
         {{/ arrow__prev }}
     {{/ arrow }}
     {{# all__pages }}
-        {{# __FIRST__ }}
+        {{# first }}
             <a href="{{ link }}" class="js-to-page b-to-page{{# current }} b-to-page_active{{/ current }}">{{ number_page }}</a>
             {{# left_three_dots }}
                 &hellip;
             {{/ left_three_dots }}
-        {{/ __FIRST__ }}
+        {{/ first }}
         {{# middle }}        
             <a href="{{ link }}" class="js-to-page b-to-page{{# current }} b-to-page_active{{/ current }}">{{ number_page }}</a>
         {{/ middle }}
-        {{# __LAST__ }}
+        {{# last }}
             {{# right_three_dots }}
                 &hellip;
             {{/ right_three_dots }}
             <a href="{{ link }}" class="js-to-page b-to-page{{# current }} b-to-page_active{{/ current }}">{{ number_page }}</a>
-        {{/ __LAST__ }}
+        {{/ last }}
     {{/ all__pages }}
     {{# arrow }}
         {{# arrow__next }}

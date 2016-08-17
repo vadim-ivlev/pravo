@@ -70,7 +70,21 @@
             <div class="b-jurist-block__body{{# mods__length }}{{# mods }} b-jurist-block__body_{{ . }}{{/ mods }}{{/ mods__length }}">
 
                 {% if mod !== "feed" and mod !== "top" %}
-                    <a class="b-link" href="{{ jurist__link }}">
+                    {% if mod !== "profile" %}
+                        <a class="b-link" href="{{ jurist__link }}">
+                            <div class="b-jurist-block__title">
+    
+                                {{ jurist__last_name }}
+    
+                                {{ jurist__first_name }}
+    
+                                {% if data[mod].showBlocks.patronymic %}
+                                    {{ jurist__patronymic }}
+                                {% endif %}
+    
+                            </div>
+                        </a>
+                    {% else %}
                         <div class="b-jurist-block__title">
 
                             {{ jurist__last_name }}
@@ -82,7 +96,7 @@
                             {% endif %}
 
                         </div>
-                    </a>
+                    {% endif %}
                 {% endif %}
 
                 {% if data[mod].showBlocks.education %}

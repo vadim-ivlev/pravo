@@ -18,12 +18,12 @@ module.exports = {
                         tag: "title",
                         contents: [
                             {
-                                data: "Российская газета"
+                                data: "Правила оказания юридических консультаций на сайте &laquo;Российской газеты&raquo;"
                             }
                         ]
                     }
                 },
-                {
+                /*{
                     name: "indexDescription",
                     opt: {
                         tag: "meta",
@@ -32,7 +32,7 @@ module.exports = {
                             content: "Российская газета - издание Правительства Российской Федерации, официальный публикатор документов"
                         }
                     }
-                },
+                },*/
                 {
                     name: "indexYandexVerification",
                     opt: {

@@ -18,12 +18,12 @@ module.exports = {
                         tag: "title",
                         contents: [
                             {
-                                data: "Российская газета"
+                                data: "Список юристов{{# rubrics__conditions }}{{# rubrics__conditions__current_id }} {{rubrics__conditions__name}}{{/ rubrics__conditions__current_id }}{{/ rubrics__conditions }}{{# pagination }}{{# all__pages }}{{^ first }}{{# current }}, страница {{ number_page }}{{/ current }}{{/ first }}{{/ all__pages }}{{/ pagination }} &mdash; Юридическая консультация"
                             }
                         ]
                     }
                 },
-                {
+                /*{
                     name: "indexDescription",
                     opt: {
                         tag: "meta",
@@ -32,7 +32,7 @@ module.exports = {
                             content: "Российская газета - издание Правительства Российской Федерации, официальный публикатор документов"
                         }
                     }
-                },
+                },*/
                 {
                     name: "indexYandexVerification",
                     opt: {

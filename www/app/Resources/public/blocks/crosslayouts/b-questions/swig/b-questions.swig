@@ -68,7 +68,7 @@
                         </a>
                     {% else %}
                         {% if data[mod].showBlocks.title %}
-                            <div class="b-question-block__title">{{ title }}</div>
+                            <h1 class="b-question-block__title">{{ title }}</h1>
                         {% endif %}
 
                         {% if data[mod].showBlocks.text %}

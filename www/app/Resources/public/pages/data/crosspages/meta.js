@@ -41,6 +41,16 @@ module.exports = function(data){
 					}
 				},
 				{
+					name: "crosspageOgTitle",
+					opt: {
+						tag: "meta",
+						attrs: {
+							property: "og:title",
+							content: "Юридическая консультация"
+						}
+					}
+				},
+				{
 					name: "crosspageMetaViewport",
 					opt: {
 						tag: "meta",

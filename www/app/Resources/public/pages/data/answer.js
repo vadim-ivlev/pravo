@@ -18,7 +18,7 @@ module.exports = {
                         tag: "title",
                         contents: [
                             {
-                                data: "Российская газета"
+                                data: "{{# questions_item }}{{ title }}{{/ questions_item }} &mdash; Юридическая консультация"
                             }
                         ]
                     }
@@ -29,7 +29,7 @@ module.exports = {
                         tag: "meta",
                         attrs: {
                             name: "description",
-                            content: "Российская газета - издание Правительства Российской Федерации, официальный публикатор документов"
+                            content: "{{# questions_item }}{{ text }}{{/ questions_item }}"
                         }
                     }
                 },

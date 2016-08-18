@@ -85,7 +85,7 @@
                             </div>
                         </a>
                     {% else %}
-                        <div class="b-jurist-block__title">
+                        <h1 class="b-jurist-block__title">
 
                             {{ jurist__last_name }}
 
@@ -95,7 +95,7 @@
                                 {{ jurist__patronymic }}
                             {% endif %}
 
-                        </div>
+                        </h1>
                     {% endif %}
                 {% endif %}
 

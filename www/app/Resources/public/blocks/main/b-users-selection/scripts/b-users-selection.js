@@ -4,10 +4,10 @@ $(document).ready(function() {
     var target = "rg.ru";
     var url = site.substring(site.indexOf(target) + target.length);
 
-    $('.js-user-specialization').on('change', function() {
+    $('#rubrics_conditions').on('change', function() {
         window.location.href = this.value;
     });
-    $('#user-specialization option').each(function() {
+    $('#rubrics_conditions option').each(function() {
         window.location.href == this.value;
         if ($(this).val() == url) {
             $(this).prop('selected', true);

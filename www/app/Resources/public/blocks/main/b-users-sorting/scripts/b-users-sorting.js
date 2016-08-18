@@ -7,8 +7,8 @@ $(function() {
             'current_search' : window.location.search,
         };
 
-//[select#sortBy.b-users-sorting__select, context: select#sortBy.b-users-sorting__select]
-//[select#sortBy.b-users-sorting__select.has-loading, selector: "", context: select#sortBy.b-users-sorting__select.has-loading]
+//[select#order_by.b-users-sorting__select, context: select#order_by.b-users-sorting__select]
+//[select#order_by.b-users-sorting__select.has-loading, selector: "", context: select#order_by.b-users-sorting__select.has-loading]
 //console.log('#' + $(this_local).attr('id') + ' option');
         $('#' + $(this_local).attr('id') + ' option').each(function () {
             if ($(this).prop("selected")) {
@@ -50,5 +50,5 @@ $(function() {
             ).ready(_.debounce(sendRequest, 1000));
     }
 
-    $('#user-specialization, #sortBy').on('change', callback);
+    $('#rubrics_conditions, #order_by').on('change', callback);
 });

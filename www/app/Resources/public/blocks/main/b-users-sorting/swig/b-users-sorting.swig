@@ -3,9 +3,9 @@
 		<form>
 			<label>
 				<select class="b-field__select b-users-sorting__select" id="order_by">
-				    <option value="alphabet">По алфавиту</option>
-				    <option value="rating">По рейтингу</option>
-				    <option value="company">По компании</option>
+                    {{# filters__for__jurists }}
+                        <option value="{{ filters__for__jurists__values }}" {{ filters__for__jurists__current }}>{{ filters__for__jurists__name }}</option>
+                    {{/ filters__for__jurists }}
 				</select>
 			</label>
 		</form>

@@ -23,6 +23,7 @@ $(function() {
             type: "POST",
             async: true,
             success: function(data) {
+                window.location.href = data;
                 console.log(data);
             },
             error: function(data) {

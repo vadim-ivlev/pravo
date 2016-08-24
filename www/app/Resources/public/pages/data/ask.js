@@ -65,9 +65,9 @@ module.exports = {
 
             blocks: [
 
-                RGInclude('global', 'styles'), // стили
+                // RGInclude('global', 'styles'), // стили
 
-                RGInclude('global', 'scripts'), // скрипты
+                // RGInclude('global', 'scripts'), // скрипты
 
                 {
                     opt: {

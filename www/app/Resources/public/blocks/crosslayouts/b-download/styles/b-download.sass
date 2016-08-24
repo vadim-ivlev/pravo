@@ -16,8 +16,10 @@ $block: '.b-download'
     &__size
         color: $comment-color
 
-    .b-bibliotechka-advert &
-        float: left
+    +bp-tablet
 
-    .b-bibliotechka-advert_sidebar &
-        float: none
+        .b-bibliotechka-advert &
+            float: left
+
+        .b-bibliotechka-advert_sidebar &
+            float: none

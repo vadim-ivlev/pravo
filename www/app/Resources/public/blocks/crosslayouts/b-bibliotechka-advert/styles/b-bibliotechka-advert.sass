@@ -11,6 +11,9 @@ $block: '.b-bibliotechka-advert'
 #{$block}
     font-size: 13px
 
+    &__body
+        padding: 25px 20px 15px
+
     &__name
         font-size: 16px
         font-family: "NotoSerif",sans-serif
@@ -29,17 +32,19 @@ $block: '.b-bibliotechka-advert'
 
     &__issue,
     &__description
-        width: calc(100% - 125px)
-        float: right
+        width: 100%
+        float: none
 
     &__issue
         color: $light-grey
-        padding-bottom: 10px
+        padding-bottom: 15px
+        text-align: center
 
     &__image-wrapper
-        float: left
+        float: none
         position: relative
         max-width: 114px
+        margin: 0 auto 15px
 
     &__ribbon
         +font(14px)
@@ -76,19 +81,22 @@ $block: '.b-bibliotechka-advert'
         font-weight: bold
         font-size: 17px
         line-height: 20px
+        margin-bottom: 10px
 
     &__text
         line-height: 20px
+        margin-bottom: 20px
 
     &__bottom
         overflow: hidden
         clear: both
 
     &__purchase
-        float: right
+        padding-top: 15px
 
     &__purchase-link
         display: inline-block
+        float: right
 
     &__price
         line-height: 30px
@@ -132,20 +140,35 @@ $block: '.b-bibliotechka-advert'
     +bp-tablet
 
         &
-            &__body
-                padding: 25px 20px 15px
 
             &__title
                 margin-bottom: 5px
 
+            &__issue,
+            &__description
+                width: calc(100% - 125px)
+                float: right
+
             &__issue
                 padding-bottom: 5px
+                text-align: left
 
             &__text
                 margin-bottom: 15px
 
+            &__purchase
+                float: right
+                padding-top: 0
+
             &__purchase-link
+                float: none
                 margin-left: 45px
+
+            &__image-wrapper
+                float: left
+                position: relative
+                max-width: 114px
+                margin: 0
 
     +bp-tabletLandscape
 

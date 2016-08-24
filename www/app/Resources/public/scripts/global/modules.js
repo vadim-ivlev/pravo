@@ -142,7 +142,7 @@ RG.ListHeadToSelect = RG.ListHeadToSelect || require('../modules/ListHeadToSelec
 /**
 * Подключение модуля верхнего меню
 */
-RG.Menu = RG.Menu || require('../../blocks/header/b-menu/scripts/main');
+RG.Menu = RG.Menu || require('../../blocks/header/b-menu/scripts/b-menu');
 
 /**
  * Формы РГ

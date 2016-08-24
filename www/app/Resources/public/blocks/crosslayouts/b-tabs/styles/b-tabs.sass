@@ -20,11 +20,6 @@ $block: '.b-tabs'
 
         border-bottom: 1px solid $border-color
 
-    &__title
-
-        &_selected
-            font-weight: bold
-
     &__item
         font-size: 14px
         margin-right: 35px
@@ -40,13 +35,6 @@ $block: '.b-tabs'
         cursor: pointer
         +transition(left .5s ease)
 
-        &_underline
-
-            position: absolute
-            bottom: 0
-
-            border-bottom: 3px solid $red
-
     // Статические табы
     &__body_static
         margin-bottom: 0
@@ -60,23 +48,17 @@ $block: '.b-tabs'
         &.is-active
             border-color: $red
 
-    // В блоке b-date-panel-spiegel на главной
-    .b-date-panel-spiegel &
-        margin-bottom: 0
-        display: inline-block
-        border: 0
+    .b-menu-mobile &
+        display: block
 
         &__item
-            margin-right: 30px
-            margin-bottom: -2px
-            padding-bottom: 0
+            display: block
 
-            &:last-child
-                margin-right: 0
+            &.is-active
+                border: none
 
     // Tablet
     +bp-tablet
 
         &
-
             display: inline-block

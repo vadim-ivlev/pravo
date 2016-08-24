@@ -24,7 +24,7 @@ $(function() {
             async: true,
             success: function(data) {
                 window.location.href = data;
-                console.log(data);
+                //console.log(data);
             },
             error: function(data) {
                 console.log('error');
@@ -45,10 +45,24 @@ $(function() {
     function callback () {
         callback_data['this'] = $(this);
         $(
-            $('#' + $(this).attr('id'))
-            .prop('disabled', 'disabled')
-            .addClass('has-loading')
-            ).ready(_.debounce(sendRequest, 1000));
+                    $('#rgb_main_users')
+                    .prop('disabled', 'disabled')
+                    .addClass('has-loading')
+                ).ready(_.debounce(sendRequest, 2000));
+
+        /*if (
+            $('#rgb_jurists_list')
+                .prop('disabled', 'disabled')
+                .addClass('has-loading')
+                ).ready(_.debounce(sendRequest, 800)
+            )  {
+                $(
+                    $('#' + $(this).attr('id'))
+                    .prop('disabled', 'disabled')
+                    .addClass('has-loading')
+                ).ready(_.debounce(sendRequest, 2000));
+            }*/
+        
     }
 
     $('#rubrics_conditions, #order_by').on('change', callback);

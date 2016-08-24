@@ -31,6 +31,11 @@ $block: '.b-jurist-block'
             margin-left: 0
             line-height: normal
 
+        &_list
+            width: 100%
+            margin-left: 0
+            text-align: center
+
         &_profile
             width: calc(100% - 180px)
 
@@ -62,11 +67,13 @@ $block: '.b-jurist-block'
 
     &__index
         margin-top: 10px
+        text-align: left
 
         &_inline
             display: inline-block
 
     &__info
+        text-align: left
 
         &_inline
             display: inline-block
@@ -94,6 +101,8 @@ $block: '.b-jurist-block'
 
     &_profile
         padding-bottom: 30px
+        margin-right: -20px
+        margin-left: -20px
 
     &_feed
         +font(13px)
@@ -110,3 +119,18 @@ $block: '.b-jurist-block'
         +font(13px)
         padding: 0
         margin-bottom: 25px
+
+    +bp-tablet
+
+        &
+
+            &__body
+
+                &_list
+                    width: calc(100% - 140px)
+                    margin-left: 20px
+                    text-align: left
+
+            &_profile
+                margin-right: 0
+                margin-left: 0

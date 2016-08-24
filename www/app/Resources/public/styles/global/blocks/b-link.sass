@@ -135,6 +135,11 @@ $hasBMaterialSujet: '.b-material-sujet'
         padding: 0 5px
         margin-bottom: 20px
 
+    &_jurist-list-img
+        display: block
+        text-align: center
+        margin-bottom: 20px
+
     // Retina
     +bp-retina
 
@@ -151,3 +156,10 @@ $hasBMaterialSujet: '.b-material-sujet'
                 &:after
                     background: url(#{$img-path}sprite_main_2.png) no-repeat -150px -60px
                     background-size: 500px
+
+    +bp-tablet
+
+        &
+
+            &_jurist-list-img
+                display: inline

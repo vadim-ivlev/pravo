@@ -21,13 +21,15 @@ module.exports = function(data){
 
 							adBanner: RGB('ads:top'), // верхий баннер-растяжка
 
-							menu: RGB('menu') // низ шапки
+							menu: RGB('menu'), // низ шапки
+
+							menuMobile: RGB('menu-mobile') // всплывающее меню на мобильных устройствах
 							
 						},
 
 						sortBlocks: {
 
-							'default': "logo title menu",
+							'default': "logo title menu menuMobile",
 
 							rubric_questions: "logo title adBanner menu",
 

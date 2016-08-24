@@ -10,8 +10,14 @@ $block: '.b-users-specialization'
 #{$block}
     display: inline-block
     margin-right: 20px
+    margin-bottom: 20px
 
     &__select
 
     	&.has-loading
     		opacity: 0.5
+
+    +bp-tablet
+
+    	&
+    		margin-bottom: 0

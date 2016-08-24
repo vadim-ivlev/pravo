@@ -17,7 +17,29 @@ $block: '.b-btn'
         background: $red-orange
 
     &_ask
+        display: block
+        position: fixed
+        right: 20px
+        bottom: 5%
+        width: 50px
+        height: 50px
+        border-radius: 50%
+        background: $red-orange
+        box-shadow: 0 2px 2px #d2d2d2;
+
+    &_ask-big
         display: none
+
+    &_ask-phones
+        display: inline-block
+        width: 20px
+        height: 20px
+        position: absolute
+        top: 50%
+        left: 50%
+        margin-top: -10px
+        margin-left: -10px
+        background: url("#{$img-path}sprite_main.png") -153px -127px no-repeat
 
     .b-answer__lower-panel &_orange
         font-size: 13px
@@ -26,8 +48,25 @@ $block: '.b-btn'
     &_blue-green
         background: $time-color
 
+    +bp-retina
+
+        &
+            &_ask-phones
+                background-image: url("#{$img-path}sprite_main_2.png") -153px -127px no-repeat
+                background-size: $retina-icon-width
+
     +bp-tablet
 
         &
             &_ask
                 display: inline-block
+                position: static
+                width: auto
+                height: auto
+                border-radius: 2px
+
+            &_ask-big
+                display: inline
+
+            &_ask-phones
+                display: none

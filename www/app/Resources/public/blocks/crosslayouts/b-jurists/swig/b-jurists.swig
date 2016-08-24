@@ -7,7 +7,7 @@
             {% if mod == "profile" %}
                 {{# jurist__img}}
                     {{# jurist__img__type_medium }}
-                        <img class="b-round-image" src="{{ jurist__img__file }}" width="{[ data[mod].img__width ]}" height="{[ data[mod].img__height ]}" alt="{{ jurist__img__title }}">
+                        <img class="b-round-image b-round-image_profile" src="{{ jurist__img__file }}" alt="{{ jurist__img__title }}">
                     {{/ jurist__img__type_medium }}
                 {{/ jurist__img}}
             {% endif %}
@@ -58,7 +58,7 @@
             {% endif %}
 
             {% if mod == "list" %}
-                <a href="{{ jurist__link }}" class="b-link">
+                <a href="{{ jurist__link }}" class="b-link b-link_jurist-list-img">
                     {{# jurist__img }}
                         {{# jurist__img__type_medium }}
                             <img class="b-round-image" src="{{ jurist__img__file }}" width="{[ data[mod].img__width ]}" height="{[ data[mod].img__height ]}" alt="{{ jurist__img__title }}">

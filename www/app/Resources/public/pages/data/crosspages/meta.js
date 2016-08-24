@@ -51,6 +51,16 @@ module.exports = function(data){
 					}
 				},
 				{
+					name: "articleOgUrl",
+					opt: {
+						tag: "meta",
+						attrs: {
+							property: "og:url",
+							content: "{{ routes.current__uri }}"
+						}
+					}
+				},
+				{
 					name: "crosspageMetaViewport",
 					opt: {
 						tag: "meta",

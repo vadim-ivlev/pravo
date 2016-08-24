@@ -19,3 +19,18 @@ $block: '.b-link-btn'
     // Если поле с акцентом
     &_accent
         +button-field($red)
+
+    &_thanx
+        display: block
+        margin-bottom: 20px
+
+        +button-field($green-yellow)
+
+    +bp-tabletLandscape
+    
+        &
+            &_thanx
+                display: inline-block
+                margin-bottom: 0
+                
+                +button-field($time-color)

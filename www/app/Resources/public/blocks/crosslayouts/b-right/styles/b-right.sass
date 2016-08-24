@@ -11,3 +11,14 @@ $block: '.b-right'
 #{$block}
     display: block
     float: right
+
+    .b-answer__lower-panel &
+        display: inline-block
+        float: none
+
+    +bp-tablet
+
+        &
+            .b-answer__lower-panel &
+                display: block
+                float: right

@@ -31,6 +31,8 @@ module.exports = function(data){
 
                             questionsItem: RGB('questions:item'), // блок с текстом вопроса
 
+                            questionsLatest: RGB('questions:latest, mobile', '#questions_latest__length'), // Последние вопросы
+
                             answerBlock: RGB('answer', '#answer'), // блок с ответом
 
                             bibliotechkaAdvert: RGB('bibliotechka-advert, mobile tablet tabletLandscape'), // блок библиотечки обычный
@@ -57,7 +59,11 @@ module.exports = function(data){
 
                             juristsFeed: RGB('jurists:feed, mobile:active'), // лента юристов, предлагающих услуги (в сайдбаре)
 
-                            juristsTop: RGB('jurists:top, mobile:active') // список лучших юристов (в сайдбаре)
+                            juristsTop: RGB('jurists:top, mobile'), // список лучших юристов (в сайдбаре)
+
+                            adsSidebarRight: RGB('ads:sidebar-right, mobile'), // рекламный баннер из правого сайдбара
+
+                            // newsRubric: RGB('news-rubric:pravo') // блок на главной РГ (убрать после вывода на РГ)
 
                         },
 
@@ -65,25 +71,25 @@ module.exports = function(data){
 
                             // 'default': "breadcrumbs questionsList pagination adsSidebarRight",
 
-                            index: "breadcrumbsMain questionsList pagination bibliotechkaAdvert",
+                            index: "breadcrumbsMain categoriesMain questionsList pagination bibliotechkaAdvert adsSidebarRight juristsFeed juristsTop",
 
                             rubric_questions: "breadcrumbsRubric questionsList pagination",
 
                             tag_questions: "breadcrumbsTag questionsList pagination",
 
-                            answer: "breadcrumbsAnswer questionsItem answerBlock bibliotechkaAdvertAnswer",
+                            answer: "breadcrumbsAnswer questionsItem answerBlock questionsLatest bibliotechkaAdvertAnswer adsSidebarRight",
 
-                            ask: "form",
+                            ask: "form questionsLatest",
 
-                            rules: "articleRules",
+                            rules: "articleRules juristsFeed adsSidebarRight",
 
-                            users: "usersSelection juristsList pagination",
+                            users: "usersSelection juristsList pagination adsSidebarRight juristsFeed juristsTop",
 
                             rubrics: "materialHead categoriesMain tags",
 
-                            rubric_tags: "materialHead categoriesMain tags",
+                            rubric_tags: "materialHead categoriesMain tags juristsFeed adsSidebarRight",
 
-                            lawer: "juristsProfile questionsList pagination",
+                            lawer: "juristsProfile questionsList pagination juristsFeed adsSidebarRight questionsLatest",
 
                             partners: "articlePartners"
                         }

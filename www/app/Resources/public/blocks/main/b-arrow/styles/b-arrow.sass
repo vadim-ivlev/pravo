@@ -30,4 +30,13 @@ $block: '.b-arrow'
         display: none
 
     +bp-retina
-        background: url("#{$img-path}sprite_main_2.png") no-repeat
+
+        &
+            background: url("#{$img-path}sprite_main_2.png") no-repeat
+            background-size: $retina-icon-width
+
+            &_prev
+                background-position: -70px -32px
+
+            &_next
+                background-position: -80px -32px

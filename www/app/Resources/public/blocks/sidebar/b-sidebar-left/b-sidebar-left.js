@@ -27,7 +27,7 @@ module.exports = function(data){
 
 							yandexDirect: RGB('yadirect:sidebar-left'), // Яндекс-директ
 
-							juristsFeed: RGB('jurists:feed'), // лента юристов, предлагающих услуги (в сайдбаре)
+							juristsFeed: RGB('jurists:feed, tablet tabletLandscape desktop desktopFull:active'), // лента юристов, предлагающих услуги (в сайдбаре)
 
 							juristsTop: RGB('jurists:top', '#jurist_top') // список лучших юристов (в сайдбаре)
 

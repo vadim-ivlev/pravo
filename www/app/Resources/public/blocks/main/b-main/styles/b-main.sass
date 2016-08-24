@@ -9,12 +9,18 @@ $block: '.b-main'
 
 // Стили
 #{$block}
-    display: inline-block
 
+    &_users
+
+        &.has-loading
+            opacity: 0.5
+            
     // Tablet
     +bp-tablet
 
         &
+            display: inline-block
+            padding: 0
             width: 450px
             margin: 0 0 0 20px
 

@@ -113,6 +113,8 @@ $block: '.b-field'
         display: inline-block
         line-height: 24px
         margin-bottom: 0
+        width: calc(100% - 30px)
+        margin-top: -5px
 
     &_input_checkbox &__wrapper,
     &_input_radio &__wrapper
@@ -172,6 +174,13 @@ $block: '.b-field'
     // Счётчик количества символов
     &__maxlength
         color: $light-grey
-        position: absolute
-        top: 0
-        right: 0
+        margin-top: -10px
+        margin-bottom: 10px
+
+    +bp-tablet
+
+        &
+            &__maxlength
+                position: absolute
+                top: 0
+                right: 0

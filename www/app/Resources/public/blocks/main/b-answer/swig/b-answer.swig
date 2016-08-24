@@ -44,7 +44,7 @@
     </div>
     <div class="b-answer__lower-panel">
         <div class="b-answer__thanx-block">
-            <button class="b-link-btn b-link-btn_second js-link-btn-thanx" id="{{ answer__id }}">Спасибо</button>
+            <button class="b-link-btn b-link-btn_thanx js-link-btn-thanx" id="{{ answer__id }}">Спасибо</button>
             <div class="b-answer__thanx">Сказали спасибо:</div>
             <div class="b-rate">
                 <div class="b-rate__icon"></div>

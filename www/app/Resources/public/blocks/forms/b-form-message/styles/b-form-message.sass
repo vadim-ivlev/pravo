@@ -21,10 +21,9 @@ $block: '.b-form-message'
         background: $today-bg-color
 
     &__title
-        +font(16px)
+        +font(14px)
         font-weight: bold
         text-align: center
-        padding: 0 105px 15px
         line-height: 26px
 
     &__text
@@ -36,3 +35,15 @@ $block: '.b-form-message'
 
     &_show
         display: block
+
+    +bp-tablet
+
+        &
+            &__title
+                +font(16px)
+
+    +bp-tabletLandscape
+
+        &
+            &__title
+                padding: 0 105px 15px

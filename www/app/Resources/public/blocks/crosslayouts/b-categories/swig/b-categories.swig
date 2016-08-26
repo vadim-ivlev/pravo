@@ -7,7 +7,7 @@
 						<a href="{{ rubrics__link }}" class="b-link{% if mod == "sidebar" %} b-link_white{% else %} b-link_blue{% endif %} b-categories__link">{{ rubrics__title }}</a>
 					{{/ rubrics__active }}
 					{{# rubrics__active }}
-						<span>{{ rubrics__title }}</span>
+						<span class="b-categories__link">{{ rubrics__title }}</span>
 					{{/ rubrics__active }}
 				</div>
 			{{/ rubrics }}

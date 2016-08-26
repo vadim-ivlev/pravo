@@ -17,7 +17,7 @@ module.exports = function(data){
 							
 							top: RGB('footer&top'), // верх футера
 
-							bottom: RGB('footer&bottom') // низ футера
+							// bottom: RGB('footer&bottom') // низ футера
 						}
 						
 					}

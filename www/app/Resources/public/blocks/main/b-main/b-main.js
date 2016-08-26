@@ -85,7 +85,7 @@ module.exports = function(data){
 
                             users: "usersSelection juristsList pagination adsSidebarRight juristsFeed juristsTop",
 
-                            rubrics: "materialHead categoriesMain tags",
+                            rubrics: "materialHead categoriesMain tags juristsFeed adsSidebarRight",
 
                             rubric_tags: "materialHead categoriesMain tags juristsFeed adsSidebarRight",
 

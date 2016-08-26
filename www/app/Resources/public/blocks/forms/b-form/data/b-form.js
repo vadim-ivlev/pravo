@@ -3,7 +3,7 @@ module.exports = [
 		show: true,
 		"class": "b-form__body_grey",
 		title: "Задайте вопрос",
-        action: 'https://front.rg.ru/jurists/form/1/',
+        action: '/form/1/',
 		notice: "* - поля, обязательные для заполнения",
         id: 1,
         method: "post",
@@ -117,7 +117,7 @@ module.exports = [
 						tag: "rg-checkbox",
 						mod: "agree",
 						attrs: {
-							label: "Принимаю <a class='b-link b-link_blue' href='/jurists/rules/html/' target='_blank'>правила</a> оказания юридических консультаций",
+							label: "Принимаю <a class='b-link b-link_blue' href='/rules/' target='_blank'>правила</a> оказания юридических консультаций",
 							name: "confirmation",
 							type: "checkbox",
 							required: true
@@ -141,7 +141,7 @@ module.exports = [
 		message: {
 			attrs: {
 				title: "Ваш вопрос отправлен в редакцию рубрики &quot;Юридическая консультация&quot;",
-				txt: "Все вопросы модерируются. Согласно <a class=\"b-link b-link_blue\" href=\"/jurists/rules/html/\">Правилам оказания юридических консультаций на сайте &laquo;Российской газеты&raquo;</a>, ваш вопрос может быть отклонен модераторами без объяснения причин. Пожалуйста, не пытайтесь отправить вопрос повторно.",
+				txt: "Все вопросы модерируются. Согласно <a class=\"b-link b-link_blue\" href=\"/rules/\">Правилам оказания юридических консультаций на сайте &laquo;Российской газеты&raquo;</a>, ваш вопрос может быть отклонен модераторами без объяснения причин. Пожалуйста, не пытайтесь отправить вопрос повторно.",
 				button: "Задать вопрос"
 			}
 		}

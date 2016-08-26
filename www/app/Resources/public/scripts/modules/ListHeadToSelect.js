@@ -14,6 +14,9 @@ var Select = require('../../blocks/forms/b-select/scripts/Select');
             this.$element = this.appendElement(containerClass);
             this.$list = $(listClass).addClass('is-tablet_block').addClass('is-tabletLanscape');
 
+            RG.logger.log(this.$element);
+            RG.logger.log(this.$list);
+
             this.collectItems(itemClass);
 
   /*          RG.events.subscribe(`${RG.ScreenViewer._modulePrefix}.update`, (topic, info) => {
@@ -80,11 +83,14 @@ var Select = require('../../blocks/forms/b-select/scripts/Select');
         render() {
 
             var items = this.getItems(),
-                selectedOption = this.selectedOption;
+                selectedOption = null;
 
             //RG.logger.trace(selectedOption);
 
             if(items.length) {
+
+                // Устанавливаем выбранную опцию
+                selectedOption = this.selectedOption || this.setSelected(items[0]);
 
 /*                this.$element.show();
                 this.$list.hide();*/
@@ -95,16 +101,18 @@ var Select = require('../../blocks/forms/b-select/scripts/Select');
                     this.component.set('selectedOption', selectedOption);
                 } else {*/
 
-                    this.component = new Select({
-                        el: this.elementId,
-                        isolated: true,
-                        data() {
-                            return {
-                                items,
-                                selectedOption
-                            };
-                        }
-                    });
+                // Инициализируем компонент селекта
+                this.component = new Select({
+                    el: this.elementId,
+                    isolated: true,
+                    data() {
+                        return {
+                            items,
+                            selectedOption
+                        };
+                    }
+                });
+
 /*                }*/
             }
         }

@@ -1283,6 +1283,10 @@ $(function() {
 
         return false;
     }
+
+
+// new RG.ListHeadToSelect('.b-main_rubrics .b-categories__link', '.b-main_rubrics  .b-categories', '.b-main_rubrics  .b-categories__list');
+
 });
 // END DOM READY
 

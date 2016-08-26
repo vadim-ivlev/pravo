@@ -166,6 +166,10 @@ class Form {
 
         RG.logger.info(topic);
 
+        console.log(this); 
+        console.log(context.form);
+        console.log(this.options.name);
+
         if(context.form === this.options.name) {
 
             if(this.validate()) {

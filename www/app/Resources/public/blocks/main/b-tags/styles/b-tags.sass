@@ -10,14 +10,17 @@ $block: '.b-tags'
 #{$block}
     display: table-cell
 
-    &__list
-        column-count: 2
-        -webkit-column-gap: 60px
-        -moz-column-gap: 60px
-        column-gap: 60px
-
     &__list-item
         line-height: 30px
 
     &__title
         font-family: "NotoSans", Arial, sans-serif
+
+    +bp-tabletLandscape
+
+        &
+            &__list
+                column-count: 2
+                -webkit-column-gap: 60px
+                -moz-column-gap: 60px
+                column-gap: 60px

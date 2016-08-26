@@ -4,7 +4,7 @@ module.exports = {
 	
         RGB('footer'), // подвал сайта, + RGB partners, footer-links > counter, social
 		
-		RGB('ads:fullscreen'), // реклама fullscreen
+		// RGB('ads:fullscreen'), // реклама fullscreen
 		
 		{
 			name: "crosspageYandexShare2",

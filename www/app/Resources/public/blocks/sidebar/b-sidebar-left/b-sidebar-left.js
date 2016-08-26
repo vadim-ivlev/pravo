@@ -23,7 +23,7 @@ module.exports = function(data){
 
 							// topJurist: RGB('projects.juristical.top-jurist, tablet tabletLandscape desktop desktopFull:active'), // лучшие за неделю
 
-							questionsLatest: RGB('questions:latest', '#questions_latest__length'), // Последние вопросы
+							questionsLatest: RGB('questions:latest, teblet tabletLandscape desktop desktopFull:active', '#questions_latest__length'), // Последние вопросы
 
 							yandexDirect: RGB('yadirect:sidebar-left'), // Яндекс-директ
 

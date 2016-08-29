@@ -51,3 +51,29 @@
 //     init
 // };
 //
+/*Select = Ractive.extend(
+	{
+		oninit() {
+			var self = this,
+			items = this.get('items'),
+			isObject = null;
+	
+			$.ajax({
+				url: 'https://front.rg.ru/jurists/ask/json/',
+				success: function(data) {
+					var itemsDefault = self.get('items'),
+					itemsNew = data.rubrics,
+					itemsList = null;
+	
+					itemsList = itemsDefault.concat(itemsNew);
+	
+					self.set('items', itemsList);
+				},
+	
+				error: function(data) {
+					console.log(data);
+				}
+			});
+		},
+	}
+);*/

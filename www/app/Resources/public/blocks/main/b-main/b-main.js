@@ -55,6 +55,8 @@ module.exports = function(data){
 
                             categoriesMain: RGB('categories:main'), // меню рубрик в основном контенте
 
+                            categoriesSidebar: RGB('categories:sidebar, mobile'), // меню рубрик в сайдбаре
+
                             tags: RGB('tags'), // список актуальных тегов
 
                             juristsFeed: RGB('jurists:feed, mobile:active'), // лента юристов, предлагающих услуги (в сайдбаре)
@@ -71,13 +73,13 @@ module.exports = function(data){
 
                             // 'default': "breadcrumbs questionsList pagination adsSidebarRight",
 
-                            index: "breadcrumbsMain categoriesMain questionsList pagination bibliotechkaAdvert adsSidebarRight juristsFeed juristsTop",
+                            index: "breadcrumbsMain categoriesSidebar questionsList pagination bibliotechkaAdvert adsSidebarRight juristsFeed juristsTop",
 
                             rubric_questions: "breadcrumbsRubric questionsList pagination",
 
                             tag_questions: "breadcrumbsTag questionsList pagination",
 
-                            answer: "breadcrumbsAnswer questionsItem answerBlock questionsLatest bibliotechkaAdvertAnswer adsSidebarRight",
+                            answer: "breadcrumbsAnswer categoriesSidebar questionsItem answerBlock questionsLatest bibliotechkaAdvertAnswer adsSidebarRight",
 
                             ask: "form questionsLatest",
 

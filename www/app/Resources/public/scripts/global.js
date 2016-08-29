@@ -1285,7 +1285,7 @@ $(function() {
     }
 
 
-// new RG.ListHeadToSelect('.b-main_rubrics .b-categories__link', '.b-main_rubrics  .b-categories', '.b-main_rubrics  .b-categories__list');
+new RG.ListHeadToSelect('.b-categories__link', '.b-categories', '.b-categories__list');
 
 });
 // END DOM READY

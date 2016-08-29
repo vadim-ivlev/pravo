@@ -18,27 +18,6 @@ var
     // Массив счетчиков
     counters = [
 
-        // Рамблер 100
-        {
-            name: 'top100RamblerCounter',
-            targetId: '#top100counter',
-
-            init: (elementId) => {
-
-                // Настраиваем счетчик
-                window._top100q = window._top100q || [];
-
-                _top100q.push(["setAccount", "250928"]);
-                _top100q.push(["trackPageviewByLogo", $(elementId)[0]]);
-
-                // Инициализируем библиотеку
-                $.getScript(protocol + '//st.top100.ru/top100/top100.js');
-
-                RG.logger.info('top100counter init');
-
-            }
-        },
-
         // Мейл.ру
         {
             name: 'mailruCounter',
@@ -59,7 +38,7 @@ var
                 _tmr = window._tmr || (window._tmr = []);
 
                 // Отправляем счетчик просмотра страницы
-                _tmr.push({id: "11659", type: "pageView", start: (new Date()).getTime()});
+                _tmr.push({id: "2808226", type: "pageView", start: (new Date()).getTime()});
 
                 // Инициализируем библиотеку
                 $.getScript(protocol + '//top-fwz1.mail.ru/js/code.js');
@@ -71,12 +50,12 @@ var
 
                 $a = $('<a />', {
                     target: '_blank',
-                    href: protocol + '//top.mail.ru/jump?from=11659'
+                    href: protocol + '//top.mail.ru/jump?from=2808226'
                 });
 
                 $img = $('<img />', {
                     //src: '//dd.c2.b0.a0.top.mail.ru/counter?id=11659;t=216;l=1',
-                    src: protocol + '//top-fwz1.mail.ru/counter?id=11659;t=409;l=1',
+                    src: protocol + '//top-fwz1.mail.ru/counter?id=2808226;t=409;l=1',
                     alt: 'Рейтинг@Mail.ru',
                     width: '88px',
                     height: '31px',
@@ -110,87 +89,6 @@ var
             }
         }, 
 
-        // LiveInternet
-        {
-            name: 'LiveInternetCounter',
-            targetId: '#liveInternetCounter',
-
-            init: (elementId) => {
-
-                // Собираем счетчик
-                var $a = null,
-                    $img = null,
-                     src = null,
-                     customHit = RG.meta.getCustomLiveinternet();
-
-                /*
-                 * Настраиваем блок счетчика
-                 *
-                 */
-
-                $a = $('<a />',{
-                    href: protocol + '//www.liveinternet.ru/click',
-                    target: '_blank'
-                });
-
-                src = protocol + '//counter.yadro.ru/hit?t14.11;r' + escape(document.referrer) + ((typeof(screen) == 'undefined') ? '' : ';s' + screen.width + '*' + screen.height + '*' + (screen.colorDepth ? screen.colorDepth:screen.pixelDepth)) + ';u' + escape(document.URL) + ';h' + escape(document.title.substring(0, 80)) + ';' + Math.random();
-
-                $img = $('<img />', {
-                    src: src,
-                    title: 'LiveInternet: показано число просмотров за 24 часа,\nпосетителей за 24 часа и за сегодня',
-                    alt: 'LiveInternet',
-                    border: '0',
-                    width: '88px',
-                    height: '31px'
-                });
-
-                // Вставляем в контейнер
-                $(elementId).append($a.append($img));
-
-                RG.logger.info('liveInternetCounter init');
-
-                // Настраиваем дополнительный hit
-                if (!!customHit) {
-
-                    new Image().src = protocol + "//counter.yadro.ru/hit;" + customHit + "?r"+ escape(document.referrer)+((typeof(screen)=="undefined")?"":";s"+screen.width+"*"+screen.height+"*"+(screen.colorDepth?screen.colorDepth:screen.pixelDepth))+";u"+escape(document.URL)+";"+Math.random();
-
-                    RG.logger.info('liveInternetCounter with custom Hit init');
-                }
-
-            }
-        },
-
-        // tnsCounter
-        {
-            name: 'tnsCounter',
-            targetId: '#tnsCounter',
-
-            init: (elementId) => {
-
-                var $img = null,
-                    src = null;
-
-                // Настраиваем блок счетчика
-                src = protocol + '//www.tns-counter.ru/V13a***R>' + document.referrer.replace(/\*/g,'%2a') + '*rg_ru/ru/UTF-8/tmsec=rg_total/';
-
-                $img = $('<img />', {
-                    src: src,
-                    border: '0',
-                    width: '1px',
-                    height: '1px'
-                }).css({
-                    'position': 'absolute',
-                    'left': '-10000px'
-                });;
-
-                // Вставляем в контейнер
-                $(elementId).append($img);
-
-                RG.logger.info('tnsCounter init');
-
-            }
-        },
-
         // Яндекс метрика
         {
             name: 'yaMetrikaCounter',
@@ -199,7 +97,7 @@ var
             init: (elementId) => {
 
                 var $img = null,
-                    counterId = RG.meta.getYaMetrikaId() || '22322746';
+                    counterId = RG.meta.getYaMetrikaId() || '39269930';
 
                 RG.logger.log('Yandex Metrika id ' + RG.meta.getYaMetrikaId());
 

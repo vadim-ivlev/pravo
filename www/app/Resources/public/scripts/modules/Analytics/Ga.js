@@ -12,7 +12,7 @@ var
     // Префикс событий
     _modulePrefix = 'Ga',
 
-    _gaId = 'UA-7039329-2',
+    _gaId = 'UA-7039329-31',
 
     // Конфигурация dimensions
     dimensionsConf = {

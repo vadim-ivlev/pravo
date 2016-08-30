@@ -29,7 +29,7 @@ module.exports = function(data){
 
 							juristsFeed: RGB('jurists:feed, tablet tabletLandscape desktop desktopFull:active'), // лента юристов, предлагающих услуги (в сайдбаре)
 
-							juristsTop: RGB('jurists:top', '#jurist_top') // список лучших юристов (в сайдбаре)
+							juristsTop: RGB('jurists:top, tablet tabletLandscape desktop desktopFull:active') // список лучших юристов (в сайдбаре)
 
 						},
 						

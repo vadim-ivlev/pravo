@@ -31,7 +31,24 @@ $block: '.b-jurists'
             font-weight: bold
             margin-bottom: 15px
 
+    &_feed
+        margin-bottom: 20px
+
     &_list
 
         &.has-loading
             opacity: 0.5
+
+    +bp-tabletLandscape
+
+        &
+            &_feed,
+            &_top
+                margin-bottom: 20px
+
+    +bp-tablet
+
+        &
+            &_feed,
+            &_top
+                margin-bottom: 30px

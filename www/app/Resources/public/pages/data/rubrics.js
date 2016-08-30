@@ -48,7 +48,6 @@ module.exports = {
                     opt: {
                         contents: [
                             { data: "<meta name=\"rg-data\" property=\"ads:uri\" content=\"/static/juristical/ind\">"}, // Для подключения рекламы
-                            {data: "<script src=\"/bundles/jurist/js/pagination.js\"></script>"}
                         ]
                     }
                 }

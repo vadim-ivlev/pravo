@@ -10,7 +10,7 @@
 
 // Стили
 #cboxLoadingGraphic
-    background:url(/res/images/spinner_black.svg) no-repeat center center
+    background:url(#{$img-path}spinner_black.svg) no-repeat center center
 
 #cboxLoadedContent
     +box-sizing
@@ -61,7 +61,7 @@
 
 // Добавляем прелоадер на телефонах
 #colorbox.has-loading #cboxLoadedContent
-    background: url(/res/images/spinner_black.svg) no-repeat center center
+    background: url(#{$img-path}spinner_black.svg) no-repeat center center
 
 /*
  * Media Queries
@@ -150,7 +150,7 @@
             top: 50%
             left: 50%
             
-            background: url(/res/images/spinner.svg) no-repeat center center transparent
+            background: url(#{$img-path}spinner.svg) no-repeat center center transparent
             background-size: cover
 
             +opacity(0)

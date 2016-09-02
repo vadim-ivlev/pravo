@@ -69,6 +69,14 @@ module.exports = {
 
                 //RGInclude('/custom/projects/juristical/global', 'scripts') // скрипты
 
+                {
+                    opt: {
+                        contents: [
+                            { data: "<script src=\"/bundles/jurist/js/pagination.js\"></script>" }
+                        ]
+                    }
+                }
+
             ]
         },
 

@@ -1,7 +1,8 @@
 module.exports = {
 
-	url: "//rg.ru&#35;letter",
-	logo: "//rg.ru/res/images/logo/rg-main.png",
+	url: "https://rg.ru#letter/pravo",
+	projectUrl: "https://pravo.rg.ru#letter/pravo/name",
+	logo: "https://pravo.rg.ru/bundles/jurist/img/logo/rg-main.png",
 	logoAlt: "RG.RU",
-	ageLimit: "12+"
+	projectName: "Юридическая консультация",
 };

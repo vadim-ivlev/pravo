@@ -2,55 +2,60 @@
 
 <!-- Body -->
 
-{% if data.body.doc %}
 
-    <table style="font-family: arial; background: #f3f3f3" width="100%">
+
+    <table style="font-family: arial; background: #f3f3f3; color: #000;" width="100%">
         <tr>
             <td>
-                <table style="font-family: arial; background: #ffffff; margin: 20px auto; padding: 0 23px 20px 23px; display: block" align="center" width="650">
-
-                    {{#documents}}
-
-                        <tr>
-                            <td style="border-bottom: 1px solid #dedede; padding:20px 0 25px 0;">
-                                <table>
-
-                                    <td width="30px" style="vertical-align: top; font-size: 14px; color: #999999; padding-top: 3px;">
-                                        {{num}}.
-                                    </td>
-
-                                    <td>
-                                        <table>
-                                            <tr>
-                                                <td>
-                                                    <a href="{{url}}" style="font-size: 16px; padding-bottom: 4px; color:#1f77bb; text-decoration: none;">{{{ title }}}</a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td style="font-size: 12px; color: #59bd17; padding-bottom: 11px;">
-                                                    {{ date }}
-                                                </td>
-                                            </tr>
-                                        </table>
-                                    </td>
-
-                                </table>
-                            </td>
-                        </tr>
-
-                    {{/documents}}
+                <table style="font-family: arial; background: #ffffff; margin: 30px auto 20px; display: block; width: 650px" align="center" width="650">
 
                     <tr>
-                        <td align="center" style="font-size: 15px; padding-top: 30px; line-height: 1.2;">
-                            {[ data.body.doc.description|safe ]}
+                        <td style="width: 30px" width="30"></td>
+                        <td style="border-bottom: 1px solid #dedede; padding:20px 0 18px 0;">
+                            {% if (data[mod]) %}
+                            
+                                <table>
+                                    <tr>
+                                        <td>
+                                            <h1 style="font-size: 22px; font-family: Arial, sans-serif; margin: 0;">{[ data[mod].title | safe ]}</h1>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-size: 16px; font-family: Arial, sans-serif;">{[ data[mod].text | safe ]}</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="height: 15px;" height="15"></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-size: 13px; font-family: Arial, sans-serif; color: #999; line-height: 22px;">
+                                            {% if mod !== "rejected" %}
+                                                {[ data[mod].text_grey | safe ]}
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                </table>
+                                    
+                            {% endif %}
                         </td>
+                        <td style="width: 30px" width="30"></td>
+                    </tr>
+
+                    <tr>
+                        <td style="width: 30px" width="30"></td>
+                        <td align="center" style="font-size: 14px; font-weight: bold; font-family: Arial, sans-serif; padding-top: 25px;">
+                            {[ data.signature | safe ]}
+                        </td>
+                        <td style="width: 30px" width="30"></td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" style="height: 20px;" height="20"></td>
                     </tr>
                 </table>
             </td>
         </tr>
     </table>
 
-{% endif %}
+
 
 <!-- / Body -->
 

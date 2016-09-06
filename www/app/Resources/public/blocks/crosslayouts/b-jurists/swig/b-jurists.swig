@@ -17,7 +17,7 @@
             {% endif %}
 
             {% if mod == "feed" %}
-                <a class="b-link" href="{{ jurist__link }}">
+                <a class="b-link b-link_block" href="{{ jurist__link }}">
 
                     {{# jurist__img }}
 
@@ -67,7 +67,7 @@
                             {% endif %}
 
                         </div>
-                        <div class="b-jurist-block__index">
+                        <div class="b-jurist-block__index b-jurist-block__index_top">
                             <div class="b-jurist-block__info b-jurist-block__info_top">Консультаций: {{ jurist__consultations }}</div>
                         </div>
                     </div>
@@ -97,7 +97,11 @@
                             <a class="b-link" href="{{ jurist__link }}">
                                 <div class="b-jurist-block__title">
     
-                                    {{ jurist__last_name }}
+                                    <div>
+
+                                        {{ jurist__last_name }}
+
+                                    </div>
     
                                     {{ jurist__first_name }}
     
@@ -112,7 +116,11 @@
                         {% else %}
                             <h1 class="b-jurist-block__title">
 
-                                {{ jurist__last_name }}
+                                <div>
+
+                                    {{ jurist__last_name }}
+
+                                </div>
 
                                 {{ jurist__first_name }}
 
@@ -130,15 +138,15 @@
                     {% if data[mod].showBlocks.education %}
 
                         {{# jurist__education__length }}
-                            <div class="b-jurist-block__info">
-                                <span class="b-jurist-block__info-title{% if mod == "feed" %} b-jurist-block__info-title_block{% endif %}">Образование:</span> {{# jurist__education}}{{ jurist__education }}{{/ jurist__education }}
+                            <div class="b-jurist-block__info{% if mod == "feed" %} b-jurist-block__info_feed{% endif %}">
+                                <span class="b-jurist-block__info-title{% if mod == "feed" %} b-jurist-block__info-title_block{% endif %}">Образование:</span> {{ jurist__education }}
                             </div>
                         {{/ jurist__education__length }}
 
                     {% endif %}
 
                     {% if data[mod].showBlocks.specialization %}
-                        <div class="b-jurist-block__info">
+                        <div class="b-jurist-block__info{% if mod == "feed" %} b-jurist-block__info_feed{% endif %}">
                             <span class="b-jurist-block__info-title{% if mod == "feed" %} b-jurist-block__info-title_block{% endif %}">Специализация:</span> {{# rubrics}}{{ rubrics__title }}{{^ rubrics__LAST__ }}, {{/ rubrics__LAST__}}{{/ rubrics }}
                         </div>
                     {% endif %}
@@ -153,7 +161,7 @@
 
                     {% endif %}
 
-                    {% if mod !== "profile" %}
+                    {% if mod == "list" %}
                         <div class="b-jurist-block__index">
 
                             {{# jurist__rate }}
@@ -167,12 +175,10 @@
                             {{/ jurist__rate }}
 
                             {% if data[mod].showBlocks.consultations %}
-
-                                {% if mod !== "top" %}
-                                    <div class="b-jurist-block__info b-jurist-block__info_inline">
-                                        <span class="b-jurist-block__info-title">Консультаций:</span> {{ jurist__consultations }}
-                                    </div>
-                                {% endif %}
+                                
+                                <div class="b-jurist-block__info b-jurist-block__info_inline">
+                                    <span class="b-jurist-block__info-title">Консультаций:</span> {{ jurist__consultations }}
+                                </div>                                
 
                             {% endif %}
 
@@ -188,7 +194,11 @@
                     <div class="b-jurist-block__info b-jurist-block__info_bio">
                         <span class="b-jurist-block__info-title b-jurist-block__info-title_block">Краткая биография</span>
 
-                        {{ jurist__bio }}
+                        <div class="b-jurist-block__bio">
+
+                            {{ jurist__bio }}
+
+                        </div>
 
                     </div>
                 {{/ jurist__bio__length }}

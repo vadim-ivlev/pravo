@@ -14,8 +14,10 @@ module.exports = function(data){
 					param: {
 						
 						blocks: {
-														
+
 							categoriesSidebar: RGB('categories:sidebar, tablet tabletLandscape desktop desktopFull:active'), // меню рубрик в сайдбаре
+
+							categoriesSidebarActiveLink: RGB('categories:sidebar-active-link, tablet tabletLandscape desktop desktopFull:active'), // меню рубрик в сайдбаре с кликабельной выбранной рубрикой
 
 							adsSidebarRight: RGB('ads:sidebar-right, tablet tabletLandscape'), // рекламный баннер
 
@@ -43,7 +45,7 @@ module.exports = function(data){
 
 							tag_questions: "adsSidebarRight juristsFeed juristsTop yandexDirect",
 
-							answer: "categoriesSidebar questionsLatest adsSidebarRight yandexDirect",
+							answer: "categoriesSidebarActiveLink questionsLatest adsSidebarRight yandexDirect",
 
 							ask: "questionsLatest adsSidebarRight",
 

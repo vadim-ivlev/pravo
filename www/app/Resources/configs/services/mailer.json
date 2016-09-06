@@ -1,0 +1,137 @@
+{
+	"name": "mailer",
+	"subTasks": [
+		{
+			"name": "sent",
+			"dest": "/src/JuristBundle/Resources/public/services/mailer/views",
+			"src": {
+				"include": [ "/app/Resources/public/pages/includes/route.html" ]
+			},
+			"plugins": [
+				{
+					"name": "gulp-rgswig",
+					"options": {
+						"data": {
+							"type": "public",
+							"name": "b-mailer",
+							"rgb": "mailer:sent"
+						}
+					}
+				},
+				{
+					"name": "gulp-minify-html",
+					"options": {
+						"conditionals": true,
+						"comments": true,
+						"quotes": true
+					}
+				},
+				{
+					"name": "gulp-rename",
+					"options": {
+						"basename": "b-mailer_sent"
+					}
+				}
+			]
+		},
+		{
+			"name": "rejected",
+			"dest": "/src/JuristBundle/Resources/public/services/mailer/views",
+			"src": {
+				"include": [ "/app/Resources/public/pages/includes/route.html" ]
+			},
+			"plugins": [
+				{
+					"name": "gulp-rgswig",
+					"options": {
+						"data": {
+							"type": "public",
+							"name": "b-mailer",
+							"rgb": "mailer:rejected"
+						}
+					}
+				},
+				{
+					"name": "gulp-minify-html",
+					"options": {
+						"conditionals": true,
+						"comments": true,
+						"quotes": true
+					}
+				},
+				{
+					"name": "gulp-rename",
+					"options": {
+						"basename": "b-mailer_rejected"
+					}
+				}
+			]
+		},
+		{
+			"name": "accepted",
+			"dest": "/src/JuristBundle/Resources/public/services/mailer/views",
+			"src": {
+				"include": [ "/app/Resources/public/pages/includes/route.html" ]
+			},
+			"plugins": [
+				{
+					"name": "gulp-rgswig",
+					"options": {
+						"data": {
+							"type": "public",
+							"name": "b-mailer",
+							"rgb": "mailer:accepted"
+						}
+					}
+				},
+				{
+					"name": "gulp-minify-html",
+					"options": {
+						"conditionals": true,
+						"comments": true,
+						"quotes": true
+					}
+				},
+				{
+					"name": "gulp-rename",
+					"options": {
+						"basename": "b-mailer_accepted"
+					}
+				}
+			]
+		},
+		{
+			"name": "published",
+			"dest": "/src/JuristBundle/Resources/public/services/mailer/views",
+			"src": {
+				"include": [ "/app/Resources/public/pages/includes/route.html" ]
+			},
+			"plugins": [
+				{
+					"name": "gulp-rgswig",
+					"options": {
+						"data": {
+							"type": "public",
+							"name": "b-mailer",
+							"rgb": "mailer:published"
+						}
+					}
+				},
+				{
+					"name": "gulp-minify-html",
+					"options": {
+						"conditionals": true,
+						"comments": true,
+						"quotes": true
+					}
+				},
+				{
+					"name": "gulp-rename",
+					"options": {
+						"basename": "b-mailer_published"
+					}
+				}
+			]
+		}
+	]
+}

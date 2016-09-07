@@ -75,7 +75,7 @@ module.exports = function(data){
 
                             index: "breadcrumbsMain categoriesSidebar questionsList pagination bibliotechkaAdvert adsSidebarRight juristsFeed juristsTop",
 
-                            rubric_questions: "breadcrumbsRubric questionsList pagination",
+                            rubric_questions: "breadcrumbsRubric categoriesSidebar questionsList pagination",
 
                             tag_questions: "breadcrumbsTag questionsList pagination",
 

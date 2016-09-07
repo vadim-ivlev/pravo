@@ -62,6 +62,7 @@ module.exports = [
 						attrs: {
 							label: "Выберите рубрику",
 							name: "select",
+							class: "js-ask-form-select",
 							mod: "white",
 							required: true,
                             placeholder: "Выберите рубрику",
@@ -125,6 +126,19 @@ module.exports = [
 					}
 				]
 			},
+			/*{
+				field: [
+					{
+						tag: "rg-checkbox",
+						mod: "getmsg",
+						attrs: {
+							label: "Получать уведомления о статусе вопроса",
+							name: "getmsg",
+							type: "checkbox"
+						}
+					}
+				]
+			},*/
 			{
 				field: [
 					{

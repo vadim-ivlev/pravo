@@ -30,21 +30,23 @@ var template = require('../b-select.ihtml'), // подкючение шабло�
                     items = this.get('items'),
                     isObject = null;
 
-                $.ajax({
-                    url: 'https://front.rg.ru/jurists/ask/json/',
-                    success: function(data) {
-                        var itemsDefault = self.get('items'),
-                            itemsNew = data.rubrics,
-                            itemsList = null;
+                if ($('rg-select').hasClass('js-ask-form-select')) {
+                    $.ajax({
+                        url: 'https://front.rg.ru/jurists/ask/json/',
+                        success: function(data) {
+                            var itemsDefault = self.get('items'),
+                                itemsNew = data.rubrics,
+                                itemsList = null;
 
-                        itemsList = itemsDefault.concat(itemsNew);
+                            itemsList = itemsDefault.concat(itemsNew);
 
-                        self.set('items', itemsList);
-                    },
-                    error: function(data) {
-                        console.log(data);
-                    }
-                });
+                            self.set('items', itemsList);
+                        },
+                        error: function(data) {
+                            console.log(data);
+                        }
+                    });
+                }
             },
 
             onrender() {

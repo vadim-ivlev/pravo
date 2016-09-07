@@ -569,11 +569,6 @@ $(function() {
     // RG.Menu.init();
     // RG.Menu.run();
 
-    /**
-     * Инициализация модуля замены списка выпадающим меню
-     */
-    new RG.ListHeadToSelect('.b-list-head_catalog .b-list-head__name_related', '.b-list-head_catalog .b-list-head__row', '.b-list-head_catalog .b-list-head__related');
-
     /**************************************************************************************
      ШАПКА
      *************************************************************************************/
@@ -1284,6 +1279,9 @@ $(function() {
         return false;
     }
 
+/**
+ * Инициализация модуля замены списка выпадающим меню
+ */
 
 new RG.ListHeadToSelect('.b-categories__link', '.b-categories', '.b-categories__list');
 

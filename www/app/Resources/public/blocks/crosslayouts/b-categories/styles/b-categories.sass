@@ -30,6 +30,9 @@ $block: '.b-categories'
             font-weight: bold
             color: $black
 
+        &_mobile
+            display: block
+
     // Скин: белый фон
     &__body_white,
     .b-menu-user &__body
@@ -88,6 +91,9 @@ $block: '.b-categories'
         &:last-child
             margin-bottom: 0
 
+        &_disabled
+            pointer-events: none
+
     &__all_rubrics
         +font(13px)
         font-weight: normal
@@ -123,3 +129,8 @@ $block: '.b-categories'
             &__all_rubrics
                 background-color: $time-color
                 bottom: -29px
+
+            &__item
+
+                &_mobile
+                    display: none

@@ -14,7 +14,7 @@ $block: '.b-categories'
 
         font-weight: bold
         padding: 12px 0 8px
-        color: $black
+        color: $link-color
         background-color: $white
 
     &__item
@@ -112,6 +112,19 @@ $block: '.b-categories'
 
     &_main
         margin-bottom: 10px
+
+        & .b-categories__link
+
+            &:hover
+                color: $link-color + #111
+
+    &_sidebar,
+    &_sidebar-active-link
+        & .b-categories__link
+            color: $white
+
+            &:hover
+                color: $white - #333
 
 
     // Tablet

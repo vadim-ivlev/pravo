@@ -29,9 +29,10 @@ class PartnersController extends ApiController
         return $this->result;
     }
 
-    public function PartnersAction($format = self::FORMAT)
+    public function PartnersAction(/*$format = self::FORMAT*/)
     {//app_dev.php/partners/
-        if ($format === 'json') {
+
+        if ($this->fetchFormat() === 'json') {
 
             $this->formedDataAction();
 
@@ -40,7 +41,7 @@ class PartnersController extends ApiController
                    ->setData($this->result, JSON_UNESCAPED_SLASHES)
                    ->headers->set('Content-Type', 'application/json');
             return $response;
-        } elseif ($format === 'html') {
+        } elseif ($this->fetchFormat() === 'html') {
 
             //$sphinx = $this->get('iakumai.sphinxsearch.search');
             //$request = Request::createFromGlobals();

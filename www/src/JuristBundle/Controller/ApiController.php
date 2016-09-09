@@ -51,7 +51,7 @@ class ApiController extends Controller implements ContainerAwareInterface
     const LIMIT_FOR_JURIST = 5;
 
     //константы ссылок
-    const JURISTS = '/jurists/';
+    const JURISTS = '/';//главная роут на бандел
     const RUBRICS = self::JURISTS . 'rubrics/';
     const RUBRIC = self::JURISTS . 'rubric/';
     const QUESTIONS = 'question/'; //для формирование страницы ответа нужна без jurist
@@ -65,6 +65,28 @@ class ApiController extends Controller implements ContainerAwareInterface
     const REDIRECT = '/'; //окончание ссылок для редиректа
 
     const FORMAT = 'html'; //константы параметров методов
+
+    public $filters_for_jurists = [
+        'alphabet' => 'По алфавиту',
+        'rating' => 'По рейтингу',
+        'company' => 'По компании',
+    ];
+    //protected $format;
+
+    protected function fetchFormat()
+    {
+        $request = Request::createFromGlobals();
+        $format = $request->query->get('format');
+        if (empty($format)) $format = self::FORMAT;
+        
+        return $format;
+        
+    }
+
+    /*protected function getFormat()
+    {
+        return $this->format;
+    }*/
 
     //const TYPE_PAGES = 'html';
 
@@ -112,11 +134,11 @@ class ApiController extends Controller implements ContainerAwareInterface
      *
      */
     const MAIN_HEADER_TITLE = 'юридическая консультация';
-    const MAIN_HEADER = '/jurists/main/1/html/0/';
-    const JURISTS_HEADER = '/jurists/jurists/1/html/0/';
-    const RULES_HEADER = '/jurists/rules/html/';
-    const TAGS_HEADER = '/jurists/rubrics/html/0/';
-    const PARTNERS_HEADER = '/jurists/partners/html/';
+    const MAIN_HEADER = self::JURISTS . '';
+    const JURISTS_HEADER = self::JURISTS . 'jurists/1/';
+    const RULES_HEADER = self::JURISTS . 'rules/';
+    const TAGS_HEADER = self::JURISTS . 'rubrics/0/';
+    const PARTNERS_HEADER = self::JURISTS . 'partners/';
     /**
      *
      */
@@ -127,12 +149,12 @@ class ApiController extends Controller implements ContainerAwareInterface
      * */
     public function setContainer(ContainerInterface $container = null)
     {
+
         $this->container = $container;
 
         $this->connect_to_Jurists_bd = $this
                                             ->getDoctrine()
                                             ->getManager(self::NAME_BD);
-
     }
 
     public function Sphinx($type = 'search', $request = '')
@@ -145,25 +167,45 @@ class ApiController extends Controller implements ContainerAwareInterface
         return $SM_fabric->prepareResponse([]);
     }
 
-    public function getDate()
+    protected function generateOffsetPagination ($id)
     {
-        return $this->result['copyright__info'] = '© 1998&ndash;' .date('Y'). ' &nbsp; ФГБУ <b>«Редакция «Российской газеты»</b>';
+        return ($id - 1)  * static::COUNT_RECORDS_ON_PAGE_JURISTS;
     }
 
-    protected function generateFirstLast( &$element )
+    private function getData()
+    {
+        $request = Request::createFromGlobals();
+        $this->result['routes'] = [
+            'ask__route' => '/ask/',
+            'bread__crumbs' => [
+                'bread__crumbs__main' => '/',
+            ],
+            'current__uri' => $request->getUri(),
+        ];
+        return $this->result['routes'];
+    }
+
+    public function getDate()
+    {
+        $this->result['copyright__info'] = '© 1998&ndash;' .date('Y'). ' &nbsp; ФГБУ <b>«Редакция «Российской газеты»</b>';
+        $this->getData();//подставляется тут крч
+        return $this->result;
+    }
+
+    protected function generateFirstLast(&$element)
     {
         $type = (!empty($element[0]) && stristr(key($element[0]), 'tags')) ? 'tags' : 'rubrics';
         if (count($element) >= 2) {
             $element[0][$type . '__FIRST__'] = 1;
             $element[count($element) -1][$type . '__LAST__'] = 1;
-        } else if (count($element) === 1){
+        } else if (count($element) === 1) {
             $element[0][$type . '__FIRST__'] = 1;
             $element[0][$type . '__LAST__'] = 1;
         }
         return $element;
     }
 
-    protected function formedTagsAndRubrics( $data )
+    protected function formedTagsAndRubrics($data)
     {
         if (!empty($data)) {
             $result = [];
@@ -184,28 +226,54 @@ class ApiController extends Controller implements ContainerAwareInterface
                         : 'rubrics__link'
                     =>
                         (stristr((string)key($data_val), 'Tags'))
-                        ? self::TAG .'html/' . $data_val->getId() . '/0' . self::REDIRECT
+                        ? self::TAG /*.'html/'*/ . '1/' . $data_val->getId() . self::REDIRECT
                         //: self::RUBRIC .'html/' . '0/' . $data_val->getId() . self::REDIRECT
-                        : self::RUBRICS . self::FORMAT . '/' . $data_val->getId() . self::REDIRECT//self::RUBRICS . $rubric->getId() . self::REDIRECT,
+                        : self::RUBRICS /*. self::FORMAT . '/'*/ . $data_val->getId() . self::REDIRECT//self::RUBRICS . $rubric->getId() . self::REDIRECT,
                 ];
             }
             return $result;
         }
     }
 
-    protected function getCountConsultation( $idJurist )
+    /**
+     * @param $idJurist
+     * @param null $conditions_date - нужно для сортировки юристов с условием за неделю
+     * @return int
+     */
+    protected function getCountConsultation($idJurist, $conditions_date = null)
     {
         if (gettype($idJurist) == 'object') $idJurist = $idJurist->getId();
-        $CountConsultationJurist = $this->connect_to_Jurists_bd
-            ->getRepository('JuristBundle:Questions')
-            ->findBy(array('AuthUsersId' => $idJurist, 'step' => self::FINISHED_STEP));
+
+        //if($_SERVER['REMOTE_ADDR'] == '212.69.111.1311') {
+            if ($conditions_date) {
+                $CountConsultationJurist = $this->connect_to_Jurists_bd
+                    ->getRepository('JuristBundle:Questions')
+                    ->createQueryBuilder('q')
+                    ->innerJoin("q.answersId", 'a', 'WITH', "q.id = a.question")
+                    ->where('q.AuthUsersId = :AuthUsersId')
+                    ->andWhere('q.step = :step')
+                    ->andWhere('a.date > :date')
+                    ->setParameters([
+                        'AuthUsersId' => $idJurist,
+                        'step' => self::FINISHED_STEP,
+                        'date' => $conditions_date
+                    ])
+                    ->getQuery()
+                    ->execute()
+                ;
+            } else {
+                $CountConsultationJurist = $this->connect_to_Jurists_bd
+                    ->getRepository('JuristBundle:Questions')
+                    ->findBy(array('AuthUsersId' => $idJurist, 'step' => self::FINISHED_STEP));
+            }
+        //}
 
         return count($CountConsultationJurist);
     }
 
-    protected function fetchAvatar( $Avatar, $Question )
+    protected function fetchAvatar($Avatar, $Question)
     {
-        if(!empty($Avatar->getFileName())){
+        if (!empty($Avatar->getFileName())) {
             $image_medium = [
                 'jurist__img__type_medium' => 1,
                 'jurist__img__file' => $Avatar->getDirectory() . $Avatar->getFilename(),
@@ -235,7 +303,7 @@ class ApiController extends Controller implements ContainerAwareInterface
         return $image_medium;
     }
 
-    protected function receiveAnOverallRating( $ratings )
+    protected function receiveAnOverallRating($ratings)
     {
         $total_rating = 0; //рейтинг юриста считается по вытаскиванию его рейтинга из всех вопросов и его суммирования
         foreach ($ratings as $rating) {
@@ -246,13 +314,14 @@ class ApiController extends Controller implements ContainerAwareInterface
         return $total_rating;
     }
 
-    protected function formedTagsForRubrics( $Rubrics, $id = null )
+    protected function formedTagsForRubrics($Rubrics, $id = null)
     {//Генерирует единую структуру вывода тегов для рубрик
 
         /**
          * Хардкор для ВСЕХ рубрик
          */
-        define('TYPE_PAGE', 'html/');
+        //define('TYPE_PAGE', 'html/');
+        define('TYPE_PAGE', '');
 
         $this->result['categories']['rubrics'][] = array(
             'rubrics__title' => 'Все',
@@ -260,7 +329,7 @@ class ApiController extends Controller implements ContainerAwareInterface
             'rubrics__active' => (!isset($id)) ? 1 : 0,//если вызов во "ВСЕХ" рубриках
         );
 
-        foreach ($Rubrics as $Rubric){
+        foreach ($Rubrics as $Rubric) {
             $this->result['categories']['rubrics'][] = array(
                 'rubrics__title' => $Rubric->getName(),
                 'rubrics__link' => self::RUBRICS . TYPE_PAGE . $Rubric->getId() . self::REDIRECT,
@@ -279,7 +348,7 @@ class ApiController extends Controller implements ContainerAwareInterface
 
                     $rubrics_tags__items['rubrics_tags__items'][] = array(
                         'rubrics_tags__items__title' => $val_tags->getName(),
-                        'rubrics_tags__items__link' => self::TAG . 'html/' . $val_tags->getId() . '/0' . self::REDIRECT,
+                        'rubrics_tags__items__link' => self::TAG /*. 'html/'*/ . '1/' . $val_tags->getId()  . self::REDIRECT,
 //                        'rubrics_tags__items__link' => self::TAGS . $val_tags->getId() . self::REDIRECT,
                         'rubrics_tags__items__frequency' => $total_frequency//количество кпоминаний в вопросе
                     );
@@ -295,13 +364,13 @@ class ApiController extends Controller implements ContainerAwareInterface
                 if (isset($id) && $Rubric->getId() == $id) {
                     $this->result['categories']['rubrics_tags'][] = array(
                         'rubrics_tags__name' => $Rubric->getName(),
-                        'rubrics_tags__links' => self::RUBRIC .'1/html/0/' . $Rubric->getId() . self::REDIRECT,
+                        'rubrics_tags__links' => self::RUBRIC . '1/' /*'1/html/0/'*/ . $Rubric->getId() . self::REDIRECT,
                         'rubrics_tags__items_unit' => $rubrics_tags__items
                     );
                 } else if (!isset($id)) {
                     $this->result['categories']['rubrics_tags'][] = array(
                         'rubrics_tags__name' => $Rubric->getName(),
-                        'rubrics_tags__links' => self::RUBRIC .'1/html/0/' . $Rubric->getId() . self::REDIRECT,
+                        'rubrics_tags__links' => self::RUBRIC . '1/' /*'1/html/0/'*/ . $Rubric->getId() . self::REDIRECT,
                         'rubrics_tags__items_unit' => $rubrics_tags__items
                     );
                 }
@@ -310,14 +379,17 @@ class ApiController extends Controller implements ContainerAwareInterface
 
     }
 
-    protected function formedQuestions( $Questions )
+    protected function formedQuestions ($Questions)
     {
-        foreach ($Questions as $Question){
+        foreach ($Questions as $Question) {
 
             /**
              * Проверка что есть ответ. Потому что нельзя сделать сразу выборку по ассоциативным полям answersId
              */
-            if(!empty($Question->getAnswersId()) && $Question->getStep() >= self::FINISHED_STEP) {
+            if (!empty($Question->getAnswersId()) && $Question->getStep() >= self::FINISHED_STEP) {
+                /*if($_SERVER['REMOTE_ADDR'] =='212.69.111.131') {
+                    var_dump(1);
+                }*/
                 /**
                  * генерация mods
                  *
@@ -349,7 +421,7 @@ class ApiController extends Controller implements ContainerAwareInterface
                         ]
                     ,
                     'tags' => $this->formedTagsAndRubrics($Question->getTags()->toArray()),//$tags_result,
-                    'link' => self::RUBRICS . self::QUESTIONS . $Question->getId() . '/' . self::FORMAT.  self::REDIRECT,
+                    'link' => self::RUBRICS . self::QUESTIONS . $Question->getId() /*. '/' . self::FORMAT*/ .  self::REDIRECT,
                     'rubrics' => $this->formedTagsAndRubrics($Question->getRubrics()->toArray()),
                     'title' => $Question->getTitle(),
                     'text' => $Question->getDescription(),
@@ -357,7 +429,7 @@ class ApiController extends Controller implements ContainerAwareInterface
                         'jurist__active' => ($Question->getAnswersId()->getAuthUsersId()->getDisabled() == self::DISABLED_VALUE_ON) ? !self::DISABLED_VALUE_ON : self::DISABLED_VALUE_ON,
                         'jurist__first_name' => $Question->getAnswersId()->getAuthUsersId()->getName(),
                         'jurist__last_name' => $Question->getAnswersId()->getAuthUsersId()->getSecondName(),
-                        'jurist__link' => self::JURIST . $Question->getAnswersId()->getAuthUsersId()->getId() . self::REDIRECT . 'html/',
+                        'jurist__link' => self::JURIST . $Question->getAnswersId()->getAuthUsersId()->getId() . self::REDIRECT /*. 'html/'*/,
                         'jurist__img' => [$this->fetchAvatar($Question->getAnswersId()->getAuthUsersId(), $Question)],
                         'jurist__rate' => [
                             'jurist__rate__reply' => $Question->getAnswersId()->getRating(),
@@ -367,28 +439,28 @@ class ApiController extends Controller implements ContainerAwareInterface
                     'questions__item_complete' => 0,
                 ];
 
-                foreach($this->result['questions_list'] as &$val){
+                foreach ($this->result['questions_list'] as &$val) {
 
                     /**
                      * Если первый ключ равен оплаченому юристу self::NAME_PAY_JURIST, то выставляем визабилити,
                      * если нет, то сносим.
                      *
                      */
-                    if( !empty($val['mods'][0]) && $val['mods'][0] === self::NAME_PAY_JURIST ) {
+                    if (!empty($val['mods'][0]) && $val['mods'][0] === self::NAME_PAY_JURIST) {
                         $val['visibility'] = [//true если mods = highlighted
                             'visibility__state' => 'visible'
                         ];
-                    } else if(isset($val['mods'][0]) && $val['mods'][0] === '') {
+                    } else if (isset($val['mods'][0]) && $val['mods'][0] === '') {
                         unset($val['mods'][0]);
                     }
-                    if( isset($val['mods'][1]) && $val['mods'][1] === '') unset($val['mods'][1] );
-                    if( !empty($val['mods']) &&  count($val['mods']) > 0 ) {
+                    if (isset($val['mods'][1]) && $val['mods'][1] === '') unset($val['mods'][1]);
+                    if (!empty($val['mods']) &&  count($val['mods']) > 0) {
                         $val['mods__length'] = count($val['mods']);
                     } else {
                         unset($val['mods']);
                     }
 
-                    if(!empty($val['mods']))$val['mods'] = array_values($val['mods']);//потому что тупой мусташ считает [1 => 'cart'] массивом, хотя, явно это не указанно
+                    if (!empty($val['mods']))$val['mods'] = array_values($val['mods']);//потому что тупой мусташ считает [1 => 'cart'] массивом, хотя, явно это не указанно
 
                     /**
                      * Работа с тегами и рубриками
@@ -404,7 +476,7 @@ class ApiController extends Controller implements ContainerAwareInterface
                     /**
                      * Работаем с хранилищем аватарок для юристов
                      */
-                    if(count($val['jurist']['jurist__img']) > 0){
+                    if (count($val['jurist']['jurist__img']) > 0) {
                         $val['jurist']['jurist__img__length'] = count($val['jurist']['jurist__img']);
                     }
                 }
@@ -413,7 +485,7 @@ class ApiController extends Controller implements ContainerAwareInterface
         }
     }
 
-    protected function bibliotechkaRand()
+    protected function bibliotechkaRand ()
     {
         $bibliotechkaRand = [
             [
@@ -544,7 +616,7 @@ class ApiController extends Controller implements ContainerAwareInterface
 
             $rand = rand(0, count($bibliotechkaRand)-1);
 
-            if( !key_exists($rand, $result_array) ) {//проверяем, чтоб не было дублей
+            if (!key_exists($rand, $result_array)) {//проверяем, чтоб не было дублей
                 $result_array[$rand] = $bibliotechkaRand[$rand];
             }
         }
@@ -552,7 +624,8 @@ class ApiController extends Controller implements ContainerAwareInterface
 
         return array_values($result_array);//для мусташа, а иначе он не понимает ключи, т.е. порядок array(3 => 'ddd', 1 => 'bbb') ему не понятен, а так понятен array(0 => 'ddd', 1 => 'bbb')
     }
-    protected function bibliotechka($data = null){
+    protected function bibliotechka ($data = null)
+    {
 
         $result = array(
             'bibliotechka__issue' => array(
@@ -602,7 +675,7 @@ class ApiController extends Controller implements ContainerAwareInterface
     {
 
         //return new Response($format);
-        if($format === 'json'){//app_dev.php/jurists/sidebar/json/
+        if ($format === 'json') {//app_dev.php/jurists/sidebar/json/
 
             $Rubrics = $this->connect_to_Jurists_bd
                 ->getRepository('JuristBundle:Rubrics')
@@ -623,22 +696,27 @@ class ApiController extends Controller implements ContainerAwareInterface
             $questions_latest = array();
 
             $date = new \DateTime('now');//для jurists_top
-            $date->modify('-1 week');
+            $expires = '-1 week';
+            $date->modify($expires);
             $id_jurists_top = array();//выборк юристов для топа jurists_top
 
-            foreach($Answers as $Answer){
-                if($Answer->getDate() > $date && $Answer->getQuestion()->getStep() >= self::FINISHED_STEP){//выборк id юристов для топа у которых есть ответы за последнию неделю
+            foreach ($Answers as $Answer) {
+                if (
+                    $Answer->getDate() > $date
+                    && $Answer->getQuestion()->getStep() >= self::FINISHED_STEP
+                    && $Answer->getAuthUsersId()->getDisabled() == self::DISABLED_VALUE_ON
+                ) {//выборк id юристов для топа у которых есть ответы за последнию неделю
                     $id_jurists_top[] = $Answer->getAuthUsersId()->getId();
                 }
 
-                if($Answer->getQuestion()->getStep() >= self::FINISHED_STEP){//выборка вопросов которые уже опубликованы
+                if ($Answer->getQuestion()->getStep() >= self::FINISHED_STEP) {//выборка вопросов которые уже опубликованы
                     $rubrics = array();
 
-                    foreach($Answer->getQuestion()->getRubrics()->toArray() as $rubric){//формируем рубрики
-                        if(!empty($rubric->getName())){
+                    foreach($Answer->getQuestion()->getRubrics()->toArray() as $rubric) {//формируем рубрики
+                        if (!empty($rubric->getName())){
                             $rubrics[] = array(
                                 'rubrics__title' => htmlspecialchars($rubric->getName()),
-                                'rubrics__link' =>  self::RUBRICS . self::FORMAT . '/' . $rubric->getId() . self::REDIRECT//self::RUBRICS . $rubric->getId() . self::REDIRECT,
+                                'rubrics__link' =>  self::RUBRICS . /*self::FORMAT . '/' .*/ $rubric->getId() . self::REDIRECT//self::RUBRICS . $rubric->getId() . self::REDIRECT,
                             );
                         }
                     }
@@ -647,11 +725,13 @@ class ApiController extends Controller implements ContainerAwareInterface
                         'mods' => array($questions_latest_mods),
                         'rubrics' => $rubrics,
                         'title' => $Answer->getQuestion()->getTitle(),
-                        'link' => self::RUBRICS . self::QUESTIONS . $Answer->getQuestion()->getId() . '/' . self::FORMAT.  self::REDIRECT,
+                        'link' => self::RUBRICS . self::QUESTIONS . $Answer->getQuestion()->getId() /*. '/' . self::FORMAT*/ .  self::REDIRECT,
                     );
 
-                    foreach($questions_latest as $key_question_latest => &$question_latest){
-                        if (count($question_latest['rubrics']) == 0) { unset($questions_latest[$key_question_latest]); }
+                    foreach ($questions_latest as $key_question_latest => &$question_latest) {
+                        if (count($question_latest['rubrics']) == 0) {
+                            unset($questions_latest[$key_question_latest]);
+                        }
                         $question_latest['mods__length'] = count($question_latest['mods']);
                         $question_latest['rubrics__length'] = count($question_latest['rubrics']);
                     }
@@ -663,43 +743,44 @@ class ApiController extends Controller implements ContainerAwareInterface
             $id_jurists_top = array_unique($id_jurists_top);
             $jurists_top = array();
 
-            foreach($Jurists as $Jurist){
+            foreach($Jurists as $Jurist) {
 
                 /**
                  * todo jurists_top
                  *  перебираем id юристов у которых есть ответы за последнию неделю
                  */
-                foreach ($id_jurists_top  as $id_jurist_top){
-                    if($Jurist->getId() == $id_jurist_top){
+                foreach ($id_jurists_top  as $id_jurist_top) {
+                    if ($Jurist->getId() == $id_jurist_top) {
                         $jurists_top[] = array(
                             'mods' => array($jurists_top_mods),
                             'jurist__img' => [$this->fetchAvatar($Jurist, $Jurist)],
-                            'jurist__link' => self::JURIST . $Jurist->getId() . '/' . self::FORMAT . self::REDIRECT,
+                            'jurist__link' => self::JURIST . $Jurist->getId() /*. '/' . self::FORMAT*/ . self::REDIRECT,
                             'jurist__first_name' => $Jurist->getName(),
                             'jurist__last_name' => $Jurist->getSecondName(),
-                            'jurist__consultations' => $this->getCountConsultation($Jurist->getId()),
+                            'jurist__consultations' => $this->getCountConsultation($Jurist->getId(), date('Y-m-d H:i:s', strtotime($expires))),
                             'jurist__rate__author' => $this->receiveAnOverallRating($Jurist->getAnswers()->toArray()),//общий рейтинг
                         );
                     }
                 }
 
                 $rubrics = [];
-                foreach($Jurist->getRubrics()->toArray() as $rubric){//формируем рубрики для юристов
+                foreach ($Jurist->getRubrics()->toArray() as $rubric) {//формируем рубрики для юристов
                     $rubrics[] = [
                         'rubrics__title' => $rubric->getName(),
-                        'rubrics__link' => self::RUBRICS . $rubric->getId() . '/' . self::FORMAT . self::REDIRECT,
+                        'rubrics__link' => self::RUBRICS . $rubric->getId() . /*'/' . self::FORMAT .*/ self::REDIRECT,
                     ];
                 }
 
                 /**
                  * todo jurists_feed
                  */
-                if($Jurist->getDateEndOfferServices() > new \DateTime('now') && $Jurist->getDisabled() === self::DISABLED_VALUE_ON){//проверка оплачености и активности
+                if ($Jurist->getDateEndOfferServices() > new \DateTime('now') && $Jurist->getDisabled() === self::DISABLED_VALUE_ON) {//проверка оплачености и активности
                     $Jurist_feed[] = array(
                         'mods' => array($jurists_latest_mods),
                         'jurist__img' => [$this->fetchAvatar($Jurist, $Jurist)],
-                        'jurist__link' => self::JURIST . $Jurist->getId() . '/' . self::FORMAT . self::REDIRECT,
+                        'jurist__link' => self::JURIST . $Jurist->getId() . /*'/' . self::FORMAT .*/ self::REDIRECT,
                         'jurist__education' => $Jurist->getGraduate(),
+                        'jurist__education__length' => ($Jurist->getGraduate() == '') ? false : true,
                         'rating' => $this->receiveAnOverallRating($Jurist->getAnswers()->toArray()),
                         'jurist__first_name' => $Jurist->getName(),
                         'jurist__last_name' => $Jurist->getSecondName(),
@@ -723,7 +804,7 @@ class ApiController extends Controller implements ContainerAwareInterface
              * сортируем юристов по рейтингу и затем обрезаем для заданного лимита
              */
             usort($jurists_top, function ($a, $b) {
-                return strcmp($b['jurist__rate__author'], $a['jurist__rate__author']);
+                return strcmp($b['jurist__consultations'], $a['jurist__consultations']);//return strcmp($b['jurist__rate__author'], $a['jurist__rate__author']);
             });
             $jurists_top = array_splice($jurists_top, 0, $jurists_top_week);
 
@@ -732,12 +813,12 @@ class ApiController extends Controller implements ContainerAwareInterface
              */
             $questions_latest = array_splice($questions_latest, 0, $answers_limit);
 
-            foreach($jurists_top as &$val_jurists_top){//$jurists_top подсчет length && first/last
+            foreach($jurists_top as &$val_jurists_top) {//$jurists_top подсчет length && first/last
                 $val_jurists_top['jurist__img__length'] = count($val_jurists_top['jurist__img']);
                 $val_jurists_top['mods__length'] = count($val_jurists_top['mods']);
             }
 
-            foreach($Jurist_feed as &$val_Jurist_feed){//jurists_feed подсчет length && first/last
+            foreach($Jurist_feed as &$val_Jurist_feed) {//jurists_feed подсчет length && first/last
                 $val_Jurist_feed['jurist__img__length'] = count($val_Jurist_feed['jurist__img']);
                 $val_Jurist_feed['mods__length'] = count($val_Jurist_feed['mods']);
                 $val_Jurist_feed['rubrics__length'] = count($val_Jurist_feed['rubrics']);
@@ -748,20 +829,21 @@ class ApiController extends Controller implements ContainerAwareInterface
 
                 'bibliotechka' => $this->bibliotechkaRand()[0],//Ибо нужно только один
 
-                'questions_latest' => $questions_latest,//последние вопросы
-
-                'questions_latest__length' => count($questions_latest),
-
-                'jurists_feed' => $Jurist_feed,
-
-                'jurists_top' => $jurists_top,//юристы в топе за неделю
             );
 
+            $this->result['questions_latest'] = $questions_latest;//последние вопросы
 
-            foreach($Rubrics as $Rubric){
+            $this->result['questions_latest__length'] = count($questions_latest);
+            
+            $this->result/*['sidebar']*/['jurists_feed'] = $Jurist_feed;
+
+            $this->result/*['sidebar']*/['jurists_top'] = $jurists_top;//юристы в топе за неделю
+
+
+            foreach($Rubrics as $Rubric) {
                 $this->result['sidebar']['categories']['rubrics'][] = array(
                     'rubrics__title' => $Rubric->getName(),
-                    'rubrics__link' => self::RUBRIC . '1/html/0/' . $Rubric->getId() . self::REDIRECT,
+                    'rubrics__link' => self::RUBRIC . '1/' . $Rubric->getId() . self::REDIRECT,
                     'rubrics__active' => (!empty($id) && $id == $Rubric->getId()) ? true : false,
                 );
             }
@@ -778,8 +860,9 @@ class ApiController extends Controller implements ContainerAwareInterface
 
         }
     }
-
-    public function HeaderAction($active = null){
+    
+    public function HeaderAction($active = null)
+    {
 
         $this->result['header'] = array(
             'tabs' => array(
@@ -820,24 +903,26 @@ class ApiController extends Controller implements ContainerAwareInterface
     {
         static $arrow = [];
 
-        if ( $number_page == $current_page-1 ) {//https://front.rg.ru/jurists/jurists/
+        if ($number_page == $current_page-1) {//https://front.rg.ru/jurists/jurists/
             $arrow[] = [
                 'arrow__prev' => true,
-                'arrow__link' => $link."$number_page/html/" . (($number_page-1)*self::COUNT_RECORDS_ON_PAGE_JURISTS) . $condition_id . self::REDIRECT . $get_string,
+                //'arrow__link' => $link. $number_page /*"$number_page/html/" . (($number_page-1)*self::COUNT_RECORDS_ON_PAGE_JURISTS)*/ . $condition_id . self::REDIRECT . $get_string,
+                'arrow__link' => ($link. $number_page . $condition_id . self::REDIRECT . $get_string !== '/main/1/') ? $link. $number_page . $condition_id . self::REDIRECT . $get_string : '/' . $get_string,
             ];
         }
 
-        if ( $number_page == $current_page+1 ) {
+        if ($number_page == $current_page+1) {
             $arrow[] = [
                 'arrow__next' => true,
-                'arrow__link' => $link."$number_page/html/" . (($number_page-1)*self::COUNT_RECORDS_ON_PAGE_JURISTS) . $condition_id . self::REDIRECT . $get_string,
+                'arrow__link' => $link . $number_page/*"$number_page/html/" . (($number_page-1)*self::COUNT_RECORDS_ON_PAGE_JURISTS)*/ . $condition_id . self::REDIRECT . $get_string,
             ];
         }
         
         return $arrow;
     }
 
-    /*protected function PaginationGeneratePagesAction($firstPage, $totalPages, $link_action, $number_page, $current_page){//TODO описать
+    /*protected function PaginationGeneratePagesAction($firstPage, $totalPages, $link_action, $number_page, $current_page)
+    {//TODO описать
         static $numeric_page = [];
 
         $numeric_page[0] = [
@@ -858,7 +943,7 @@ class ApiController extends Controller implements ContainerAwareInterface
             'last' => true,
         ];
 
-        for($j = 1; $j <= self::PAGINATION_FOR_JURISTS-count($numeric_page); ++$j){
+        for ($j = 1; $j <= self::PAGINATION_FOR_JURISTS-count($numeric_page); ++$j) {
             $numeric_page[$j] = [
                 'number_page' => $number_page,
                 'link' => $link_action . "$j/html/" . (($number_page-1)*self::COUNT_RECORDS_ON_PAGE_JURISTS) . self::REDIRECT,
@@ -873,7 +958,7 @@ class ApiController extends Controller implements ContainerAwareInterface
     }*/
 
     protected function ProcessingRequestForPaginationAction ()
-    {
+    {//зават get запросов
         $value_get_pagination = '?';
 
         $request = Request::createFromGlobals();
@@ -883,7 +968,8 @@ class ApiController extends Controller implements ContainerAwareInterface
         if ($value_get_pagination[strlen($value_get_pagination)-1] === '&') {
             $value_get_pagination = substr($value_get_pagination, 0, strlen($value_get_pagination)-1);
         }
-        
+        if ($value_get_pagination === '?') $value_get_pagination = '';
+
         return $value_get_pagination;
     }
 
@@ -904,6 +990,14 @@ class ApiController extends Controller implements ContainerAwareInterface
         $get_string = ''
     )
     {
+        //dump($count_numeric_page);die;
+        //$current_page = 666;
+        /*dump($current_page);
+        dump($condition_id);
+        die;*/
+        /*dump($query, $count_numeric_page, $count_records_on_page,
+            $current_page, $link, $firstPage = 1, $condition_id = '',
+            $get_string);die;*/
         if (!$current_page) throw new Exception("Не допустимое значение: id = $current_page");
         $count_records = count($query);
         $totalPages = ceil($count_records / $count_records_on_page);
@@ -911,7 +1005,7 @@ class ApiController extends Controller implements ContainerAwareInterface
         /**
          * start numeric_page
          *
-         * logics:
+         * logic:
          * We have for example 20 page with $count_numeric_page == 5
          *
          * 1,2,3,4,5,6,7,8,9,10,11,12,13,14,1516,17,18,19,20
@@ -932,16 +1026,20 @@ class ApiController extends Controller implements ContainerAwareInterface
          * then we see 1...9,10(disabled),11...20
          *
          */
+        if ($totalPages <= 1) return false;//если 1 стр всего
+
         for ($i = $firstPage; $i <= $totalPages; ++$i) {//TODO оптимизировать
 
+            //dump($totalPages);die;
             if ($current_page == $firstPage && $i <= $count_numeric_page) {//если на 1-ой
                 if ($i < $count_numeric_page) {
                     $arrow = $this::PaginationGenerateArrowAction($i, $current_page, $link, $condition_id, $get_string);
                     //$numeric_page = $this->PaginationGeneratePagesAction($firstPage, $totalPages, 'https://front.rg.ru/jurists/jurists/', $i, $current_page);
-                    
+
                     $numeric_page[] = [
                         'number_page' => $i,
-                        'link' => $link . "$i/html/" . (($i-1)*self::COUNT_RECORDS_ON_PAGE_JURISTS) . $condition_id . self::REDIRECT . $get_string,
+                        //'link' => $link . $i/*"$i/html/" . (($i-1)*self::COUNT_RECORDS_ON_PAGE_JURISTS)*/ . $condition_id . self::REDIRECT . $get_string,
+                        'link' => ($link . $i . $condition_id . self::REDIRECT !== '/main/1/') ? $link . $i . $condition_id . self::REDIRECT . $get_string : '/' . $get_string,
                         'current' => ($i == $current_page) ? true : false,
                         'first' => ($i == $firstPage) ? true : false,
                         'middle' => ($i != $firstPage && $i != $totalPages) ? true : false,
@@ -950,18 +1048,21 @@ class ApiController extends Controller implements ContainerAwareInterface
                 } else {
                     $numeric_page[] = [
                         'number_page' => $totalPages,
-                        'link' => $link . "$totalPages/html/" . (($totalPages-1)*self::COUNT_RECORDS_ON_PAGE_JURISTS) . $condition_id . self::REDIRECT . $get_string,
+                        //'a' => 1,
+                        //'link' => $link . $totalPages /*"$totalPages/html/" . (($totalPages-1)*self::COUNT_RECORDS_ON_PAGE_JURISTS)*/ . $condition_id . self::REDIRECT . $get_string,
+                        'link' => ($link . $i . $condition_id . self::REDIRECT !== '/main/1/') ? $link . $totalPages . $condition_id . self::REDIRECT . $get_string : '/' . $get_string,
                         'current' => false,
                         'first' => false,
                         'middle' => false,
                         'last' => true,
-                        'right_three_dots' => true,
+                        'right_three_dots' => ($totalPages > $count_numeric_page+1) ? true : false,//чтоб не было точек если 2-е стр и между ними точки
                     ];
                 }
             } elseif ($current_page == $totalPages && $i > $totalPages - $count_numeric_page) {//если на последний
                 $numeric_page[] = [
                     'number_page' => $i,
-                    'link' => $link . "$i/html/" . (($i-1)*self::COUNT_RECORDS_ON_PAGE_JURISTS) . $condition_id . self::REDIRECT . $get_string,
+                    'link' => $link . $i /*"$i/html/" . (($i-1)*self::COUNT_RECORDS_ON_PAGE_JURISTS)*/ . $condition_id . self::REDIRECT . $get_string,
+                    //'link' => ($link . $i . $condition_id . self::REDIRECT . $get_string !== '/main/1/') ? $link . $i . $condition_id . self::REDIRECT . $get_string : '/' . $get_string,
                     'current' => ($i == $current_page) ? true : false,
                     'first' => ($i == $firstPage) ? true : false,
                     'middle' => ($i != $firstPage && $i != $totalPages) ? true : false,
@@ -969,19 +1070,21 @@ class ApiController extends Controller implements ContainerAwareInterface
                 ];
                 $numeric_page[0] = [
                     'number_page' => $firstPage,
-                    'link' => $link . "$firstPage/html/0" . $condition_id . self::REDIRECT . $get_string,
+                    //'link' => $link . $firstPage /*"$firstPage/html/0"*/ . $condition_id . self::REDIRECT . $get_string,
+                    'link' => ($link . $firstPage . $condition_id . self::REDIRECT . $get_string !== '/main/1/') ? $link . $firstPage . $condition_id . self::REDIRECT . $get_string : '/' . $get_string,
                     'current' => false,
                     'first' => true,
                     'middle' => false,
                     'last' => false,
-                    'left_three_dots' => true,
+                    'left_three_dots' => ($totalPages > $count_numeric_page+1) ? true : false,//чтоб не было точек если 2-е стр и между ними точки
                 ];
                 $arrow = $this::PaginationGenerateArrowAction($i, $current_page, $link, $condition_id, $get_string);
             } elseif ($current_page == $firstPage + 1) {//если на 2-ой
-                if($i < $count_numeric_page){
+                if ($i < $count_numeric_page) {
                     $numeric_page[] = [
                         'number_page' => $i,
-                        'link' => $link . "$i/html/" . (($i-1)*self::COUNT_RECORDS_ON_PAGE_JURISTS) . $condition_id . self::REDIRECT . $get_string,
+                        //'link' => $link . $i /*"$i/html/" . (($i-1)*self::COUNT_RECORDS_ON_PAGE_JURISTS)*/ . $condition_id . self::REDIRECT . $get_string,
+                        'link' => ($link . $i . $condition_id . self::REDIRECT . $get_string !== '/main/1/') ? $link . $i . $condition_id . self::REDIRECT . $get_string : '/' . $get_string,
                         'current' => ($i == $current_page) ? true : false,
                         'first' => ($i == $firstPage) ? true : false,
                         'middle' => ($i != $firstPage && $i != $totalPages) ? true : false,
@@ -990,7 +1093,8 @@ class ApiController extends Controller implements ContainerAwareInterface
                 } elseif ($i == $count_numeric_page) {
                     $numeric_page[] = [
                         'number_page' => $totalPages,
-                        'link' => $link . "$i/html/" . (($totalPages-1)*self::COUNT_RECORDS_ON_PAGE_JURISTS) . $condition_id . self::REDIRECT . $get_string,
+                        //'link' => $link . $i /*"$i/html/" . (($totalPages-1)*self::COUNT_RECORDS_ON_PAGE_JURISTS)*/ . $condition_id . self::REDIRECT . $get_string,
+                        'link' => ($link . $i . $condition_id . self::REDIRECT . $get_string !== '/main/1/') ? $link . $totalPages . $condition_id . self::REDIRECT . $get_string : '' . $get_string,
                         'current' => false,
                         'first' => false,
                         'middle' => false,
@@ -1002,7 +1106,7 @@ class ApiController extends Controller implements ContainerAwareInterface
             } elseif ($current_page == $totalPages - 1 && $i > $totalPages - $count_numeric_page) {// предпоследний
                 $numeric_page[] = [
                     'number_page' => $i,
-                    'link' => $link . "$i/html/" . (($i-1)*self::COUNT_RECORDS_ON_PAGE_JURISTS) . $condition_id . self::REDIRECT . $get_string,
+                    'link' => $link . $i /*"$i/html/" . (($i-1)*self::COUNT_RECORDS_ON_PAGE_JURISTS)*/ . $condition_id . self::REDIRECT . $get_string,
                     'current' => ($i == $current_page) ? true : false,
                     'first' => ($i == $firstPage) ? true : false,
                     'middle' => ($i != $firstPage && $i != $totalPages) ? true : false,
@@ -1010,12 +1114,13 @@ class ApiController extends Controller implements ContainerAwareInterface
                 ];
                 $numeric_page[0] = [
                     'number_page' => $firstPage,
-                    'link' => $link . "$firstPage/html/0" . $condition_id . self::REDIRECT . $get_string,
+                    //'link' => $link . $i /*"$firstPage/html/0"*/ . $condition_id . self::REDIRECT . $get_string,
+                    'link' => ($link . $i . $condition_id . self::REDIRECT . $get_string !== '/main/1/') ? $link . $i . $condition_id . self::REDIRECT . $get_string : '/' . $get_string,
                     'current' => false,
                     'first' => true,
                     'middle' => false,
                     'last' => false,
-                    'left_three_dots' => true,
+                    'left_three_dots' => ($current_page != 3) ? true : false,//чтоб не было точек между 1-ой и 2-ой,
                 ];
                 $arrow = $this::PaginationGenerateArrowAction($i, $current_page, $link, $condition_id, $get_string);
             } elseif (
@@ -1025,17 +1130,20 @@ class ApiController extends Controller implements ContainerAwareInterface
             ) {//в середине
                 $numeric_page[0] = [
                     'number_page' => $firstPage,
-                    'link' => $link . "$firstPage/html/0" . $condition_id . self::REDIRECT . $get_string,
+                    //'link' => $link . $firstPage /*"$firstPage/html/0"*/ . $condition_id . self::REDIRECT . $get_string,
+                    'link' => ($link . $firstPage . $condition_id . self::REDIRECT . $get_string !== '/main/1/') ? $link . $firstPage . $condition_id . self::REDIRECT . $get_string : '/' . $get_string,
                     'current' => false,
                     'first' => true,
                     'middle' => false,
                     'last' => false,
-                    'left_three_dots' => true,
+                    'left_three_dots' => ($current_page != 3) ? true : false,//чтоб не было точек между 1-ой и 2-ой
+                    //'a' => $current_page
                 ];
                 if ($current_page-2 < $i && count($numeric_page)){
                     $numeric_page[] = [
                         'number_page' => $i,
-                        'link' => $link . "$i/html/" . (($i-1)*self::COUNT_RECORDS_ON_PAGE_JURISTS) . $condition_id . self::REDIRECT . $get_string,
+                        //'link' => $link . $i /*"$i/html/" . (($i-1)*self::COUNT_RECORDS_ON_PAGE_JURISTS)*/ . $condition_id . self::REDIRECT . $get_string,
+                        'link' => ($link . $i . $condition_id . self::REDIRECT . $get_string !== '/main/1/') ? $link . $i . $condition_id . self::REDIRECT . $get_string : '/' . $get_string,
                         'current' => ($i == $current_page) ? true : false,
                         'first' => ($i == $firstPage) ? true : false,
                         'middle' => ($i != $firstPage && $i != $totalPages) ? true : false,
@@ -1045,12 +1153,13 @@ class ApiController extends Controller implements ContainerAwareInterface
                 if (count($numeric_page) == $count_numeric_page-1) {//если массив заполнился до нужного значения
                     $numeric_page[] = [
                         'number_page' => $totalPages,
-                        'link' => $link . "$totalPages/html/" . (($totalPages-1)*self::COUNT_RECORDS_ON_PAGE_JURISTS) . $condition_id . self::REDIRECT . $get_string,
+                        //'link' => $link . $totalPages /*"$totalPages/html/" . (($totalPages-1)*self::COUNT_RECORDS_ON_PAGE_JURISTS)*/ . $condition_id . self::REDIRECT . $get_string,
+                        'link' => ($link . $totalPages . $condition_id . self::REDIRECT . $get_string !== '/main/1/') ? $link . $totalPages . $condition_id . self::REDIRECT . $get_string : '/' . $get_string,
                         'current' => false,
                         'first' => false,
                         'middle' => false,
                         'last' => true,
-                        'right_three_dots' => true,
+                        'right_three_dots' => ($current_page != $totalPages - 2) ? true : false,//чтоб не было точек между последний и предпоследний,
                     ];
                 }
                 $arrow = $this::PaginationGenerateArrowAction($i, $current_page, $link, $condition_id, $get_string);
@@ -1075,8 +1184,7 @@ class ApiController extends Controller implements ContainerAwareInterface
             ];
 
             //если больше 5 страниц, то у нас есть точки
-            if($this->result['pagination']['total__pages'] > 5)
-            {
+            if ($this->result['pagination']['total__pages'] > 5) {
                 $this->result['pagination']['all__pages'][0]['__FIRST__'] = true;
                 $this->result['pagination']['all__pages'][count($this->result['pagination']['all__pages'])-1]['__LAST__'] = true;
             }

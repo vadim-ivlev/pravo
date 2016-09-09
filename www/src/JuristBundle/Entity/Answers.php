@@ -69,6 +69,30 @@ class Answers
     private $typeCards;
 
     /**
+     * @var boolean
+     * закрпленные вопросы на главной РГ, которых не больше N штук (на 22.08.2016 N = 6)
+     */
+    private $secureEntryCheck;
+
+    /**
+     * @var boolean
+     * вопросы на главной РГ, которые сортируются по $entryFeedDate
+     */
+    private $entryFeedCheck;
+
+    /**
+     * @var \DateTime
+     * дата для $secureEntryCheck
+     */
+    private $entryFeedDate;
+
+    /**
+     * @var integer
+     * реальный пользователь для возврата ответа в админке, если ответил модер компании за юриста
+     */
+    private $actualUserCharge;
+
+    /**
      * Get id
      *
      * @return integer
@@ -357,4 +381,101 @@ class Answers
 
         return $this;
     }
+
+    /**
+     * Set secureEntryCheck
+     *
+     * @param boolean $secureEntryCheck
+     *
+     * @return Answers
+     */
+    public function setSecureEntryCheck($secureEntryCheck)
+    {
+        $this->secureEntryCheck = $secureEntryCheck;
+
+        return $this;
+    }
+
+    /**
+     * Get $secureEntryCheck
+     *
+     * @return boolean
+     */
+    public function getSecureEntryCheck()
+    {
+        return $this->secureEntryCheck;
+    }
+
+    /**
+     * Set entryFeedCheck
+     *
+     * @param boolean $entryFeedCheck
+     *
+     * @return Answers
+     */
+    public function setEntryFeedCheck($entryFeedCheck)
+    {
+        $this->entryFeedCheck = $entryFeedCheck;
+
+        return $this;
+    }
+
+    /**
+     * Get entryFeedCheck
+     *
+     * @return boolean
+     */
+    public function getEntryFeedCheck()
+    {
+        return $this->entryFeedCheck;
+    }
+    
+    /**
+     * Set entryFeedDate
+     *
+     * @param \DateTime $entryFeedDate
+     *
+     * @return Answers
+     */
+    public function setEntryFeedDate($entryFeedDate)
+    {
+        $this->entryFeedDate = $entryFeedDate;
+
+        return $this;
+    }
+
+    /**
+     * Get entryFeedDate
+     *
+     * @return \DateTime
+     */
+    public function getEntryFeedDate()
+    {
+        return $this->entryFeedDate;
+    }
+
+    /**
+     * Set actualUserCharge
+     *
+     * @param integer $actualUserCharge
+     *
+     * @return Answers
+     */
+    public function setActualUserCharge($actualUserCharge)
+    {
+        $this->actualUserCharge = $actualUserCharge;
+
+        return $this;
+    }
+
+    /**
+     * Get actualUserCharge
+     *
+     * @return integer
+     */
+    public function getActualUserCharge()
+    {
+        return $this->actualUserCharge;
+    }
+    
 }

@@ -19,8 +19,6 @@ class AnswersController extends ApiController
 {
     public function formedDataAction($id)
     {
-        //$this['bibliotechkaRand'] = $this->bibliotechkaRand();
-
         $Question = $this->connect_to_Jurists_bd
             ->getRepository('JuristBundle:Questions')
             ->findOneById($id);
@@ -53,7 +51,7 @@ class AnswersController extends ApiController
         $this->result['jurist'] = [
             'jurist__active' => ($Question->getAnswersId()->getAuthUsersId()->getDisabled() == self::DISABLED_VALUE_ON) ? !self::DISABLED_VALUE_ON : self::DISABLED_VALUE_ON,
             'jurist__img' => [$this->fetchAvatar($Question->getAnswersId()->getAuthUsersId(), $Question)],
-            'jurist__link' => self::JURIST . $Question->getAnswersId()->getAuthUsersId()->getId() . '/' . self::FORMAT . self::REDIRECT,
+            'jurist__link' => self::JURIST . $Question->getAnswersId()->getAuthUsersId()->getId() . self::REDIRECT,
             'jurist__name' => $Question->getAnswersId()->getAuthUsersId()->getName() . ' ' . $Question->getAnswersId()->getAuthUsersId()->getSecondName(),
             'jurist__consultations' => $this->getCountConsultation($Question->getAnswersId()->getAuthUsersId()),
             'jurist__paid__feedback' => [//кнопка обратной связи у юристов
@@ -95,84 +93,27 @@ class AnswersController extends ApiController
          * FISH START
          */
 
-        $this->result['bibliotechka'] = $this->bibliotechkaRand();/*[
-            [
-                [
-                    'bibliotechka__issue' => [
-                        'bibliotechka__issue__number' => 14,
-                        'bibliotechka__issue__year' => 2016
-                    ]
-                ],
-                'book' => [
-                    'book__img' => [
-                        'book__img__type_medium' => 1,
-                        'book__img__file' => 'http://rg.ru/res/images/custom/projects/juristical/lib-item.jpg',
-                        'book__img__title' => 'ASSD',
-                        'book__img__width' => 107,
-                        'book__img__height' => 151,
-                    ],
-                    'book__img__length' => 1,
-                    'book__mods' => [
-                        'book__mods__value' => 'new',
-                    ],
-                    'book__mods__length' => 1,
-                    'book__title' => 'assad',
-                    'book__annotation' => 'assadsa',
-                    'book__download' => [
-                        'book__download__link' => '#',
-                        'book__download__size' => '3.5 mb'
-                    ],
-                    'book__price' => '243$',
-                    'book__purchase_link' => 'https://bibliotechka.rg.ru/products/?SECTION_ID=31&ELEMENT_ID=409',
-                ],
-            ],
-            [
-                [
-                    'bibliotechka__issue' => [
-                        'bibliotechka__issue__number' => 10,
-                        'bibliotechka__issue__year' => 2015,
-                    ]
-                ],
-                'book' => [
-                    'book__img' => [
-                        'book__img__type_medium' => 1,
-                        'book__img__file' => 'http://rg.ru/res/images/custom/projects/juristical/lib-item.jpg',
-                        'book__img__title' => 'ASSD',
-                        'book__img__width' => 114,
-                        'book__img__height' => 123,
-                    ],
-                    'book__img__length' => 1,
-                    'book__mods' => [
-                        'book__mods__value' => 'new',
-                    ],
-                    'book__mods__length' => 1,
-                    'book__title' => 'assad',
-                    'book__annotation' => 'assadsa',
-                    'book__download' => [
-                        'book__download__link' => '#',
-                        'book__download__size' => '3.5 mb'
-                    ],
-                    'book__price' => '243$',
-                    'book__purchase_link' => 'https://bibliotechka.rg.ru/products/?SECTION_ID=31&ELEMENT_ID=409',
-                ],
-            ],
-        ];*/
+        $this->result['bibliotechka'] = $this->bibliotechkaRand();
         /**
          * FISH END
          */
 
         $this->HeaderAction(self::TABS_MAIN);
 
-        $this->SidebarAction('json');
+        foreach ($Question->getRubrics()->toArray() as $rubric_current_id) {
+            $rubric_current_id = $rubric_current_id->getId();
+        }
+        
+        $this->SidebarAction('json', $rubric_current_id);
 
         $this->getDate();
 
         return $this->result;
     }
 
-    public function AnswerAction($id = null, $format = self::FORMAT)
-    {//app_dev.php/jurists/rubrics/question/8/json/
-        if($format === 'json'){
+    public function AnswerAction($id = null/*, $format = self::FORMAT*/)
+    {
+        if ($this->fetchFormat() === 'json') {
 
             $this->formedDataAction($id);
             
@@ -181,7 +122,7 @@ class AnswersController extends ApiController
                 ->setData($this->result, JSON_UNESCAPED_SLASHES)
                 ->headers->set('Content-Type', 'application/json');
             return $response;
-        } elseif ($format === 'html') {
+        } elseif ($this->fetchFormat() === 'html') {
 
             $m = new Mustache_Engine();
 

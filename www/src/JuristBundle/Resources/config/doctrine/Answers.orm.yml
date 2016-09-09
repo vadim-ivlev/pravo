@@ -24,6 +24,20 @@ JuristBundle\Entity\Answers:
             type: datetime
         typeCards:
             type: string
+        secureEntryCheck:
+            type: boolean
+            column: secure_entry_check
+        entryFeedCheck:
+             type: boolean
+             column: entry_feed_check
+        entryFeedDate:
+              type: datetime
+              column: entry_feed_date
+        actualUserCharge:
+              type: integer
+              column: actual_user_charge
+              default: 0
+              nullable: false
         #questionId:
         #    type: integer
         #    column: questionId

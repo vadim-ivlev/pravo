@@ -83,3 +83,9 @@ sphinxsearch:
         # to use it in searchEx() method
         IndexName: "JuristBundle:Questions"
 #212.69.111.102:80;
+
+assetic:
+    debug:          '%kernel.debug%'
+    use_controller: '%kernel.debug%'
+    filters:
+        cssrewrite: ~

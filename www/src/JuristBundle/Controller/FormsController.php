@@ -30,7 +30,8 @@ class FormsController extends ApiController
 
     public function GetAction($id = null)
     {//https://front.rg.ru/jurists/ask/html/
-        if(array_key_exists($id, $this->id_forms)){
+
+        if (array_key_exists($id, $this->id_forms)) {
 
             $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);//TODO переделать через request и сервис, который уже начал делать
             $title = $_POST['input'];
@@ -39,12 +40,12 @@ class FormsController extends ApiController
             $rubric = $_POST['select'];
             $description = $_POST['message'];
 
-            if(!filter_var($email, FILTER_VALIDATE_EMAIL) === true) return 'error';
-            if(!isset($_POST['select'])) return 'error';
-            if(empty($title) && iconv_strlen(trim($title)) > self::MAX_SYMBOLS_FOR_TITLE_QUESTION) return 'error';//title
-            if(iconv_strlen(trim($description)) > self::MAX_SYMBOLS_FOR_QUESTION) return 'error';//message
+            if (!filter_var($email, FILTER_VALIDATE_EMAIL) === true) return 'error';
+            if (!isset($_POST['select'])) return 'error';
+            if (empty($title) && iconv_strlen(trim($title)) > self::MAX_SYMBOLS_FOR_TITLE_QUESTION) return 'error';//title
+            if (iconv_strlen(trim($description)) > self::MAX_SYMBOLS_FOR_QUESTION) return 'error';//message
 
-            if($_POST['confirmation'] == false) return 'error';
+            if ($_POST['confirmation'] == false) return 'error';
 
             /**
              * сохраняем автора, рубрики и сам вопрос
@@ -84,6 +85,24 @@ class FormsController extends ApiController
             $stmt->bindValue('rubrics_id', $rubric);
             $stmt->bindValue('questions_id', $QuestionId->getId());
             $stmt->execute();
+
+            /**
+             * Отправка письма о саксесе, не плохо бы переделать, впрочем, как и весь проект
+             */
+
+             if ($ch = curl_init()) {
+
+                 $url = "https://jurist-admin.rg.ru/project/mailer.php?email={$email}";
+
+                 curl_setopt($ch, CURLOPT_URL, $url);
+                 curl_setopt($ch, CURLOPT_HEADER, 0);
+                 curl_setopt($ch, CURLOPT_USERAGENT,'Mozilla/5.0 (Windows NT 5.1; rv:34.0) Gecko/20100101 Firefox/34.0');
+
+                 curl_setopt($ch, CURLOPT_RETURNTRANSFER, 0);
+
+                 curl_exec($ch);
+
+             }
 
             $this->result = array(
                 'code' => 200,

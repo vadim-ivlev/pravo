@@ -18,7 +18,8 @@ use AppBundle\Services\Configer;
 
 trait formedRules
 {
-    function formed($traitData){
+    function formed ($traitData)
+    {
         
         $traitData->HeaderAction(self::TABS_RULES);
 
@@ -32,14 +33,14 @@ trait formedRules
 
 class RulesController extends ApiController
 {
-    use formedRules{
+    use formedRules {
         formed as traitFormed;
     }
 
-    public function RulesAction($format = self::FORMAT)
+    public function RulesAction (/*$format = self::FORMAT*/)
     {//app_dev.php/rules/
 
-        if( $format === 'json' ){
+        if ($this->fetchFormat() === 'json') {
 
             $this->traitFormed($this);
 
@@ -48,7 +49,7 @@ class RulesController extends ApiController
                    ->setData($this->result, JSON_UNESCAPED_SLASHES)
                    ->headers->set('Content-Type', 'application/json');
             return $response;
-        } elseif ( $format === 'html' ) {
+        } elseif ($this->fetchFormat() === 'html') {
 
             $m = new Mustache_Engine();
 

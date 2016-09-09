@@ -24,6 +24,8 @@ class JuristsController extends ApiController
         $request = Request::createFromGlobals();
         $rubrics_conditions_get = $request->query->get('rubrics_conditions');
 
+        $filters_for_jurist_get = $request->query->get('order_by');
+
         //dump($this->ProcessingRequestForPaginationAction());die;
         
 
@@ -33,16 +35,28 @@ class JuristsController extends ApiController
         $this->result['rubrics__conditions'][] = [
             'rubrics__conditions__current_id' => (empty($rubrics_conditions)) ? 'selected' : false,
             'rubrics__conditions__id' => 0,
-            'rubrics__conditions__url' => '/jurists/jurists/1/html/0/',
-            'rubrics__conditions__name' => 'Любая',
+            //'rubrics__conditions__url' => '/jurists/1/', //html/0/',
+            //'rubrics__conditions__url' => '0', //html/0/',
+            'rubrics__conditions__name' => 'Любая специализация',
         ];
         //dump($id);die;
         foreach ($rubrics_conditions as $rubrics_condition ){
             $this->result['rubrics__conditions'][] = [
                 'rubrics__conditions__current_id' => (!empty($rubrics_conditions) && $rubrics_conditions_get == $rubrics_condition->getId()) ? 'selected' : false,
                 'rubrics__conditions__id' => $rubrics_condition->getId(),
-                'rubrics__conditions__url' => '/jurists/jurists/1/html/0/?' . self::RUBRICS_CONDITION_NAME . '=' . $rubrics_condition->getId(),
+                //'rubrics__conditions__url' => /*'/jurists/1/html/0/?'*/ /*'/1/?'*/ '?' . self::RUBRICS_CONDITION_NAME . '=' . $rubrics_condition->getId(),
+                //'rubrics__conditions__url' => $rubrics_condition->getId(),
                 'rubrics__conditions__name' => $rubrics_condition->getName(),
+            ];
+        }
+
+        //dump($this->filters_for_jurists);die;
+
+        foreach ($this->filters_for_jurists as $filters_for_jurist_key => $filters_for_jurist_val) {
+            $this->result['filters__for__jurists'][] = [
+                'filters__for__jurists__values' => $filters_for_jurist_key,
+                'filters__for__jurists__name' => $filters_for_jurist_val,
+                'filters__for__jurists__current' => ($filters_for_jurist_get == $filters_for_jurist_key) ? 'selected' : false,
             ];
         }
         //$request = Request::createFromGlobals();
@@ -53,8 +67,8 @@ class JuristsController extends ApiController
             switch ($requestsOrderBy) {
                 case 'rating':
                     $orderBy = [
-                        'c.name',
-                        'asc'
+                        'j.totalRating',
+                        'desc'
                     ];
                 break;
                 case 'company':
@@ -70,6 +84,10 @@ class JuristsController extends ApiController
                     ];
             }
         //dump($requestsOrderBy);die;
+
+        /*if(@$_SERVER['REMOTE_ADDR'] == '212.69.111.131') {
+            var_dump($orderBy);
+        }*/
 
         if ( !empty($request->query->get(self::RUBRICS_CONDITION_NAME)) ) {//TODO переделать
         $Jurists = $this->connect_to_Jurists_bd
@@ -99,8 +117,8 @@ class JuristsController extends ApiController
             ->andWhere('r.id  = ' . $request->query->get(self::RUBRICS_CONDITION_NAME, ''))
             //->andWhere('c.id = j.companiesId')
             ->setParameters(array('disabled' => false, 'isJurist' => true, 'id' => self::ID_USER_WITHOUT_AVATARS))
-            //->orderBy($orderBy[0], $orderBy[1])
-            ->orderBy('j.secondName', 'asc')
+            ->orderBy($orderBy[0], $orderBy[1])
+            //->orderBy('j.secondName', 'asc')
             //->orderBy('a.id', 'asc')
             ->getQuery()
             ->execute();
@@ -143,8 +161,8 @@ class JuristsController extends ApiController
                 ->andWhere('c.id = j.companiesId')
                 //->andWhere('a.authUsersId = j.id')
                 ->setParameters(array('disabled' => false, 'isJurist' => true, 'id' => self::ID_USER_WITHOUT_AVATARS))
-                //->orderBy($orderBy[0], $orderBy[1])
-                ->orderBy('j.secondName', 'asc')
+                ->orderBy($orderBy[0], $orderBy[1])
+                //->orderBy('j.secondName', 'asc')
                 ->getQuery()
                 ->execute();
             $AllJurist = $this->connect_to_Jurists_bd
@@ -174,7 +192,7 @@ class JuristsController extends ApiController
                         'mods' => 'list',
                         'jurist__img' => [$this->fetchAvatar($Jurist, $Jurist)],
                         'jurist__first_name' => $Jurist->getName(),
-                        'jurist__link' => self::JURIST . $Jurist->getId() . '/' . self::FORMAT . self::REDIRECT,
+                        'jurist__link' => self::JURIST . $Jurist->getId() /*. '/' . self::FORMAT*/ . self::REDIRECT,
                         'jurist__last_name' => $Jurist->getSecondName(),
                         'jurist__patronymic' => $Jurist->getPatronymic(),
                         'jurist__education' => $Jurist->getGraduate(),
@@ -207,9 +225,10 @@ class JuristsController extends ApiController
 
         //dump($this->ProcessingRequestForPaginationAction());
         //dump($get_string);
+        //dump($id);die;
         $this->PaginationAction(
             $AllJurist, self::PAGINATION_FOR_JURISTS, self::COUNT_RECORDS_ON_PAGE_JURISTS,
-            $id, /*'https://front.rg.ru*/'/jurists/jurists/', 1, '', $this->ProcessingRequestForPaginationAction()
+            $id, /*'https://front.rg.ru*/'/jurists/', 1, '', $this->ProcessingRequestForPaginationAction()
         );
         /**
          * array $query, $count_numeric_page, $count_records_on_page,
@@ -225,9 +244,13 @@ class JuristsController extends ApiController
         return $this->result;
     }
 
-    public function JuristsAction ($id = null, $format = self::FORMAT, $limit_pagination = 0)
+    public function JuristsAction ($id = null/*, $format = self::FORMAT, $limit_pagination = 0*/)
     {
-        if ($format === 'json') {//app_dev.php/jurists/jurists/1/json/
+        //$limit_pagination = ($id - 1)  * static::COUNT_RECORDS_ON_PAGE_JURISTS;//образуем offset
+        $limit_pagination = $this->generateOffsetPagination($id);//образуем offset
+
+        if ($this->fetchFormat() === 'json') {//app_dev.php/jurists/jurists/1/json/
+
 
             $this->formedDataAction($id, $limit_pagination);
 
@@ -237,7 +260,7 @@ class JuristsController extends ApiController
                 ->headers->set('Content-Type', 'application/json');
             return $response;
 
-        } elseif ($format === 'html') {
+        } elseif ($this->fetchFormat() === 'html') {
             
             /*$request = Request::createFromGlobals();
             $requests = $request->query->get('rubric_id');

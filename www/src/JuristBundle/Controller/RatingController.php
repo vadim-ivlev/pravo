@@ -27,10 +27,12 @@ class RatingController extends ApiController
     public function GetAction($id = null)
     {//http://workspace_jurist/app_dev.php/rating/id/
 
+        //dump($this->container->get('request_stack')->getCurrentRequest());die;
         if(isset($id)) {
 
             $voteIp = new VoteIp();
-            $voteIp->setIp($this->container->get('request')->getClientIp(). ' ' . $id);
+            //$this->container->get('request')->getClientIp()
+            $voteIp->setIp($this->container->get('request_stack')->getCurrentRequest()->getClientIp(). ' ' . $id);
 
             $em = $this->connect_to_Jurists_bd;
             $em->persist($voteIp);

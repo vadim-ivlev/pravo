@@ -19,7 +19,8 @@ use AppBundle\Services\Configer;
 class AskController extends ApiController
 {
 
-    public function formedDataAction(){
+    public function formedDataAction()
+    {
         $Rubrics = $this->connect_to_Jurists_bd
             ->getRepository('JuristBundle:Rubrics')
             ->findBy([], ['name' => 'ASC']);
@@ -42,9 +43,10 @@ class AskController extends ApiController
         return $this->result;
     }
 
-    public function AskAction($format = self::FORMAT)
-    {//app_dev.php/jurists/ask/json/
-        if($format === 'json'){
+    public function AskAction (/*$format = self::FORMAT*/)
+    {
+
+        if ($this->fetchFormat() === 'json') {
 
             $this->formedDataAction();
 
@@ -53,27 +55,17 @@ class AskController extends ApiController
                    ->setData($this->result, JSON_UNESCAPED_SLASHES)
                    ->headers->set('Content-Type', 'application/json');
             return $response;
-        } elseif ($format === 'html') {
+        } elseif ($this->fetchFormat() === 'html') {
 
             $m = new Mustache_Engine();
-            /*$config = $this->get("app.configer");
-            $template_url = $config->getBy($this, 'jurists_templates', 'root_web');
-            $data_url = $config->getBy($this, 'jurists_templates', 'root_data');
-
-            $template_filename = $config->getBy($this, 'jurists_templates', 'create_question:tmpl');
-            $data_filename = $config->getBy($this, 'jurists_templates', 'create_question:data');
-            $text = @file_get_contents($template_url.$template_filename);
-            $data = @file_get_contents($data_url.$data_filename);*/
 
             return new Response($m->render(@file_get_contents(dirname(__FILE__) . '/../Resources/views/ask.html'), json_decode(json_encode($this->formedDataAction()))));
-            //$rendered = $m->render($text, json_decode($data));
-
-            //return new Response($rendered);
 
         } else {
 
             throw $this->createAccessDeniedException("Incorrect format!!! " . PHP_EOL . " Use next structure: /jurists/page/{name page}/{format == html || json}!");
 
         }
+        
     }
 }

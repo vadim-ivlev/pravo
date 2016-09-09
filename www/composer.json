@@ -24,7 +24,8 @@
         "incenteev/composer-parameter-handler": "^2.0",
         "bobthecow/mustache-bundle": "^1.2",
         "mustache/mustache": "^2.10",
-        "iakumai/sphinxsearch-bundle": "dev-master"
+        "iakumai/sphinxsearch-bundle": "dev-master",
+        "symfony/assetic-bundle": "^2.8"
     },
     "require-dev": {
         "sensio/generator-bundle": "^3.0",

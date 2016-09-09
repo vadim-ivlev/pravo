@@ -31,9 +31,9 @@ class RubricController extends ApiController
             self::PAGINATION_FOR_JURISTS, 
             self::COUNT_RECORDS_ON_PAGE_JURISTS, 
             $number_page, 
-            '//front.rg.ru/jurists/rubric/',
+            '/rubric/',
             1,
-            "/" . trim($id)//trim потому что лезет пробел ы
+            "/" . trim($id)//trim потому что лезут пробелы
         );//место расположения должно быть ибо тут важно место
 
         $crutch_for_pagination = []; //потому что архитектура первоначально была не верно заложенна
@@ -55,9 +55,12 @@ class RubricController extends ApiController
         return $this->result;
     }
 
-    public function RubricAction ( $format = self::FORMAT, $number_page = 1, $offset = null, $id = null )
+    public function RubricAction ( /*$format = self::FORMAT,*/ $number_page = 1, /*$offset = null,*/ $id = null )
     {
-        if($format === 'json'){//app_dev.php/jurists/rubric/json/0/
+
+        $offset = $this->generateOffsetPagination($number_page);
+
+        if($this->fetchFormat() === 'json'){//app_dev.php/jurists/rubric/json/0/
 
             //dump($format, $number_page, $offset,  $id );die;
             $this->formedDataAction($number_page, $offset, $id);
@@ -68,7 +71,7 @@ class RubricController extends ApiController
                 ->headers->set('Content-Type', 'application/json');
             return $response;
 
-        } elseif ($format === 'html') {
+        } elseif ($this->fetchFormat() === 'html') {
 
             $m = new Mustache_Engine();
 

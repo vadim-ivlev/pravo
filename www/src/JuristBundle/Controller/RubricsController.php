@@ -48,9 +48,9 @@ class RubricsController extends ApiController
         return $this->result;
     }
 
-    public function RubricAction ( $format = self::FORMAT, $id = null )
+    public function RubricAction (/*$format = self::FORMAT,*/ $id = null)
     {
-        if ($format === 'json') {//app_dev.php/jurists/rubrics/json/0/
+        if ($this->fetchFormat() === 'json') {//app_dev.php/jurists/rubrics/json/0/
 
             $this->formedDataAction ($id);
 
@@ -60,7 +60,7 @@ class RubricsController extends ApiController
                 ->headers->set('Content-Type', 'application/json');
             return $response;
 
-        } elseif ($format === 'html') {
+        } elseif ($this->fetchFormat() === 'html') {
 
             $m = new Mustache_Engine();
 

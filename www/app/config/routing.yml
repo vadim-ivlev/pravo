@@ -1,7 +1,12 @@
-app:
-    resource: "@AppBundle/Controller/"
-    type:     annotation
+#app:
+#    resource: "@AppBundle/Controller/"
+#    type:     annotation
 
 jurist_bundle:
     resource: "@JuristBundle/Resources/config/routing.yml"
-    prefix:   /jurists
+    prefix:   /
+
+#test_resource:
+#        resource: "@JuristBundle/Resources/public/css/global.css"
+#        type:     annotation
+#        prefix:   /test/css/

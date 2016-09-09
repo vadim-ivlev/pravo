@@ -32,7 +32,7 @@ var template = require('../b-select.ihtml'), // подкючение шабло�
 
                 if ($('rg-select').hasClass('js-ask-form-select')) {
                     $.ajax({
-                        url: 'https://front.rg.ru/jurists/ask/json/',
+                        url: 'https://pravo.rg.ru/ask/?format=json',
                         success: function(data) {
                             var itemsDefault = self.get('items'),
                                 itemsNew = data.rubrics,
@@ -93,9 +93,11 @@ var template = require('../b-select.ihtml'), // подкючение шабло�
 
                             // Я не знаю что это, Ефим делал
                             // какая-то связка данных
-                            // if (!!this.get('value')) {
+                            // если оставить без проверки, то он сохраняет в value - строку [object Object]
+                            // если вообще закомментировать, то ничего не работает при каком-то условии, не помню каком
+                             // if (!!this.get('value')) {
                                 this.set('value', item);
-                            // }
+                             // }
 
                         }       
                         event.original.preventDefault();

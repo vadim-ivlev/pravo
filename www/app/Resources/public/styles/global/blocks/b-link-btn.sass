@@ -24,7 +24,13 @@ $block: '.b-link-btn'
         display: block
         margin-bottom: 20px
 
+        +button-field($time-color)
+
+    &_thanx-disabled
         +button-field($green-yellow)
+
+        &:hover
+            background-color: $green-yellow
 
     +bp-tabletLandscape
     
@@ -32,5 +38,3 @@ $block: '.b-link-btn'
             &_thanx
                 display: inline-block
                 margin-bottom: 0
-                
-                +button-field($time-color)

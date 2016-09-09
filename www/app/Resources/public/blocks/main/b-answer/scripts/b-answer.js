@@ -1,10 +1,22 @@
+$(function () {
+	if(getCookie('rating') != undefined){
+        $(".js-link-btn-thanx").addClass('b-link-btn_thanx-disabled');		
+	}
+	function getCookie(name) {
+        var matches = document.cookie.match(new RegExp(
+            "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+        ));
+        return matches ? decodeURIComponent(matches[1]) : undefined;
+    }
+});
+
 var init = function() {
 
     var thanx = function() {
         let id = $('.js-link-btn-thanx').attr('id');
 
         $.ajax({
-            url: 'https://front.rg.ru/jurists/rating/' + id + '/',
+            url: 'https://pravo.rg.ru/rating/' + id + '/',
             success: function (data) {
                 function getCookie(name) {
                     var matches = document.cookie.match(new RegExp(
@@ -13,7 +25,7 @@ var init = function() {
                     return matches ? decodeURIComponent(matches[1]) : undefined;
                 }
 
-                if(data.status == 200 && getCookie('rating') == undefined){
+                if((data.status == 200 || data.status == 500) && getCookie('rating') == undefined){
                     $(".b-rate__value").html(data.rating);
 
                     var now = new Date();
@@ -33,7 +45,7 @@ var init = function() {
 
                     setCookie('rating', id, expireTime);
                 } else {
-                    $(".b-rate__value").html('Вы уже голосовали за этот вопрос.');
+                    $(".b-rate__value").html('Вы уже сказали спасибо.');
                     $(".b-rate__value").css({'font-size' : '10px'});
                 }
             },
@@ -45,6 +57,7 @@ var init = function() {
 
     $('.js-link-btn-thanx').on("click", function() {
         thanx();
+        $(".js-link-btn-thanx").addClass('b-link-btn_thanx-disabled');
     });
 };
 

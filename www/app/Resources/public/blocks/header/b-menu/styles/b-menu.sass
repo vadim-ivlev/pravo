@@ -12,6 +12,7 @@ $block: '.b-menu'
 
     display: flex
     justify-content: space-between
+    height: 1px // фикс для старых айфонов, без него под заголовком "Юридическая консультация" в шапке появляется лишний отступ
 
     &__section
         display: inline-block
@@ -33,6 +34,7 @@ $block: '.b-menu'
 
         &
             padding-top: 25px
+            height: auto // добавлено, чтобы нейтрализовать свойство, объявленное для мобильников (height: 1px)
 
             &__section
 

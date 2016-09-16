@@ -6,26 +6,12 @@
 // Объявляем блок
 $block: '.b-footer-cols'
 
-// Модификаторы
-// '.b-footer__links_type_desktop' Не используется, но в верстке есть
-
-// УБИВАЕМ ССЫЛКИ
-.b-footer-links__list-item a[href="/spec.html"],
-.b-footer-links__list-item a[href="/izdania/"],
-.b-footer-links__list-item a[href="/subscr/"],
-.b-footer-links__list-item a[href="/webpartner/"],
-.b-footer-links__list-item a[href="/finansist.html"],
-.b-footer-links__list-item a[href="/zhurnalist/"]
-    display: none
-
 // Стили 
 #{$block}
     padding: 10px 0 0
+    overflow: hidden
 
     &__row
-        // inline-block fix
-        font-size: $f-sz-zero
-        letter-spacing: 0
 
         &.has-1
             padding-top: 0
@@ -33,9 +19,6 @@ $block: '.b-footer-cols'
 
         &.has-3
             color: $comment-color
-
-        .b-footer__copyright-text
-            //display: none выключил пока не поймем, что делать с копирайтом
 
     &__item
         vertical-align: top
@@ -46,8 +29,12 @@ $block: '.b-footer-cols'
         letter-spacing: $letterSpacingDefault
         line-height: 24px
         margin-bottom: 30px
+
         &:last-child
             margin-right: 0
+
+        &_middle
+            width: 115px
 
     &__rss
         +font(13px)
@@ -86,8 +73,8 @@ $block: '.b-footer-cols'
 
             &__item
                 display: inline-block
-                width: 215px
-                margin-right: 80px
+                width: 220px
+                margin-right: 75px
                 margin-bottom: 0
                 &_middle
                     width: 115px
@@ -108,16 +95,16 @@ $block: '.b-footer-cols'
 
                 &.has-2
                     width: 100%
-                    margin-top: 0
+                    margin-top: 20px
             
             &__item
                 width: 220px
                 &_middle
-                    width: 225px
-                    margin-right: 90px
+                    width: 235px
+                    margin-right: 70px
                     margin-left: -10px
                 &:last-child
-                    width: 305px
+                    width: 315px
             
     // Desktop
     +bp-desktop
@@ -125,12 +112,13 @@ $block: '.b-footer-cols'
         &
             &__row
                 &.has-1
-                    width: 770px
+                    width: 755px
                     margin-top: 15px
 
                 &.has-2
-                    width: 410px
+                    width: 420px
                     margin-top: 15px
+                    float: right
 
             &__item
                 margin-right: 30px
@@ -141,6 +129,7 @@ $block: '.b-footer-cols'
                     margin-right: 52px
                 &:last-child
                     width: 260px
+                    float: right
 
             &__rss
                 position: absolute
@@ -153,8 +142,6 @@ $block: '.b-footer-cols'
 
         &
             &__row
-                &.has-1
-                    width: 790px
 
                 &.has-2
                     width: 450px

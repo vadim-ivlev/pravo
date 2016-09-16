@@ -381,14 +381,17 @@ class ApiController extends Controller implements ContainerAwareInterface
 
     protected function formedQuestions ($Questions)
     {
-        foreach ($Questions as $Question) {
+        foreach ($Questions as $Question_key => $Question) {
 
             /**
              * Проверка что есть ответ. Потому что нельзя сделать сразу выборку по ассоциативным полям answersId
              */
             if (!empty($Question->getAnswersId()) && $Question->getStep() >= self::FINISHED_STEP) {
                 /*if($_SERVER['REMOTE_ADDR'] =='212.69.111.131') {
-                    var_dump(1);
+                    var_dump($Question_key);
+                    if ($Question_key == 2) {
+                        $this->bibliotechkaRand()[0];
+                    }
                 }*/
                 /**
                  * генерация mods
@@ -400,9 +403,12 @@ class ApiController extends Controller implements ContainerAwareInterface
                             ? self::NAME_PAY_JURIST
                             : '',//оплачен ли юрист
 
-                        $Question->getAnswersId()->getTypeCards() === 'card'
+                        ($Question->getAnswersId()->getTypeCards() === 'card')
                             ? 'card'
-                            : ''//Является ли вопрос карточкой
+                            : '',//Является ли вопрос карточкой
+                        /*($Question_key == 2)
+                            ? 'bibliotechka'
+                            : null,*///Модификатор для вывода блока библиотечки на маленьких экранах в сереиде текста. P.S. мудачий модификатор    
                     ],
 
                     /**
@@ -420,6 +426,7 @@ class ApiController extends Controller implements ContainerAwareInterface
                             ]
                         ]
                     ,
+                    'bibliotechka' => ($Question_key == 2) ? true : false,
                     'tags' => $this->formedTagsAndRubrics($Question->getTags()->toArray()),//$tags_result,
                     'link' => self::RUBRICS . self::QUESTIONS . $Question->getId() /*. '/' . self::FORMAT*/ .  self::REDIRECT,
                     'rubrics' => $this->formedTagsAndRubrics($Question->getRubrics()->toArray()),
@@ -438,6 +445,17 @@ class ApiController extends Controller implements ContainerAwareInterface
                     ],
                     'questions__item_complete' => 0,
                 ];
+
+                /*if ($Question_key == 2) {
+                    $this->result['questions_list'][]['bibliotechka'] = $this->bibliotechkaRand()[0];
+                }*/
+                if ($Question_key == 3) {
+                    $this->result['questions_list'][] = [
+                        'mods' => [
+                            'bibliotechka'
+                        ]
+                    ];
+                }
 
                 foreach ($this->result['questions_list'] as &$val) {
 
@@ -624,6 +642,7 @@ class ApiController extends Controller implements ContainerAwareInterface
 
         return array_values($result_array);//для мусташа, а иначе он не понимает ключи, т.е. порядок array(3 => 'ddd', 1 => 'bbb') ему не понятен, а так понятен array(0 => 'ddd', 1 => 'bbb')
     }
+
     protected function bibliotechka ($data = null)
     {
 

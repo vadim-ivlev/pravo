@@ -1,7 +1,7 @@
 <div class="b-bibliotechka-advert__name">
     {% if (data[mod]) %}{[ data[mod].name ]} {% endif %}<a href="{[data.link.url]}" class="{[data.link.class]}">{[data.link.name]}</a>
 </div>
-{{# bibliotechka}}
+{{# sidebar.bibliotechka}}
     <div class="b-bibliotechka-advert__body">
         <a href="{{ book.book__purchase_link }}">
             {{# bibliotechka__issue__array }}
@@ -43,4 +43,4 @@
             </div>
         {{/ book}}
     </div>
-{{/ bibliotechka}}
+{{/ sidebar.bibliotechka}}

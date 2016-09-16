@@ -154,7 +154,13 @@
 
                 {{/ questions__item_complete }}
 
+
             </div>
+
+            {{# bibliotechka }}
+                {[ macro.RGBi(blocks.bibliotechkaAdvert)]}
+            {{/ bibliotechka }}
+
         {{/ {[ data[mod].object ]} }}
 
 {% endif %}

@@ -1,0 +1,127 @@
+/*
+ * Блок адфокс баннера
+ *
+ */
+
+// Объявляем блок
+$block: '.b-adfox'
+
+//$adb: '[id^="AdFox_banner"]'
+$adb: '[data-class^="has-loaded"]'
+
+$dataCompareMore300: '[data-compare^=">=300"]'
+
+// Основной блок
+#{$block}
+
+    &__item
+
+        img
+            vertical-align: top
+
+        & > *
+            display: none
+
+        // Отступы у всех контейнеров для баннеров
+        & #{$adb}
+            width: auto!important
+            height: auto!important
+
+            display: block
+
+            margin-bottom: 20px
+            padding: 0.1px // предотвращаем схлопывание блоков
+
+            background-color: $today-bg-color
+
+            // Добавляем центрирование баннера
+            & > *
+                margin-right: auto
+                margin-left: auto
+                display: block
+
+                > *
+                    display: block
+                    margin: 0 auto
+
+        // Убираем бордеры, если есть аттрибут
+        & #{$dataCompareMore300}
+            background-color: transparent
+
+            & > *
+                margin-top: 0!important
+                margin-bottom: 0!important
+
+        // Если баннер шире 300px то растягиваем по контейнеру
+        .b-sidebar-right__item & #{$dataCompareMore300} > *
+            width: 100%!important
+
+    // В шапке
+    &_media-1
+        width: 100%
+        overflow: hidden
+
+    // Центрируем и на всю ширину, если в теле статьи
+    &_media-7 #{$adb} > *
+        max-width: 100%!important
+
+    +bp-tablet
+
+        &
+
+            &_media-1
+                width: $width-wrapper-tablet
+
+            // Убираем отступ у последнего элемента
+            .b-sidebar-left__item &:last-child #{$adb}
+                margin-bottom: 0
+
+    +bp-tabletLandscape
+
+        &
+
+            &_media-1
+                width: $width-wrapper-tabletLandscape
+
+            // Убираем отступ у баннеров правого сайтбара
+            // наследуемый от right__item
+            &.b-sidebar-right__item
+                margin-bottom: 0
+
+    +bp-desktop
+
+        &
+
+            &_media-1
+                width: $width-wrapper-desktop
+
+            &.b-sidebar-right__item #{$adb} > *
+                margin-top: 20px
+                margin-bottom: 20px
+
+    +bp-desktopFull
+
+        &
+
+            &_media-1
+                width: $width-wrapper-desktopFull
+
+            // Убираем отступы у элементов
+            .b-sidebar-left__item & #{$adb}
+                margin-bottom: 0
+
+            // Если первого баннера нет - отступ
+            .b-sidebar-left__item &:first-child &__item > div:not(#{$adb}):first-child
+                height: 0 !important // а всякий случай убили высоту
+                margin-bottom: 20px
+                display: block
+
+            // И отступ у серого фона
+            .b-sidebar-left__item &:not(:first-child) #{$adb}:not(#{$dataCompareMore300})
+               position: relative
+               top: -20px
+
+            .b-sidebar-left__item &__item #{$adb} > *,
+            &_media-7 #{$adb} > *
+                margin-top: 20px
+                margin-bottom: 20px

@@ -47,7 +47,15 @@ module.exports = {
                     name: "rgAds",
                     opt: {
                         contents: [
-                            { data: "<meta name=\"rg-data\" property=\"ads:uri\" content=\"/static/juristical/ind\">" } // Для подключения рекламы
+                            { data: "<meta name=\"rg-data\" property=\"ads:uri\" content=\"/pravo/rubrics/\">" } // Для подключения рекламы
+                        ]
+                    }
+                },
+                {
+                    name: "rubricID",
+                    opt: {
+                        contents: [
+                            { data: "<meta name=\"rg-data\" property=\"rubric:id\" content=\"{{# questions_item.rubrics }}{{ rubrics__id }}{{/ questions_item.rubrics }}\">" }
                         ]
                     }
                 }

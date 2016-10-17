@@ -16,15 +16,7 @@ var
 
     // Конфигурация dimensions
     dimensionsConf = {
-        1: "reg:uri",
-        2: "theme:uri",
-        3: "org:uri",
-        4: "project:uri",
-        5: "fascicle:uri",
-        6: "author:uri",
-        7: "sujet:uri",
-        // 8 dimension это resolution
-        9: "article:length" // длина текста
+        1: "rubric:id" // ID рубрики
     },
 
     // Загрузка и инициализация библиотеки
@@ -100,14 +92,7 @@ var
         dimensionsSet();
 
         // Отправляем информацию по экрану
-        ga('set', 'dimension8', RG.ScreenViewer.getScreenInfo().type);
-
-        //ga('set', 'dimension2', '/tema/ekonomika/finansy/banki/index.html'); 
-        //ga('set', 'dimension3', '/org/goskontrol/zbrf/index.html');
-        //ga('set', 'dimension4', '/tema/ekonomika/');
-
-        //ga('set', 'dimension6', $('meta[property="author:uri"]').attr('content')); // Автор
-        //ga('set', 'dimension7', $('meta[property="author:uri"]').attr('content')); // Сюжет
+        ga('set', 'dimension2', RG.ScreenViewer.getScreenInfo().type);
 
         ga('require', 'displayfeatures');
         ga('send', 'pageview');

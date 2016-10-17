@@ -15,39 +15,43 @@ module.exports = function(data){
 						
 						blocks: {
 
-							adsSidebarRight: RGB('ads:sidebar-right, desktop desktopFull:active'), // баннер - правый сайдбар
+							// adsSidebarRight: RGB('ads:sidebar-right, desktop desktopFull:active'), // баннер - правый сайдбар
+
+							adfoxSidebarRight: RGB('adfox:media-2, desktop desktopFull:active'), // баннер - правый сайдбар
 
 							bibliotechkaAdvert: RGB('bibliotechka-advert, desktop desktopFull:active'), // блок библиотечки
 
-							yandexDirect: RGB('yadirect:sidebar-right') // Яндекс-директ
+							yandexDirect: RGB('yadirect:sidebar-right') // Яндекс-директ 
 							
 						},
-
+						
 						sortBlocks: {
 
-							'default': "adsSidebarRight bibliotechkaAdvert yandexDirect",
+							'default': "bibliotechkaAdvert yandexDirect",
 
-							index: "adsSidebarRight bibliotechkaAdvert yandexDirect",
+							index: "adfoxSidebarRight bibliotechkaAdvert yandexDirect",
 
-							rubric_questions: "adsSidebarRight yandexDirect",
+							rubric_questions: "adfoxSidebarRight yandexDirect",
 
-							tag_questions: "adsSidebarRight yandexDirect",
+							tag_questions: "adfoxSidebarRight yandexDirect",
 
-							answer: "adsSidebarRight yandexDirect",
+							answer: "adfoxSidebarRight yandexDirect",
 
-							ask: "adsSidebarRight yandexDirect",
+							ask: "adfoxSidebarRight yandexDirect",
 							
-							rules: "adsSidebarRight",
+							rules: "adfoxSidebarRight",
 
-							users: "adsSidebarRight yandexDirect",
+							users: "adfoxSidebarRight yandexDirect",
 
-							rubrics: "adsSidebarRight yandexDirect",
+							rubrics: "adfoxSidebarRight yandexDirect",
 
-							rubric_tags: "adsSidebarRight yandexDirect",
+							rubric_tags: "adfoxSidebarRight yandexDirect",
 
-							info: "adsSidebarRight yandexDirect",
+							lawer: "adfoxSidebarRight yandexDirect",
 
-							partners: "adsSidebarRight"
+							partners: "adfoxSidebarRight",
+
+							search: "adfoxSidebarRight bibliotechkaAdvert yandexDirect"
 
 						}
 

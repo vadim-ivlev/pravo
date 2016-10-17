@@ -47,7 +47,7 @@ module.exports = {
 					name: "rgAds",
 					opt: {
 						contents: [
-							{ data: "<meta name=\"rg-data\" property=\"ads:uri\" content=\"/static/juristical/ind\">" } // Для подключения рекламы
+							{ data: "<meta name=\"rg-data\" property=\"ads:uri\" content=\"/pravo/index/\">" } // Для подключения рекламы
 						]
 					}
 				}

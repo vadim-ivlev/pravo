@@ -157,9 +157,9 @@
 
             </div>
 
-            {{# bibliotechka }}
+            {{# questions_list__bibliotechka }}
                 {[ macro.RGBi(blocks.bibliotechkaAdvert)]}
-            {{/ bibliotechka }}
+            {{/ questions_list__bibliotechka }}
 
         {{/ {[ data[mod].object ]} }}
 

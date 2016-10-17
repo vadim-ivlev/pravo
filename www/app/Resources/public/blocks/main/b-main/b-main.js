@@ -35,7 +35,7 @@ module.exports = function(data){
 
                             answerBlock: RGB('answer', '#answer'), // блок с ответом
 
-                            bibliotechkaAdvert: RGB('bibliotechka-advert, mobile tablet tabletLandscape'), // блок библиотечки обычный
+                            // bibliotechkaAdvert: RGB('bibliotechka-advert, mobile tablet tabletLandscape'), // блок библиотечки обычный
 
                             bibliotechkaAdvertAnswer: RGB('bibliotechka-advert:answer'), // блок библиотечки на странице ответа
 
@@ -65,35 +65,41 @@ module.exports = function(data){
 
                             adsSidebarRight: RGB('ads:sidebar-right, mobile'), // рекламный баннер из правого сайдбара
 
+                            adfox: RGB('adfox:media-3, desktop desktopFull:active'), // баннер - правый сайдбар
+
                             // newsRubric: RGB('news-rubric:pravo') // блок на главной РГ (убрать после вывода на РГ)
+
+                            searchResults: RGB('search-results') // блок результатов поиска
 
                         },
 
                         sortBlocks: {
 
-                            // 'default': "breadcrumbs questionsList pagination adsSidebarRight",
+                            // 'default': "breadcrumbs questionsList pagination",
 
-                            index: "breadcrumbsMain categoriesSidebar questionsList pagination bibliotechkaAdvert adsSidebarRight juristsFeed juristsTop",
+                            index: "breadcrumbsMain categoriesSidebar questionsList pagination juristsFeed juristsTop",
 
                             rubric_questions: "breadcrumbsRubric categoriesSidebar questionsList pagination",
 
                             tag_questions: "breadcrumbsTag questionsList pagination",
 
-                            answer: "breadcrumbsAnswer categoriesSidebar questionsItem answerBlock questionsLatest bibliotechkaAdvertAnswer adsSidebarRight",
+                            answer: "breadcrumbsAnswer categoriesSidebar questionsItem answerBlock adfox questionsLatest bibliotechkaAdvertAnswer",
 
                             ask: "form questionsLatest",
 
-                            rules: "articleRules juristsFeed adsSidebarRight",
+                            rules: "articleRules juristsFeed",
 
-                            users: "usersSelection juristsList pagination adsSidebarRight juristsFeed juristsTop",
+                            users: "usersSelection juristsList pagination juristsFeed juristsTop",
 
-                            rubrics: "materialHead categoriesMain tags juristsFeed adsSidebarRight",
+                            rubrics: "materialHead categoriesMain tags juristsFeed",
 
-                            rubric_tags: "materialHead categoriesMain tags juristsFeed adsSidebarRight",
+                            rubric_tags: "materialHead categoriesMain tags juristsFeed",
 
-                            lawer: "juristsProfile questionsList pagination juristsFeed adsSidebarRight questionsLatest",
+                            lawer: "juristsProfile questionsList pagination juristsFeed questionsLatest",
 
-                            partners: "articlePartners"
+                            partners: "articlePartners",
+
+                            search: "categoriesSidebar searchResults pagination juristsFeed juristsTop"
                         }
 
                     }

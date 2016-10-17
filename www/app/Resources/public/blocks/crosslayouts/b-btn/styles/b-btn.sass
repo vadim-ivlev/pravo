@@ -48,6 +48,9 @@ $block: '.b-btn'
     &_blue-green
         background: $time-color
 
+    &_profile
+        display: inline-block
+
     +bp-retina
 
         &
@@ -71,3 +74,10 @@ $block: '.b-btn'
 
             &_ask-phones
                 display: none
+
+    +bp-tabletLandscape
+
+        &
+            &_profile
+                display: block
+                float: right

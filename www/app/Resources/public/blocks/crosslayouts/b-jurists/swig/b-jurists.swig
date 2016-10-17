@@ -89,6 +89,27 @@
             {% endif %}
 
             {% if mod !== "top" %}
+
+				{% if mod == "profile" %}
+					<h1 class="b-jurist-block__title b-jurist-block__title_profile">
+				
+				        <div>
+				
+				            {{ jurist__last_name }}
+				
+				        </div>
+				
+				        {{ jurist__first_name }}
+				
+				        {% if data[mod].showBlocks.patronymic %}
+				
+				            {{ jurist__patronymic }}
+				
+				        {% endif %}
+				
+				    </h1>
+				{% endif %}
+
                 <div class="b-jurist-block__body{{# mods__length }}{{# mods }} b-jurist-block__body_{{ . }}{{/ mods }}{{/ mods__length }}">
 
                     {% if mod !== "feed" %}
@@ -113,24 +134,8 @@
     
                                 </div>
                             </a>
-                        {% else %}
-                            <h1 class="b-jurist-block__title">
-
-                                <div>
-
-                                    {{ jurist__last_name }}
-
-                                </div>
-
-                                {{ jurist__first_name }}
-
-                                {% if data[mod].showBlocks.patronymic %}
-
-                                    {{ jurist__patronymic }}
-
-                                {% endif %}
-
-                            </h1>
+                        
+                            
                         {% endif %}
 
                     {% endif %}
@@ -203,7 +208,7 @@
                     </div>
                 {{/ jurist__bio__length }}
 
-                <div class="b-jurist-block__index b-jurist-block__index_inline">
+                <div class="b-jurist-block__index b-jurist-block__index_profile">
 
                     {{# jurist__rate }}
                         <div class="b-jurist-block__info b-jurist-block__info_inline">
@@ -228,7 +233,7 @@
                 {{# jurist__paid__feedback }}
 
                     {{# feedback__active }}
-                        <a href="{{# type__feedback__email }}mailto:{{/ type__feedback__email }}{{ feedback__data }}" class="b-btn b-btn_orange b-right" target="{{# type__feedback__email }}_self{{/ type__feedback__email }}{{^ target__feedback__email }}_blank{{/ target__feedback__email }}">Связаться с юристом</a>
+                        <a href="{{# type__feedback__email }}mailto:{{/ type__feedback__email }}{{ feedback__data }}" class="b-btn b-btn_orange b-btn_profile" target="{{# type__feedback__email }}_self{{/ type__feedback__email }}{{^ target__feedback__email }}_blank{{/ target__feedback__email }}">Связаться с юристом</a>
                     {{/ feedback__active }}
 
                 {{/ jurist__paid__feedback }}

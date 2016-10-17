@@ -19,7 +19,9 @@ module.exports = function(data){
 
 							categoriesSidebarActiveLink: RGB('categories:sidebar-active-link, tablet tabletLandscape desktop desktopFull:active'), // меню рубрик в сайдбаре с кликабельной выбранной рубрикой
 
-							adsSidebarRight: RGB('ads:sidebar-right, tablet tabletLandscape'), // рекламный баннер
+							// adsSidebarRight: RGB('ads:sidebar-right, tablet tabletLandscape'), // рекламный баннер
+
+							adfoxSidebarRight: RGB('adfox:pravo-sidebar, tablet tabletLandscape'), // рекламный баннер
 
 							// feed: RGB('projects.juristical.feed:offers, tablet tabletLandscape desktop desktopFull:active'), // предложение услуг
 
@@ -39,7 +41,7 @@ module.exports = function(data){
 
 							// 'default': "categoriesSidebar adsSidebarRight juristsFeed juristsTop yandexDirect",
 
-							index: "categoriesSidebar adsSidebarRight juristsFeed juristsTop yandexDirect",
+							index: "categoriesSidebar adfoxSidebarRight juristsFeed juristsTop yandexDirect",
 
 							rubric_questions: "categoriesSidebar adsSidebarRight juristsFeed juristsTop yandexDirect",
 
@@ -59,7 +61,9 @@ module.exports = function(data){
 							
 							lawer: "juristsFeed questionsLatest",
 
-							partners: "juristsFeed"
+							partners: "juristsFeed",
+
+							search: "categoriesSidebar adfoxSidebarRight juristsFeed juristsTop yandexDirect"
 						}
 					}
 				}

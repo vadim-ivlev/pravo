@@ -1,5 +1,9 @@
+<!-- <script>
+	var currentRubric = '{{ current_rurbic }}';
+</script> -->
+
 <div class="b-categories__body{% if mod == "sidebar" || mod == "sidebar-active-link" %} b-categories__body_blue{% endif %}">
-	<div class="b-categories__list{% if mod == "sidebar" || mod == "sidebar-active-link" %} b-categories__list_sidebar{% endif %}">
+	<div id="js-categories-list" class="b-categories__list{% if mod == "sidebar" || mod == "sidebar-active-link" %} b-categories__list_sidebar{% endif %}">
 		<div class="b-categories__item b-categories__item_mobile">
 			<a class="b-categories__link" href="/">Все консультации</a>
 		</div>

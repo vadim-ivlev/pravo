@@ -8,7 +8,7 @@
             {% endif %}
         </li>
         {% if mod !== "main" %}
-            <li class="b-breadcrumbs__item">
+            <li id="js-breadcrumbs-item" class="b-breadcrumbs__item">
                 {% if mod == "rubric" %}
                     {{ current_rubric }}
                 {% elseif mod == "answer" %}

@@ -21,8 +21,8 @@ $(document).ready(function() {
         }
 
     });
-    $.getJSON((window.location.href).replace('/html/', '/json/'),
-        function(data){
+    // $.getJSON((window.location.href).replace('/html/', '/json/'),
+        (function(data) {
             function hellipPosition (a, b = false) {
                 var hellip = $('<div style="display: inline-block">...</div>');
                 return (b) ? hellip.insertBefore($(a)[$(a).length-1]) : hellip.insertAfter($(a)[0]);
@@ -47,8 +47,8 @@ $(document).ready(function() {
                     }
                 });
             }
-        }
+        });
 
-    );
+    // );
 
 });

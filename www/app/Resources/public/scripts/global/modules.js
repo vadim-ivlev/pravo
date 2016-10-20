@@ -34,7 +34,7 @@ RG.events = RG.events || require('../modules/Events');
 
 /**
  * Подключения модуля, работающего с cookie
- * https://github.com/ScottHamper/Cookies
+ * https://github.com/ScottHamper/Cookies 
  */
 RG.session = RG.session || require('../modules/Session');
 

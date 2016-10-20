@@ -30,31 +30,37 @@ use Exception;
 
 class ApiController extends Controller implements ContainerAwareInterface
 {
-    //Шаги вопросов
-    const NEW_STEP = 1;//новый вопрос, находящийся в песочнице модераторов
+    /**
+     * Шаги вопросов
+     * */
+    const NEW_STEP = 1; //Новый вопрос, находящийся в песочнице модераторов
 
-    const PUBLIC_STEP = 2;//в паблике (песочнице)
-    const JURIST_STEP = 3;//у юриста
-    const COMPANY_STEP = 4;//у комании, тут видет модер компании, если в auth_user его company_id = company которой отдан вопрос
+    const PUBLIC_STEP = 2; //В паблике (песочнице)
+    const JURIST_STEP = 3; //У юриста
+    const COMPANY_STEP = 4; //у комании, тут видет модер компании, если в auth_user его company_id = company которой отдан вопрос
 
-    const DEADLINE_STEP = 5;//прошел deadline проекта
-    const CHECK_STEP = 6;//проверка после ответа юристом
-    const DELETE_STEP = 7;//вопрос, который удалили
+    const DEADLINE_STEP = 5; //Прошел deadline проекта
+    const CHECK_STEP = 6; //Проверка после ответа юристом
+    const DELETE_STEP = 7; //Вопрос, который удалили
 
-    const WITHDRAWN_BEFORE_STEP = 11;//отозванный вопрос до публикации
-    const WITHDRAWN_AFTER_STEP = 12;//отозванный вопрос после публикации
+    const WITHDRAWN_BEFORE_STEP = 11; //Отозванный вопрос до публикации
+    const WITHDRAWN_AFTER_STEP = 12; //Отозванный вопрос после публикации
 
-    const RETURN_STEP = 14;//вопрос, (отложенный)
-    const FINISHED_STEP = 15;//шаг, когда у вопроса есть ответ и он прошел модерацию
+    const RETURN_STEP = 14; //Вопрос, (отложенный)
+    const FINISHED_STEP = 15; //Шаг, когда у вопроса есть ответ и он прошел модерацию
 
-    //Лимиты для пагинации
+    /**
+     * Лимиты для пагинации
+     * */
     const LIMIT_FOR_JURIST = 5;
 
-    //константы ссылок
-    const JURISTS = '/';//главная роут на бандел
+    /**
+     * Константы ссылок
+     * */
+    const JURISTS = '/'; //Главная роут на бандел
     const RUBRICS = self::JURISTS . 'rubrics/';
     const RUBRIC = self::JURISTS . 'rubric/';
-    const QUESTIONS = 'question/'; //для формирование страницы ответа нужна без jurist
+    const QUESTIONS = 'question/'; //Для формирование страницы ответа нужна без jurist
     const TAGS = self::JURISTS . 'tags/';
     const TAG = self::JURISTS . 'tag/';
     const JURIST = self::JURISTS . 'jurist/';
@@ -62,16 +68,15 @@ class ApiController extends Controller implements ContainerAwareInterface
     const COMPANIES = self::JURISTS . 'companies/';
     const ANSWER = self::JURISTS . 'answer/';
 
-    const REDIRECT = '/'; //окончание ссылок для редиректа
+    const REDIRECT = '/'; //Окончание ссылок для редиректа
 
-    const FORMAT = 'html'; //константы параметров методов
+    const FORMAT = 'html'; //Константы параметров методов
 
-    public $filters_for_jurists = [
+    public $filtersForJurists = [
         'alphabet' => 'По алфавиту',
         'rating' => 'По рейтингу',
         'company' => 'По компании',
     ];
-    //protected $format;
 
     protected function fetchFormat()
     {
@@ -83,25 +88,15 @@ class ApiController extends Controller implements ContainerAwareInterface
         
     }
 
-    /*protected function getFormat()
-    {
-        return $this->format;
-    }*/
-
-    //const TYPE_PAGES = 'html';
-
     const ID_USER_WITHOUT_AVATARS = 6; //todo id workspace->user у которого берется картинка, если нет еще у юзера авы
 
     const NAME_PAY_JURIST = 'highlighted'; //Оплаченный юрист
 
-    //const routeBundle = '/jurists';// todo
-    //const mainPageProject = 'main'; //без / так как используется регулярка todo для sections
-
-    const MESSAGE_FROM_RUBRIC_THAT_DOES_NOT_HAVE_TAGS = 'Для этой рубрики теги еще не добавлены.';//тайтл для рубрик у которых пустой тег
+    const MESSAGE_FROM_RUBRIC_THAT_DOES_NOT_HAVE_TAGS = 'Для этой рубрики теги еще не добавлены.'; //Тайтл для рубрик у которых пустой тег
 
     const NAME_BD = 'jurist';
 
-    const DISABLED_VALUE_ON = false;//значение, когда АКТИВЕН юзер
+    const DISABLED_VALUE_ON = false; //Значение, когда АКТИВЕН юзер
 
     protected $connect_to_Jurists_bd, $container;
 
@@ -110,7 +105,6 @@ class ApiController extends Controller implements ContainerAwareInterface
     /**
      * START TABS
      */
-
     const TABS_MAIN = 'main';
     const TABS_JURIST = 'jurist';
     const TABS_RULES = 'rules';
@@ -122,16 +116,16 @@ class ApiController extends Controller implements ContainerAwareInterface
      */
 
     /**
-     * start Пагниация
+     * START Пагниация
      */
     const PAGINATION_FOR_JURISTS = 5;
     const COUNT_RECORDS_ON_PAGE_JURISTS = 7;
     /**
-     * end Пагниация
+     * END Пагниация
      */
 
     /**
-     *
+     * START HEADER
      */
     const MAIN_HEADER_TITLE = 'юридическая консультация';
     const MAIN_HEADER = self::JURISTS . '';
@@ -140,7 +134,7 @@ class ApiController extends Controller implements ContainerAwareInterface
     const TAGS_HEADER = self::JURISTS . 'rubrics/0/';
     const PARTNERS_HEADER = self::JURISTS . 'partners/';
     /**
-     *
+     * END HEADER
      */
 
     /**
@@ -155,6 +149,8 @@ class ApiController extends Controller implements ContainerAwareInterface
         $this->connect_to_Jurists_bd = $this
                                             ->getDoctrine()
                                             ->getManager(self::NAME_BD);
+
+        $this->redis = $redis = $this->container->get('snc_redis.default');
     }
 
     public function Sphinx($type = 'search', $request = '')
@@ -227,8 +223,12 @@ class ApiController extends Controller implements ContainerAwareInterface
                     =>
                         (stristr((string)key($data_val), 'Tags'))
                         ? self::TAG /*.'html/'*/ . '1/' . $data_val->getId() . self::REDIRECT
-                        //: self::RUBRIC .'html/' . '0/' . $data_val->getId() . self::REDIRECT
-                        : self::RUBRICS /*. self::FORMAT . '/'*/ . $data_val->getId() . self::REDIRECT//self::RUBRICS . $rubric->getId() . self::REDIRECT,
+                        : self::RUBRICS /*. self::FORMAT . '/'*/ . $data_val->getId() . self::REDIRECT,
+                    (stristr((string)key($data_val), 'Tags'))
+                        ? 'tags__id'
+                        : 'rubrics__id'
+                    =>
+                        $data_val->getId()
                 ];
             }
             return $result;
@@ -244,45 +244,43 @@ class ApiController extends Controller implements ContainerAwareInterface
     {
         if (gettype($idJurist) == 'object') $idJurist = $idJurist->getId();
 
-        //if($_SERVER['REMOTE_ADDR'] == '212.69.111.1311') {
-            if ($conditions_date) {
-                $CountConsultationJurist = $this->connect_to_Jurists_bd
-                    ->getRepository('JuristBundle:Questions')
-                    ->createQueryBuilder('q')
-                    ->innerJoin("q.answersId", 'a', 'WITH', "q.id = a.question")
-                    ->where('q.AuthUsersId = :AuthUsersId')
-                    ->andWhere('q.step = :step')
-                    ->andWhere('a.date > :date')
-                    ->setParameters([
-                        'AuthUsersId' => $idJurist,
-                        'step' => self::FINISHED_STEP,
-                        'date' => $conditions_date
-                    ])
-                    ->getQuery()
-                    ->execute()
-                ;
-            } else {
-                $CountConsultationJurist = $this->connect_to_Jurists_bd
-                    ->getRepository('JuristBundle:Questions')
-                    ->findBy(array('AuthUsersId' => $idJurist, 'step' => self::FINISHED_STEP));
-            }
-        //}
+        if ($conditions_date) {
+            $CountConsultationJurist = $this->connect_to_Jurists_bd
+                ->getRepository('JuristBundle:Questions')
+                ->createQueryBuilder('q')
+                ->innerJoin("q.answersId", 'a', 'WITH', "q.id = a.question")
+                ->where('q.AuthUsersId = :AuthUsersId')
+                ->andWhere('q.step = :step')
+                ->andWhere('a.date > :date')
+                ->setParameters([
+                    'AuthUsersId' => $idJurist,
+                    'step' => self::FINISHED_STEP,
+                    'date' => $conditions_date
+                ])
+                ->getQuery()
+                ->execute();
+
+        } else {
+            $CountConsultationJurist = $this->connect_to_Jurists_bd
+                ->getRepository('JuristBundle:Questions')
+                ->findBy(array('AuthUsersId' => $idJurist, 'step' => self::FINISHED_STEP));
+        }
 
         return count($CountConsultationJurist);
     }
 
-    protected function fetchAvatar($Avatar, $Question)
+    protected function fetchAvatar($avatar, $question)
     {
-        if (!empty($Avatar->getFileName())) {
-            $image_medium = [
+        if (!empty($avatar->getFileName())) {
+            $imageMedium = [
                 'jurist__img__type_medium' => 1,
-                'jurist__img__file' => $Avatar->getDirectory() . $Avatar->getFilename(),
-                'jurist__img__title' => (method_exists($Question, 'getAnswersId')) ? //проверка нужна для того, какой параметр получается. Question как на main и answers или как на Jurists
-                    $Question->getAnswersId()->getAuthUsersId()->getName() . ' ' .
-                    $Question->getAnswersId()->getAuthUsersId()->getSecondName()
+                'jurist__img__file' => $avatar->getDirectory() . $avatar->getFilename(),
+                'jurist__img__title' => (method_exists($question, 'getAnswersId')) ? //Проверка нужна для того, какой параметр получается. Question как на main и answers или как на Jurists
+                    $question->getAnswersId()->getAuthUsersId()->getName() . ' ' .
+                    $question->getAnswersId()->getAuthUsersId()->getSecondName()
                     :
-                    $Question->getName() . ' ' .
-                    $Question->getSecondName(),
+                    $question->getName() . ' ' .
+                    $question->getSecondName(),
                 'jurist__img__width' => 100,
                 'jurist__img__height' => 100,
             ];
@@ -291,7 +289,7 @@ class ApiController extends Controller implements ContainerAwareInterface
                 ->getRepository('JuristBundle:AuthUsers')
                 ->findOneById(self::ID_USER_WITHOUT_AVATARS);
 
-            $image_medium = [
+            $imageMedium = [
                 'jurist__img__type_medium' => 1,
                 'jurist__img__file' => $userNotHaveAvatar->getDirectory().$userNotHaveAvatar->getFilename(),
                 'jurist__img__title' => $userNotHaveAvatar->getName() . ' ' . $userNotHaveAvatar->getSecondName(),
@@ -300,57 +298,62 @@ class ApiController extends Controller implements ContainerAwareInterface
             ];
         }
 
-        return $image_medium;
+        return $imageMedium;
     }
 
     protected function receiveAnOverallRating($ratings)
     {
-        $total_rating = 0; //рейтинг юриста считается по вытаскиванию его рейтинга из всех вопросов и его суммирования
+        $totalRating = 0; //Рейтинг юриста считается по вытаскиванию его рейтинга из всех вопросов и его суммирования
         foreach ($ratings as $rating) {
             if ($rating->getQuestion()->getStep() >= self::FINISHED_STEP) {
-                $total_rating += $rating->getRating();
+                $totalRating += $rating->getRating();
             }
         }
-        return $total_rating;
+        return $totalRating;
     }
 
-    protected function formedTagsForRubrics($Rubrics, $id = null)
-    {//Генерирует единую структуру вывода тегов для рубрик
+    /**
+     * Генерирует единую структуру вывода тегов для рубрик
+     * @param $rubrics
+     * @param null $id
+     */
+    protected function formedTagsForRubrics($rubrics, $id = null)
+    {
 
         /**
          * Хардкор для ВСЕХ рубрик
          */
-        //define('TYPE_PAGE', 'html/');
         define('TYPE_PAGE', '');
 
         $this->result['categories']['rubrics'][] = array(
             'rubrics__title' => 'Все',
             'rubrics__link' => self::RUBRICS . TYPE_PAGE .'0' . self::REDIRECT,
-            'rubrics__active' => (!isset($id)) ? 1 : 0,//если вызов во "ВСЕХ" рубриках
+            'rubrics__active' => (!isset($id)) ? 1 : 0, //Если вызов во "ВСЕХ" рубриках
+            'rubric__id' => null
         );
 
-        foreach ($Rubrics as $Rubric) {
+        foreach ($rubrics as $rubric) {
             $this->result['categories']['rubrics'][] = array(
-                'rubrics__title' => $Rubric->getName(),
-                'rubrics__link' => self::RUBRICS . TYPE_PAGE . $Rubric->getId() . self::REDIRECT,
-                'rubrics__active' => (isset($id) && $id == $Rubric->getId()) ? 1 : 0//если вызов во НЕ ВО "ВСЕХ" рубриках и проверка на тру для конкретного юзвера
+                'rubrics__title' => $rubric->getName(),
+                'rubrics__link' => self::RUBRICS . TYPE_PAGE . $rubric->getId() . self::REDIRECT,
+                'rubrics__active' => (isset($id) && $id == $rubric->getId()) ? 1 : 0, //Если вызов во НЕ ВО "ВСЕХ" рубриках и проверка на тру для конкретного юзвера
+                'rubrics__id' => $rubric->getId()
             );
 
             $rubrics_tags__items = array();
-            foreach ($Rubric->getTags()->toArray() as $val_tags) {
+            foreach ($rubric->getTags()->toArray() as $val_tags) {
                 if (!empty($val_tags->getName())) {
 
                     $total_frequency = 0;
 
-                    foreach ($val_tags->getQuestions()->toArray() as $check_finished_step) {//проверка, что тянутые теги
+                    foreach ($val_tags->getQuestions()->toArray() as $check_finished_step) { //Проверка, что тянутые теги
                         if ($check_finished_step->getStep() >= self::FINISHED_STEP) ++$total_frequency;
                     }
 
                     $rubrics_tags__items['rubrics_tags__items'][] = array(
                         'rubrics_tags__items__title' => $val_tags->getName(),
-                        'rubrics_tags__items__link' => self::TAG /*. 'html/'*/ . '1/' . $val_tags->getId()  . self::REDIRECT,
-//                        'rubrics_tags__items__link' => self::TAGS . $val_tags->getId() . self::REDIRECT,
-                        'rubrics_tags__items__frequency' => $total_frequency//количество кпоминаний в вопросе
+                        'rubrics_tags__items__link' => self::TAG . '1/' . $val_tags->getId()  . self::REDIRECT,
+                        'rubrics_tags__items__frequency' => (!$total_frequency) ? false : $total_frequency  //Количество тегов в поросе
                     );
                 }
             }
@@ -361,16 +364,16 @@ class ApiController extends Controller implements ContainerAwareInterface
              *
              */
             if (!empty($rubrics_tags__items)) {
-                if (isset($id) && $Rubric->getId() == $id) {
+                if (isset($id) && $rubric->getId() == $id) {
                     $this->result['categories']['rubrics_tags'][] = array(
-                        'rubrics_tags__name' => $Rubric->getName(),
-                        'rubrics_tags__links' => self::RUBRIC . '1/' /*'1/html/0/'*/ . $Rubric->getId() . self::REDIRECT,
+                        'rubrics_tags__name' => $rubric->getName(),
+                        'rubrics_tags__links' => self::RUBRIC . '1/' . $rubric->getId() . self::REDIRECT,
                         'rubrics_tags__items_unit' => $rubrics_tags__items
                     );
                 } else if (!isset($id)) {
                     $this->result['categories']['rubrics_tags'][] = array(
-                        'rubrics_tags__name' => $Rubric->getName(),
-                        'rubrics_tags__links' => self::RUBRIC . '1/' /*'1/html/0/'*/ . $Rubric->getId() . self::REDIRECT,
+                        'rubrics_tags__name' => $rubric->getName(),
+                        'rubrics_tags__links' => self::RUBRIC . '1/' . $rubric->getId() . self::REDIRECT,
                         'rubrics_tags__items_unit' => $rubrics_tags__items
                     );
                 }
@@ -379,77 +382,75 @@ class ApiController extends Controller implements ContainerAwareInterface
 
     }
 
-    protected function formedQuestions ($Questions)
+    /**
+     * @param $dataForCheck - данные для проверки, в случае которых будет кинут экспешин
+     * @param string $message - сообщение, кооторое будет видно в app_dev.php в случае экспешена
+     */
+    protected function pageNotFound ($dataForCheck, $message = '404: Page Not Found')
     {
-        foreach ($Questions as $Question_key => $Question) {
+        if ($dataForCheck) throw $this->createNotFoundException($message);
+    }
+
+    protected function formedQuestions ($questions)
+    {
+
+        foreach ($questions as $questionKey => $question) {
 
             /**
              * Проверка что есть ответ. Потому что нельзя сделать сразу выборку по ассоциативным полям answersId
              */
-            if (!empty($Question->getAnswersId()) && $Question->getStep() >= self::FINISHED_STEP) {
-                /*if($_SERVER['REMOTE_ADDR'] =='212.69.111.131') {
-                    var_dump($Question_key);
-                    if ($Question_key == 2) {
-                        $this->bibliotechkaRand()[0];
-                    }
-                }*/
+            if (!empty($question->getAnswersId()) && $question->getStep() >= self::FINISHED_STEP) {
+                
                 /**
                  * генерация mods
                  *
                  * */
                 $this->result['questions_list'][] = [
                     'mods' => [
-                        ($Question->getAnswersId()->getAuthUsersId()->getDateEndPay() > new \DateTime('now'))
+                        ($question->getAnswersId()->getAuthUsersId()->getDateEndPay() > new \DateTime('now'))
                             ? self::NAME_PAY_JURIST
-                            : '',//оплачен ли юрист
+                            : '', //Оплачен ли юрист
 
-                        ($Question->getAnswersId()->getTypeCards() === 'card')
+                        ($question->getAnswersId()->getTypeCards() === 'card')
                             ? 'card'
-                            : '',//Является ли вопрос карточкой
-                        /*($Question_key == 2)
-                            ? 'bibliotechka'
-                            : null,*///Модификатор для вывода блока библиотечки на маленьких экранах в сереиде текста. P.S. мудачий модификатор    
+                            : '', //Является ли вопрос карточкой
                     ],
 
                     /**
                      * генерация автора
                      *
                      * */
-
                     'questions__head' =>
                         ['questions__head__author' =>
                             [
                                 [
-                                    'questions__head__author__name' => $Question->getAuthorId()->getName(),
-                                    'questions__head__author__location' => $Question->getAuthorId()->getCity(),
+                                    'questions__head__author__name' => $question->getAuthorId()->getName(),
+                                    'questions__head__author__location' => $question->getAuthorId()->getCity(),
                                 ]
                             ]
                         ]
                     ,
-                    'bibliotechka' => ($Question_key == 2) ? true : false,
-                    'tags' => $this->formedTagsAndRubrics($Question->getTags()->toArray()),//$tags_result,
-                    'link' => self::RUBRICS . self::QUESTIONS . $Question->getId() /*. '/' . self::FORMAT*/ .  self::REDIRECT,
-                    'rubrics' => $this->formedTagsAndRubrics($Question->getRubrics()->toArray()),
-                    'title' => $Question->getTitle(),
-                    'text' => $Question->getDescription(),
+                    'questions_list__bibliotechka' => ($questionKey == 2) ? true : false,
+                    'tags' => $this->formedTagsAndRubrics($question->getTags()->toArray()), //tags_result,
+                    'link' => self::RUBRICS . self::QUESTIONS . $question->getId() .  self::REDIRECT,
+                    'rubrics' => $this->formedTagsAndRubrics($question->getRubrics()->toArray()),
+                    'title' => $question->getTitle(),
+                    'text' => $question->getDescription(),
                     'jurist' => [
-                        'jurist__active' => ($Question->getAnswersId()->getAuthUsersId()->getDisabled() == self::DISABLED_VALUE_ON) ? !self::DISABLED_VALUE_ON : self::DISABLED_VALUE_ON,
-                        'jurist__first_name' => $Question->getAnswersId()->getAuthUsersId()->getName(),
-                        'jurist__last_name' => $Question->getAnswersId()->getAuthUsersId()->getSecondName(),
-                        'jurist__link' => self::JURIST . $Question->getAnswersId()->getAuthUsersId()->getId() . self::REDIRECT /*. 'html/'*/,
-                        'jurist__img' => [$this->fetchAvatar($Question->getAnswersId()->getAuthUsersId(), $Question)],
+                        'jurist__active' => ($question->getAnswersId()->getAuthUsersId()->getDisabled() == self::DISABLED_VALUE_ON) ? !self::DISABLED_VALUE_ON : self::DISABLED_VALUE_ON,
+                        'jurist__first_name' => $question->getAnswersId()->getAuthUsersId()->getName(),
+                        'jurist__last_name' => $question->getAnswersId()->getAuthUsersId()->getSecondName(),
+                        'jurist__link' => self::JURIST . $question->getAnswersId()->getAuthUsersId()->getId() . self::REDIRECT,
+                        'jurist__img' => [$this->fetchAvatar($question->getAnswersId()->getAuthUsersId(), $question)],
                         'jurist__rate' => [
-                            'jurist__rate__reply' => $Question->getAnswersId()->getRating(),
-                            'jurist__rate__author' => $this->receiveAnOverallRating($Question->getAnswersId()->getAuthUsersId()->getAnswers()->toArray())//$total_rating
+                            'jurist__rate__reply' => $question->getAnswersId()->getRating(),
+                            'jurist__rate__author' => $this->receiveAnOverallRating($question->getAnswersId()->getAuthUsersId()->getAnswers()->toArray()) //total_rating
                         ]
                     ],
                     'questions__item_complete' => 0,
                 ];
 
-                /*if ($Question_key == 2) {
-                    $this->result['questions_list'][]['bibliotechka'] = $this->bibliotechkaRand()[0];
-                }*/
-                if ($Question_key == 3) {
+                if ($questionKey == 3) {
                     $this->result['questions_list'][] = [
                         'mods' => [
                             'bibliotechka'
@@ -462,7 +463,6 @@ class ApiController extends Controller implements ContainerAwareInterface
                     /**
                      * Если первый ключ равен оплаченому юристу self::NAME_PAY_JURIST, то выставляем визабилити,
                      * если нет, то сносим.
-                     *
                      */
                     if (!empty($val['mods'][0]) && $val['mods'][0] === self::NAME_PAY_JURIST) {
                         $val['visibility'] = [//true если mods = highlighted
@@ -478,13 +478,11 @@ class ApiController extends Controller implements ContainerAwareInterface
                         unset($val['mods']);
                     }
 
-                    if (!empty($val['mods']))$val['mods'] = array_values($val['mods']);//потому что тупой мусташ считает [1 => 'cart'] массивом, хотя, явно это не указанно
+                    if (!empty($val['mods']))$val['mods'] = array_values($val['mods']); //Потому что тупой мусташ считает [1 => 'cart'] массивом, хотя, явно это не указанно
 
                     /**
                      * Работа с тегами и рубриками
                      */
-
-
                     $this->generateFirstLast($val['rubrics']);
 
                     $this->generateFirstLast($val['tags']);
@@ -494,7 +492,7 @@ class ApiController extends Controller implements ContainerAwareInterface
                     /**
                      * Работаем с хранилищем аватарок для юристов
                      */
-                    if (count($val['jurist']['jurist__img']) > 0) {
+                    if (isset($val['jurist']) && count($val['jurist']['jurist__img']) > 0) {
                         $val['jurist']['jurist__img__length'] = count($val['jurist']['jurist__img']);
                     }
                 }
@@ -522,10 +520,6 @@ class ApiController extends Controller implements ContainerAwareInterface
                         'book__img__height' => 151,
                     ],
                     'book__img__length' => 1,
-                    /*'book__mods' => [
-                        'book__mods__value' => 'new',
-                    ],
-                    'book__mods__length' => 1,*/
                     'book__title' => 'Садоводы, дачники и их объединения: защита прав и интересов',
                     'book__annotation' => 'Книга поможет найти ответ практически на любой вопрос, связанный с деятельностью садоводческих и дачных некоммерческих объединений, поскольку ее автор является практикующим адвокатом, непосредственно занимающимся проблемами садоводов более 15 лет.',
                     'book__download' => [
@@ -582,10 +576,6 @@ class ApiController extends Controller implements ContainerAwareInterface
                         'book__img__height' => 151,
                     ],
                     'book__img__length' => 1,
-                    /*'book__mods' => [
-                        'book__mods__value' => 'new',
-                    ],
-                    'book__mods__length' => 1,*/
                     'book__title' => 'Многоквартирный дом: как эффективно управлять своим домом и решать возникающие проблемы',
                     'book__annotation' => 'Книга состоит из ответов на вопросы, касающиеся управления многоквартирным домом, подготовки и проведения общего собрания и оформления его решений. В ней приводится типовой договор для взаимодействия с УК и формы документов для проведения общего собрания.',
                     'book__download' => [
@@ -634,133 +624,108 @@ class ApiController extends Controller implements ContainerAwareInterface
 
             $rand = rand(0, count($bibliotechkaRand)-1);
 
-            if (!key_exists($rand, $result_array)) {//проверяем, чтоб не было дублей
+            if (!key_exists($rand, $result_array)) { //Проверяем, чтоб не было дублей
                 $result_array[$rand] = $bibliotechkaRand[$rand];
             }
         }
 
 
-        return array_values($result_array);//для мусташа, а иначе он не понимает ключи, т.е. порядок array(3 => 'ddd', 1 => 'bbb') ему не понятен, а так понятен array(0 => 'ddd', 1 => 'bbb')
+        return array_values($result_array); //Для мусташа, а иначе он не понимает ключи, т.е. порядок array(3 => 'ddd', 1 => 'bbb') ему не понятен, а так понятен array(0 => 'ddd', 1 => 'bbb')
     }
 
-    protected function bibliotechka ($data = null)
-    {
-
-        $result = array(
-            'bibliotechka__issue' => array(
-                array(
-                    'bibliotechka__issue__number' => 14,
-                    'bibliotechka__issue__year' => 2016
-                ),
-            ),
-            'book' => array(
-                'book__img' => array(
-                    array(
-                        'book__img__type_medium' => 1,
-                        'book__img__file' => '//rg.ru/res/images/custom/projects/juristical/lib-item.jpg',
-                        'book__img__title' => 'Налог на имущество физических лиц',
-                        'book__img__width' => '114',
-                        'book__img__height' => '152',
-                    )
-                ),
-            ),
-            'book__img__length' => 1,
-            'book__mods' => array(
-                array('book__mods_value' => 'new'),
-            ),
-            'book__mods__length' => 1,
-            'book__title' => 'Налог на имущество физических лиц',
-            /*'book__annotation' => 'В России более 60 миллионов садоводов, а вместе с семьями это, можно считать, все население страны. И каждый садовод или дачник прежде всего хочет знать свои права. Именно правам, а не обязанностям садоводов и дачников в первую очередь посвящено издание: право на имущество; право на отдых; соседские права; право на участие в деятельности объединения; право получать отчеты по расходованию денежных средств; право на оспаривание решений; право на выход из некоммерческого объединения. Наличие прав подразумевает и необходимость исполнения определенных обязанностей, знать о которых не менее важно.
-Книга поможет найти ответ практически на любой вопрос, связанный с деятельностью садоводческих и дачных некоммерческих объединений, поскольку ее автор является практикующим адвокатом, непосредственно занимающимся проблемами садоводов на протяжении более 15 лет. 
-Издание предназначено для садоводов, огородников, дачников, тех, кто планирует ими стать, а также для представителей садоводческих и дачных некоммерческих объединений.',*/
-            'book__download' => array(
-                array(
-                    'book__download__link' => '#',
-                    'book__download__size' => '3.5 Мб'
-                ),
-            ),
-            'book__price' => '265 руб.',
-            'book__purchase_link' => 'https://bibliotechka.rg.ru/products/?SECTION_ID=31&ELEMENT_ID=409',
-        );
-
-        return $result;
-    }
-
-    public function SidebarAction (
+    public function SidebarAction(
         $format = self::FORMAT, $id = null, $where = null, $orderBy = null, $answers_limit = 4,
-        $questions_latest_mods = 'latest', $jurists_feed_limit = 2, $jurists_latest_mods = 'feed',
-        $jurists_top_mods = 'top', $jurists_top_week = 3
+        $questionsLatestMods = 'latest', $juristsFeedLimit = 2, $juristsLatestMods = 'feed',
+        $juristsTopMods = 'top', $juristsTopWeek = 3
     )
     {
 
-        //return new Response($format);
-        if ($format === 'json') {//app_dev.php/jurists/sidebar/json/
+        if ($format === 'json') {
 
-            $Rubrics = $this->connect_to_Jurists_bd
+            $nameRedisNow = 'PravoSidebarAction'.str_replace(' ', '-', date('Y-m-d H')); //PravoSidebarAction2016-10-18-03 такой вид, каждый час
+
+            $redisNow = $this->redis->get($nameRedisNow);
+
+            $redisUnserialize = unserialize($redisNow); //Так надо из-за мусташа
+
+            if ($redisNow) {
+
+                $this->result['sidebar'] =  $redisUnserialize['sidebar'];
+                $this->result['questions_latest'] =  $redisUnserialize['questions_latest'];
+                $this->result['questions_latest__length'] =  $redisUnserialize['questions_latest__length'];
+                $this->result['jurists_feed'] =  $redisUnserialize['jurists_feed'];
+                $this->result['jurists_top'] =  $redisUnserialize['jurists_top'];
+
+                return $this->result;
+            }
+
+            $RubricsQuery = $this->connect_to_Jurists_bd
                 ->getRepository('JuristBundle:Rubrics')
                 ->findBy([], ['name' => 'ASC']);
 
             $Answers = $this->connect_to_Jurists_bd
                 ->getRepository('JuristBundle:Answers')
-                ->findBy(
-                    [],
-                    ['date' => 'DESC']//,
-                //$answers_limit
-                );
+                ->createQueryBuilder('a')
+                ->innerJoin('a.question', 'q', 'WITH', "q.id = a.question")
+                ->where('q.step = :step')
+                ->setParameters(array('step' => self::FINISHED_STEP))
+                ->orderBy('a.date', 'DESC')
+                ->getQuery()
+                ->execute();
 
             $Jurists = $this->connect_to_Jurists_bd
                 ->getRepository('JuristBundle:AuthUsers')
                 ->findBy([], []);
 
-            $questions_latest = array();
+            $questionsLatest = array();
 
-            $date = new \DateTime('now');//для jurists_top
+            $date = new \DateTime('now'); //Для jurists_top
             $expires = '-1 week';
             $date->modify($expires);
-            $id_jurists_top = array();//выборк юристов для топа jurists_top
+            $idJuristsTop = array(); //Выборк юристов для топа jurists_top
 
             foreach ($Answers as $Answer) {
-                if (
-                    $Answer->getDate() > $date
-                    && $Answer->getQuestion()->getStep() >= self::FINISHED_STEP
-                    && $Answer->getAuthUsersId()->getDisabled() == self::DISABLED_VALUE_ON
-                ) {//выборк id юристов для топа у которых есть ответы за последнию неделю
-                    $id_jurists_top[] = $Answer->getAuthUsersId()->getId();
+
+                /**
+                 * Выборка вопросов которые уже опубликованы
+                 */
+                $rubrics = array();
+
+                if ($Answer->getDate() > $date && $Answer->getAuthUsersId()->getDisabled() == self::DISABLED_VALUE_ON) { //Выборк id юристов для топа у которых есть ответы за последнию неделю
+                    $idJuristsTop[] = $Answer->getAuthUsersId()->getId();
                 }
 
-                if ($Answer->getQuestion()->getStep() >= self::FINISHED_STEP) {//выборка вопросов которые уже опубликованы
-                    $rubrics = array();
-
-                    foreach($Answer->getQuestion()->getRubrics()->toArray() as $rubric) {//формируем рубрики
-                        if (!empty($rubric->getName())){
-                            $rubrics[] = array(
-                                'rubrics__title' => htmlspecialchars($rubric->getName()),
-                                'rubrics__link' =>  self::RUBRICS . /*self::FORMAT . '/' .*/ $rubric->getId() . self::REDIRECT//self::RUBRICS . $rubric->getId() . self::REDIRECT,
-                            );
-                        }
-                    }
-
-                    $questions_latest[] = array(
-                        'mods' => array($questions_latest_mods),
-                        'rubrics' => $rubrics,
-                        'title' => $Answer->getQuestion()->getTitle(),
-                        'link' => self::RUBRICS . self::QUESTIONS . $Answer->getQuestion()->getId() /*. '/' . self::FORMAT*/ .  self::REDIRECT,
-                    );
-
-                    foreach ($questions_latest as $key_question_latest => &$question_latest) {
-                        if (count($question_latest['rubrics']) == 0) {
-                            unset($questions_latest[$key_question_latest]);
-                        }
-                        $question_latest['mods__length'] = count($question_latest['mods']);
-                        $question_latest['rubrics__length'] = count($question_latest['rubrics']);
+                foreach ($Answer->getQuestion()->getRubrics()->toArray() as $rubric) { //Формируем рубрики
+                    if (!empty($rubric->getName())){
+                        $rubrics[] = array(
+                            'rubrics__title' => htmlspecialchars($rubric->getName()),
+                            'rubrics__link' =>  self::RUBRICS . $rubric->getId() . self::REDIRECT
+                        );
                     }
                 }
+
+                $questionsLatest[] = array(
+                    'mods' => array($questionsLatestMods),
+                    'rubrics' => $rubrics,
+                    'title' => $Answer->getQuestion()->getTitle(),
+                    'link' => self::RUBRICS . self::QUESTIONS . $Answer->getQuestion()->getId() .  self::REDIRECT,
+                );
+
+                foreach ($questionsLatest as $keyQuestionLatest => &$questionLatest) {
+                    if (count($questionLatest['rubrics']) == 0) {
+                        unset($questionsLatest[$keyQuestionLatest]);
+                    }
+                    $questionLatest['mods__length'] = count($questionLatest['mods']);
+                    $questionLatest['rubrics__length'] = count($questionLatest['rubrics']);
+                }
+                unset($questionLatest);
+
             }
 
-            $Jurist_feed = array();
+            $juristFeed = [];
 
-            $id_jurists_top = array_unique($id_jurists_top);
-            $jurists_top = array();
+            $idJuristsTop = array_unique($idJuristsTop);
+            $juristsTop = [];
 
             foreach($Jurists as $Jurist) {
 
@@ -768,36 +733,36 @@ class ApiController extends Controller implements ContainerAwareInterface
                  * todo jurists_top
                  *  перебираем id юристов у которых есть ответы за последнию неделю
                  */
-                foreach ($id_jurists_top  as $id_jurist_top) {
-                    if ($Jurist->getId() == $id_jurist_top) {
-                        $jurists_top[] = array(
-                            'mods' => array($jurists_top_mods),
+                foreach ($idJuristsTop  as $idJuristTop) {
+                    if ($Jurist->getId() == $idJuristTop) {
+                        $juristsTop[] = array(
+                            'mods' => array($juristsTopMods),
                             'jurist__img' => [$this->fetchAvatar($Jurist, $Jurist)],
-                            'jurist__link' => self::JURIST . $Jurist->getId() /*. '/' . self::FORMAT*/ . self::REDIRECT,
+                            'jurist__link' => self::JURIST . $Jurist->getId() . self::REDIRECT,
                             'jurist__first_name' => $Jurist->getName(),
                             'jurist__last_name' => $Jurist->getSecondName(),
                             'jurist__consultations' => $this->getCountConsultation($Jurist->getId(), date('Y-m-d H:i:s', strtotime($expires))),
-                            'jurist__rate__author' => $this->receiveAnOverallRating($Jurist->getAnswers()->toArray()),//общий рейтинг
+                            'jurist__rate__author' => $this->receiveAnOverallRating($Jurist->getAnswers()->toArray()), //Общий рейтинг
                         );
                     }
                 }
 
                 $rubrics = [];
-                foreach ($Jurist->getRubrics()->toArray() as $rubric) {//формируем рубрики для юристов
+                foreach ($Jurist->getRubrics()->toArray() as $rubricVal) { //Формируем рубрики для юристов
                     $rubrics[] = [
-                        'rubrics__title' => $rubric->getName(),
-                        'rubrics__link' => self::RUBRICS . $rubric->getId() . /*'/' . self::FORMAT .*/ self::REDIRECT,
+                        'rubrics__title' => $rubricVal->getName(),
+                        'rubrics__link' => self::RUBRICS . $rubricVal->getId() . self::REDIRECT,
                     ];
                 }
 
                 /**
                  * todo jurists_feed
                  */
-                if ($Jurist->getDateEndOfferServices() > new \DateTime('now') && $Jurist->getDisabled() === self::DISABLED_VALUE_ON) {//проверка оплачености и активности
-                    $Jurist_feed[] = array(
-                        'mods' => array($jurists_latest_mods),
+                if ($Jurist->getDateEndOfferServices() > new \DateTime('now') && $Jurist->getDisabled() === self::DISABLED_VALUE_ON) { //Проверка оплачености и активности
+                    $juristFeed[] = array(
+                        'mods' => array($juristsLatestMods),
                         'jurist__img' => [$this->fetchAvatar($Jurist, $Jurist)],
-                        'jurist__link' => self::JURIST . $Jurist->getId() . /*'/' . self::FORMAT .*/ self::REDIRECT,
+                        'jurist__link' => self::JURIST . $Jurist->getId() . self::REDIRECT,
                         'jurist__education' => $Jurist->getGraduate(),
                         'jurist__education__length' => ($Jurist->getGraduate() == '') ? false : true,
                         'rating' => $this->receiveAnOverallRating($Jurist->getAnswers()->toArray()),
@@ -813,59 +778,60 @@ class ApiController extends Controller implements ContainerAwareInterface
              * jurists_feed
              * сортируем юристов по рейтингу и затем обрезаем для заданного лимита
              */
-            usort($Jurist_feed, function ($a, $b) {
+            usort($juristFeed, function ($a, $b) {
                 return strcmp($b['rating'], $a['rating']);
             });
-            $Jurist_feed = array_splice($Jurist_feed, 0, $jurists_feed_limit);
+            $juristFeed = array_splice($juristFeed, 0, $juristsFeedLimit);
 
             /**
              * jurists_top
              * сортируем юристов по рейтингу и затем обрезаем для заданного лимита
              */
-            usort($jurists_top, function ($a, $b) {
-                return strcmp($b['jurist__consultations'], $a['jurist__consultations']);//return strcmp($b['jurist__rate__author'], $a['jurist__rate__author']);
+            usort($juristsTop, function ($a, $b) {
+                return strcmp($b['jurist__consultations'], $a['jurist__consultations']);
             });
-            $jurists_top = array_splice($jurists_top, 0, $jurists_top_week);
+            $juristsTop = array_splice($juristsTop, 0, $juristsTopWeek);
 
             /**
              * questions_latest
              */
-            $questions_latest = array_splice($questions_latest, 0, $answers_limit);
+            $questionsLatest = array_splice($questionsLatest, 0, $answers_limit);
 
-            foreach($jurists_top as &$val_jurists_top) {//$jurists_top подсчет length && first/last
-                $val_jurists_top['jurist__img__length'] = count($val_jurists_top['jurist__img']);
-                $val_jurists_top['mods__length'] = count($val_jurists_top['mods']);
+            foreach($juristsTop as &$valJuristsTop) { //juristsTop подсчет length && first/last
+                $valJuristsTop['jurist__img__length'] = count($valJuristsTop['jurist__img']);
+                $valJuristsTop['mods__length'] = count($valJuristsTop['mods']);
             }
+            unset($valJuristsTop);
 
-            foreach($Jurist_feed as &$val_Jurist_feed) {//jurists_feed подсчет length && first/last
-                $val_Jurist_feed['jurist__img__length'] = count($val_Jurist_feed['jurist__img']);
-                $val_Jurist_feed['mods__length'] = count($val_Jurist_feed['mods']);
-                $val_Jurist_feed['rubrics__length'] = count($val_Jurist_feed['rubrics']);
-                $this->generateFirstLast($val_Jurist_feed['rubrics']);
+            foreach($juristFeed as &$valJuristFeed) { //jurists_feed подсчет length && first/last
+                $valJuristFeed['jurist__img__length'] = count($valJuristFeed['jurist__img']);
+                $valJuristFeed['mods__length'] = count($valJuristFeed['mods']);
+                $valJuristFeed['rubrics__length'] = count($valJuristFeed['rubrics']);
+                $this->generateFirstLast($valJuristFeed['rubrics']);
             }
+            unset($valJuristFeed);
 
-            $this->result['sidebar'] = array(
+            $this->result['sidebar'] = [
+                'bibliotechka' => $this->bibliotechkaRand()[0], //Ибо нужно только один
+            ];
 
-                'bibliotechka' => $this->bibliotechkaRand()[0],//Ибо нужно только один
+            $this->result['questions_latest'] = $questionsLatest; //Последние вопросы
 
-            );
+            $this->result['questions_latest__length'] = count($questionsLatest);
 
-            $this->result['questions_latest'] = $questions_latest;//последние вопросы
+            $this->result['jurists_feed'] = $juristFeed;
 
-            $this->result['questions_latest__length'] = count($questions_latest);
-            
-            $this->result/*['sidebar']*/['jurists_feed'] = $Jurist_feed;
+            $this->result['jurists_top'] = $juristsTop; //Юристы в топе за неделю
 
-            $this->result/*['sidebar']*/['jurists_top'] = $jurists_top;//юристы в топе за неделю
-
-
-            foreach($Rubrics as $Rubric) {
+            foreach($RubricsQuery as $rubricValue) {
                 $this->result['sidebar']['categories']['rubrics'][] = array(
-                    'rubrics__title' => $Rubric->getName(),
-                    'rubrics__link' => self::RUBRIC . '1/' . $Rubric->getId() . self::REDIRECT,
-                    'rubrics__active' => (!empty($id) && $id == $Rubric->getId()) ? true : false,
+                    'rubrics__title' => $rubricValue->getName(),
+                    'rubrics__link' => self::RUBRIC . '1/' . $rubricValue->getId() . self::REDIRECT,
+                    'rubrics__active' => (!empty($id) && $id == $rubricValue->getId()) ? true : false,
                 );
             }
+
+            $this->redis->setEx($nameRedisNow, (60 * 120), serialize($this->result)); //Expires на 2 часа
 
             return $this->result;
 
@@ -878,6 +844,7 @@ class ApiController extends Controller implements ContainerAwareInterface
             throw $this->createAccessDeniedException("Incorrect format!!! " . PHP_EOL . " Use next structure: /jurists/page/{name page}/{format == html || json}!");
 
         }
+        
     }
     
     public function HeaderAction($active = null)
@@ -916,298 +883,255 @@ class ApiController extends Controller implements ContainerAwareInterface
         );
 
         return $this->result;
+        
     }
 
-    protected function PaginationGenerateArrowAction ($number_page, $current_page, $link, $condition_id = '', $get_string)
+    protected function PaginationGenerateArrowAction ($numberPage, $currentPage, $link, $conditionId = '', $getString)
     {
         static $arrow = [];
 
-        if ($number_page == $current_page-1) {//https://front.rg.ru/jurists/jurists/
+        if ($numberPage == $currentPage-1) {
             $arrow[] = [
                 'arrow__prev' => true,
-                //'arrow__link' => $link. $number_page /*"$number_page/html/" . (($number_page-1)*self::COUNT_RECORDS_ON_PAGE_JURISTS)*/ . $condition_id . self::REDIRECT . $get_string,
-                'arrow__link' => ($link. $number_page . $condition_id . self::REDIRECT . $get_string !== '/main/1/') ? $link. $number_page . $condition_id . self::REDIRECT . $get_string : '/' . $get_string,
+                'arrow__link' => ($link. $numberPage . $conditionId . self::REDIRECT . $getString !== '/main/1/') ? $link. $numberPage . $conditionId . self::REDIRECT . $getString : '/' . $getString,
             ];
         }
 
-        if ($number_page == $current_page+1) {
+        if ($numberPage == $currentPage+1) {
             $arrow[] = [
                 'arrow__next' => true,
-                'arrow__link' => $link . $number_page/*"$number_page/html/" . (($number_page-1)*self::COUNT_RECORDS_ON_PAGE_JURISTS)*/ . $condition_id . self::REDIRECT . $get_string,
+                'arrow__link' => $link . $numberPage . $conditionId . self::REDIRECT . $getString,
             ];
         }
         
         return $arrow;
     }
 
-    /*protected function PaginationGeneratePagesAction($firstPage, $totalPages, $link_action, $number_page, $current_page)
-    {//TODO описать
-        static $numeric_page = [];
+    protected function ProcessingRequestForPaginationAction()
+    { //Зават get запросов
 
-        $numeric_page[0] = [
-            'number_page' => $firstPage,
-            'link' => $link_action."$firstPage/html/0" . self::REDIRECT,
-            'current' => false,
-            'first' => true,
-            'middle' => false,
-            'last' => false,
-        ];
-
-        $numeric_page[self::PAGINATION_FOR_JURISTS] = [
-            'number_page' => $totalPages,
-            'link' => $link_action . "$number_page/html/" . (($totalPages-1)*self::COUNT_RECORDS_ON_PAGE_JURISTS) . self::REDIRECT,
-            'current' => false,
-            'first' => false,
-            'middle' => false,
-            'last' => true,
-        ];
-
-        for ($j = 1; $j <= self::PAGINATION_FOR_JURISTS-count($numeric_page); ++$j) {
-            $numeric_page[$j] = [
-                'number_page' => $number_page,
-                'link' => $link_action . "$j/html/" . (($number_page-1)*self::COUNT_RECORDS_ON_PAGE_JURISTS) . self::REDIRECT,
-                'current' => ($number_page == $current_page) ? true : false,
-                'first' => ($number_page == $firstPage) ? true : false,
-                'middle' => ($number_page != $firstPage && $number_page != $totalPages) ? true : false,
-                'last' => ($number_page == $totalPages) ? true : false,
-            ];
-        }
-
-        return $numeric_page;
-    }*/
-
-    protected function ProcessingRequestForPaginationAction ()
-    {//зават get запросов
-        $value_get_pagination = '?';
+        $valueGetPagination = '?';
 
         $request = Request::createFromGlobals();
-        foreach ($request->query->all() as $keys_query_get => $values_query_get) {
-            $value_get_pagination .= $keys_query_get . '=' . $values_query_get . '&';
+        foreach ($request->query->all() as $keysQueryGet => $valuesQueryGet) {
+            $valueGetPagination .= $keysQueryGet . '=' . $valuesQueryGet . '&';
         }
-        if ($value_get_pagination[strlen($value_get_pagination)-1] === '&') {
-            $value_get_pagination = substr($value_get_pagination, 0, strlen($value_get_pagination)-1);
-        }
-        if ($value_get_pagination === '?') $value_get_pagination = '';
 
-        return $value_get_pagination;
+        if ($valueGetPagination[strlen($valueGetPagination)-1] === '&') {
+            $valueGetPagination = substr($valueGetPagination, 0, strlen($valueGetPagination)-1);
+        }
+
+        if ($valueGetPagination === '?') $valueGetPagination = '';
+
+        return $valueGetPagination;
+
     }
 
     /**
-     * @param array $query - select * по заданной выборки
-     * @param $count_numeric_page - количество пагинация на странице
-     * @param $count_records_on_page - количество записей на странице
-     * @param $current_page - текущая страница
+     * @param $query - select * по заданной выборки
+     * @param $countNumericPage - количество пагинация на странице
+     * @param $countRecordsOnPage - количество записей на странице
+     * @param $currentPage - текущая страница
      * @param $link - ссылка роут
-     * @param $firstPage - первая страница
-     * @param $condition_id - костыли для таких категорий, как выборка по тегу или рубрики
-     * @param $get_string - набор get запросов
+     * @param int $firstPage - первая страница
+     * @param string $conditionId - костыли для таких категорий, как выборка по тегу или рубрики
+     * @param string $getString - набор get запросов
+     * @return bool
      * @throws Exception
      */
     protected function PaginationAction (
-        array $query, $count_numeric_page, $count_records_on_page, 
-        $current_page, $link, $firstPage = 1, $condition_id = '',
-        $get_string = ''
+        $query, $countNumericPage, $countRecordsOnPage, $currentPage,
+        $link, $firstPage = 1, $conditionId = '', $getString = ''
     )
     {
-        //dump($count_numeric_page);die;
-        //$current_page = 666;
-        /*dump($current_page);
-        dump($condition_id);
-        die;*/
-        /*dump($query, $count_numeric_page, $count_records_on_page,
-            $current_page, $link, $firstPage = 1, $condition_id = '',
-            $get_string);die;*/
-        if (!$current_page) throw new Exception("Не допустимое значение: id = $current_page");
-        $count_records = count($query);
-        $totalPages = ceil($count_records / $count_records_on_page);
+        if (!$currentPage) {
+            if ($this->get('kernel')->getEnvironment() != 'dev') $this->pageNotFound(true);
+            throw new Exception("Не допустимое значение: id = $currentPage");
+        }
+        $countRecords = (gettype($query) === 'string') ? $query : count($query);
+        $totalPages = ceil($countRecords / $countRecordsOnPage);
 
         /**
          * start numeric_page
          *
          * logic:
-         * We have for example 20 page with $count_numeric_page == 5
+         * We have for example 20 page with $countNumericPage == 5
          *
          * 1,2,3,4,5,6,7,8,9,10,11,12,13,14,1516,17,18,19,20
          *
-         * if $current_page == 1(first)
+         * if $currentPage == 1(first)
          * then we see 1(disabled),2,3,4...20
          *
-         * else if $current_page == 20(last page)
+         * else if $currentPage == 20(last page)
          * then we see 1...17,18,19,20(disabled)
          *
-         * else if $current_page == 1+1
+         * else if $currentPage == 1+1
          * then we see 1,2(disabled),3,4...20
          *
-         * else if $current_page == 20-1(last page-1)
+         * else if $currentPage == 20-1(last page-1)
          * then we see 1...17,18,19(disabled),20
          *
-         * else if $current_page == (example) 10
+         * else if $currentPage == (example) 10
          * then we see 1...9,10(disabled),11...20
          *
          */
-        if ($totalPages <= 1) return false;//если 1 стр всего
+
+        if ($totalPages <= 1) return false; //Если 1 страница всего
 
         for ($i = $firstPage; $i <= $totalPages; ++$i) {//TODO оптимизировать
 
-            //dump($totalPages);die;
-            if ($current_page == $firstPage && $i <= $count_numeric_page) {//если на 1-ой
-                if ($i < $count_numeric_page) {
-                    $arrow = $this::PaginationGenerateArrowAction($i, $current_page, $link, $condition_id, $get_string);
-                    //$numeric_page = $this->PaginationGeneratePagesAction($firstPage, $totalPages, 'https://front.rg.ru/jurists/jurists/', $i, $current_page);
+            if ($currentPage == $firstPage && $i <= $countNumericPage) { //TODO на первой странице
+                if ($i < $countNumericPage) {
+                    $arrow = $this::PaginationGenerateArrowAction($i, $currentPage, $link, $conditionId, $getString);
 
-                    $numeric_page[] = [
+                    $numericPage[] = [
                         'number_page' => $i,
-                        //'link' => $link . $i/*"$i/html/" . (($i-1)*self::COUNT_RECORDS_ON_PAGE_JURISTS)*/ . $condition_id . self::REDIRECT . $get_string,
-                        'link' => ($link . $i . $condition_id . self::REDIRECT !== '/main/1/') ? $link . $i . $condition_id . self::REDIRECT . $get_string : '/' . $get_string,
-                        'current' => ($i == $current_page) ? true : false,
+                        'link' => ($link . $i . $conditionId . self::REDIRECT !== '/main/1/') ? $link . $i . $conditionId . self::REDIRECT . $getString : '/' . $getString,
+                        'current' => ($i == $currentPage) ? true : false,
                         'first' => ($i == $firstPage) ? true : false,
                         'middle' => ($i != $firstPage && $i != $totalPages) ? true : false,
                         'last' => ($i == $totalPages) ? true : false
                     ];
                 } else {
-                    $numeric_page[] = [
+                    $numericPage[] = [
                         'number_page' => $totalPages,
-                        //'a' => 1,
-                        //'link' => $link . $totalPages /*"$totalPages/html/" . (($totalPages-1)*self::COUNT_RECORDS_ON_PAGE_JURISTS)*/ . $condition_id . self::REDIRECT . $get_string,
-                        'link' => ($link . $i . $condition_id . self::REDIRECT !== '/main/1/') ? $link . $totalPages . $condition_id . self::REDIRECT . $get_string : '/' . $get_string,
+                        'link' => ($link . $i . $conditionId . self::REDIRECT !== '/main/1/') ? $link . $totalPages . $conditionId . self::REDIRECT . $getString : '/' . $getString,
                         'current' => false,
                         'first' => false,
                         'middle' => false,
                         'last' => true,
-                        'right_three_dots' => ($totalPages > $count_numeric_page+1) ? true : false,//чтоб не было точек если 2-е стр и между ними точки
+                        'right_three_dots' => ($totalPages > $countNumericPage+1) ? true : false, //Чтоб не было точек если 2-е стр и между ними точки
                     ];
                 }
-            } elseif ($current_page == $totalPages && $i > $totalPages - $count_numeric_page) {//если на последний
-                $numeric_page[] = [
+            } elseif ($currentPage == $totalPages && $i > $totalPages - $countNumericPage) { //TODO последний
+                $numericPage[] = [
                     'number_page' => $i,
-                    'link' => $link . $i /*"$i/html/" . (($i-1)*self::COUNT_RECORDS_ON_PAGE_JURISTS)*/ . $condition_id . self::REDIRECT . $get_string,
-                    //'link' => ($link . $i . $condition_id . self::REDIRECT . $get_string !== '/main/1/') ? $link . $i . $condition_id . self::REDIRECT . $get_string : '/' . $get_string,
-                    'current' => ($i == $current_page) ? true : false,
+                    'link' => $link . $i . $conditionId . self::REDIRECT . $getString,
+                    'current' => ($i == $currentPage) ? true : false,
                     'first' => ($i == $firstPage) ? true : false,
                     'middle' => ($i != $firstPage && $i != $totalPages) ? true : false,
                     'last' => ($i == $totalPages) ? true : false,
                 ];
-                $numeric_page[0] = [
+                $numericPage[0] = [
                     'number_page' => $firstPage,
-                    //'link' => $link . $firstPage /*"$firstPage/html/0"*/ . $condition_id . self::REDIRECT . $get_string,
-                    'link' => ($link . $firstPage . $condition_id . self::REDIRECT . $get_string !== '/main/1/') ? $link . $firstPage . $condition_id . self::REDIRECT . $get_string : '/' . $get_string,
+                    'link' => ($link . $firstPage . $conditionId . self::REDIRECT . $getString !== '/main/1/') ? $link . $firstPage . $conditionId . self::REDIRECT . $getString : '/' . $getString,
                     'current' => false,
                     'first' => true,
                     'middle' => false,
                     'last' => false,
-                    'left_three_dots' => ($totalPages > $count_numeric_page+1) ? true : false,//чтоб не было точек если 2-е стр и между ними точки
+                    'left_three_dots' => ($totalPages > $countNumericPage+1) ? true : false, //Чтоб не было точек если 2-е стр и между ними точки
                 ];
-                $arrow = $this::PaginationGenerateArrowAction($i, $current_page, $link, $condition_id, $get_string);
-            } elseif ($current_page == $firstPage + 1) {//если на 2-ой
-                if ($i < $count_numeric_page) {
-                    $numeric_page[] = [
+                $arrow = $this::PaginationGenerateArrowAction($i, $currentPage, $link, $conditionId, $getString);
+            } elseif ($currentPage == $firstPage + 1) { //TODO на 2-ой странице
+                if ($i < $countNumericPage) {
+                    $numericPage[] = [
                         'number_page' => $i,
-                        //'link' => $link . $i /*"$i/html/" . (($i-1)*self::COUNT_RECORDS_ON_PAGE_JURISTS)*/ . $condition_id . self::REDIRECT . $get_string,
-                        'link' => ($link . $i . $condition_id . self::REDIRECT . $get_string !== '/main/1/') ? $link . $i . $condition_id . self::REDIRECT . $get_string : '/' . $get_string,
-                        'current' => ($i == $current_page) ? true : false,
+                        'link' => ($link . $i . $conditionId . self::REDIRECT . $getString !== '/main/1/') ? $link . $i . $conditionId . self::REDIRECT . $getString : '/' . $getString,
+                        'current' => ($i == $currentPage) ? true : false,
                         'first' => ($i == $firstPage) ? true : false,
                         'middle' => ($i != $firstPage && $i != $totalPages) ? true : false,
                         'last' => ($i == $totalPages) ? true : false,
                     ];
-                } elseif ($i == $count_numeric_page) {
-                    $numeric_page[] = [
+                } elseif ($i == $countNumericPage) {
+                    $numericPage[] = [
                         'number_page' => $totalPages,
-                        //'link' => $link . $i /*"$i/html/" . (($totalPages-1)*self::COUNT_RECORDS_ON_PAGE_JURISTS)*/ . $condition_id . self::REDIRECT . $get_string,
-                        'link' => ($link . $i . $condition_id . self::REDIRECT . $get_string !== '/main/1/') ? $link . $totalPages . $condition_id . self::REDIRECT . $get_string : '' . $get_string,
+                        'link' => ($link . $i . $conditionId . self::REDIRECT . $getString !== '/main/1/') ? $link . $totalPages . $conditionId . self::REDIRECT . $getString : '' . $getString,
                         'current' => false,
                         'first' => false,
                         'middle' => false,
                         'last' => true,
-                        'right_three_dots' => true,
+                        'right_three_dots' => ($totalPages > $countNumericPage) ? true : false,
                     ];
                 }
-                $arrow = $this::PaginationGenerateArrowAction($i, $current_page, $link, $condition_id, $get_string);
-            } elseif ($current_page == $totalPages - 1 && $i > $totalPages - $count_numeric_page) {// предпоследний
-                $numeric_page[] = [
+                $arrow = $this::PaginationGenerateArrowAction($i, $currentPage, $link, $conditionId, $getString);
+            } elseif ($currentPage == $totalPages - 1 && $i > $totalPages - $countNumericPage) { //TODO на предпоследний странице
+                
+                $numericPage[] = [
                     'number_page' => $i,
-                    'link' => $link . $i /*"$i/html/" . (($i-1)*self::COUNT_RECORDS_ON_PAGE_JURISTS)*/ . $condition_id . self::REDIRECT . $get_string,
-                    'current' => ($i == $current_page) ? true : false,
+                    'link' => $link . $i . $conditionId . self::REDIRECT . $getString,
+                    'current' => ($i == $currentPage) ? true : false,
                     'first' => ($i == $firstPage) ? true : false,
                     'middle' => ($i != $firstPage && $i != $totalPages) ? true : false,
                     'last' => ($i == $totalPages) ? true : false,
                 ];
-                $numeric_page[0] = [
+                $numericPage[0] = [
                     'number_page' => $firstPage,
-                    //'link' => $link . $i /*"$firstPage/html/0"*/ . $condition_id . self::REDIRECT . $get_string,
-                    'link' => ($link . $i . $condition_id . self::REDIRECT . $get_string !== '/main/1/') ? $link . $i . $condition_id . self::REDIRECT . $get_string : '/' . $get_string,
+                    'link' => ($link . $i . $conditionId . self::REDIRECT . $getString !== '/main/1/') ? '/' . $getString : $link . $i . $conditionId . self::REDIRECT . $getString,
                     'current' => false,
                     'first' => true,
                     'middle' => false,
                     'last' => false,
-                    'left_three_dots' => ($current_page != 3) ? true : false,//чтоб не было точек между 1-ой и 2-ой,
+                    'left_three_dots' => ($currentPage != 3 && ($totalPages > $countNumericPage)) ? true : false, //Чтоб не было точек между 1-ой и 2-ой, и если всего 5, а мы на 4, чтоб тоже не было
                 ];
-                $arrow = $this::PaginationGenerateArrowAction($i, $current_page, $link, $condition_id, $get_string);
+
+                $arrow = $this::PaginationGenerateArrowAction($i, $currentPage, $link, $conditionId, $getString);
             } elseif (
-                ($current_page-2 < $i && $current_page+2 > $i)
-                && $current_page != $firstPage && $current_page != $firstPage+1
-                && $current_page != $totalPages && $current_page != $totalPages - 1
-            ) {//в середине
-                $numeric_page[0] = [
+                ($currentPage-2 < $i && $currentPage+2 > $i)
+                && $currentPage != $firstPage && $currentPage != $firstPage+1
+                && $currentPage != $totalPages && $currentPage != $totalPages - 1
+            ) { //TODO в середине
+                $numericPage[0] = [
                     'number_page' => $firstPage,
-                    //'link' => $link . $firstPage /*"$firstPage/html/0"*/ . $condition_id . self::REDIRECT . $get_string,
-                    'link' => ($link . $firstPage . $condition_id . self::REDIRECT . $get_string !== '/main/1/') ? $link . $firstPage . $condition_id . self::REDIRECT . $get_string : '/' . $get_string,
+                    'link' => ($link . $firstPage . $conditionId . self::REDIRECT . $getString !== '/main/1/') ? $link . $firstPage . $conditionId . self::REDIRECT . $getString : '/' . $getString,
                     'current' => false,
                     'first' => true,
                     'middle' => false,
                     'last' => false,
-                    'left_three_dots' => ($current_page != 3) ? true : false,//чтоб не было точек между 1-ой и 2-ой
-                    //'a' => $current_page
+                    'left_three_dots' => ($currentPage != 3) ? true : false, //Чтоб не было точек между 1-ой и 2-ой
                 ];
-                if ($current_page-2 < $i && count($numeric_page)){
-                    $numeric_page[] = [
+                if ($currentPage-2 < $i && count($numericPage)){
+                    $numericPage[] = [
                         'number_page' => $i,
-                        //'link' => $link . $i /*"$i/html/" . (($i-1)*self::COUNT_RECORDS_ON_PAGE_JURISTS)*/ . $condition_id . self::REDIRECT . $get_string,
-                        'link' => ($link . $i . $condition_id . self::REDIRECT . $get_string !== '/main/1/') ? $link . $i . $condition_id . self::REDIRECT . $get_string : '/' . $get_string,
-                        'current' => ($i == $current_page) ? true : false,
+                        'link' => ($link . $i . $conditionId . self::REDIRECT . $getString !== '/main/1/') ? $link . $i . $conditionId . self::REDIRECT . $getString : '/' . $getString,
+                        'current' => ($i == $currentPage) ? true : false,
                         'first' => ($i == $firstPage) ? true : false,
                         'middle' => ($i != $firstPage && $i != $totalPages) ? true : false,
                         'last' => ($i == $totalPages) ? true : false,
                     ];
                 }
-                if (count($numeric_page) == $count_numeric_page-1) {//если массив заполнился до нужного значения
-                    $numeric_page[] = [
+                if (count($numericPage) == $countNumericPage-1) { //Если массив заполнился до нужного значения
+                    $numericPage[] = [
                         'number_page' => $totalPages,
-                        //'link' => $link . $totalPages /*"$totalPages/html/" . (($totalPages-1)*self::COUNT_RECORDS_ON_PAGE_JURISTS)*/ . $condition_id . self::REDIRECT . $get_string,
-                        'link' => ($link . $totalPages . $condition_id . self::REDIRECT . $get_string !== '/main/1/') ? $link . $totalPages . $condition_id . self::REDIRECT . $get_string : '/' . $get_string,
+                        'link' => ($link . $totalPages . $conditionId . self::REDIRECT . $getString !== '/main/1/') ? $link . $totalPages . $conditionId . self::REDIRECT . $getString : '/' . $getString,
                         'current' => false,
                         'first' => false,
                         'middle' => false,
                         'last' => true,
-                        'right_three_dots' => ($current_page != $totalPages - 2) ? true : false,//чтоб не было точек между последний и предпоследний,
+                        'right_three_dots' => ($currentPage != $totalPages - 2) ? true : false, //Чтоб не было точек между последний и предпоследний,
                     ];
                 }
-                $arrow = $this::PaginationGenerateArrowAction($i, $current_page, $link, $condition_id, $get_string);
+                $arrow = $this::PaginationGenerateArrowAction($i, $currentPage, $link, $conditionId, $getString);
             }
         }
+        /**
+         * End numeric_page
+         **/
 
         /**
-         * end numeric_page
+         * (!$numericPage && $this->get('kernel')->getEnvironment() != 'dev') Перехват ошибки на проде, если вбита огромная пагинация 100500, то он не сможет ее обработать и провалится на следующию строку вернув 500, а нам надо 404
          */
+        if(!$numericPage && $this->get('kernel')->getEnvironment() != 'dev') $this->pageNotFound(true);
+        if (!$numericPage) throw new Exception("Не определена логика вывода страниц пагинации");
 
-        if (!$numeric_page) throw new Exception("Не определена логика вывода страниц пагинации");
 
         if ($totalPages > 0) {
             $this->result['pagination'] = [
                 'total__pages' => $totalPages,
-                'limit__pages' => ($totalPages > self::PAGINATION_FOR_JURISTS) ? true : false,//для многоточия в мусташе
-                'range' => $count_records_on_page,
-                'numeric_page' => $count_numeric_page,
-                'total__records' => $count_records,
-                'all__pages' => $numeric_page,
+                'limit__pages' => ($totalPages > self::PAGINATION_FOR_JURISTS) ? true : false, //Для многоточия в мусташе
+                'range' => $countRecordsOnPage,
+                'numeric_page' => $countNumericPage,
+                'total__records' => $countRecords,
+                'all__pages' => $numericPage,
                 'arrow' => $arrow
             ];
 
-            //если больше 5 страниц, то у нас есть точки
+            /**
+             * Если больше 5 страниц, то у нас есть точки
+             **/
             if ($this->result['pagination']['total__pages'] > 5) {
                 $this->result['pagination']['all__pages'][0]['__FIRST__'] = true;
                 $this->result['pagination']['all__pages'][count($this->result['pagination']['all__pages'])-1]['__LAST__'] = true;
             }
-            //dump($this->result['pagination']);die;
         }
 
     }

@@ -25,7 +25,9 @@
         "bobthecow/mustache-bundle": "^1.2",
         "mustache/mustache": "^2.10",
         "iakumai/sphinxsearch-bundle": "dev-master",
-        "symfony/assetic-bundle": "^2.8"
+        "symfony/assetic-bundle": "^2.8",
+        "snc/redis-bundle": "2.x-dev",
+        "predis/predis": "^1.0"
     },
     "require-dev": {
         "sensio/generator-bundle": "^3.0",

@@ -12,12 +12,18 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 use Exception;
 
+/**
+ * Подсчитвыем общий рейтинг У ЮРИСТОВ для сортировки и апдейтим от него колонку jurist.auth_users - total_rating
+ * Class RatingJuristCountCommand
+ * @package JuristBundle\Command
+ */
 class RatingJuristCountCommand extends Command
 {
+
     const FINISHED_STEP = 15;
-    const DISABLED_VALUE_ON = false;//значение, когда АКТИВЕН юзер
-    const IS_JURIST = true;//юрист
-    const ID_USER_WITHOUT_AVATARS = 6;//юрист
+    const DISABLED_VALUE_ON = false; //Значение, когда АКТИВЕН юзер
+    const IS_JURIST = true; //Юрист
+    const ID_USER_WITHOUT_AVATARS = 6; //id юриста с заглушкой аватарки, если нет авы у юриста. Тут используется, чтоб не считать у него
 
     protected function configure ()
     {
@@ -81,13 +87,13 @@ class RatingJuristCountCommand extends Command
                 //->getDQL();dump($Answers);die;
 
 
-            $Answer_update = $this
+            $AnswerUpdate = $this
                 ->getContainer()
                 ->get('doctrine')
                 ->getEntityManager();
             
             foreach ($Answers as $key => $Answer) {
-                $record = $Answer_update
+                $record = $AnswerUpdate
                     ->getRepository('JuristBundle:AuthUsers')
                     ->findOneById($Answer['au_id']);
                 if ($record != null) {
@@ -95,7 +101,7 @@ class RatingJuristCountCommand extends Command
                 }
             }
 
-            $Answer_update->flush();
+            $AnswerUpdate->flush();
             $output->writeln('success rating count ' . date('Y-m-d H:i:s'));
         } catch (Exception $e) {
             var_export($e->getMessage());

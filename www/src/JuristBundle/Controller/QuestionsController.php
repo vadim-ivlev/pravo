@@ -18,55 +18,68 @@ use AppBundle\Services\Configer;
 
 class QuestionsController extends ApiController
 {
-    public function formedDataAction($id = 1, $limit_pagination, $aliasEntity = 'q', $fieldOrderBy= '.id'){
+    public function formedDataAction($id = 1, $limitPagination, $aliasEntity = 'q', $fieldOrderBy= '.id'){
 
-        $Questions = $this->connect_to_Jurists_bd
-            ->getRepository('JuristBundle:Questions')
-            ->createQueryBuilder($aliasEntity)
-            ->innerJoin("q.answersId", 'a', 'WITH', "q.id = a.question")
-            ->where($aliasEntity . '.step = :step')
-            ->setParameters(array('step' => 15))
-            ->setFirstResult($limit_pagination)//offset
-            ->setMaxResults(self::COUNT_RECORDS_ON_PAGE_JURISTS)//limit
-            ->orderBy('a.date', 'DESC')
-            ->getQuery()
-            //->getDQL();dump($Questions);die;
-            ->execute();
+        $keyRedis = "Questions_page_${id}";
+        $redisNow = $this->redis->get($keyRedis);
+        $redisNow = unserialize($redisNow);
 
-        $AllQuestions = $this->connect_to_Jurists_bd
-            ->getRepository('JuristBundle:Questions')
-            ->createQueryBuilder($aliasEntity)
-            ->where($aliasEntity . '.step = :step')
-            ->setParameters(array('step' => 15))
-            ->orderBy($aliasEntity . $fieldOrderBy, 'DESC')
-            ->getQuery()
-            ->execute();
+        if ($redisNow) {
+            $this->result = $redisNow;
+        } else {
+            $Questions = $this->connect_to_Jurists_bd
+                ->getRepository('JuristBundle:Questions')
+                ->createQueryBuilder($aliasEntity)
+                ->innerJoin("q.answersId", 'a', 'WITH', "q.id = a.question")
+                ->where($aliasEntity . '.step = :step')
+                ->setParameters(array('step' => self::FINISHED_STEP))
+                ->setFirstResult($limitPagination)//offset
+                ->setMaxResults(self::COUNT_RECORDS_ON_PAGE_JURISTS)//limit
+                ->orderBy('a.date', 'DESC')
+                ->getQuery()
+                ->execute();
 
-        $AllQuestionsAfterCheck = [];
-        foreach ($AllQuestions as $AllQuestion){
-            if(!empty($AllQuestion->getAnswersId())){
-                $AllQuestionsAfterCheck[] = $AllQuestion;
+            $AllQuestions = $this->connect_to_Jurists_bd
+                ->getRepository('JuristBundle:Questions')
+                ->createQueryBuilder($aliasEntity)
+                ->where($aliasEntity . '.step = :step')
+                ->setParameters(array('step' => self::FINISHED_STEP))
+                ->orderBy($aliasEntity . $fieldOrderBy, 'DESC')
+                ->getQuery()
+                ->execute();
+
+            $this->formedQuestions($Questions);
+
+            $AllQuestionsAfterCheck = [];
+            foreach ($AllQuestions as $AllQuestion) {
+                if (!empty($AllQuestion->getAnswersId())) {
+                    $AllQuestionsAfterCheck[] = $AllQuestion;
+                }
             }
+
+            $this->PaginationAction($AllQuestionsAfterCheck, self::PAGINATION_FOR_JURISTS, self::COUNT_RECORDS_ON_PAGE_JURISTS, $id, '/main/');
+            $this->redis->setEx($keyRedis, (60 * 10), serialize(
+                [
+                    'questions_list' => $this->result['questions_list'],
+                    'pagination' => $this->result['pagination']
+                ]
+            ));
         }
 
-
-        $this->HeaderAction(self::TABS_MAIN);
-
-        $this->formedQuestions($Questions);
+        $this->HeaderAction(self::TABS_MAIN);//Если переставить вверх, то закешированный результат перебьет
 
         $this->SidebarAction('json');
 
-        //dump(self::COUNT_RECORDS_ON_PAGE_JURISTS);die;
-        $this->PaginationAction($AllQuestionsAfterCheck, self::PAGINATION_FOR_JURISTS, self::COUNT_RECORDS_ON_PAGE_JURISTS, $id, /*'https://front.rg.ru/*/'/main/');
-
         $this->getDate();
-        
+
+        $this->pageNotFound(!$this->result['questions_list']);
+
         return $this->result;
     }
 
-    public function MainAction ($pageId = 1/*, $format = self::FORMAT, $limit_pagination = 0*/)
-    {//app_dev.php/jurists/main/1/json/
-        $limit_pagination = $this->generateOffsetPagination($pageId);
+    public function MainAction ($pageId = 1)
+    {
+        $limitPagination = $this->generateOffsetPagination($pageId);
 
         if (
             Request::createFromGlobals()->getPathInfo() === '/main/1/'
@@ -76,10 +89,10 @@ class QuestionsController extends ApiController
 
         if($this->fetchFormat() === 'json'){
 
-            //dump($this->formedDataAction($pageId, $limit_pagination));die;
+            //dump($this->formedDataAction($pageId, $limitPagination));die;
             $response = new JsonResponse();
             $response
-                   ->setData($this->formedDataAction($pageId, $limit_pagination), JSON_UNESCAPED_SLASHES)
+                   ->setData($this->formedDataAction($pageId, $limitPagination), JSON_UNESCAPED_SLASHES)
                    ->headers->set('Content-Type', 'application/json');
             return $response;
         } elseif ($this->fetchFormat() === 'html') {
@@ -99,10 +112,8 @@ class QuestionsController extends ApiController
                 $rendered = $m->render($text, json_decode($data));*/
             //TODO END не удалять
             return new Response(
-                $m->render(
-                    $m->render(@file_get_contents(dirname(__FILE__) . '/../Resources/views/main.html'),
-                        json_decode(json_encode($this->formedDataAction($pageId, $limit_pagination))
-                        )
+                $m->render(@file_get_contents(dirname(__FILE__) . '/../Resources/views/main.html'),
+                    json_decode(json_encode($this->formedDataAction($pageId, $limitPagination))
                     )
                 )
             );

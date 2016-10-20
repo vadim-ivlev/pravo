@@ -18,6 +18,7 @@ use AppBundle\Services\Configer;
 
 trait formedRules
 {
+    
     function formed ($traitData)
     {
         
@@ -28,7 +29,9 @@ trait formedRules
         $traitData->getDate();
 
         return $traitData->result;
+        
     }
+    
 }
 
 class RulesController extends ApiController
@@ -37,8 +40,8 @@ class RulesController extends ApiController
         formed as traitFormed;
     }
 
-    public function RulesAction (/*$format = self::FORMAT*/)
-    {//app_dev.php/rules/
+    public function RulesAction ()
+    {
 
         if ($this->fetchFormat() === 'json') {
 
@@ -61,4 +64,5 @@ class RulesController extends ApiController
 
         }
     }
+    
 }

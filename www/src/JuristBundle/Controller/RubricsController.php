@@ -18,25 +18,45 @@ use AppBundle\Services\Configer;
 class RubricsController extends ApiController
 {
 
-    public function formedDataAction ($id)
+    /**
+     * @param $numberPage - для погинации
+     * @return mixed
+     */
+    public function formedDataAction ($numberPage)
     {
         $this->result['material_title'] = 'Рубрики и актуальные теги';
 
-        $Rubrics = $this->connect_to_Jurists_bd
-            ->getRepository('JuristBundle:Rubrics')
-            ->findBy([], ['name' => 'ASC']);
+        $nameRedisNow = "PravoRubrics(" . strval($numberPage) . ")";
+        $redis = $this->redis->get($nameRedisNow);
+        $redis = unserialize($redis);
 
-        if($id) {
-            /**
-             * Хардкор для ВСЕХ рубрик
-             */
+        if ($redis) {
+            $this->result['categories'] =  $redis['categories'];
+        } else {
+            $rubrics = $this->connect_to_Jurists_bd
+                ->getRepository('JuristBundle:Rubrics')
+                ->findBy([], ['name' => 'ASC']);
 
-            $this->formedTagsForRubrics($Rubrics, $id);
+            if ($numberPage) {
 
-        } else {//если рубрика не выбрана - т.е в разделе ВСЕ рубрики
+                $this->formedTagsForRubrics($rubrics, $numberPage); //Хардкор для ВСЕХ рубрик
 
-            $this->formedTagsForRubrics($Rubrics);
+            } else { //Если рубрика не выбрана - т.е в разделе ВСЕ рубрики
 
+                $this->formedTagsForRubrics($rubrics);
+
+            }
+
+            $this->pageNotFound(!isset($this->result['categories']['rubrics_tags']));
+
+            $this->redis->setEx(
+                $nameRedisNow,
+                ((60 * 60) * 24), //Expires на 1 день
+                serialize(
+                    [
+                        'categories' => $this->result['categories']
+                    ]
+                ));
         }
 
         $this->HeaderAction(self::TABS_TAGS);
@@ -48,11 +68,15 @@ class RubricsController extends ApiController
         return $this->result;
     }
 
-    public function RubricAction (/*$format = self::FORMAT,*/ $id = null)
+    /**
+     * @param int $numberPage - Номер страницы пагинации
+     * @return JsonResponse|Response
+     */
+    public function RubricAction ($numberPage = 0)
     {
-        if ($this->fetchFormat() === 'json') {//app_dev.php/jurists/rubrics/json/0/
+        if ($this->fetchFormat() === 'json') {
 
-            $this->formedDataAction ($id);
+            $this->formedDataAction ($numberPage);
 
             $response = new JsonResponse();
             $response
@@ -64,7 +88,12 @@ class RubricsController extends ApiController
 
             $m = new Mustache_Engine();
 
-            return new Response($m->render(@file_get_contents(dirname(__FILE__) . '/../Resources/views/rubrics.html'), json_decode(json_encode($this->formedDataAction($id)))));
+            return new Response(
+                $m->render(
+                    @file_get_contents(dirname(__FILE__) . '/../Resources/views/rubrics.html'),
+                    json_decode(json_encode($this->formedDataAction($numberPage)))
+                )
+            );
 
         } else {
 

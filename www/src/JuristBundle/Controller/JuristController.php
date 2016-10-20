@@ -17,12 +17,13 @@ use AppBundle\Services\Configer;
 
 class JuristController extends ApiController
 {
-    public function formedDataAction ($id, $limit_pagination, $pageId = 1, $aliasEntity = 'q')
+    public function formedDataAction ($id, $limitPagination, $pageId = 1, $aliasEntity = 'q')
     {
         $Jurist = $this->connect_to_Jurists_bd
             ->getRepository('JuristBundle:AuthUsers')
-            //->findOneById($id);
-            ->findOneBy(array('id' => $id/*, 'disabled' => 0*/));
+            ->findOneBy(['id' => $id]);
+
+        $this->pageNotFound(!$Jurist || $pageId <= 0);
 
         if ($Jurist->getDisabled() === self::DISABLED_VALUE_ON && $Jurist->getIsJurist() == true) {
 
@@ -33,8 +34,7 @@ class JuristController extends ApiController
                     'rubrics__link' => self::RUBRICS . $rubric->getId() . self::REDIRECT,
                 ];
             }
-
-
+            
             $this->result['jurists_profile'] = array(
                 'mods' => array('profile'),
                 'jurist__img' => [$this->fetchAvatar($Jurist, $Jurist)],
@@ -46,66 +46,57 @@ class JuristController extends ApiController
                 'jurist__company' => htmlspecialchars($Jurist->getCompaniesId()->getName()),
                 'jurist__bio' => $Jurist->getBiography(),
                 'jurist__rate' => [
-                    'jurist__rate__author' => $this->receiveAnOverallRating($Jurist->getAnswers()->toArray()),//общий рейтинг
+                    'jurist__rate__author' => $this->receiveAnOverallRating($Jurist->getAnswers()->toArray()), //Общий рейтинг
                 ],
                 'jurist__consultations' => $this->getCountConsultation($Jurist->getId()),
-                'jurist__paid__feedback' => [//кнопка обратной связи у юристов
+                'jurist__paid__feedback' => [ //Кнопка обратной связи у юристов
                     'feedback__active' => ($Jurist->getDateEndPayFeedbackButton() > new \DateTime('now')) ? true : false,
-                    'type__feedback__email' => ($Jurist->getJuristFeedbackSiteOrEmail() === false) ? false : true, //site == false,
+                    'type__feedback__email' => ($Jurist->getJuristFeedbackSiteOrEmail() === true) ? true : false, //site == false,
                     'feedback__data' => $Jurist->getJuristDataFeedback(),
                 ]
             );
 
-            $data_jurist = &$this->result['jurists_profile'];
+            $dataJurist = &$this->result['jurists_profile'];
 
-            $data_jurist['mods__length'] = count($data_jurist['mods']);
-            $data_jurist['jurist__education__length'] = (count(trim($data_jurist['jurist__education'])) > 0 && !empty($data_jurist['jurist__education'])) ? true : false;
-            $data_jurist['jurist__company__length'] = (count(trim($data_jurist['jurist__company'])) > 0 && !empty($data_jurist['jurist__company'])) ? true : false;
-            $data_jurist['jurist__bio__length'] = (count(trim($data_jurist['jurist__bio'])) > 0 && !empty($data_jurist['jurist__bio'])) ? true : false;
+            $dataJurist['mods__length'] = count($dataJurist['mods']);
+            $dataJurist['jurist__education__length'] = (count(trim($dataJurist['jurist__education'])) > 0 && !empty($dataJurist['jurist__education'])) ? true : false;
+            $dataJurist['jurist__company__length'] = (count(trim($dataJurist['jurist__company'])) > 0 && !empty($dataJurist['jurist__company'])) ? true : false;
+            $dataJurist['jurist__bio__length'] = (count(trim($dataJurist['jurist__bio'])) > 0 && !empty($dataJurist['jurist__bio'])) ? true : false;
 
-            $this->generateFirstLast($data_jurist['rubrics']);
-
-//            $Questions = $this->connect_to_Jurists_bd
-//                ->getRepository('JuristBundle:Questions')
-//                ->findBy(
-//                    ['AuthUsersId' => $Jurist->getId()], //AuthUsersId - where название филда берется из ентити, а не из sql
-//                    ['date' => 'DESC']//, //order by
-//                    //self::LIMIT_FOR_JURIST //limit
-//                );
-
-            //if($_SERVER['REMOTE_ADDR'] == '212.69.111.131') {
-                $Questions = $this->connect_to_Jurists_bd
-                    ->getRepository('JuristBundle:Questions')
-                    ->createQueryBuilder('q')
-                    ->innerJoin("q.answersId", 'a', 'WITH', "q.id = a.question")
-                    ->where('q.AuthUsersId = :AuthUsersId')
-                    ->setParameters(array('AuthUsersId' => $Jurist->getId()))
-                    ->setFirstResult($limit_pagination)//offset
-                    ->setMaxResults(self::COUNT_RECORDS_ON_PAGE_JURISTS)//limit
-                    ->orderBy('a.date', 'DESC')
-                    ->getQuery()
-                    ->execute();
-
-                $AllQuestions = $this->connect_to_Jurists_bd
+            $this->generateFirstLast($dataJurist['rubrics']);
+            unset($data_jurist);
+            
+            $Questions = $this->connect_to_Jurists_bd
                 ->getRepository('JuristBundle:Questions')
-                ->createQueryBuilder($aliasEntity)
+                ->createQueryBuilder('q')
                 ->innerJoin("q.answersId", 'a', 'WITH', "q.id = a.question")
                 ->where('q.AuthUsersId = :AuthUsersId')
                 ->setParameters(array('AuthUsersId' => $Jurist->getId()))
+                ->setFirstResult($limitPagination) //offset
+                ->setMaxResults(self::COUNT_RECORDS_ON_PAGE_JURISTS) //limit
                 ->orderBy('a.date', 'DESC')
                 ->getQuery()
                 ->execute();
 
-                $AllQuestionsAfterCheck = [];
-                foreach ($AllQuestions as $AllQuestion){
-                    if(!empty($AllQuestion->getAnswersId())){
-                        $AllQuestionsAfterCheck[] = $AllQuestion;
-                    }
+            $AllQuestions = $this->connect_to_Jurists_bd
+            ->getRepository('JuristBundle:Questions')
+            ->createQueryBuilder($aliasEntity)
+            ->innerJoin("q.answersId", 'a', 'WITH', "q.id = a.question")
+            ->where('q.AuthUsersId = :AuthUsersId')
+            ->setParameters(array('AuthUsersId' => $Jurist->getId()))
+            ->orderBy('a.date', 'DESC')
+            ->getQuery()
+            ->execute();
+
+            $AllQuestionsAfterCheck = [];
+            foreach ($AllQuestions as $AllQuestion){
+                if(!empty($AllQuestion->getAnswersId())){
+                    $AllQuestionsAfterCheck[] = $AllQuestion;
                 }
+            }
 
-                $this->PaginationAction($AllQuestionsAfterCheck, self::PAGINATION_FOR_JURISTS, self::COUNT_RECORDS_ON_PAGE_JURISTS, $pageId, '/jurist/', 1, "/" . trim($id));
+            $this->PaginationAction($AllQuestionsAfterCheck, self::PAGINATION_FOR_JURISTS, self::COUNT_RECORDS_ON_PAGE_JURISTS, $pageId, '/jurist/', 1, "/" . trim($id));
 
-            //}
 
             $this->formedQuestions($Questions);
 
@@ -115,6 +106,15 @@ class JuristController extends ApiController
             $this->result['Ban'] = 'Users block';
         }
 
+        //if($_SERVER['REMOTE_ADDR'] == '212.69.111.131') {
+            if (isset($this->result['pagination'])) { //Если пагинация есть и $pageId > count($this->result['pagination'])
+                if ($pageId > count($this->result['pagination'])) $this->pageNotFound(true);
+            } else {
+                if ($pageId != 1) $this->pageNotFound(true);
+            }
+            //dump(isset($this->result['pagination']) && count($this->result['pagination']));die;
+        //}
+
         $this->HeaderAction(self::TABS_JURIST);
 
         $this->SidebarAction('json');
@@ -122,31 +122,29 @@ class JuristController extends ApiController
         return $this->result;
     }
 
-    public function JuristAction($pageId = 1, $id = null/*, $format = self::FORMAT*/)
+    public function JuristAction($pageId = 1, $id = null)
     {
-        $limit_pagination = $this->generateOffsetPagination($pageId);
+        $limitPagination = $this->generateOffsetPagination($pageId);
 
-        if (!empty($id) && $this->fetchFormat() === 'json') {///app_dev.php/jurists/jurist/1/json/
-
-
-            $this->formedDataAction($id, $limit_pagination, $pageId);
+        if (!empty($id) && $this->fetchFormat() === 'json') {
+            $this->formedDataAction($id, $limitPagination, $pageId);
 
             $response = new JsonResponse();
             $response
                 ->setData($this->result, JSON_UNESCAPED_SLASHES)
                 ->headers->set('Content-Type', 'application/json');
             return $response;
-
         } elseif (!empty($id) && $this->fetchFormat() === 'html') {
-
             $m = new Mustache_Engine();
 
-            return new Response($m->render(@file_get_contents(dirname(__FILE__) . '/../Resources/views/lawer.html'), json_decode(json_encode($this->formedDataAction($id, $limit_pagination, $pageId)))));
-
+            return new Response(
+                $m->render(
+                    @file_get_contents(dirname(__FILE__) . '/../Resources/views/lawer.html'),
+                    json_decode(json_encode($this->formedDataAction($id, $limitPagination, $pageId)))
+                )
+            );
         } else {
-
             throw $this->createAccessDeniedException("Incorrect format!!! " . PHP_EOL . " Use next structure: /jurists/page/{name page}/{format == html || json}!");
-
         }
     }
 }

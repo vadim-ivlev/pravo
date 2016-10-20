@@ -18,6 +18,10 @@ use JuristBundle\Entity\Rubrics;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
+/**
+ * Class FormsController - Обработка заданного вопроса
+ * @package JuristBundle\Controller
+ */
 class FormsController extends ApiController
 {
 
@@ -29,11 +33,11 @@ class FormsController extends ApiController
     );
 
     public function GetAction($id = null)
-    {//https://front.rg.ru/jurists/ask/html/
+    { //https://front.rg.ru/jurists/ask/html/
 
         if (array_key_exists($id, $this->id_forms)) {
 
-            $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);//TODO переделать через request и сервис, который уже начал делать
+            $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL); //TODO переделать через request и сервис, который уже начал делать
             $title = $_POST['input'];
             $name = $_POST['name'];
             $city = $_POST['location'];
@@ -42,8 +46,8 @@ class FormsController extends ApiController
 
             if (!filter_var($email, FILTER_VALIDATE_EMAIL) === true) return 'error';
             if (!isset($_POST['select'])) return 'error';
-            if (empty($title) && iconv_strlen(trim($title)) > self::MAX_SYMBOLS_FOR_TITLE_QUESTION) return 'error';//title
-            if (iconv_strlen(trim($description)) > self::MAX_SYMBOLS_FOR_QUESTION) return 'error';//message
+            if (empty($title) && iconv_strlen(trim($title)) > self::MAX_SYMBOLS_FOR_TITLE_QUESTION) return 'error'; //title
+            if (iconv_strlen(trim($description)) > self::MAX_SYMBOLS_FOR_QUESTION) return 'error'; //message
 
             if ($_POST['confirmation'] == false) return 'error';
 
@@ -87,9 +91,8 @@ class FormsController extends ApiController
             $stmt->execute();
 
             /**
-             * Отправка письма о саксесе, не плохо бы переделать, впрочем, как и весь проект
+             * Отправка письма о success, не плохо бы переделать, впрочем, как и весь проект
              */
-
              if ($ch = curl_init()) {
 
                  $url = "https://jurist-admin.rg.ru/project/mailer.php?email={$email}";
@@ -122,4 +125,5 @@ class FormsController extends ApiController
 
         return $response;
     }
+    
 }

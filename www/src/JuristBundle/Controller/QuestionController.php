@@ -9,7 +9,7 @@ use AppBundle\Services\Configer;
 use Symfony\Component\HttpFoundation\Request;
 class QuestionController extends Controller
 {
-    public function getQuestionsAction(Request $request, $rubric,$tag){
+    /*public function getQuestionsAction(Request $request, $rubric,$tag){
 
 
         $m = new Mustache_Engine();
@@ -60,6 +60,6 @@ class QuestionController extends Controller
         print $m->render($text, json_decode($data));
 
         return new Response();
-    }
+    }*/
 
 }

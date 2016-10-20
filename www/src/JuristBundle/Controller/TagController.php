@@ -18,71 +18,84 @@ use AppBundle\Services\Configer;
 class TagController extends ApiController
 {
 
-    public function formedDataAction ($id, $number_page, $offset)
+    /**
+     * @param $id - записи в таблице Tags
+     * @param $numberPage - номер страницы в пагинации
+     * @param $offset - offset
+     * @return mixed
+     */
+    public function formedDataAction ($id, $numberPage, $offset)
     {
 
         $Tag = $this->connect_to_Jurists_bd
             ->getRepository('JuristBundle:Tags')
             ->findOneById($id);
 
+        $this->pageNotFound(!$Tag);
+
         $this->formedQuestions($Tag->getQuestions()->toArray());
 
         $this->PaginationAction(
             $this->result['questions_list'], self::PAGINATION_FOR_JURISTS,
-            self::COUNT_RECORDS_ON_PAGE_JURISTS, $number_page,
+            self::COUNT_RECORDS_ON_PAGE_JURISTS, $numberPage,
             '/tag/', 1,
-            "/" . trim($id)//trim потому что лезут пробелы
+            "/" . trim($id) //trim потому что лезут пробелы
         );
 
-        $crutch_for_pagination = []; //потому что архитектура первоначально была не верно заложенна
-        foreach ($this->result['questions_list'] as $key_crutch_for_pagination => $val_crutch_for_pagination) {
-            if ($key_crutch_for_pagination >= $offset && $key_crutch_for_pagination < $offset + self::COUNT_RECORDS_ON_PAGE_JURISTS) {//диапозон записей на странице, по умолчанию 7
-                $crutch_for_pagination[] = $val_crutch_for_pagination;
+        $crutchForPagination = []; //Потому что архитектура первоначально была не верно заложенна
+        foreach ($this->result['questions_list'] as $keyCrutchForPagination => $valCrutchForPagination) {
+            if ($keyCrutchForPagination >= $offset && $keyCrutchForPagination < $offset + self::COUNT_RECORDS_ON_PAGE_JURISTS) { //Диапозон записей на странице, по умолчанию 7 ApiController::COUNT_RECORDS_ON_PAGE_JURISTS
+                $crutchForPagination[] = $valCrutchForPagination;
             }
         }
-        $this->result['questions_list'] = $crutch_for_pagination;//костыль
+
+        $this->result['questions_list'] = $crutchForPagination; //Костыль
 
         $this->HeaderAction(self::TABS_TAGS);
-
         $this->SidebarAction('json');
 
         $this->result['current_tag'] = $Tag->getName();
 
         $this->getDate();
 
-        /*$this->PaginationAction(
-            $AllTag, self::PAGINATION_FOR_JURISTS, self::COUNT_RECORDS_ON_PAGE_JURISTS,
-            $id, '/tag/', 1, '', $this->ProcessingRequestForPaginationAction()
-        );*/
+        $this->pageNotFound(empty($this->result['questions_list']));
 
         return $this->result;
+
     }
 
+    /**
+     * @param int $idPage - Номер страницы пагинации
+     * @param null $id - Id записи в JuristBundle:Tags
+     * @return JsonResponse|Response
+     */
 
-    public function TagAction(/*$format = self::FORMAT, */$id_page = 1, $id = null){
+    public function TagAction($idPage = 1, $id = null)
+    {
 
-        $offset = $this->generateOffsetPagination($id_page);//образуем offset
+        $offset = $this->generateOffsetPagination($idPage); //Генерируем offset
 
-        if ($this->fetchFormat() === 'json') {//app_dev.php/jurists/rubrics/json/0/
-
-            $this->formedDataAction($id, $id_page, $offset);
+        if ($this->fetchFormat() === 'json') {
+            $this->formedDataAction($id, $idPage, $offset);
 
             $response = new JsonResponse();
             $response
                 ->setData($this->result, JSON_UNESCAPED_SLASHES)
                 ->headers->set('Content-Type', 'application/json');
             return $response;
-
         } elseif ($this->fetchFormat() === 'html') {
-
             $m = new Mustache_Engine();
 
-            return new Response($m->render(@file_get_contents(dirname(__FILE__) . '/../Resources/views/tag_questions.html'), json_decode(json_encode($this->formedDataAction($id, $id_page, $offset)))));
-
+            return new Response(
+                $m->render(
+                    @file_get_contents(dirname(__FILE__) . '/../Resources/views/tag_questions.html'), 
+                    json_decode(json_encode($this->formedDataAction($id, $idPage, $offset)))
+                )
+            );
         } else {
-
             throw $this->createAccessDeniedException("Incorrect format!!! " . PHP_EOL . " Use next structure: /jurists/page/{name page}/{format == html || json}!");
-
         }
+
     }
+    
 }

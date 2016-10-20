@@ -16,35 +16,36 @@ use Mustache_Engine;
 use AppBundle\Services\Configer;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
+/**
+ * Служит для обработки сортировки в https://pravo.rg.ru/jurists/1/ в общем списке юристов
+ * Class SortController
+ * @package JuristBundle\Controller
+ */
 class SortController extends ApiController
 {
     public function MakeSortAction(Request $request)
     {
-        //if($request) return $this->redirect('/main/1/');
         $request = $request->request->all();
-        //$result = '';
-        //return new RedirectResponse($this->redirectToUrl('rg_main_page_1'));
+
         /**
          * @param $request['current_url'] - текущий url
          * @param $request['current_search'] - текущие get запросы, если они есть
          * @param array $request['order_by'] - по какому полю пришла сортировка
          */
-
         if (!empty($request['current_url']) &&  isset($request['current_search']) && is_array($request['order_by'])) {
 
             /**
              * START запрос на старую сортировку
              */
-
             $request['current_url'] = preg_replace('/\.?\d+/', '1', $request['current_url']);
 
             if (!empty($request['current_search'])) {
-                $old_get = preg_replace('/^\?/', '', $request['current_search']);//убераем знак в начале строки гет запроса
-                $old_get = explode('&', $old_get);//разбиваем по &
+                $old_get = preg_replace('/^\?/', '', $request['current_search']); //Убераем знак в начале строки гет запроса
+                $old_get = explode('&', $old_get); //Разбиваем по &
                 $old_get_new_array = [];
 
                 /**
-                 * формируем массив $old_get_new_array, где ключ - это ключ старого гет запроса между & а значение - это значение старого гет запроса
+                 * Формируем массив $old_get_new_array, где ключ - это ключ старого гет запроса между & а значение - это значение старого гет запроса
                  * Т.е. если был такой запрос в гете ?a=e&b=c то, теперь, он будет такой ['a' => 'e', 'b' => 'c',]
                  */
                 foreach ($old_get as $val_old_get) {
@@ -59,28 +60,25 @@ class SortController extends ApiController
             /**
              * START формирование новой сортировки
              */
-
             (isset($old_get_new_array))
                 ? $result = array_merge($old_get_new_array, $request['order_by'])
-                : $result = $request['order_by'];//если есть повтор, то он заменится на новый
+                : $result = $request['order_by']; //Если есть повтор, то он заменится на новый
 
             $result_string = '';
 
-            //if (count($result) > 0) {//смотрим, не пустое ли
-            if ($result) {//смотрим, не пустое ли
+            if ($result) { //Смотрим, не пустое ли
                 $result_string = '?';
 
                 foreach ($result as $key_result => $val_result) {
                     $result_string .= $key_result . '=' . $val_result . '&';
                 }
 
-                if ($result_string[strlen($result_string)-1] === '&') { //убераем последнию амперсанду
+                if ($result_string[strlen($result_string)-1] === '&') { //Убераем последнию амперсанду
                     $result_string = substr($result_string, 0, strlen($result_string)-1);
                 }
 
                 $result_string = $request['current_url'] . $result_string;
             }
-
             /**
              * END формирование новой сортировки
              */

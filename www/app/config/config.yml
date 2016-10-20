@@ -73,7 +73,7 @@ swiftmailer:
 sphinxsearch:
     searchd:
         # Host name for your Sphinx daemon
-        host: 127.0.0.1
+        host: localhost
         # Port number for your Sphinx daemon
         port: 9312
         # If you want to connect via scoket
@@ -89,3 +89,19 @@ assetic:
     use_controller: '%kernel.debug%'
     filters:
         cssrewrite: ~
+
+# Redis Configuration
+#snc_redis:
+#    clients:
+#        default:
+#            type: predis
+#            alias: default
+#            dsn: "%redis_server%"
+
+#redis
+snc_redis:
+    clients:
+        default:
+            type: predis
+            alias: default
+            dsn: '%dns_redis%'

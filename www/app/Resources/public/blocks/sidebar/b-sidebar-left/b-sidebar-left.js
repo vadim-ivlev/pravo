@@ -63,7 +63,7 @@ module.exports = function(data){
 
 							partners: "juristsFeed",
 
-							search: "categoriesSidebar adfoxSidebarRight juristsFeed juristsTop yandexDirect"
+							search: "adfoxSidebarRight juristsFeed juristsTop yandexDirect"
 						}
 					}
 				}

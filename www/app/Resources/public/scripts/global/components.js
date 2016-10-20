@@ -17,7 +17,7 @@ Ractive.components = {
      * Поле ввода для поиска (Search bar)
      */
 
-    'search-bar': require('../../blocks/crosslayouts/b-search-bar/scripts/SearchBar'),
+    'search-bar': require('../../blocks/crosslayouts/b-search-form/scripts/SearchBar'),
 
     /**
      * Информация по поиску
@@ -84,5 +84,11 @@ Ractive.components = {
     /**
      * Текстовое сообщение
      */
-    'rg-form-message': require('../../blocks/forms/b-form-message/scripts/FormMessage')
+    'rg-form-message': require('../../blocks/forms/b-form-message/scripts/FormMessage'),
+
+    /*
+     * Adfox баннеры
+     */
+
+    'rg-adfox': require('../../blocks/crosslayouts/b-adfox/scripts/Adfox')
 };

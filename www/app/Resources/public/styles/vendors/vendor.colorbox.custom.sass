@@ -43,7 +43,7 @@
 #colorbox.b-modal_search
     
     #cboxClose
-        top: 17px
+        top: 15px
         right: 20px
         left: auto
 
@@ -95,9 +95,11 @@
 
     #colorbox.b-modal_search
         position: fixed !important
-        top: 98px !important
-        left: 0 !important
-        width: 100% !important            
+        width: 555px !important
+        top: 108px !important
+
+        #cboxClose
+            display: none
 
         #cboxWrapper,
         #cboxContent,
@@ -164,9 +166,7 @@
 +bp-tabletLandscape
 
     #colorbox.b-modal_search
-
-        #cboxClose
-            // no styles
+        width: 755px !important
 
     // Если загружается
     #colorbox
@@ -186,14 +186,12 @@
 +bp-desktop
 
     #colorbox.b-modal_search
+        width: 1025px !important
+        top: 103px !important
 
-        #cboxClose
-            left: 1220px
-
-// Desktop
+// DesktopFull
 +bp-desktopFull
     
     #colorbox.b-modal_search
-
-        #cboxClose
-            left: 1690px
+        width: 1100px !important
+        top: 98px !important

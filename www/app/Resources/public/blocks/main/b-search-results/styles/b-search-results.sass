@@ -1,0 +1,39 @@
+/*
+ * Блок результатов поиска
+ *
+ */
+
+// Объявляем блок
+$block: '.b-search-results'
+
+// Стили
+#{$block}
+
+	&__list
+		padding-left: 10px
+	
+	&__item
+		margin-bottom: 20px
+		padding: 0 0 20px 100px
+		color: $comment-color
+		border-bottom: 1px solid $border-color
+		position: relative
+
+	&__left
+		position: absolute
+		left: 0
+		width: 75px
+
+		&_date
+			top: 0
+			word-wrap: break-word
+
+	&__item-title
+		+font(16px)
+		font-family: $f-serif
+		font-weight: bold
+		margin-bottom: 10px
+		color: $black
+
+	&__item-text
+		color: $black

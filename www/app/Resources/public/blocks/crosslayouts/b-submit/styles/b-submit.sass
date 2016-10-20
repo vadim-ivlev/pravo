@@ -1,0 +1,27 @@
+/*
+ * Кнопка отправки формы
+ *
+ */
+
+
+// Объявляем блок
+$block: '.b-submit'
+
+// Стили
+#{$block}
+
+	&_icon
+		width: 20px
+		height: 20px
+		background-color: transparent
+		border: none
+		position: absolute
+		top: 5px
+		right: 30px
+
+	+bp-tablet
+
+		&
+			&_icon
+				top: 3px
+				right: 0

@@ -41,7 +41,7 @@ require('./global/extends');
 /**
  * Подключение блока модального поиска
  */
-// var SearchOverlay = require('../../../../blocks/overlays/b-search-overlay/scripts/SearchOverlay');
+// var SearchOverlay = require('../blocks/overlays/b-search-overlay/scripts/SearchOverlay');
 
 /**
  * Решение проблемы CORS
@@ -1043,12 +1043,13 @@ $(function() {
         $.colorbox({
 
             html: '<div id="searchOverlay"></div>',
-            closeButton: false,
+            // closeButton: false,
 
             onComplete() {
 
-                new SearchOverlay();
-                RG.events.publish('overlay.resize');
+                // new SearchOverlay();
+                $('#searchOverlay').load('/bundles/jurist/static_tmpl/b-search-form.html');
+                $.colorbox.resize({width: '1100px', height: '40px'});
                 RG.events.publish('colorbox.opened', 'search');
 
                 setTimeout(function(){
@@ -1064,7 +1065,6 @@ $(function() {
             onCleanup() {
 
                 RG.events.publish('colorbox.closed', 'search');
-
                 // Процесс скрытия блока
                 $cbox.addClass('hidding');
                 setTimeout(function(){

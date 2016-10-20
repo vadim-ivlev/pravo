@@ -99,7 +99,7 @@ module.exports = function(data){
 
                             partners: "articlePartners",
 
-                            search: "categoriesSidebar searchResults pagination juristsFeed juristsTop"
+                            search: "searchResults pagination juristsFeed juristsTop"
                         }
 
                     }

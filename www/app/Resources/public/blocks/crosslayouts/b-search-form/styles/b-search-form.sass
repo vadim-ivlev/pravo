@@ -1,0 +1,71 @@
+/*
+ * Поле поиска
+ * 
+ */
+
+// Объявляем блок
+$block: '.b-search-form'
+
+// Модификаторы
+
+// Стили
+#{$block}
+
+    background: $white
+    position: absolute
+    top: 10px
+    right: 20px
+    left: 20px
+    width: calc(100% - 40px)
+    padding-bottom: 1px
+    line-height: 22px
+    border-bottom: 1px solid $border-color
+
+    &__input
+        width: 150px
+        border: none
+
+    &__select-wrapper
+        display: inline-block
+        position: relative
+
+        &:after
+            content: ""
+            position: absolute
+            display: block
+            top: 15px
+            right: 5px
+            border: 3px solid
+            border-color: #000 transparent transparent transparent
+
+    &__select
+        border: none
+        width: 115px
+        padding: 5px 10px
+
+
+    +bp-tablet
+
+        &
+            top: 3px
+
+            &__input
+                width: 360px
+
+    +bp-tabletLandscape
+
+        &
+            &__input
+                width: 560px
+
+    +bp-desktop
+
+        &
+            &__input
+                width: 830px
+
+    +bp-desktopFull
+
+        &
+            &__input
+                width: 900px

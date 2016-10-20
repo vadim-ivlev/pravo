@@ -127,6 +127,16 @@
     	    ]
     	  },
     	  "plugins": "~"
-    	}
+    	},
+        {
+          "name": "search",
+          "dest": "/src/JuristBundle/Resources/views",
+          "src": {
+            "include": [
+              "/app/Resources/public/pages/data/search.js"
+            ]
+          },
+          "plugins": "~"
+        }
 	]
 }	

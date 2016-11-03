@@ -34,7 +34,7 @@ class QuestionsController extends ApiController
                 ->where($aliasEntity . '.step = :step')
                 ->setParameters(array('step' => self::FINISHED_STEP))
                 ->setFirstResult($limitPagination)//offset
-                ->setMaxResults(self::COUNT_RECORDS_ON_PAGE_JURISTS)//limit
+                ->setMaxResults(self::COUNT_RECORDS_ON_PAGE_JURISTS) //limit
                 ->orderBy('a.date', 'DESC')
                 ->getQuery()
                 ->execute();
@@ -66,7 +66,7 @@ class QuestionsController extends ApiController
             ));
         }
 
-        $this->HeaderAction(self::TABS_MAIN);//Если переставить вверх, то закешированный результат перебьет
+        $this->HeaderAction(self::TABS_MAIN); //Если переставить вверх, то закешированный результат перебьет
 
         $this->SidebarAction('json');
 

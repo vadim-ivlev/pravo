@@ -65,7 +65,22 @@ class Questions
     /**
      * @var string
      */
+    private $titleSeo;
+
+    /**
+     * @var string
+     */
     private $description;
+
+    /**
+     * @var string
+     */
+    private $descriptionSeo;
+
+    /**
+     * @var string
+     */
+    private $keywordsSeo;
 
     /**
      * @var integer
@@ -360,6 +375,30 @@ class Questions
     }
 
     /**
+     * Set titleSeo
+     *
+     * @param string $titleSeo
+     *
+     * @return Questions
+     */
+    public function setTitleSeo($titleSeo)
+    {
+        $this->titleSeo = $titleSeo;
+
+        return $this;
+    }
+
+    /**
+     * Get titleSeo
+     *
+     * @return string
+     */
+    public function getTitleSeo()
+    {
+        return $this->titleSeo;
+    }
+
+    /**
      * Set description
      *
      * @param string $description
@@ -381,6 +420,54 @@ class Questions
     public function getDescription()
     {
         return $this->description;
+    }
+
+    /**
+     * Set descriptionSeo
+     *
+     * @param string $descriptionSeo
+     *
+     * @return Questions
+     */
+    public function setDescriptionSeo($descriptionSeo)
+    {
+        $this->descriptionSeo = $descriptionSeo;
+
+        return $this;
+    }
+
+    /**
+     * Get description
+     *
+     * @return string
+     */
+    public function getDescriptionSeo()
+    {
+        return $this->descriptionSeo;
+    }
+
+    /**
+     * Set keywordsSeo
+     *
+     * @param string $keywordsSeo
+     *
+     * @return Questions
+     */
+    public function setKeywordsSeo($keywordsSeo)
+    {
+        $this->keywordsSeo = $keywordsSeo;
+
+        return $this;
+    }
+
+    /**
+     * Get keywords
+     *
+     * @return string
+     */
+    public function getKeywordsSeo()
+    {
+        return $this->keywordsSeo;
     }
 
     /**

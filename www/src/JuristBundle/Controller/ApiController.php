@@ -391,6 +391,54 @@ class ApiController extends Controller implements ContainerAwareInterface
         if ($dataForCheck) throw $this->createNotFoundException($message);
     }
 
+    protected function formedJurists ($Jurists)
+    {
+
+        foreach ($Jurists as $Jurist) {
+            if ($Jurist->getDisabled() === self::DISABLED_VALUE_ON){
+                $rubrics = [];
+
+                foreach ($Jurist->getRubrics()->toArray() as $rubric) {
+                    $rubrics[] = [
+                        'rubrics__title' => $rubric->getName(),
+                        'rubrics__link' => self::RUBRICS . $rubric->getId() . self::REDIRECT,
+                    ];
+                }
+
+                $this->result['jurists_list'][] =
+                    [
+                        'mods' => 'list',
+                        'jurist__img' => [$this->fetchAvatar($Jurist, $Jurist)],
+                        'jurist__first_name' => $Jurist->getName(),
+                        'jurist__link' => self::JURIST . $Jurist->getId() . self::REDIRECT,
+                        'jurist__last_name' => $Jurist->getSecondName(),
+                        'jurist__patronymic' => $Jurist->getPatronymic(),
+                        'jurist__education' => $Jurist->getGraduate(),
+                        'rubrics' => $rubrics,
+                        'jurist__company' => (!empty($Jurist->getCompaniesId())) ? $Jurist->getCompaniesId()->getName() : '',
+                        'jurist__rate' => [
+                            'jurist__rate__author' => $this->receiveAnOverallRating($Jurist->getAnswers()->toArray()), //Общий рейтинг
+                        ],
+                        'jurist__consultations' => $this->getCountConsultation($Jurist->getId()),
+                        'jurist__id' => $Jurist->getId(),
+                    ];
+
+                $pagination[] = $Jurist->getId();
+            }
+        }
+
+
+        foreach ($this->result['jurists_list'] as &$val) {
+            $val['jurist__education__length'] =  (strlen($val['jurist__education']) > 0) ? 1 : 0;
+            $val['jurist__company__length'] =  (strlen($val['jurist__company']) > 0) ? 1 : 0;
+            $val['mods__length'] = count($val['mods']);
+            $val['rubrics__length'] = count($val['rubrics']);
+            $this->generateFirstLast($val['rubrics']);
+        }
+        unset($val);
+
+    }
+
     protected function formedQuestions ($questions)
     {
 
@@ -435,7 +483,9 @@ class ApiController extends Controller implements ContainerAwareInterface
                     'link' => self::RUBRICS . self::QUESTIONS . $question->getId() .  self::REDIRECT,
                     'rubrics' => $this->formedTagsAndRubrics($question->getRubrics()->toArray()),
                     'title' => $question->getTitle(),
+                    //'title' => (!empty($question->getTitleSeo()) ? $question->getTitleSeo() : $question->getTitle()),
                     'text' => $question->getDescription(),
+                    //'text' => (!empty($question->getDescriptionSeo()) ? $question->getDescriptionSeo() : $question->getDescription()),
                     'jurist' => [
                         'jurist__active' => ($question->getAnswersId()->getAuthUsersId()->getDisabled() == self::DISABLED_VALUE_ON) ? !self::DISABLED_VALUE_ON : self::DISABLED_VALUE_ON,
                         'jurist__first_name' => $question->getAnswersId()->getAuthUsersId()->getName(),
@@ -449,6 +499,7 @@ class ApiController extends Controller implements ContainerAwareInterface
                     ],
                     'questions__item_complete' => 0,
                 ];
+
 
                 if ($questionKey == 3) {
                     $this->result['questions_list'][] = [
@@ -827,7 +878,7 @@ class ApiController extends Controller implements ContainerAwareInterface
                 $this->result['sidebar']['categories']['rubrics'][] = array(
                     'rubrics__title' => $rubricValue->getName(),
                     'rubrics__link' => self::RUBRIC . '1/' . $rubricValue->getId() . self::REDIRECT,
-                    'rubrics__active' => (!empty($id) && $id == $rubricValue->getId()) ? true : false,
+                    //'rubrics__active' => (!empty($id) && $id == $rubricValue->getId()) ? true : false,
                 );
             }
 

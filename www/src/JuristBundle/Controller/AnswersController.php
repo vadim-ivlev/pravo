@@ -78,7 +78,10 @@ class AnswersController extends ApiController
             ];
             $this->result['questions_item']['rubrics'] = $this->formedTagsAndRubrics($Question->getRubrics()->toArray()); //$rubric_result;
             $this->result['questions_item']['title'] = $Question->getTitle();
+            $this->result['questions_item']['title_seo'] = (!empty($Question->getTitleSeo()) ? $Question->getTitleSeo() : $Question->getTitle());
             $this->result['questions_item']['text'] = $Question->getDescription();
+            $this->result['questions_item']['description_seo'] = (!empty($Question->getDescriptionSeo()) ? $Question->getDescriptionSeo() : $Question->getDescription()); //text_seo
+            $this->result['questions_item']['keywords'] = (!empty(trim($Question->getKeywordsSeo())) ? $Question->getKeywordsSeo() : false);
             $this->result['questions_item']['tags'] = $this->formedTagsAndRubrics($Question->getTags()->toArray()); //$tag_result;
             $this->result['questions_item']['questions__item_complete'] = 1;
             $this->result['jurist'] = [

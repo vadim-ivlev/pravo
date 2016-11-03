@@ -32,24 +32,26 @@ class FormsController extends ApiController
         1 => 'Forms questions'
     );
 
-    public function GetAction($id = null)
-    { //https://front.rg.ru/jurists/ask/html/
+    public function GetAction($id = null, Request $request)
+    {
 
         if (array_key_exists($id, $this->id_forms)) {
 
-            $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL); //TODO переделать через request и сервис, который уже начал делать
-            $title = $_POST['input'];
-            $name = $_POST['name'];
-            $city = $_POST['location'];
-            $rubric = $_POST['select'];
-            $description = $_POST['message'];
+            $email = filter_var($request->request->get('email'), FILTER_SANITIZE_EMAIL);
+            $title = $request->request->get('input');
+            $name = $request->request->get('name');
+            $city = $request->request->get('location');
+            $rubric = $request->request->get('select');
+            $description = $request->request->get('message');
+
 
             if (!filter_var($email, FILTER_VALIDATE_EMAIL) === true) return 'error';
-            if (!isset($_POST['select'])) return 'error';
+            $select = $request->request->get('select');
+            if (!isset($select)) return 'error';
             if (empty($title) && iconv_strlen(trim($title)) > self::MAX_SYMBOLS_FOR_TITLE_QUESTION) return 'error'; //title
             if (iconv_strlen(trim($description)) > self::MAX_SYMBOLS_FOR_QUESTION) return 'error'; //message
 
-            if ($_POST['confirmation'] == false) return 'error';
+            if ($request->request->get('confirmation') == false) return 'error';
 
             /**
              * сохраняем автора, рубрики и сам вопрос
@@ -83,9 +85,7 @@ class FormsController extends ApiController
                 ->findOneBy([], ['id' => 'DESC']);
 
             $conn = $this->connect_to_Jurists_bd->getConnection();
-            $stmt = $conn->prepare(
-                "INSERT INTO rubrics_questions (rubrics_id, questions_id) 
-                    values(:rubrics_id, :questions_id)");
+            $stmt = $conn->prepare("INSERT INTO rubrics_questions (rubrics_id, questions_id) VALUES(:rubrics_id, :questions_id)");
             $stmt->bindValue('rubrics_id', $rubric);
             $stmt->bindValue('questions_id', $QuestionId->getId());
             $stmt->execute();
@@ -93,19 +93,19 @@ class FormsController extends ApiController
             /**
              * Отправка письма о success, не плохо бы переделать, впрочем, как и весь проект
              */
-             if ($ch = curl_init()) {
+            if ($ch = curl_init()) {
 
-                 $url = "https://jurist-admin.rg.ru/project/mailer.php?email={$email}";
+                $url = "https://jurist-admin.rg.ru/project/mailer.php?email={$email}";
 
-                 curl_setopt($ch, CURLOPT_URL, $url);
-                 curl_setopt($ch, CURLOPT_HEADER, 0);
-                 curl_setopt($ch, CURLOPT_USERAGENT,'Mozilla/5.0 (Windows NT 5.1; rv:34.0) Gecko/20100101 Firefox/34.0');
+                curl_setopt($ch, CURLOPT_URL, $url);
+                curl_setopt($ch, CURLOPT_HEADER, 0);
+                curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (Windows NT 5.1; rv:34.0) Gecko/20100101 Firefox/34.0');
 
-                 curl_setopt($ch, CURLOPT_RETURNTRANSFER, 0);
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, 0);
 
-                 curl_exec($ch);
+                curl_exec($ch);
 
-             }
+            }
 
             $this->result = array(
                 'code' => 200,
@@ -119,11 +119,11 @@ class FormsController extends ApiController
             );
         }
         $response = new JsonResponse();
-            $response
-                ->setData($this->result, JSON_UNESCAPED_SLASHES)
-                ->headers->set('Content-Type', 'application/json');
+        $response
+            ->setData($this->result, JSON_UNESCAPED_SLASHES)
+            ->headers->set('Content-Type', 'application/json');
 
         return $response;
     }
-    
+
 }

@@ -163,49 +163,9 @@ class JuristsController extends ApiController
 
         $pagination = [];
 
-        foreach ($Jurists as $Jurist) {
-            if ($Jurist->getDisabled() === self::DISABLED_VALUE_ON){
-                $rubrics = [];
-
-                foreach ($Jurist->getRubrics()->toArray() as $rubric) {
-                    $rubrics[] = [
-                        'rubrics__title' => $rubric->getName(),
-                        'rubrics__link' => self::RUBRICS . $rubric->getId() . self::REDIRECT,
-                    ];
-                }
-
-                $this->result['jurists_list'][] =
-                    [
-                        'mods' => 'list',
-                        'jurist__img' => [$this->fetchAvatar($Jurist, $Jurist)],
-                        'jurist__first_name' => $Jurist->getName(),
-                        'jurist__link' => self::JURIST . $Jurist->getId() . self::REDIRECT,
-                        'jurist__last_name' => $Jurist->getSecondName(),
-                        'jurist__patronymic' => $Jurist->getPatronymic(),
-                        'jurist__education' => $Jurist->getGraduate(),
-                        'rubrics' => $rubrics,
-                        'jurist__company' => (!empty($Jurist->getCompaniesId())) ? $Jurist->getCompaniesId()->getName() : '',
-                        'jurist__rate' => [
-                            'jurist__rate__author' => $this->receiveAnOverallRating($Jurist->getAnswers()->toArray()), //Общий рейтинг
-                        ],
-                        'jurist__consultations' => $this->getCountConsultation($Jurist->getId()),
-                        'jurist__id' => $Jurist->getId(),
-                    ];
-
-                $pagination[] = $Jurist->getId();
-            }
-        }
+        $this->formedJurists($Jurists);
 
         $this->pageNotFound(!isset($this->result['jurists_list']));
-
-        foreach ($this->result['jurists_list'] as &$val) {
-            $val['jurist__education__length'] =  (strlen($val['jurist__education']) > 0) ? 1 : 0;
-            $val['jurist__company__length'] =  (strlen($val['jurist__company']) > 0) ? 1 : 0;
-            $val['mods__length'] = count($val['mods']);
-            $val['rubrics__length'] = count($val['rubrics']);
-            $this->generateFirstLast($val['rubrics']);
-        }
-        unset($val);
 
         $this->PaginationAction(
             $AllJurist, self::PAGINATION_FOR_JURISTS, self::COUNT_RECORDS_ON_PAGE_JURISTS,

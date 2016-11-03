@@ -45,7 +45,6 @@ class SearchController extends ApiController
 
         $this->getDate();
 
-
         if (!$query) return $this->emptyQueryAction("Задан пустой поисковый запрос. <a class='b-link b-link_blue' href='/'>Вернуться на главную</a>"); //Если пустой результат
 
         $indexerName = self::VALUE_HEADERS[$headerIndexer];
@@ -53,20 +52,24 @@ class SearchController extends ApiController
 
         if (empty($query) || !(array_key_exists($headerIndexer, self::VALUE_HEADERS))) { //Проверка, что есть get запрос и валидный запрос поиска indexer
             throw new HttpException(400, "No data");
-        } elseif ($offset < 0 || !ctype_digit($pagination)) {//TODO и если больше максимума то тоже
+        } elseif ($offset < 0 || !ctype_digit($pagination)) {
             $this->pageNotFound(true);
         }
 
 
-        $sphinx = $this->get('iakumai.sphinxsearch.search');
+        $this->sphinx = $this->get('iakumai.sphinxsearch.search');
 
-        $resultSphinx = $sphinx->search($request->query->get('query'), array($indexerName));
+        /*if ($_SERVER['REMOTE_ADDR'] == '212.69.111.131') { //TODO для сортировки
+            dump($this->sphinx->getClient()->SetSortMode(SPH_SORT_RELEVANCE));
+        }*/
+
+        $resultSphinx = $this->sphinx->search($request->query->get('query'), array($indexerName));
 
         if (isset($resultSphinx['matches'])) {
 
             $aliasEntity = $indexerName[0];
 
-            $allResults = $this->connect_to_Jurists_bd
+            $allResults = $this->connect_to_Jurists_bd //Выборка для пагинации
                 ->getRepository('JuristBundle:' . self::VALUE_HEADERS[$headerIndexer])
                 ->createQueryBuilder($aliasEntity)
                 ->select("COUNT({$aliasEntity}.id)")
@@ -87,12 +90,12 @@ class SearchController extends ApiController
                 ->getQuery()
                 ->execute();
 
-            $this->{"{$indexerName}Action"}($results, "{$indexerName}_list", $offset);
+            $this->{"{$indexerName}Action"}($results, $indexerName, $request->query->get('query')); //Динамическое обращение к классу, который сформирует данные для Mustache. Имя класса, например, QuestionsAction
 
-            $all_get = $request->query->all();
+            $allGet = $request->query->all(); //Получение всех GET запросов
 
-            array_walk(
-                $all_get,
+            array_walk( //Формирование всех GET запросов для следующий странице в пагинации
+                $allGet,
                 function(&$value, $key) use (&$resultGetQuery) {
                     $resultGetQuery .= ((!$resultGetQuery) ? '?' : '&') . "{$key}=" . urlencode($value);
                 }
@@ -101,52 +104,97 @@ class SearchController extends ApiController
             $this->PaginationAction($allResults, self::PAGINATION_FOR_JURISTS, self::COUNT_RECORDS_ON_PAGE_JURISTS, $pagination, '/search/', 1, '', $resultGetQuery);
 
         } else {
-            $this->emptyQueryAction("Ваш запрос '{$query}' не дал результатов. <a class='b-link b-link_blue' href='/'>Вернуться на главную</a>");
+            $this->emptyQueryAction("Ваш запрос '" . htmlspecialchars($query) . "' не дал результатов. <a class='b-link b-link_blue' href='/'>Вернуться на главную</a>"); //htmlspecialchars - если в поиске ввели что-то типа <div чтоб его экранировать
         }
 
 
     }
 
     /**
-     * Метод используется, просто вызывается динамически $this->{"{$indexerName}Action"}($results, "{$indexerName}_list", $offset);
-     * @param $data - данные результатов поиска
-     * @param $nameJson
+     * Класс для подсветки найденных слов
+     * @param array $queryResults - результат запроса к сфинксу
+     * @param $indexerName - имя сфнкс индекса
+     * @param $query - запрос к сфинксу на поиск, например "авто"
+     * @param array $options - options http://php.net/manual/ru/sphinxclient.buildexcerpts.php
      */
-    private function QuestionsAction($data, $nameJson, $pagination)
+    private function WordsLightsAction(
+        $queryResults, $indexerName, $query,
+        array $options = [
+            'before_match'      => '<span class="b-search-results__sphinx_search">',
+            'after_match'       => '</span>',
+            //'chunk_separator'   => ' ',
+            'exact_phrase'      => true,
+            'limit'             => 512,
+            //'around'            => 10
+        ]
+    )
     {
-        foreach ($data as $dataKey => $dataVal) {
-            $date = $dataVal->getDate();
-            $date = $date->format('Y-m-d H:i');
+        if (!is_array($queryResults)) $queryResults = [$queryResults]; //Нужно для сфинкса, чтоб был массив
+        //$queryResults = $this->sphinx->getClient()->BuildExcerpts($queryResults, $indexerName, "*{$query}*", $options);
+        //$queryResults[0] = htmlspecialchars($queryResults[0]); //Костыль, ибо надо искать по *$query* и по самому $query, так $query без зведочек он ищет по корням
 
-            $this->result[$nameJson][] = [
-                'link' => "/rubrics/question/{$dataVal->getId()}/",
-                'title' => htmlspecialchars($dataVal->getTitle()),
-                'text' => htmlspecialchars($dataVal->getDescription()),
-                'date' => $date,
-                'value' => ($pagination * self::COUNT_RECORDS_ON_PAGE_JURISTS) + $dataKey+1
-            ];
+        $queryResults = $this->sphinx->getClient()->BuildExcerpts($queryResults, $indexerName, "{$query}", $options);
+
+        return $queryResults[0];
+    }
+
+    /**
+     * Формирует подсветку в модулях formedJurists И formedQuestions найденых слов
+     * @param $results
+     * @param array $dataForChanges
+     * @param $indexerName
+     * @param $getQuery
+     * @return bool
+     */
+    private function FormLightFromOld(&$results, array $dataForChanges, $indexerName, $getQuery)
+    {
+        if (empty($dataForChanges) || empty($indexerName) || empty($getQuery)) return false;
+
+
+        foreach ($results as &$result) {
+            array_map(function(&$dataForChange) use (&$result, $indexerName, $getQuery) {
+                if(isset($result[$dataForChange])) $result[$dataForChange] = $this->WordsLightsAction($result[$dataForChange], $indexerName, $getQuery);
+            }, $dataForChanges);
         }
+        unset($result, $results, $dataForChange);
+
     }
 
     /**
      * Метод используется, просто вызывается динамически $this->{"{$indexerName}Action"}($results, "{$indexerName}_list", $offset);
      * @param $data
-     * @param $nameJson
-     * @param $pagination
+     * @param $indexerName
+     * @param $getQuery
+     * @throws \Exception
      */
-    private function AuthUsersAction($data, $nameJson, $pagination)
+    private function QuestionsAction($data, $indexerName, $getQuery)
     {
-        foreach ($data as $dataKey => $dataVal) {
-            $this->result[$nameJson][] = [
-                'jurist__first_name' => htmlspecialchars($dataVal->getName()),
-                'jurist__link' => "/jurist/{$dataVal->getId()}/",
-                'jurist__last_name' => $dataVal->getSecondName(),
-                'jurist__patronymic' => $dataVal->getPatronymic(),
-                'jurist__img' => [$this->fetchAvatar($dataVal, $dataVal)],
-                'jurist__total__rating' => $dataVal->getTotalRating(),
-                'value' => ($pagination * self::COUNT_RECORDS_ON_PAGE_JURISTS) + $dataKey+1
-            ];
-        }
+        $this->formedQuestions($data);
+        $questionsList = 'questions_list';
+
+        if (!isset($this->result[$questionsList])) throw new \Exception("Отсутствует {$questionsList}");
+        $valForCheck = ['title', 'text']; //Поле которые должны быть проверенны на совпадение с запросом и в случае успеха подсвечины
+
+        $this->FormLightFromOld($this->result['questions_list'], $valForCheck, $indexerName, $getQuery);
+    }
+
+    /**
+     * Метод используется, просто вызывается динамически $this->{"{$indexerName}Action"}($results, "{$indexerName}_list", $offset);
+     * @param $data
+     * @param $indexerName
+     * @param $getQuery
+     * @throws \Exception
+     */
+    private function AuthUsersAction($data, $indexerName, $getQuery)
+    {
+        $this->formedJurists($data);
+        $juristList = 'jurists_list';
+
+        if (!isset($this->result[$juristList])) throw new \Exception("Отсутствует {$juristList}");
+        $valForCheck = ['jurist__first_name', 'jurist__last_name', 'jurist__patronymic', 'jurist__company']; //Поле которые должны быть проверенны на совпадение с запросом и в случае успеха подсвечины
+
+        $this->FormLightFromOld($this->result['jurists_list'], $valForCheck, $indexerName, $getQuery);
+
     }
 
     public function SearchAction($pageVal = 0, Request $request) 
@@ -168,7 +216,15 @@ class SearchController extends ApiController
 
             $this->formedDataAction($request, $pageVal);
 
-            return new Response($m->render(@file_get_contents(dirname(__FILE__) . '/../Resources/views/search.html'), json_decode(json_encode($this->result))));
+            /*if ($_SERVER['REMOTE_ADDR'] == '212.69.111.131') { //TODO для сортировки
+                dump($this->result);die;
+            }*/
+            return new Response(
+                $m->render(
+                    @file_get_contents(dirname(__FILE__) . '/../Resources/views/search.html'),
+                    json_decode(json_encode($this->result))
+                )
+            );
 
         } else {
 

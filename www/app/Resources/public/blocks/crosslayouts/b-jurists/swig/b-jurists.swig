@@ -120,15 +120,15 @@
     
                                     <div>
 
-                                        {{ jurist__last_name }}
+                                        {{{  jurist__last_name }}}
 
                                     </div>
     
-                                    {{ jurist__first_name }}
+                                    {{{  jurist__first_name }}}
     
                                     {% if data[mod].showBlocks.patronymic %}
 
-                                        {{ jurist__patronymic }}
+                                        {{{  jurist__patronymic }}}
 
                                     {% endif %}
     

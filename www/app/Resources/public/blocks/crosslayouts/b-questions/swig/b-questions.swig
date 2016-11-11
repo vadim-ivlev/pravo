@@ -58,21 +58,21 @@
                         <a class="b-link{% if mod == "latest" %} b-link_block{% endif %}" href="{{ link }}">
 
                             {% if data[mod].showBlocks.title %}
-                                <div class="b-question-block__title b-link b-link_title{% if data[mod].showBlocks.mod %} b-link_latest{% endif %}">{{ title }}</div>
+                                <div class="b-question-block__title b-link b-link_title{% if data[mod].showBlocks.mod %} b-link_latest{% endif %}">{{{  title }}}</div>
                             {% endif %}
 
                             {% if data[mod].showBlocks.text %}
-                                <div class="b-question-block__text">{{ text }}</div>
+                                <div class="b-question-block__text">{{{  text }}}</div>
                             {% endif %}
 
                         </a>
                     {% else %}
                         {% if data[mod].showBlocks.title %}
-                            <h1 class="b-question-block__title">{{ title }}</h1>
+                            <h1 class="b-question-block__title">{{{  title }}}</h1>
                         {% endif %}
 
                         {% if data[mod].showBlocks.text %}
-                            <div class="b-question-block__text">{{ text }}</div>
+                            <div class="b-question-block__text">{{{  text }}}</div>
                         {% endif %}
                     {% endif %}
 

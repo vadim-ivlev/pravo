@@ -59,7 +59,7 @@ module.exports = function(data){
 
                             tags: RGB('tags'), // список актуальных тегов
 
-                            juristsFeed: RGB('jurists:feed, mobile:active'), // лента юристов, предлагающих услуги (в сайдбаре)
+                            juristsFeed: RGB('jurists:feed, mobile:active', '#jurists_feed'), // лента юристов, предлагающих услуги (в сайдбаре)
 
                             juristsTop: RGB('jurists:top, mobile'), // список лучших юристов (в сайдбаре)
 
@@ -69,7 +69,9 @@ module.exports = function(data){
 
                             // newsRubric: RGB('news-rubric:pravo') // блок на главной РГ (убрать после вывода на РГ)
 
-                            searchResults: RGB('search-results') // блок результатов поиска
+                            searchResults: RGB('search-results'), // блок результатов поиска
+
+                            adfoxMainTop: RGB('adfox:media-4, desktop desktopFull:active') // баннер в правом вернхем углу основного контента
 
                         },
 
@@ -99,7 +101,7 @@ module.exports = function(data){
 
                             partners: "articlePartners",
 
-                            search: "searchResults pagination juristsFeed juristsTop"
+                            search: "categoriesSidebar searchResults pagination juristsFeed juristsTop"
                         }
 
                     }

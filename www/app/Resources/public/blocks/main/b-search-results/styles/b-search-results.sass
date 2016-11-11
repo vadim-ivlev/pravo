@@ -9,14 +9,18 @@ $block: '.b-search-results'
 // Стили
 #{$block}
 
+	&__title
+		+font(16px)
+		font-style: italic
+
 	&__list
 		padding-left: 10px
 	
 	&__item
 		margin-bottom: 20px
-		padding: 0 0 20px 100px
-		color: $comment-color
-		border-bottom: 1px solid $border-color
+		// padding: 0 0 20px 100px
+		// color: $comment-color
+		// border-bottom: 1px solid $border-color
 		position: relative
 
 	&__left
@@ -37,3 +41,10 @@ $block: '.b-search-results'
 
 	&__item-text
 		color: $black
+
+	&__item-text
+		color: $black
+
+	&__sphinx_search
+		color: $red-orange
+		font-weight: bold

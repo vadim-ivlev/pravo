@@ -58,7 +58,8 @@ module.exports = {
 				{
 					opt: {
 						contents: [
-							{ data: "<script src=\"/bundles/jurist/js/pagination.js\"></script>" }
+							{ data: "<script src=\"/bundles/jurist/js/pagination.js\"></script>" },
+							{ data: "<script src=\"/bundles/jurist/js/search-results.js\"></script>" }
 						]
 					}
 				}

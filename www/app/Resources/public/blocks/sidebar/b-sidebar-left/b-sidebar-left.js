@@ -31,7 +31,7 @@ module.exports = function(data){
 
 							yandexDirect: RGB('yadirect:sidebar-left'), // Яндекс-директ
 
-							juristsFeed: RGB('jurists:feed, tablet tabletLandscape desktop desktopFull:active'), // лента юристов, предлагающих услуги (в сайдбаре)
+							juristsFeed: RGB('jurists:feed, tablet tabletLandscape desktop desktopFull:active', '#jurists_feed'), // лента юристов, предлагающих услуги (в сайдбаре)
 
 							juristsTop: RGB('jurists:top, tablet tabletLandscape desktop desktopFull:active') // список лучших юристов (в сайдбаре)
 
@@ -63,7 +63,7 @@ module.exports = function(data){
 
 							partners: "juristsFeed",
 
-							search: "adfoxSidebarRight juristsFeed juristsTop yandexDirect"
+							search: "categoriesSidebar adfoxSidebarRight juristsFeed juristsTop yandexDirect"
 						}
 					}
 				}

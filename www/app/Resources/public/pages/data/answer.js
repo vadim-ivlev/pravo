@@ -18,7 +18,7 @@ module.exports = {
                         tag: "title",
                         contents: [
                             {
-                                data: "{{# questions_item }}{{ title }}{{/ questions_item }} &mdash; Юридическая консультация"
+                                data: "{{# questions_item }}{{ title_seo }}{{/ questions_item }} &mdash; Юридическая консультация"
                             }
                         ]
                     }
@@ -29,8 +29,16 @@ module.exports = {
                         tag: "meta",
                         attrs: {
                             name: "description",
-                            content: "{{# questions_item }}{{ text }}{{/ questions_item }}"
+                            content: "{{# questions_item }}{{ description_seo }}{{/ questions_item }}"
                         }
+                    }
+                },
+                {
+                    name: "indexKeywords",
+                    opt: {
+                        contents: [
+                            { data: "{{# questions_item }}{{# keywords }}<meta name=\"keywords\" content=\"{{ keywords }}\">{{/ keywords }}{{/ questions_item }}" }
+                        ]
                     }
                 },
                 {
@@ -47,7 +55,7 @@ module.exports = {
                     name: "rgAds",
                     opt: {
                         contents: [
-                            { data: "<meta name=\"rg-data\" property=\"ads:uri\" content=\"/pravo/rubrics/\">" } // Для подключения рекламы
+                            { data: "<meta name=\"rg-data\" property=\"ads:uri\" content=\"/pravo/rubrics/{{ current_rubric.current_rubric_id }}/\">" } // Для подключения рекламы
                         ]
                     }
                 },

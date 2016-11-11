@@ -47,7 +47,7 @@ module.exports = {
                     name: "rgAds",
                     opt: {
                         contents: [
-                            { data: "<meta name=\"rg-data\" property=\"ads:uri\" content=\"/pravo/rubrics/\">" } // Для подключения рекламы
+                            { data: "<meta name=\"rg-data\" property=\"ads:uri\" content=\"/pravo/rubrics/{{ current_rubric.current_rubric_id }}/\">" } // Для подключения рекламы
                         ]
                     }
                 }

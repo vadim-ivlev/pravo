@@ -10,7 +10,7 @@
         {% if mod !== "main" %}
             <li id="js-breadcrumbs-item" class="b-breadcrumbs__item">
                 {% if mod == "rubric" %}
-                    {{ current_rubric }}
+                    {{ current_rubric.current_rubric_name }}
                 {% elseif mod == "answer" %}
                     {{# questions_item }}{{# rubrics }}{{# rubrics__FIRST__ }}{{ rubrics__title }}{{/ rubrics__FIRST__ }}{{/ rubrics }}{{/ questions_item }}
                 {% elseif mod == "tag" %}

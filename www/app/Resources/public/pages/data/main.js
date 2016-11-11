@@ -39,7 +39,17 @@ module.exports = {
 						tag: "meta",
 						attrs: {
 							name: "yandex-verification",
-							content: "68d57ae756ac44ad"
+							content: "58d136a02371d7f6"
+						}
+					}
+				},
+				{
+					name: "indexGoogleVerification",
+					opt: {
+						tag: "meta",
+						attrs: {
+							name: "google-site-verification",
+							content: "ugPuY0OOWfC1Uu1hIYjlkh3aFPNiaXYANXylo8GZ7nU"
 						}
 					}
 				},

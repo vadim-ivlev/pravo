@@ -45,8 +45,8 @@ var init = function() {
 
                     setCookie('rating', id, expireTime);
                 } else {
-                    $(".b-rate__value").html('Вы уже сказали спасибо.');
-                    $(".b-rate__value").css({'font-size' : '10px'});
+                    $(".b-rate__value").append('<span class="b-rate__notification">Вы уже сказали спасибо.</span>');
+                    // $(".b-rate__value").css({'font-size' : '10px'});
                 }
             },
             error: function (data) {

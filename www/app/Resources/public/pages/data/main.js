@@ -13,6 +13,16 @@ module.exports = {
     			 * 
     			 */
     			{
+    				name: "canonicalLink",
+    				opt: {
+    					tag: "link",
+    					attrs: {
+    						rel: "canonical",
+    						href: "{{ canonical }}"
+    					}
+    				}
+    			},
+    			{
 					name: "indexTitle",
 					opt: {
 						tag: "title",

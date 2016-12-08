@@ -233,7 +233,7 @@
                 {{# jurist__paid__feedback }}
 
                     {{# feedback__active }}
-                        <a href="{{# type__feedback__email }}mailto:{{/ type__feedback__email }}{{ feedback__data }}" class="b-btn b-btn_orange b-btn_profile" target="{{# type__feedback__email }}_self{{/ type__feedback__email }}{{^ target__feedback__email }}_blank{{/ target__feedback__email }}">Связаться с юристом</a>
+                        <a href="{{# type__feedback__email }}mailto:{{/ type__feedback__email }}{{ feedback__data }}" class="b-btn b-btn_orange b-btn_profile" target="{{# type__feedback__email }}_self{{/ type__feedback__email }}{{^ target__feedback__email }}_blank{{/ target__feedback__email }}" rel="nofollow">Связаться с юристом</a>
                     {{/ feedback__active }}
 
                 {{/ jurist__paid__feedback }}

@@ -85,19 +85,7 @@ module.exports = {
 			}
 		},
 
-		/* 
-		 * Блок GTM для Агимы
-		 *
-		 */
-		{
-			opt: {
-				contents: [
-					{ data: "<noscript><iframe src=\"//www.googletagmanager.com/ns.html?id=GTM-5QP5L8\" height=\"0\" width=\"0\" styles=\"display:none;visibility:hidden\"></iframe></noscript>" }
-				]
-			}
-		}
-
-		//RGInclude('modules/GTM', 'scripts inline') // подключение GTM Agima
+		RGInclude('modules/GTM', 'scripts inline') // подключение GTM
 	]
 
 };

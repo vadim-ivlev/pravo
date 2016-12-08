@@ -137,6 +137,16 @@
             ]
           },
           "plugins": "~"
+        },
+        {
+          "name": "not_found",
+          "dest": "/src/JuristBundle/Resources/views",
+          "src": {
+            "include": [
+              "/app/Resources/public/pages/data/not_found.js"
+            ]
+          },
+          "plugins": "~"
         }
 	]
 }	

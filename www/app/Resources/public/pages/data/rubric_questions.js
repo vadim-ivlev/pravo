@@ -28,7 +28,7 @@ module.exports = {
                         tag: "title",
                         contents: [
                             {
-                                data: "Рубрика {{# sidebar }}{{# categories }}{{# rubrics }}{{# rubrics__active }}{{ rubrics__title }}{{/ rubrics__active }}{{/ rubrics }}{{/ categories }}{{/ sidebar }} &mdash; Юридическая консультация"
+                                data: "Рубрика {{ current_rubric.current_rubric_name }} &mdash; Юридическая консультация"
                             }
                         ]
                     }

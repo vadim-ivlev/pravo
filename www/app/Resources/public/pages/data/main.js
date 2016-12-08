@@ -28,11 +28,21 @@ module.exports = {
 						tag: "title",
 						contents: [
 							{
-								data: "Юридическая консультация &mdash; Российская газета"
+								data: "Бесплатная юридическая консультация.  Российская газета"
 							}
 						]
 					}
 				},
+				{
+    				name: "description",
+    				opt: {
+    					tag: "meta",
+    					attrs: {
+    						name: "description",
+    						content: "Правовая поддержка граждан: вы можете получить юридическую помощь бесплатно. Задайте вопрос опытному юристу."
+    					}
+    				}
+    			},
 				/*{
 					name: "indexDescription",
 					opt: {
@@ -49,7 +59,7 @@ module.exports = {
 						tag: "meta",
 						attrs: {
 							name: "yandex-verification",
-							content: "58d136a02371d7f6"
+							content: "f2093eac5966be19"
 						}
 					}
 				},

@@ -107,11 +107,13 @@ var
                 window.yandex_metrika_callbacks.push(function() { 
                     try {
 
-                        window.yaCounter22322746 = new Ya.Metrika({
+                        window.yaCounter39269930 = new Ya.Metrika({
                             id:counterId,
                             clickmap:true,
                             trackLinks:true,
-                            accurateTrackBounce:true
+                            accurateTrackBounce:true,
+                            webvisor:true,
+                            trackHash:true
                         });
 
                     } catch(e) {

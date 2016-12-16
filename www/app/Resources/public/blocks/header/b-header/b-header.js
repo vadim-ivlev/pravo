@@ -33,7 +33,9 @@ module.exports = function(data){
 
 							rubric_questions: "logo title adBanner menu",
 
-							tag_questions: "logo title adBanner menu"
+							tag_questions: "logo title adBanner menu",
+
+							error404: "logo"
 						}
 						
 					}

@@ -13,16 +13,6 @@ module.exports = {
     			 * 
     			 */
     			{
-    				name: "canonicalLink",
-    				opt: {
-    					tag: "link",
-    					attrs: {
-    						rel: "canonical",
-    						href: "{{ canonical }}"
-    					}
-    				}
-    			},
-    			{
 					name: "indexTitle",
 					opt: {
 						tag: "title",
@@ -77,9 +67,9 @@ module.exports = {
 
 		    blocks: [
 
-				RGB('header:not_found'), // шапка сайта
+				RGB('header:error404'), // шапка сайта
 				
-				RGB('main:not_found') // основной контент
+				RGB('main:error404') // основной контент
 
 			]
 
@@ -91,7 +81,7 @@ module.exports = {
 		 */
 
 		_meta: {
-			uri: "juristical_not_found"
+			uri: "juristical_error404"
 		}
 	}
 

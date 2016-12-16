@@ -139,11 +139,11 @@
           "plugins": "~"
         },
         {
-          "name": "not_found",
+          "name": "error404",
           "dest": "/src/JuristBundle/Resources/views",
           "src": {
             "include": [
-              "/app/Resources/public/pages/data/not_found.js"
+              "/app/Resources/public/pages/data/error404.js"
             ]
           },
           "plugins": "~"

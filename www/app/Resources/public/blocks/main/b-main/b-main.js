@@ -45,7 +45,7 @@ module.exports = function(data){
 
                             articlePartners: RGB('article:partners'), // текстовый блок с информацией о партнёрах
 
-                            articleNotFound: RGB('article:not-found'), // текст 404-й ошибки
+                            articleError404: RGB('article:error404'), // текст 404-й ошибки
 
                             usersSelection: RGB('users-selection'), // выборка юристов по специализации
 
@@ -105,7 +105,7 @@ module.exports = function(data){
 
                             search: "categoriesSidebar searchResults pagination juristsFeed juristsTop",
 
-                            not_found: "articleNotFound"
+                            error404: "articleError404"
                         }
 
                     }

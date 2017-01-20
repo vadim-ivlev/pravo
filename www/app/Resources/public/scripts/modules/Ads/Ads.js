@@ -34,7 +34,7 @@ var
         Adfox.init();
 
         // Что-то от Ефима
-        getBanners();
+        // getBanners();
 
         RG.events.subscribe(`${RG.ScreenViewer._modulePrefix}.update`, (topic, screenInfo) => {
 
@@ -49,7 +49,7 @@ var
         });
 	},
 
-	getBanners = () => {
+	/*getBanners = () => {
 
         var platform = RG.meta.getPlatform() || '/static/main/ind';
 
@@ -65,7 +65,7 @@ var
             // end-- Добавил Леха, надо понять, как мы это уберем
 
         });
-    },
+    },*/
 
     filterResolution = (data, resolution) => {
 

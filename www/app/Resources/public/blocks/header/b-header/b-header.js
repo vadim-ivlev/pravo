@@ -16,8 +16,6 @@ module.exports = function(data){
 						blocks: {
 							
 							logo: RGB('logo'), // логотип
-							
-							title: RGB('header&title'), // заголовок на страницах
 
 							adBanner: RGB('ads:top'), // верхий баннер-растяжка
 
@@ -29,11 +27,11 @@ module.exports = function(data){
 
 						sortBlocks: {
 
-							'default': "logo title menu menuMobile",
+							'default': "logo menu menuMobile",
 
-							rubric_questions: "logo title adBanner menu",
+							rubric_questions: "logo adBanner menu",
 
-							tag_questions: "logo title adBanner menu",
+							tag_questions: "logo adBanner menu",
 
 							error404: "logo"
 						}

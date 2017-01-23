@@ -11,7 +11,7 @@ $block: '.b-logo'
 // Стили 
 #{$block}
     display: inline-block
-    padding: 20px
+    padding: 20px 20px 10px
     &.b-header__info-item
         display: inline-block
         float: left
@@ -20,16 +20,16 @@ $block: '.b-logo'
         display: none
 
     &__image
-        width: 60px
-        height: 18px
+        width: 100px
+        height: 30px
         margin-right: 10px
         display: block
 
         background-repeat: no-repeat
 
         // маленький логотип
-        background-image: url(#{$img-path}media/logo/rg-main.png)
-        background-position: 0 -80px
+        background-image: url(#{$img-path}logo/main-logo.png)
+        background-position: 0 -67px
 
         // Если страница 404
         .b-header_not-found &
@@ -43,8 +43,8 @@ $block: '.b-logo'
 
             &
                 // маленький логотип
-                background-image: url(#{$img-path}media/logo/rg-main2x.png)
-                background-size: 220px 104px
+                background-image: url(#{$img-path}logo/main-logo2x.png)
+                background-size: 185px 96px
 
     &_alrf
         width: 99%
@@ -53,7 +53,7 @@ $block: '.b-logo'
     +bp-tablet
 
         &
-            padding: 10px 0
+            padding: 20px 0 0
             &.b-header__info-item
                 display: none
 
@@ -61,7 +61,7 @@ $block: '.b-logo'
                 display: inline-block
 
             &__image
-                width: 186px
+                width: 185px
                 height: 64px
                 background-position: 0 0
                 -webkit-background-size: cover

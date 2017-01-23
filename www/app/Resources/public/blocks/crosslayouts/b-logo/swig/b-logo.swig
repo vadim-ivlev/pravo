@@ -1,1 +1,1 @@
-<a class="b-logo__image" href="https://rg.ru/" title="Российская газета"></a>
+<a class="b-logo__image" href="/" title="Юридическая консультация"></a>

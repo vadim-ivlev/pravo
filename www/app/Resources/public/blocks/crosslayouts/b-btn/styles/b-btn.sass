@@ -2,6 +2,7 @@
 
 // Объявляем блок
 $block: '.b-btn'
+$search-results: '.b-search-results__form'
 
 //Стили
 #{$block}
@@ -15,6 +16,7 @@ $block: '.b-btn'
 
     &_orange
         background: $red-orange
+        border: none
 
     &_ask
         display: block
@@ -81,3 +83,21 @@ $block: '.b-btn'
             &_profile
                 display: block
                 float: right
+
+#{$search-results}
+
+    #{$block}
+
+        &_orange
+            width: 100%
+            padding: 7px 20px
+
+        +bp-tablet
+
+            &
+                width: 215px
+
+        +bp-tabletLandscape
+
+            &
+                width: auto

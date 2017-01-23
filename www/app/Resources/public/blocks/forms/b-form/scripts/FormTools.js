@@ -76,17 +76,19 @@ var FormTools = Ractive.extend({
     // Валидация
     validate(show) {
 
-        // Если првоерка пройдена
+        // Если проверка пройдена
         if (this.check()) {
 
             // Убираем подсветку
             return !this.highlight(false);
-
+            
         } else {
 
             if (show) {
                 this.showMsg();
             }
+
+            $('.js-ask-submit').removeClass('disabled');
 
             // Подсвечиваем
             return !this.highlight(true);
@@ -128,7 +130,13 @@ var FormTools = Ractive.extend({
 
             this.set('value', null);
 
-            $(".b-field__select option").each(function(){if(!+$(this).attr('value')){$(this).prop("selected", true);}})
+            $(".b-field__select option").each(function() {
+                if (!+$(this).attr('value')) {
+                    $(this).prop("selected", true);
+                }
+            });
+
+            $('.js-ask-submit').removeClass('disabled');
 
         }
 

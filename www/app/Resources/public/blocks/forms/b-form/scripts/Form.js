@@ -166,6 +166,8 @@ class Form {
 
         RG.logger.info(topic);
 
+        $('.js-ask-submit').addClass('disabled');
+
         if(context.form === this.options.name) {
 
             if(this.validate()) {

@@ -7,6 +7,7 @@
 
 // Объявляем блок
 $block: '.b-field'
+$search-results: '.b-search-results__form'
 
 // Стили
 #{$block}
@@ -70,6 +71,9 @@ $block: '.b-field'
     // INPUT SUBMIT
     &_input_submit
         display: inline-block
+
+        &.disabled
+            pointer-events: none
 
     &__input_submit
         +button-field($link-color)
@@ -174,7 +178,6 @@ $block: '.b-field'
     // Счётчик количества символов
     &__maxlength
         color: $light-grey
-        margin-top: -10px
         margin-bottom: 10px
 
     +bp-tablet
@@ -184,3 +187,22 @@ $block: '.b-field'
                 position: absolute
                 top: 0
                 right: 0
+
+#{$search-results}
+
+    #{$block}
+
+        &__input_text
+            max-width: 100%
+            margin-bottom: 20px
+
+            +bp-tabletLandscape
+
+                &
+                    margin-bottom: 0
+                    max-width: 60%
+
+            +bp-desktopFull
+
+                &
+                    max-width: 64%

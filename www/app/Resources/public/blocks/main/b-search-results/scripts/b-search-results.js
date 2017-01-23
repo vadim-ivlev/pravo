@@ -1,6 +1,9 @@
-$('.js-search-form').on('submit', function() {
-console.log('111');
-	window.location.href = 
-	"/search/1/?query=" + encodeURIComponent($(this).find("input[name=input_text]").val()) + 
-	'&search=' + $(this).find(".js-search-form-select").val();
+$(document).ready(function() {
+	$('.js-search-form-results').on('submit', function(e) {
+		window.location.href = 
+		"/search/1/?query=" + encodeURIComponent($(this).find("input[name=input_text-results]").val()) + 
+		'&search=' + $(this).find("select[name=input_select-results]").val();
+		e.preventDefault();
+		e.stopPropagation();
+	});
 });

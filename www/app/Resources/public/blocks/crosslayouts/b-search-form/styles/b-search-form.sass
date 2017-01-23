@@ -5,6 +5,7 @@
 
 // Объявляем блок
 $block: '.b-search-form'
+$search-results: '.b-search-results__form'
 
 // Модификаторы
 
@@ -19,7 +20,6 @@ $block: '.b-search-form'
     width: calc(100% - 40px)
     padding-bottom: 1px
     line-height: 22px
-    border-bottom: 1px solid $border-color
 
     &__input
         width: 150px
@@ -42,7 +42,6 @@ $block: '.b-search-form'
         border: none
         width: 115px
         padding: 5px 10px
-
 
     +bp-tablet
 
@@ -69,3 +68,41 @@ $block: '.b-search-form'
         &
             &__input
                 width: 900px
+
+#{$search-results}
+
+    #{$block}
+
+        &__select-wrapper
+            margin-right: 20px
+            margin-bottom: $indent-v-el
+            width: 100%
+
+            &:after
+                top: 17px
+                right: 8px
+
+        &__select
+            border: 1px solid $border-color
+            padding: 8px 10px
+            width: 100%
+
+        +bp-tablet
+
+            &
+
+                &__select-wrapper
+                    width: auto
+                    margin-bottom: 0
+
+                &__select
+                    width: 215px
+
+        +bp-tabletLandscape
+
+            &
+                &__select-wrapper
+                    margin: 0 20px
+
+                &__select
+                    width: 125px

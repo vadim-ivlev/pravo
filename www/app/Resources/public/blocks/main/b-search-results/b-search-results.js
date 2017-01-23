@@ -12,7 +12,7 @@ module.exports = function(data){
 
                             questionsList: RGB('questions:list'), // список вопросов в результатах поиска
 
-                            juristsList: RGB('jurists:list'), // список юристов в результатах поиска
+                            juristsList: RGB('jurists:list') // список юристов в результатах поиска
 
                         }
                     }

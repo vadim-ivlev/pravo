@@ -39,7 +39,7 @@ module.exports = function(data){
 
                             bibliotechkaAdvertAnswer: RGB('bibliotechka-advert:answer'), // блок библиотечки на странице ответа
 
-                            form: RGB('form'), // форма отправки вопроса
+                            formAsk: RGB('form:ask'), // форма отправки вопроса
 
                             articleRules: RGB('article:rules'), // текстовый блок с правилами
 
@@ -89,7 +89,7 @@ module.exports = function(data){
 
                             answer: "breadcrumbsAnswer categoriesSidebar questionsItem answerBlock adfox questionsLatest bibliotechkaAdvertAnswer",
 
-                            ask: "form questionsLatest",
+                            ask: "formAsk questionsLatest",
 
                             rules: "articleRules juristsFeed",
 

@@ -36,17 +36,7 @@ module.exports = function(data){
 						tag: "meta",
 						attrs: {
 							property: "og:site_name",
-							content: "Российская газета"
-						}
-					}
-				},
-				{
-					name: "crosspageOgTitle",
-					opt: {
-						tag: "meta",
-						attrs: {
-							property: "og:title",
-							content: "Юридическая консультация"
+							content: "Юридическая консультация на сайте Российской газеты"
 						}
 					}
 				},

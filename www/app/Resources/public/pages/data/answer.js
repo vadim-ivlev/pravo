@@ -13,12 +13,32 @@ module.exports = {
                  *
                  */
                 {
+                    name: "crosspageOgTitle",
+                    opt: {
+                        tag: "meta",
+                        attrs: {
+                            property: "og:title",
+                            content: "{{# questions_item }}{{ title_seo }}{{/ questions_item }} — Юридическая консультация"
+                        }
+                    }
+                },
+                {
+                    name: "crosspagesOgDescription",
+                    opt: {
+                        tag: "meta",
+                        attrs: {
+                            property: "og:description",
+                            content: "{{# questions_item }}{{ description_seo }}{{/ questions_item }}"
+                        }
+                    }
+                },
+                {
                     name: "indexTitle",
                     opt: {
                         tag: "title",
                         contents: [
                             {
-                                data: "{{# questions_item }}{{ title_seo }}{{/ questions_item }} &mdash; Юридическая консультация"
+                                data: "{{# questions_item }}{{ title_seo }}{{/ questions_item }} — Юридическая консультация"
                             }
                         ]
                     }

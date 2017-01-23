@@ -12,6 +12,26 @@ module.exports = {
                  * Кастомная метаинформация
                  *
                  */
+                /*{
+                    name: "crosspageOgTitle",
+                    opt: {
+                        tag: "meta",
+                        attrs: {
+                            property: "og:title",
+                            content: "Бесплатная юридическая консультация. Российская газета"
+                        }
+                    }
+                },
+                {
+                    name: "crosspagesOgDescription",
+                    opt: {
+                        tag: "meta",
+                        attrs: {
+                            property: "og:description",
+                            content: "Правовая поддержка граждан: вы можете получить юридическую помощь бесплатно. Задайте вопрос опытному юристу"
+                        }
+                    }
+                },*/
                 {
                     name: "canonicalLink",
                     opt: {
@@ -22,7 +42,7 @@ module.exports = {
                         }
                     }
                 },
-                {
+                /*{
                     name: "indexTitle",
                     opt: {
                         tag: "title",
@@ -42,7 +62,7 @@ module.exports = {
                             content: "Российская газета - издание Правительства Российской Федерации, официальный публикатор документов"
                         }
                     }
-                },
+                },*/
                 {
                     name: "indexYandexVerification",
                     opt: {

@@ -13,6 +13,26 @@ module.exports = {
     			 * 
     			 */
     			{
+                    name: "crosspageOgTitle",
+                    opt: {
+                        tag: "meta",
+                        attrs: {
+                            property: "og:title",
+                            content: "Бесплатная юридическая консультация. Российская газета"
+                        }
+                    }
+                },
+                {
+                    name: "crosspagesOgDescription",
+                    opt: {
+                        tag: "meta",
+                        attrs: {
+                            property: "og:description",
+                            content: "Правовая поддержка граждан: вы можете получить юридическую помощь бесплатно. Задайте вопрос опытному юристу"
+                        }
+                    }
+                },
+    			{
     				name: "canonicalLink",
     				opt: {
     					tag: "link",
@@ -28,7 +48,7 @@ module.exports = {
 						tag: "title",
 						contents: [
 							{
-								data: "Бесплатная юридическая консультация.  Российская газета"
+								data: "Бесплатная юридическая консультация. Российская газета"
 							}
 						]
 					}

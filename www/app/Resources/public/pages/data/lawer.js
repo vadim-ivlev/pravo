@@ -13,6 +13,26 @@ module.exports = {
                  *
                  */
                 {
+                    name: "crosspageOgTitle",
+                    opt: {
+                        tag: "meta",
+                        attrs: {
+                            property: "og:title",
+                            content: "{{# jurists_profile }}{{ jurist__last_name }} {{ jurist__first_name }} {{ jurist__patronymic }}{{/ jurists_profile }} — Юридическая консультация"
+                        }
+                    }
+                },
+                /*{
+                    name: "crosspagesOgDescription",
+                    opt: {
+                        tag: "meta",
+                        attrs: {
+                            property: "og:description",
+                            content: "Правовая поддержка граждан: вы можете получить юридическую помощь бесплатно. Задайте вопрос опытному юристу"
+                        }
+                    }
+                },*/
+                {
                     name: "canonicalLink",
                     opt: {
                         tag: "link",
@@ -28,7 +48,7 @@ module.exports = {
                         tag: "title",
                         contents: [
                             {
-                                data: "{{# jurists_profile }}{{ jurist__last_name }} {{ jurist__first_name }} {{ jurist__patronymic }}{{/ jurists_profile }} &mdash; Юридическая консультация"
+                                data: "{{# jurists_profile }}{{ jurist__last_name }} {{ jurist__first_name }} {{ jurist__patronymic }}{{/ jurists_profile }} — Юридическая консультация"
                             }
                         ]
                     }

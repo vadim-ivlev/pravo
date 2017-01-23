@@ -13,12 +13,32 @@ module.exports = {
                  *
                  */
                 {
+                    name: "crosspageOgTitle",
+                    opt: {
+                        tag: "meta",
+                        attrs: {
+                            property: "og:title",
+                            content: "Правила оказания юридических консультаций на сайте Российской газеты"
+                        }
+                    }
+                },
+                /*{
+                    name: "crosspagesOgDescription",
+                    opt: {
+                        tag: "meta",
+                        attrs: {
+                            property: "og:description",
+                            content: "Правовая поддержка граждан: вы можете получить юридическую помощь бесплатно. Задайте вопрос опытному юристу"
+                        }
+                    }
+                },*/
+                {
                     name: "indexTitle",
                     opt: {
                         tag: "title",
                         contents: [
                             {
-                                data: "Правила оказания юридических консультаций на сайте &laquo;Российской газеты&raquo;"
+                                data: "Правила оказания юридических консультаций на сайте Российской газеты"
                             }
                         ]
                     }

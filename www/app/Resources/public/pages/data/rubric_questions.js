@@ -13,6 +13,26 @@ module.exports = {
                  *
                  */
                 {
+                    name: "crosspageOgTitle",
+                    opt: {
+                        tag: "meta",
+                        attrs: {
+                            property: "og:title",
+                            content: "Рубрика {{ current_rubric.current_rubric_name }} — Юридическая консультация"
+                        }
+                    }
+                },
+                /*{
+                    name: "crosspagesOgDescription",
+                    opt: {
+                        tag: "meta",
+                        attrs: {
+                            property: "og:description",
+                            content: "Правовая поддержка граждан: вы можете получить юридическую помощь бесплатно. Задайте вопрос опытному юристу"
+                        }
+                    }
+                },*/
+                {
                     name: "canonicalLink",
                     opt: {
                         tag: "link",
@@ -28,7 +48,7 @@ module.exports = {
                         tag: "title",
                         contents: [
                             {
-                                data: "Рубрика {{ current_rubric.current_rubric_name }} &mdash; Юридическая консультация"
+                                data: "Рубрика {{ current_rubric.current_rubric_name }} — Юридическая консультация"
                             }
                         ]
                     }

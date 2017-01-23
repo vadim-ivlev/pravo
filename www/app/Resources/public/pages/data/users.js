@@ -13,6 +13,26 @@ module.exports = {
                  *
                  */
                 {
+                    name: "crosspageOgTitle",
+                    opt: {
+                        tag: "meta",
+                        attrs: {
+                            property: "og:title",
+                            content: "Список юристов{{# rubrics__conditions }}{{# rubrics__conditions__current_id }} {{rubrics__conditions__name}}{{/ rubrics__conditions__current_id }}{{/ rubrics__conditions }}{{# pagination }}{{# all__pages }}{{^ first }}{{# current }}, страница {{ number_page }}{{/ current }}{{/ first }}{{/ all__pages }}{{/ pagination }} — Юридическая консультация"
+                        }
+                    }
+                },
+                /*{
+                    name: "crosspagesOgDescription",
+                    opt: {
+                        tag: "meta",
+                        attrs: {
+                            property: "og:description",
+                            content: "Правовая поддержка граждан: вы можете получить юридическую помощь бесплатно. Задайте вопрос опытному юристу"
+                        }
+                    }
+                },*/
+                {
                     name: "canonicalLink",
                     opt: {
                         tag: "link",
@@ -28,7 +48,7 @@ module.exports = {
                         tag: "title",
                         contents: [
                             {
-                                data: "Список юристов{{# rubrics__conditions }}{{# rubrics__conditions__current_id }} {{rubrics__conditions__name}}{{/ rubrics__conditions__current_id }}{{/ rubrics__conditions }}{{# pagination }}{{# all__pages }}{{^ first }}{{# current }}, страница {{ number_page }}{{/ current }}{{/ first }}{{/ all__pages }}{{/ pagination }} &mdash; Юридическая консультация"
+                                data: "Список юристов{{# rubrics__conditions }}{{# rubrics__conditions__current_id }} {{rubrics__conditions__name}}{{/ rubrics__conditions__current_id }}{{/ rubrics__conditions }}{{# pagination }}{{# all__pages }}{{^ first }}{{# current }}, страница {{ number_page }}{{/ current }}{{/ first }}{{/ all__pages }}{{/ pagination }} — Юридическая консультация"
                             }
                         ]
                     }

@@ -18,43 +18,84 @@ use AppBundle\Services\Configer;
 class RubricController extends ApiController
 {
 
-    public function formedDataAction ($numberPage = 1, $offset = 0, $id)
+    public function formedDataAction ($numberPage = 1, $offset = 0, $CPUName)
     {
+
+        $keyRedis = "PravoRubric(id:{$CPUName}/numberPage:{$numberPage})";
+        $redis = $this->redis->get($keyRedis);
+        $redis = unserialize($redis);
+
+        $Questions = $this->connect_to_Jurists_bd
+            ->getRepository('JuristBundle:Questions')
+            ->createQueryBuilder('q')
+            ->innerJoin('q.rubrics', 'r')
+            ->innerJoin('q.answersId', 'a')
+            ->where('r.CPUName = :CPUName')
+            ->andWhere('q.step = :step')
+            ->setParameters(['CPUName' => $CPUName, 'step' => self::FINISHED_STEP])
+            ->orderBy('a.date', 'DESC')
+            ->getQuery()
+            ->execute();
 
         $Rubric = $this->connect_to_Jurists_bd
             ->getRepository('JuristBundle:Rubrics')
-            ->findOneById($id);
+            ->findOneBy(['CPUName' => $CPUName]);
 
-        $this->pageNotFound(!$Rubric);
+        if ($redis) {
+            $this->result = $redis;
+        } else {
 
-        $this->formedQuestions($Rubric->getQuestions()->toArray());
+            $this->pageNotFound(!$Questions);
 
-        $this->PaginationAction(
-            $this->result['questions_list'], 
-            self::PAGINATION_FOR_JURISTS, 
-            self::COUNT_RECORDS_ON_PAGE_JURISTS, 
-            $numberPage,
-            '/rubric/',
-            1,
-            "/" . trim($id) //trim потому что лезут пробелы
-        ); //Место расположения должно быть ибо тут важно место
+            $this->formedQuestions($Questions);
 
-        $crutchForPagination = []; //Потому что архитектура первоначально была не верно заложенна
-        
-        foreach ($this->result['questions_list'] as $keyCrutchForPagination => $valCrutchForPagination) {
-            if ($keyCrutchForPagination >= $offset && $keyCrutchForPagination < $offset + self::COUNT_RECORDS_ON_PAGE_JURISTS) { //Диапозон записей на странице, по умолчанию 7
-                $crutchForPagination[] = $valCrutchForPagination;
+            $this->PaginationAction(
+                $this->result['questions_list'],
+                self::PAGINATION_FOR_JURISTS,
+                self::COUNT_RECORDS_ON_PAGE_JURISTS,
+                $numberPage,
+                '/rubric/',
+                1,
+                "/" . trim($CPUName) //trim потому что лезут пробелы
+            ); //Место расположения должно быть ибо тут важно место
+
+            $crutchForPagination = []; //Потому что архитектура первоначально была не верно заложенна
+
+            foreach ($this->result['questions_list'] as $keyCrutchForPagination => $valCrutchForPagination) {
+                if ($keyCrutchForPagination >= $offset && $keyCrutchForPagination < $offset + self::COUNT_RECORDS_ON_PAGE_JURISTS) { //Диапозон записей на странице, по умолчанию 7
+                    $crutchForPagination[] = $valCrutchForPagination;
+                }
             }
+
+            $this->result['questions_list'] = $crutchForPagination; //Костыль
+            $this->result['current_rubric'] = [
+                'current_rubric_name' => $Rubric->getName(),
+                'current_rubric_id' => $Rubric->getId()
+            ];
+
+            $this->result['description_rubric'] = [
+                'description_title' => ((!empty($Rubric->getTitle())) ? $Rubric->getTitle() : $Rubric->getName()),
+                'description_description' => ((!empty($Rubric->getDescription())) ? $Rubric->getDescription() : false),
+                'description_length' => ((!empty($Rubric->getDescription())) ? true : false),
+            ];
+
+            $this->redis->setEx($keyRedis, (60 * 180), serialize( //На 3 часа
+                    [
+                        'questions_list' => $this->result['questions_list'],
+                        'current_rubric' => $this->result['current_rubric'],
+                        'description_rubric' => $this->result['description_rubric'],
+                        'pagination' => $this->result['pagination']
+                    ]
+                ));
         }
-        $this->result['questions_list'] = $crutchForPagination; //Костыль
 
         $this->HeaderAction(self::TABS_MAIN);
 
-        $this->SidebarAction('json', $id);
-
-        $this->result['current_rubric'] = $Rubric->getName();
+        $this->SidebarAction('json', $Rubric->getId());
 
         $this->getDate();
+
+        $this->result['canonical'] = "https://pravo.rg.ru/rubric/{$CPUName}/";
 
         $this->pageNotFound(empty($this->result['questions_list']));
 
@@ -62,13 +103,26 @@ class RubricController extends ApiController
 
     }
 
-    public function RubricAction ($numberPage = 1, $id = null)
+    public function RubricAction ($numberPage = 1, $CPUName = null)
     {
-
         $offset = $this->generateOffsetPagination($numberPage);
 
-        if($this->fetchFormat() === 'json'){
-            $this->formedDataAction($numberPage, $offset, $id);
+        if(is_numeric(intval($CPUName)) && intval($CPUName) !== 0) { //Редирект со старых id на новые
+
+            //За
+            $Rubric = $this->connect_to_Jurists_bd
+                ->getRepository('JuristBundle:Rubrics')
+                ->findOneById($CPUName);
+
+            $this->pageNotFound(!$Rubric);
+
+            $CPUName = $Rubric->getCPUName();
+
+            return $this->redirectToRoute('rg_rubric_page_1', ['CPUName' => $CPUName], 301);
+        }
+
+        if($this->fetchFormat() === 'json') {
+            $this->formedDataAction($numberPage, $offset, $CPUName);
 
             $response = new JsonResponse();
             $response
@@ -81,7 +135,7 @@ class RubricController extends ApiController
             return new Response(
                 $m->render(
                     @file_get_contents(dirname(__FILE__) . '/../Resources/views/rubric_questions.html'),
-                    json_decode(json_encode($this->formedDataAction($numberPage, $offset, $id)))
+                    json_decode(json_encode($this->formedDataAction($numberPage, $offset, $CPUName)))
                 )
             );
         } else {

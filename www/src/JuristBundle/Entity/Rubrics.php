@@ -33,6 +33,11 @@ class Rubrics
     private $companies;
 
     /**
+     * @var string
+     */
+    private $CPUName;
+
+    /**
      * @var integer
      */
     private $tags;
@@ -41,6 +46,16 @@ class Rubrics
      * @var integer
      */
     private $questions;
+
+    /**
+     * @var string
+     */
+    private $title;
+
+    /**
+     * @var string
+     */
+    private $description;
 
     /**
      * @var \DateTime
@@ -140,11 +155,35 @@ class Rubrics
      *
      * @param integer $companies
      *
-     * @return Companies
+     * @return string
      */
     public function setCompanies($companies)
     {
         $this->companies = $companies;
+
+        return $this;
+    }
+
+    /**
+     * Get CPUName
+     *
+     * @return integer
+     */
+    public function getCPUName()
+    {
+        return $this->CPUName;
+    }
+
+    /**
+     * Set companies
+     *
+     * @param integer $CPUName
+     *
+     * @return string
+     */
+    public function setCPUName($CPUName)
+    {
+        $this->CPUName = $CPUName;
 
         return $this;
     }
@@ -164,7 +203,7 @@ class Rubrics
      *
      * @param string $tags
      *
-     * @return Tags
+     * @return Rubrics
      */
     public function setTags($tags)
     {
@@ -188,7 +227,7 @@ class Rubrics
      *
      * @param integer $questions
      *
-     * @return Questions
+     * @return Rubrics
      */
     public function setQuestions($questions)
     {
@@ -205,6 +244,54 @@ class Rubrics
     public function getQuestions()
     {
         return $this->questions;
+    }
+
+    /**
+     * Set title
+     *
+     * @param string $title
+     *
+     * @return Rubrics
+     */
+    public function setTitle($title)
+    {
+        $this->title = $title;
+
+        return $this;
+    }
+
+    /**
+     * Get title
+     *
+     * @return string
+     */
+    public function getTitle()
+    {
+        return $this->title;
+    }
+
+    /**
+     * Set description
+     *
+     * @param string $description
+     *
+     * @return Rubrics
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * Get description
+     *
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->description;
     }
 
     /**

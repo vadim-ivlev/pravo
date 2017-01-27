@@ -216,9 +216,6 @@ class SearchController extends ApiController
 
             $this->formedDataAction($request, $pageVal);
 
-            /*if ($_SERVER['REMOTE_ADDR'] == '212.69.111.131') { //TODO для сортировки
-                dump($this->result);die;
-            }*/
             return new Response(
                 $m->render(
                     @file_get_contents(dirname(__FILE__) . '/../Resources/views/search.html'),

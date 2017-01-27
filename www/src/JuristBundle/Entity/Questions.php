@@ -119,7 +119,8 @@ class Questions
     private $editedAt;
 
 
-    public function __construct(){
+    public function __construct()
+    {
         $this->date = new \DateTime();
     }
 

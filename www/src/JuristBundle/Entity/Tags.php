@@ -18,6 +18,16 @@ class Tags
     private $name;
 
     /**
+     * @var string
+     */
+    private $title;
+
+    /**
+     * @var string
+     */
+    private $description;
+
+    /**
      * @var integer
      */
     private $questions;
@@ -65,6 +75,54 @@ class Tags
     public function getName()
     {
         return $this->name;
+    }
+
+    /**
+     * Set title
+     *
+     * @param string $title
+     *
+     * @return Tags
+     */
+    public function setTitle($title)
+    {
+        $this->title = $title;
+
+        return $this;
+    }
+
+    /**
+     * Get title
+     *
+     * @return string
+     */
+    public function getTitle()
+    {
+        return $this->title;
+    }
+
+    /**
+     * Set description
+     *
+     * @param string $description
+     *
+     * @return Tags
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * Get description
+     *
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->description;
     }
 
     /**

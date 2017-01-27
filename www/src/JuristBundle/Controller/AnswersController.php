@@ -68,12 +68,14 @@ class AnswersController extends ApiController
              * result block
              */
             $this->result['questions_item']['questions__head'][] = [
-                'questions__head__author' => [
+                'questions__head__author' =>
                     [
-                        'questions__head__author__name' => $Question->getAuthorId()->getName(),
-                        'questions__head__author__location' => $Question->getAuthorId()->getCity()
-                    ]
-                ],
+                        [
+                            'questions__head__author__name' => $Question->getAuthorId()->getName(),
+                            'questions__head__author__location' => $Question->getAuthorId()->getCity(),
+                        ],
+                'questions__head__author__active' => $this->hideTargetCityAndFIO($Question->getRubrics()->toArray())
+                    ],
                 'questions__head__date' => $Question->getDate()->format('d.m.Y'),
             ];
             $this->result['questions_item']['rubrics'] = $this->formedTagsAndRubrics($Question->getRubrics()->toArray()); //$rubric_result;
@@ -126,12 +128,15 @@ class AnswersController extends ApiController
             }
 
             foreach ($Question->getRubrics()->toArray() as $rubricCurrentId) {
-                $this->result['current_rubric'] = $rubricCurrentId->getName();
+                $this->result['current_rubric'] = [
+                    'current_rubric_name' => $rubricCurrentId->getName(),
+                    'current_rubric_id' => $rubricCurrentId->getId()
+                ];
             }
 
             $this->redis->setEx(
                 $nameRedisNow,
-                (60 * 10), //Expires на 10 минут
+                (60 * 60), //Expires на 60 минут
                 serialize(
                     [
                         'questions_item' => $this->result['questions_item'],

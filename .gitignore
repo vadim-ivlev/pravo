@@ -20,3 +20,4 @@ share/
 node_modules/
 npm-debug.log
 www/src/JuristBundle/Resources
+www/web/robots.txt

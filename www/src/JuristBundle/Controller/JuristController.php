@@ -106,18 +106,18 @@ class JuristController extends ApiController
             $this->result['Ban'] = 'Users block';
         }
 
-        //if($_SERVER['REMOTE_ADDR'] == '212.69.111.131') {
-            if (isset($this->result['pagination'])) { //Если пагинация есть и $pageId > count($this->result['pagination'])
-                if ($pageId > count($this->result['pagination'])) $this->pageNotFound(true);
-            } else {
-                if ($pageId != 1) $this->pageNotFound(true);
-            }
-            //dump(isset($this->result['pagination']) && count($this->result['pagination']));die;
-        //}
+        
+        if (isset($this->result['pagination'])) { //Если пагинация есть и $pageId > count($this->result['pagination'])
+            if ($pageId > count($this->result['pagination'])) $this->pageNotFound(true);
+        } else {
+            if ($pageId != 1) $this->pageNotFound(true);
+        }
 
         $this->HeaderAction(self::TABS_JURIST);
 
         $this->SidebarAction('json');
+
+        $this->result['canonical'] = "https://pravo.rg.ru/jurist/{$id}/";
 
         return $this->result;
     }

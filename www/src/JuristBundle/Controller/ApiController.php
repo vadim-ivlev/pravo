@@ -18,6 +18,8 @@ use JuristBundle\Entity\Jurists;
 use JuristBundle\Entity\AuthUsers;
 //use JuristBundle\Entity\Sections;
 
+use JuristBundle\Entity\QuestionsRepository;
+
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -55,6 +57,12 @@ class ApiController extends Controller implements ContainerAwareInterface
     const LIMIT_FOR_JURIST = 5;
 
     /**
+     * Значение для ВКЛЮЧЕННОГО юзера
+     * 0 = false 
+     */
+    const VALUE_ACTIVE_USER = 0;
+
+    /**
      * Константы ссылок
      * */
     const JURISTS = '/'; //Главная роут на бандел
@@ -66,11 +74,16 @@ class ApiController extends Controller implements ContainerAwareInterface
     const JURIST = self::JURISTS . 'jurist/';
     const QUESTION = self::JURISTS . 'question/';
     const COMPANIES = self::JURISTS . 'companies/';
-    const ANSWER = self::JURISTS . 'answer/';
+    //const ANSWER = self::JURISTS . 'answer/';
+    const ANSWER = self::RUBRICS . 'question/';
 
     const REDIRECT = '/'; //Окончание ссылок для редиректа
 
     const FORMAT = 'html'; //Константы параметров методов
+
+    const LIST_FOR_HIDE_CITY_AND_FIO = [ //Список для скрытия городов и ФИО у указанных в этом массиве рубрик
+        'Статьи'
+    ];
 
     public $filtersForJurists = [
         'alphabet' => 'По алфавиту',
@@ -168,6 +181,18 @@ class ApiController extends Controller implements ContainerAwareInterface
         return ($id - 1)  * static::COUNT_RECORDS_ON_PAGE_JURISTS;
     }
 
+    public function hideTargetCityAndFIO(array $arrayRubrics)
+    {//скрывает у рубрики СТАТЬИ город и ФИО
+        foreach (self::LIST_FOR_HIDE_CITY_AND_FIO as $rubric) {
+            foreach ($arrayRubrics as $rubricName) {
+                if ($rubric === $rubricName->getName())
+                    return false;
+            }
+        }
+
+        return true;
+    }
+
     private function getData()
     {
         $request = Request::createFromGlobals();
@@ -222,8 +247,8 @@ class ApiController extends Controller implements ContainerAwareInterface
                         : 'rubrics__link'
                     =>
                         (stristr((string)key($data_val), 'Tags'))
-                        ? self::TAG /*.'html/'*/ . '1/' . $data_val->getId() . self::REDIRECT
-                        : self::RUBRICS /*. self::FORMAT . '/'*/ . $data_val->getId() . self::REDIRECT,
+                        ? self::TAG . '1/' . $data_val->getId() . self::REDIRECT
+                        : self::RUBRICS . $data_val->getId() . self::REDIRECT,
                     (stristr((string)key($data_val), 'Tags'))
                         ? 'tags__id'
                         : 'rubrics__id'
@@ -237,25 +262,25 @@ class ApiController extends Controller implements ContainerAwareInterface
 
     /**
      * @param $idJurist
-     * @param null $conditions_date - нужно для сортировки юристов с условием за неделю
+     * @param null $conditionsDate - нужно для сортировки юристов с условием за неделю
      * @return int
      */
-    protected function getCountConsultation($idJurist, $conditions_date = null)
+    protected function getCountConsultation($idJurist, $conditionsDate = null)
     {
         if (gettype($idJurist) == 'object') $idJurist = $idJurist->getId();
 
-        if ($conditions_date) {
+        if ($conditionsDate) {
             $CountConsultationJurist = $this->connect_to_Jurists_bd
                 ->getRepository('JuristBundle:Questions')
                 ->createQueryBuilder('q')
-                ->innerJoin("q.answersId", 'a', 'WITH', "q.id = a.question")
+                ->innerJoin('q.answersId', 'a', 'WITH', 'q.id = a.question')
                 ->where('q.AuthUsersId = :AuthUsersId')
                 ->andWhere('q.step = :step')
                 ->andWhere('a.date > :date')
                 ->setParameters([
                     'AuthUsersId' => $idJurist,
                     'step' => self::FINISHED_STEP,
-                    'date' => $conditions_date
+                    'date' => $conditionsDate
                 ])
                 ->getQuery()
                 ->execute();
@@ -263,7 +288,7 @@ class ApiController extends Controller implements ContainerAwareInterface
         } else {
             $CountConsultationJurist = $this->connect_to_Jurists_bd
                 ->getRepository('JuristBundle:Questions')
-                ->findBy(array('AuthUsersId' => $idJurist, 'step' => self::FINISHED_STEP));
+                ->findBy(['AuthUsersId' => $idJurist, 'step' => self::FINISHED_STEP]);
         }
 
         return count($CountConsultationJurist);
@@ -301,7 +326,7 @@ class ApiController extends Controller implements ContainerAwareInterface
         return $imageMedium;
     }
 
-    protected function receiveAnOverallRating($ratings)
+    protected function receiveAnOverallRating($ratings) //СТАРЫЙ! Пееренесен в репозиторий Questions
     {
         $totalRating = 0; //Рейтинг юриста считается по вытаскиванию его рейтинга из всех вопросов и его суммирования
         foreach ($ratings as $rating) {
@@ -325,22 +350,22 @@ class ApiController extends Controller implements ContainerAwareInterface
          */
         define('TYPE_PAGE', '');
 
-        $this->result['categories']['rubrics'][] = array(
+        $this->result['categories']['rubrics'][] = [
             'rubrics__title' => 'Все',
             'rubrics__link' => self::RUBRICS . TYPE_PAGE .'0' . self::REDIRECT,
             'rubrics__active' => (!isset($id)) ? 1 : 0, //Если вызов во "ВСЕХ" рубриках
             'rubric__id' => null
-        );
+        ];
 
         foreach ($rubrics as $rubric) {
-            $this->result['categories']['rubrics'][] = array(
+            $this->result['categories']['rubrics'][] = [
                 'rubrics__title' => $rubric->getName(),
                 'rubrics__link' => self::RUBRICS . TYPE_PAGE . $rubric->getId() . self::REDIRECT,
                 'rubrics__active' => (isset($id) && $id == $rubric->getId()) ? 1 : 0, //Если вызов во НЕ ВО "ВСЕХ" рубриках и проверка на тру для конкретного юзвера
                 'rubrics__id' => $rubric->getId()
-            );
+            ];
 
-            $rubrics_tags__items = array();
+            $rubrics_tags__items = [];
             foreach ($rubric->getTags()->toArray() as $val_tags) {
                 if (!empty($val_tags->getName())) {
 
@@ -350,11 +375,11 @@ class ApiController extends Controller implements ContainerAwareInterface
                         if ($check_finished_step->getStep() >= self::FINISHED_STEP) ++$total_frequency;
                     }
 
-                    $rubrics_tags__items['rubrics_tags__items'][] = array(
+                    $rubrics_tags__items['rubrics_tags__items'][] = [
                         'rubrics_tags__items__title' => $val_tags->getName(),
                         'rubrics_tags__items__link' => self::TAG . '1/' . $val_tags->getId()  . self::REDIRECT,
                         'rubrics_tags__items__frequency' => (!$total_frequency) ? false : $total_frequency  //Количество тегов в поросе
-                    );
+                    ];
                 }
             }
 
@@ -365,17 +390,17 @@ class ApiController extends Controller implements ContainerAwareInterface
              */
             if (!empty($rubrics_tags__items)) {
                 if (isset($id) && $rubric->getId() == $id) {
-                    $this->result['categories']['rubrics_tags'][] = array(
+                    $this->result['categories']['rubrics_tags'][] = [
                         'rubrics_tags__name' => $rubric->getName(),
                         'rubrics_tags__links' => self::RUBRIC . '1/' . $rubric->getId() . self::REDIRECT,
                         'rubrics_tags__items_unit' => $rubrics_tags__items
-                    );
+                    ];
                 } else if (!isset($id)) {
-                    $this->result['categories']['rubrics_tags'][] = array(
+                    $this->result['categories']['rubrics_tags'][] = [
                         'rubrics_tags__name' => $rubric->getName(),
                         'rubrics_tags__links' => self::RUBRIC . '1/' . $rubric->getId() . self::REDIRECT,
                         'rubrics_tags__items_unit' => $rubrics_tags__items
-                    );
+                    ];
                 }
             }
         }
@@ -449,6 +474,123 @@ class ApiController extends Controller implements ContainerAwareInterface
              */
             if (!empty($question->getAnswersId()) && $question->getStep() >= self::FINISHED_STEP) {
                 
+                /**
+                 * генерация mods
+                 *
+                 * */
+                $this->result['questions_list'][] = [
+                    'mods' => [
+                        ($question->getAnswersId()->getAuthUsersId()->getDateEndPay() > new \DateTime('now'))
+                            ? self::NAME_PAY_JURIST
+                            : '', //Оплачен ли юрист
+
+                        ($question->getAnswersId()->getTypeCards() === 'card')
+                            ? 'card'
+                            : '', //Является ли вопрос карточкой
+                    ],
+
+                    /**
+                     * генерация автора
+                     *
+                     * */
+                    'questions__head' =>
+                        [
+                            'questions__head__author' =>
+                                [
+                                    [
+                                        'questions__head__author__name' => $question->getAuthorId()->getName(),
+                                        'questions__head__author__location' => $question->getAuthorId()->getCity()
+                                    ]
+                                ],
+                            'questions__head__author__active' => $this->hideTargetCityAndFIO($question->getRubrics()->toArray())
+
+                        ]
+                    ,
+                    'questions_list__bibliotechka' => ($questionKey == 2) ? true : false,
+                    'tags' => $this->formedTagsAndRubrics($question->getTags()->toArray()), //tags_result,
+                    'link' => self::RUBRICS . self::QUESTIONS . $question->getId() .  self::REDIRECT,
+                    'rubrics' => $this->formedTagsAndRubrics($question->getRubrics()->toArray()),
+                    'title' => $question->getTitle(),
+                    //'title' => (!empty($question->getTitleSeo()) ? $question->getTitleSeo() : $question->getTitle()),
+                    'text' => $question->getDescription(),
+                    //'text' => (!empty($question->getDescriptionSeo()) ? $question->getDescriptionSeo() : $question->getDescription()),
+                    'jurist' => [
+                        'jurist__active' => ($question->getAnswersId()->getAuthUsersId()->getDisabled() == self::DISABLED_VALUE_ON) ? !self::DISABLED_VALUE_ON : self::DISABLED_VALUE_ON,
+                        'jurist__first_name' => $question->getAnswersId()->getAuthUsersId()->getName(),
+                        'jurist__last_name' => $question->getAnswersId()->getAuthUsersId()->getSecondName(),
+                        'jurist__link' => self::JURIST . $question->getAnswersId()->getAuthUsersId()->getId() . self::REDIRECT,
+                        'jurist__img' => [$this->fetchAvatar($question->getAnswersId()->getAuthUsersId(), $question)],
+                        'jurist__rate' => [
+                            'jurist__rate__reply' => $question->getAnswersId()->getRating(),
+                            'jurist__rate__author' => $this->receiveAnOverallRating($question->getAnswersId()->getAuthUsersId()->getAnswers()->toArray()) //total_rating
+                        ]
+                    ],
+                    'questions__item_complete' => 0,
+                ];
+
+
+                if ($questionKey == 3) {
+                    $this->result['questions_list'][] = [
+                        'mods' => [
+                            'bibliotechka'
+                        ]
+                    ];
+                }
+
+                foreach ($this->result['questions_list'] as &$val) {
+
+                    /**
+                     * Если первый ключ равен оплаченому юристу self::NAME_PAY_JURIST, то выставляем визабилити,
+                     * если нет, то сносим.
+                     */
+                    if (!empty($val['mods'][0]) && $val['mods'][0] === self::NAME_PAY_JURIST) {
+                        $val['visibility'] = [//true если mods = highlighted
+                            'visibility__state' => 'visible'
+                        ];
+                    } else if (isset($val['mods'][0]) && $val['mods'][0] === '') {
+                        unset($val['mods'][0]);
+                    }
+                    if (isset($val['mods'][1]) && $val['mods'][1] === '') unset($val['mods'][1]);
+                    if (!empty($val['mods']) &&  count($val['mods']) > 0) {
+                        $val['mods__length'] = count($val['mods']);
+                    } else {
+                        unset($val['mods']);
+                    }
+
+                    if (!empty($val['mods']))$val['mods'] = array_values($val['mods']); //Потому что тупой мусташ считает [1 => 'cart'] массивом, хотя, явно это не указанно
+
+                    /**
+                     * Работа с тегами и рубриками
+                     */
+                    $this->generateFirstLast($val['rubrics']);
+
+                    $this->generateFirstLast($val['tags']);
+
+                    $val['tags__length'] = count($val['tags']);
+
+                    /**
+                     * Работаем с хранилищем аватарок для юристов
+                     */
+                    if (isset($val['jurist']) && count($val['jurist']['jurist__img']) > 0) {
+                        $val['jurist']['jurist__img__length'] = count($val['jurist']['jurist__img']);
+                    }
+                }
+                unset($val);
+            }
+        }
+    }
+
+    protected function formedQuestionsDBAL ($questions)
+    {
+
+        foreach ($questions as $questionKey => $question) {
+
+            dump($question);die;
+            /**
+             * Проверка что есть ответ. Потому что нельзя сделать сразу выборку по ассоциативным полям answersId
+             */
+            if (!empty($question->getAnswersId()) && $question->getStep() >= self::FINISHED_STEP) {
+
                 /**
                  * генерация mods
                  *
@@ -681,7 +823,7 @@ class ApiController extends Controller implements ContainerAwareInterface
         }
 
 
-        return array_values($result_array); //Для мусташа, а иначе он не понимает ключи, т.е. порядок array(3 => 'ddd', 1 => 'bbb') ему не понятен, а так понятен array(0 => 'ddd', 1 => 'bbb')
+        return array_values($result_array); //Для мусташа, а иначе он не понимает ключи, т.е. порядок [3 => 'ddd', 1 => 'bbb'] ему не понятен, а так понятен [0 => 'ddd', 1 => 'bbb']
     }
 
     public function SidebarAction(
@@ -693,7 +835,7 @@ class ApiController extends Controller implements ContainerAwareInterface
 
         if ($format === 'json') {
 
-            $nameRedisNow = 'PravoSidebarAction'.str_replace(' ', '-', date('Y-m-d H')); //PravoSidebarAction2016-10-18-03 такой вид, каждый час
+            $nameRedisNow = 'Pravo:Api:SidebarAction';
 
             $redisNow = $this->redis->get($nameRedisNow);
 
@@ -701,6 +843,7 @@ class ApiController extends Controller implements ContainerAwareInterface
 
             if ($redisNow) {
 
+                //TODO Так сделано, потому что сайдбар можеть вызываться в середине или конце, и при явном  присвоение $this->result мы затрем результаты
                 $this->result['sidebar'] =  $redisUnserialize['sidebar'];
                 $this->result['questions_latest'] =  $redisUnserialize['questions_latest'];
                 $this->result['questions_latest__length'] =  $redisUnserialize['questions_latest__length'];
@@ -717,9 +860,10 @@ class ApiController extends Controller implements ContainerAwareInterface
             $Answers = $this->connect_to_Jurists_bd
                 ->getRepository('JuristBundle:Answers')
                 ->createQueryBuilder('a')
-                ->innerJoin('a.question', 'q', 'WITH', "q.id = a.question")
+                //->select('a.id')
+                ->innerJoin('a.question', 'q', 'WITH', 'q.id = a.question')
                 ->where('q.step = :step')
-                ->setParameters(array('step' => self::FINISHED_STEP))
+                ->setParameters(['step' => self::FINISHED_STEP])
                 ->orderBy('a.date', 'DESC')
                 ->getQuery()
                 ->execute();
@@ -728,39 +872,37 @@ class ApiController extends Controller implements ContainerAwareInterface
                 ->getRepository('JuristBundle:AuthUsers')
                 ->findBy([], []);
 
-            $questionsLatest = array();
+            $questionsLatest = [];
 
             $date = new \DateTime('now'); //Для jurists_top
             $expires = '-1 week';
             $date->modify($expires);
-            $idJuristsTop = array(); //Выборк юристов для топа jurists_top
+            $idJuristsTop = []; //Выборк юристов для топа jurists_top
+
+            $dataByAnswerId = $this->connect_to_Jurists_bd->getRepository('JuristBundle:Questions')->fetchDataByAnswerId($Answers, self::FINISHED_STEP);
 
             foreach ($Answers as $Answer) {
 
                 /**
                  * Выборка вопросов которые уже опубликованы
                  */
-                $rubrics = array();
+                $rubrics = [];
 
                 if ($Answer->getDate() > $date && $Answer->getAuthUsersId()->getDisabled() == self::DISABLED_VALUE_ON) { //Выборк id юристов для топа у которых есть ответы за последнию неделю
                     $idJuristsTop[] = $Answer->getAuthUsersId()->getId();
                 }
 
-                foreach ($Answer->getQuestion()->getRubrics()->toArray() as $rubric) { //Формируем рубрики
-                    if (!empty($rubric->getName())){
-                        $rubrics[] = array(
-                            'rubrics__title' => htmlspecialchars($rubric->getName()),
-                            'rubrics__link' =>  self::RUBRICS . $rubric->getId() . self::REDIRECT
-                        );
-                    }
-                }
+                $rubrics[] = [
+                    'rubrics__title' => htmlspecialchars($dataByAnswerId[$Answer->getId()]['r_name']),
+                    'rubrics__link' =>  self::RUBRICS . $dataByAnswerId[$Answer->getId()]['r_id'] . self::REDIRECT
+                ];
 
-                $questionsLatest[] = array(
-                    'mods' => array($questionsLatestMods),
+                $questionsLatest[] = [
+                    'mods' => [$questionsLatestMods],
                     'rubrics' => $rubrics,
-                    'title' => $Answer->getQuestion()->getTitle(),
-                    'link' => self::RUBRICS . self::QUESTIONS . $Answer->getQuestion()->getId() .  self::REDIRECT,
-                );
+                    'title' => $dataByAnswerId[$Answer->getId()]['q_title'],
+                    'link' => self::RUBRICS . self::QUESTIONS . $dataByAnswerId[$Answer->getId()]['q_id'] .  self::REDIRECT,
+                ];
 
                 foreach ($questionsLatest as $keyQuestionLatest => &$questionLatest) {
                     if (count($questionLatest['rubrics']) == 0) {
@@ -778,40 +920,52 @@ class ApiController extends Controller implements ContainerAwareInterface
             $idJuristsTop = array_unique($idJuristsTop);
             $juristsTop = [];
 
+
+            /** Получаем из РЕПЫ рубрики по массиву id юристов **/
+            $dataByJuristRubric = $this->connect_to_Jurists_bd->getRepository('JuristBundle:Questions')->fetchDataByJurist($Jurists);
+            $totalRatingJurist = $this->connect_to_Jurists_bd->getRepository('JuristBundle:Questions')->fetchTotalRatingJurist($Jurists, self::FINISHED_STEP);
+            $totalCountConsultation = $this->connect_to_Jurists_bd->getRepository('JuristBundle:Questions')->totalCountConsultation($Jurists, date('Y-m-d H:i:s', strtotime($expires)));
+
             foreach($Jurists as $Jurist) {
 
                 /**
                  * todo jurists_top
                  *  перебираем id юристов у которых есть ответы за последнию неделю
                  */
+
                 foreach ($idJuristsTop  as $idJuristTop) {
                     if ($Jurist->getId() == $idJuristTop) {
-                        $juristsTop[] = array(
-                            'mods' => array($juristsTopMods),
+                        $juristsTop[] = [
+                            'mods' => [$juristsTopMods],
                             'jurist__img' => [$this->fetchAvatar($Jurist, $Jurist)],
                             'jurist__link' => self::JURIST . $Jurist->getId() . self::REDIRECT,
                             'jurist__first_name' => $Jurist->getName(),
                             'jurist__last_name' => $Jurist->getSecondName(),
-                            'jurist__consultations' => $this->getCountConsultation($Jurist->getId(), date('Y-m-d H:i:s', strtotime($expires))),
-                            'jurist__rate__author' => $this->receiveAnOverallRating($Jurist->getAnswers()->toArray()), //Общий рейтинг
-                        );
+                            'jurist__consultations' => ((isset($totalCountConsultation['result_date'][$Jurist->getId()]['total_count'])) ? $totalCountConsultation['result_date'][$Jurist->getId()]['total_count'] : 0),
+                            //'jurist__rate__author' => $this->receiveAnOverallRating($Jurist->getAnswers()->toArray()), //Общий рейтинг Старый способ
+                            'jurist__rate__author' => $totalRatingJurist[$Jurist->getId()]['total_rating'], //Общий рейтинг
+                        ];
                     }
                 }
 
                 $rubrics = [];
-                foreach ($Jurist->getRubrics()->toArray() as $rubricVal) { //Формируем рубрики для юристов
-                    $rubrics[] = [
-                        'rubrics__title' => $rubricVal->getName(),
-                        'rubrics__link' => self::RUBRICS . $rubricVal->getId() . self::REDIRECT,
-                    ];
+                if(isset($dataByJuristRubric[$Jurist->getId()])) {
+
+                    foreach ($dataByJuristRubric[$Jurist->getId()] as $rubricVal) { //Формируем рубрики для юристов
+                        $rubrics[] = [
+                            'rubrics__title' => $rubricVal['r_name'],
+                            'rubrics__link' => self::RUBRICS . $rubricVal['r_id'] . self::REDIRECT,
+                        ];
+                    }
+
                 }
 
                 /**
                  * todo jurists_feed
                  */
                 if ($Jurist->getDateEndOfferServices() > new \DateTime('now') && $Jurist->getDisabled() === self::DISABLED_VALUE_ON) { //Проверка оплачености и активности
-                    $juristFeed[] = array(
-                        'mods' => array($juristsLatestMods),
+                    $juristFeed[] = [
+                        'mods' => [$juristsLatestMods],
                         'jurist__img' => [$this->fetchAvatar($Jurist, $Jurist)],
                         'jurist__link' => self::JURIST . $Jurist->getId() . self::REDIRECT,
                         'jurist__education' => $Jurist->getGraduate(),
@@ -821,8 +975,9 @@ class ApiController extends Controller implements ContainerAwareInterface
                         'jurist__last_name' => $Jurist->getSecondName(),
                         'jurist__patronymic' => $Jurist->getPatronymic(),
                         'rubrics' => $rubrics
-                    );
+                    ];
                 }
+
             }
 
             /**
@@ -875,14 +1030,21 @@ class ApiController extends Controller implements ContainerAwareInterface
             $this->result['jurists_top'] = $juristsTop; //Юристы в топе за неделю
 
             foreach($RubricsQuery as $rubricValue) {
-                $this->result['sidebar']['categories']['rubrics'][] = array(
+                $this->result['sidebar']['categories']['rubrics'][] = [
                     'rubrics__title' => $rubricValue->getName(),
-                    'rubrics__link' => self::RUBRIC . '1/' . $rubricValue->getId() . self::REDIRECT,
+                    'rubrics__link' => self::RUBRIC . $rubricValue->getCPUName() . self::REDIRECT,
                     //'rubrics__active' => (!empty($id) && $id == $rubricValue->getId()) ? true : false,
-                );
+                ];
             }
 
+            usort($this->result['sidebar']['categories']['rubrics'], function($firstVal, $twoVal) {
+                if($firstVal['rubrics__title'] === 'Другое') { //Помещаем указанное слово вниз, поп росьбе сео и проект менеджера
+                    return 1;
+                }
+            });
+
             $this->redis->setEx($nameRedisNow, (60 * 120), serialize($this->result)); //Expires на 2 часа
+
 
             return $this->result;
 
@@ -895,43 +1057,43 @@ class ApiController extends Controller implements ContainerAwareInterface
             throw $this->createAccessDeniedException("Incorrect format!!! " . PHP_EOL . " Use next structure: /jurists/page/{name page}/{format == html || json}!");
 
         }
-        
+
     }
-    
+
     public function HeaderAction($active = null)
     {
 
-        $this->result['header'] = array(
-            'tabs' => array(
-                array(
+        $this->result['header'] = [
+            'tabs' => [
+                [
                     'tabs__name' => 'Консультации',
                     'tabs__link' => self::MAIN_HEADER,
                     'tabs__active' => ($active == 'main') ? 1 : 0,
-                ),
-                array(
+                ],
+                [
                     'tabs__name' => 'Юристы',
                     'tabs__link' => self::JURISTS_HEADER,
                     'tabs__active' => ($active == 'jurist') ? 1 : 0,
-                ),
-                array(
+                ],
+                [
                     'tabs__name' => 'Правила',
                     'tabs__link' => self::RULES_HEADER,
                     'tabs__active' => ($active == 'rules') ? 1 : 0,
-                ),
-                array(
+                ],
+                [
                     'tabs__name' => 'Теги',
                     'tabs__link' => self::TAGS_HEADER,
                     'tabs__active' => ($active == 'tags') ? 1 : 0,
-                ),
-                array(
+                ],
+                [
                     'tabs__name' => 'Партнеры',
                     'tabs__link' => self::PARTNERS_HEADER,
                     'tabs__active' => ($active == 'partners') ? 1 : 0,
-                ),
-            ),
+                ],
+            ],
             'header__link' => self::MAIN_HEADER,
             'header__title' => self::MAIN_HEADER_TITLE
-        );
+        ];
 
         return $this->result;
         
@@ -996,7 +1158,9 @@ class ApiController extends Controller implements ContainerAwareInterface
     )
     {
         if (!$currentPage) {
-            if ($this->get('kernel')->getEnvironment() != 'dev') $this->pageNotFound(true);
+            if ($this->get('kernel')->getEnvironment() != 'dev') {
+                $this->pageNotFound(true);
+            }
             throw new Exception("Не допустимое значение: id = $currentPage");
         }
         $countRecords = (gettype($query) === 'string') ? $query : count($query);

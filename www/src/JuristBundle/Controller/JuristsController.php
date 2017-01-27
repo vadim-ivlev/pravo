@@ -27,56 +27,152 @@ class JuristsController extends ApiController
     public function formedDataAction ($id, $limitPagination)
     {
         $request = Request::createFromGlobals();
-        $rubricsConditionsGet = $request->query->get('rubrics_conditions'); //Сортировка по специализации
-        $filtersForJuristGet = $request->query->get('order_by'); //Сортировка по рейтинг/алфавит/компания
 
-        $rubricsСonditions = $this->connect_to_Jurists_bd //Получаем рубрики для селекта Сonditions
-            ->getRepository('JuristBundle:Rubrics')
-            ->findBy([]);
+        $nameRedisNow = "PravoJurists(id:${id}/uri:'" . $request->getUri() . "')";
 
-        $this->result['rubrics__conditions'][] = [ //Получаем рубрики для селекта (хардкодим Любая специализация)
-            'rubrics__conditions__current_id' => (empty($rubricsСonditions)) ? 'selected' : false,
-            'rubrics__conditions__id' => 0,
-            'rubrics__conditions__name' => 'Любая специализация',
-        ];
+        $redis = $this->redis->get($nameRedisNow);
 
-        foreach ($rubricsСonditions as $rubricsСondition ){ //Формируем рубрики для селекта
-            $this->result['rubrics__conditions'][] = [
-                'rubrics__conditions__current_id' => (!empty($rubricsСonditions) && $rubricsConditionsGet == $rubricsСondition->getId()) ? 'selected' : false,
-                'rubrics__conditions__id' => $rubricsСondition->getId(),
-                'rubrics__conditions__name' => $rubricsСondition->getName(),
+        $redis = unserialize($redis);
+
+        if ($redis) {
+            $this->result = $redis;
+        } else {
+
+            $rubricsConditionsGet = $request->query->get('rubrics_conditions'); //Сортировка по специализации
+            $filtersForJuristGet = $request->query->get('order_by'); //Сортировка по рейтинг/алфавит/компания
+
+            $rubricsСonditions = $this->connect_to_Jurists_bd //Получаем рубрики для селекта Сonditions
+                ->getRepository('JuristBundle:Rubrics')
+                ->findBy([]);
+
+            $this->result['rubrics__conditions'][] = [ //Получаем рубрики для селекта (хардкодим Любая специализация)
+                'rubrics__conditions__current_id' => (empty($rubricsСonditions)) ? 'selected' : false,
+                'rubrics__conditions__id' => 0,
+                'rubrics__conditions__name' => 'Любая специализация',
             ];
-        }
 
-        foreach ($this->filtersForJurists as $filtersForJuristKey => $filtersForJuristVal) { //Получаем фильтры для селекта
-            $this->result['filters__for__jurists'][] = [
-                'filters__for__jurists__values' => $filtersForJuristKey,
-                'filters__for__jurists__name' => $filtersForJuristVal,
-                'filters__for__jurists__current' => ($filtersForJuristGet == $filtersForJuristKey) ? 'selected' : false,
-            ];
-        }
+            foreach ($rubricsСonditions as $rubricsСondition ){ //Формируем рубрики для селекта
+                $this->result['rubrics__conditions'][] = [
+                    'rubrics__conditions__current_id' => (!empty($rubricsСonditions) && $rubricsConditionsGet == $rubricsСondition->getId()) ? 'selected' : false,
+                    'rubrics__conditions__id' => $rubricsСondition->getId(),
+                    'rubrics__conditions__name' => $rubricsСondition->getName(),
+                ];
+            }
 
-        $request = Request::createFromGlobals();
-        $requestsOrderBy = $request->query->get('order_by');
+            foreach ($this->filtersForJurists as $filtersForJuristKey => $filtersForJuristVal) { //Получаем фильтры для селекта
+                $this->result['filters__for__jurists'][] = [
+                    'filters__for__jurists__values' => $filtersForJuristKey,
+                    'filters__for__jurists__name' => $filtersForJuristVal,
+                    'filters__for__jurists__current' => ($filtersForJuristGet == $filtersForJuristKey) ? 'selected' : false,
+                ];
+            }
 
-        switch ($requestsOrderBy) {
-            case 'rating':
-                $orderBy = [
-                    'j.totalRating',
-                    'desc'
-                ];
-            break;
-            case 'company':
-                $orderBy = [
-                    'c.name',
-                    'desc'
-                ];
-            break;
-            default:
-                $orderBy = [
-                    'j.secondName',
-                    'asc'
-                ];
+            $requestsOrderBy = $request->query->get('order_by');
+
+            switch ($requestsOrderBy) {
+                case 'rating':
+                    $orderBy = [
+                        'j.totalRating',
+                        'desc'
+                    ];
+                    break;
+                case 'company':
+                    $orderBy = [
+                        'c.name',
+                        'desc'
+                    ];
+                    break;
+                default:
+                    $orderBy = [
+                        'j.secondName',
+                        'asc'
+                    ];
+            }
+
+            if (!empty($request->query->get(self::RUBRICS_CONDITION_NAME))) { //TODO переделать
+
+                $Jurists = $this->connect_to_Jurists_bd
+                    ->getRepository('JuristBundle:AuthUsers')
+                    ->createQueryBuilder('j')
+                    ->setFirstResult($limitPagination) //Offset
+                    ->setMaxResults(self::COUNT_RECORDS_ON_PAGE_JURISTS) //Limit
+                    ->join('j.rubrics', 'r')
+                    ->join('JuristBundle:Companies', 'c')
+                    ->where('j.disabled = :disabled')
+                    ->andWhere('j.isJurist = :isJurist')
+                    ->andWhere('j.id != :id')
+                    ->andWhere('c.id = j.companiesId')
+                    ->andWhere('r.id  = ' . $request->query->get(self::RUBRICS_CONDITION_NAME))
+                    ->setParameters(array('disabled' => false, 'isJurist' => true, 'id' => self::ID_USER_WITHOUT_AVATARS))
+                    ->orderBy($orderBy[0], $orderBy[1])
+                    ->getQuery()
+                    ->execute();
+
+                $AllJurist = $this->connect_to_Jurists_bd
+                    ->getRepository('JuristBundle:AuthUsers')
+                    ->createQueryBuilder('j')
+                    ->join('j.rubrics', 'r')
+                    ->where('j.disabled = false')
+                    ->andWhere('j.isJurist = true')
+                    ->andWhere('r.id  = ' . $request->query->get(self::RUBRICS_CONDITION_NAME))
+                    ->andWhere('j.id != ' . self::ID_USER_WITHOUT_AVATARS)
+                    ->orderBy('j.secondName', 'ASC')
+                    ->getQuery()
+                    ->execute();
+            } else {
+
+                $Jurists = $this->connect_to_Jurists_bd
+                    ->getRepository('JuristBundle:AuthUsers')
+                    ->createQueryBuilder('j')
+                    ->setFirstResult($limitPagination) //Offset
+                    ->setMaxResults(self::COUNT_RECORDS_ON_PAGE_JURISTS) //Limit
+                    ->join('JuristBundle:Companies', 'c')
+                    ->where('j.disabled = :disabled')
+                    ->andWhere('j.isJurist = :isJurist')
+                    ->andWhere('j.id != :id')
+                    ->andWhere('c.id = j.companiesId')
+                    ->setParameters(array('disabled' => false, 'isJurist' => true, 'id' => self::ID_USER_WITHOUT_AVATARS))
+                    ->orderBy($orderBy[0], $orderBy[1])
+                    ->getQuery()
+                    ->execute();
+
+                $AllJurist = $this->connect_to_Jurists_bd
+                    ->getRepository('JuristBundle:AuthUsers')
+                    ->createQueryBuilder('j')
+                    ->where('j.disabled = false')
+                    ->andWhere('j.isJurist = true')
+                    ->andWhere('j.id != ' . self::ID_USER_WITHOUT_AVATARS)
+                    ->orderBy('j.secondName', 'ASC')
+                    ->getQuery()
+                    ->execute();
+
+            }
+
+            $this->formedJurists($Jurists);
+
+            $this->pageNotFound(!isset($this->result['jurists_list']));
+
+            $this->PaginationAction(
+                $AllJurist, self::PAGINATION_FOR_JURISTS, self::COUNT_RECORDS_ON_PAGE_JURISTS,
+                $id, '/jurists/', 1, '', $this->ProcessingRequestForPaginationAction()
+            );
+
+
+            if (isset($nameRedisNow) && $this->AllowParamGet($request)) {
+                $this->redis->setEx(
+                    $nameRedisNow,
+                    (60 * 60), //Expires на 1 час
+                    serialize(
+                        [
+                            'pagination' => $this->result['pagination'],
+                            'jurists_list' => $this->result['jurists_list'],
+                            'filters__for__jurists' => $this->result['filters__for__jurists'],
+                            'rubrics__conditions' => $this->result['rubrics__conditions']
+                        ]
+                    )
+                );
+            }
+
         }
 
         $this->HeaderAction(self::TABS_JURIST);
@@ -85,107 +181,39 @@ class JuristsController extends ApiController
 
         $this->getDate();
 
-        if (!$request->query->get(self::RUBRICS_CONDITION_NAME) && !$request->query->get('order_by')) { //Пока кешируется без любых сортировок
-
-            $nameRedisNow = "PravoJuristsPage(${id})".str_replace(' ', '-', date('Y-m-d H')); //PravoJuristsPage(numberPage)2016-10-18-03 такой вид, каждый час
-
-            $redisNow = $this->redis->get($nameRedisNow);
-
-            $redisUnserialize = unserialize($redisNow); //Так надо из-за мусташа
-
-            if ($redisNow) {
-
-                $this->result['pagination'] =  $redisUnserialize['pagination'];
-                $this->result['jurists_list'] =  $redisUnserialize['jurists_list'];
-
-                return $this->result;
-            }
-        }
-
-        if (!empty($request->query->get(self::RUBRICS_CONDITION_NAME))) { //TODO переделать
-
-            $Jurists = $this->connect_to_Jurists_bd
-                ->getRepository('JuristBundle:AuthUsers')
-                ->createQueryBuilder('j')
-                ->setFirstResult($limitPagination) //Offset
-                ->setMaxResults(self::COUNT_RECORDS_ON_PAGE_JURISTS) //Limit
-                ->join('j.rubrics', 'r')
-                ->join('JuristBundle:Companies', 'c')
-                ->where('j.disabled = :disabled')
-                ->andWhere('j.isJurist = :isJurist')
-                ->andWhere('j.id != :id')
-                ->andWhere('c.id = j.companiesId')
-                ->andWhere('r.id  = ' . $request->query->get(self::RUBRICS_CONDITION_NAME))
-                ->setParameters(array('disabled' => false, 'isJurist' => true, 'id' => self::ID_USER_WITHOUT_AVATARS))
-                ->orderBy($orderBy[0], $orderBy[1])
-                ->getQuery()
-                ->execute();
-
-            $AllJurist = $this->connect_to_Jurists_bd
-                ->getRepository('JuristBundle:AuthUsers')
-                ->createQueryBuilder('j')
-                ->join('j.rubrics', 'r')
-                ->where('j.disabled = false')
-                ->andWhere('j.isJurist = true')
-                ->andWhere('r.id  = ' . $request->query->get(self::RUBRICS_CONDITION_NAME))
-                ->andWhere('j.id != ' . self::ID_USER_WITHOUT_AVATARS)
-                ->orderBy('j.secondName', 'ASC')
-                ->getQuery()
-                ->execute();
-        } else {
-
-            $Jurists = $this->connect_to_Jurists_bd
-                ->getRepository('JuristBundle:AuthUsers')
-                ->createQueryBuilder('j')
-                ->setFirstResult($limitPagination) //Offset
-                ->setMaxResults(self::COUNT_RECORDS_ON_PAGE_JURISTS) //Limit
-                ->join('JuristBundle:Companies', 'c')
-                ->where('j.disabled = :disabled')
-                ->andWhere('j.isJurist = :isJurist')
-                ->andWhere('j.id != :id')
-                ->andWhere('c.id = j.companiesId')
-                ->setParameters(array('disabled' => false, 'isJurist' => true, 'id' => self::ID_USER_WITHOUT_AVATARS))
-                ->orderBy($orderBy[0], $orderBy[1])
-                ->getQuery()
-                ->execute();
-
-            $AllJurist = $this->connect_to_Jurists_bd
-                ->getRepository('JuristBundle:AuthUsers')
-                ->createQueryBuilder('j')
-                ->where('j.disabled = false')
-                ->andWhere('j.isJurist = true')
-                ->andWhere('j.id != ' . self::ID_USER_WITHOUT_AVATARS)
-                ->orderBy('j.secondName', 'ASC')
-                ->getQuery()
-                ->execute();
-
-        }
-
-        $pagination = [];
-
-        $this->formedJurists($Jurists);
-
-        $this->pageNotFound(!isset($this->result['jurists_list']));
-
-        $this->PaginationAction(
-            $AllJurist, self::PAGINATION_FOR_JURISTS, self::COUNT_RECORDS_ON_PAGE_JURISTS,
-            $id, '/jurists/', 1, '', $this->ProcessingRequestForPaginationAction()
-        );
-
-        if (isset($nameRedisNow)) {
-            $this->redis->setEx(
-                $nameRedisNow,
-                (60 * 60), //Expires на 1 час
-                serialize(
-                    [
-                        'pagination' => $this->result['pagination'],
-                        'jurists_list' => $this->result['jurists_list']
-                    ]
-                )
-            );
-        }
+        $this->result['canonical'] = 'https://pravo.rg.ru/jurists/1/';
 
         return $this->result;
+    }
+
+    private function AllowParamGet($request)
+    { //Служит для определения, разрешенн ли GET запрос. Ибо пишется url целиком в редис и можно вальнуть его большим количеством запросов
+
+        if(is_array($request->query->all()) && empty($request->query->all())) return true; //Если нет никаких GET
+
+        $allows = [ //Формируем список разрешений
+            'order_by' => [
+                'alphabet', 'rating', 'company'
+            ],
+            'rubrics_conditions' => [],
+        ];
+
+        if (!empty(array_diff_key($request->query->all(), $allows))) return false; //Если ключи не совпадают (есть лишний ключ в get запросе, например https://pravo.rg.ru/app_dev.php/jurists/12/?order_by=alphabet&rubrics_conditions=3&something=123)
+
+        $rubrics = $this->connect_to_Jurists_bd
+            ->getRepository('JuristBundle:Rubrics')
+            ->findBy([]);
+
+        foreach ($rubrics as $rubric) { //Заполяем всеми возможными id
+            $allows['rubrics_conditions'][] = $rubric->getId();
+        }
+
+        foreach ($request->query->all() as $queryKey => $queryVal) {
+            if (!in_array($queryVal, $allows[$queryKey])) return false; //Проверяем, есть ли в @var $allows значение из $request->query->all(), если нет, то возвращаем false, чтоб не писать в кеш
+        }
+
+        return true;
+
     }
 
     /**

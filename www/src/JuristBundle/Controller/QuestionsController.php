@@ -20,7 +20,7 @@ class QuestionsController extends ApiController
 {
     public function formedDataAction($id = 1, $limitPagination, $aliasEntity = 'q', $fieldOrderBy= '.id'){
 
-        $keyRedis = "Questions_page_${id}";
+        $keyRedis = "PravoQuestions(id:${id})";
         $redisNow = $this->redis->get($keyRedis);
         $redisNow = unserialize($redisNow);
 
@@ -30,35 +30,53 @@ class QuestionsController extends ApiController
             $Questions = $this->connect_to_Jurists_bd
                 ->getRepository('JuristBundle:Questions')
                 ->createQueryBuilder($aliasEntity)
-                ->innerJoin("q.answersId", 'a', 'WITH', "q.id = a.question")
+                ->innerJoin('q.answersId', 'a', 'WITH', 'q.id = a.question')
                 ->where($aliasEntity . '.step = :step')
                 ->setParameters(array('step' => self::FINISHED_STEP))
-                ->setFirstResult($limitPagination)//offset
+                ->setFirstResult($limitPagination) //offset
                 ->setMaxResults(self::COUNT_RECORDS_ON_PAGE_JURISTS) //limit
                 ->orderBy('a.date', 'DESC')
                 ->getQuery()
                 ->execute();
 
-            $AllQuestions = $this->connect_to_Jurists_bd
-                ->getRepository('JuristBundle:Questions')
-                ->createQueryBuilder($aliasEntity)
-                ->where($aliasEntity . '.step = :step')
-                ->setParameters(array('step' => self::FINISHED_STEP))
-                ->orderBy($aliasEntity . $fieldOrderBy, 'DESC')
-                ->getQuery()
-                ->execute();
-
             $this->formedQuestions($Questions);
+
+//            $AllQuestions = $this->connect_to_Jurists_bd
+//                ->getRepository('JuristBundle:Questions')
+//                ->createQueryBuilder($aliasEntity)
+//                ->where($aliasEntity . '.step = :step')
+//                ->setParameters(array('step' => self::FINISHED_STEP))
+//                ->orderBy($aliasEntity . $fieldOrderBy, 'DESC')
+//                ->getQuery()
+//                ->execute();
+//
+//            $AllQuestionsAfterCheck = [];
+//            foreach ($AllQuestions as $AllQuestion) {
+//                if (!empty($AllQuestion->getAnswersId())) {
+//                    $AllQuestionsAfterCheck[] = $AllQuestion;
+//                }
+//            }
+//
+//            $this->PaginationAction($AllQuestionsAfterCheck, self::PAGINATION_FOR_JURISTS, self::COUNT_RECORDS_ON_PAGE_JURISTS, $id, '/main/');
+
+            $select = 'a.id';
+            $conditions['step'] = self::FINISHED_STEP;
+            $AllQuestions = $this->connect_to_Jurists_bd->getRepository('JuristBundle:Questions')->getAllQuestions($conditions, $select);
 
             $AllQuestionsAfterCheck = [];
             foreach ($AllQuestions as $AllQuestion) {
-                if (!empty($AllQuestion->getAnswersId())) {
+                if (!empty($AllQuestion->id)) {
                     $AllQuestionsAfterCheck[] = $AllQuestion;
                 }
             }
 
-            $this->PaginationAction($AllQuestionsAfterCheck, self::PAGINATION_FOR_JURISTS, self::COUNT_RECORDS_ON_PAGE_JURISTS, $id, '/main/');
-            $this->redis->setEx($keyRedis, (60 * 10), serialize(
+            $pagination = $this->get('app.pagination');
+
+            $this->result['pagination'] = $pagination->PaginationAction($AllQuestionsAfterCheck, self::PAGINATION_FOR_JURISTS, self::COUNT_RECORDS_ON_PAGE_JURISTS, $id, '/main/');
+            if (!$this->result['pagination'])
+                $this->pageNotFound(true);
+
+            $this->redis->setEx($keyRedis, (60 * 30), serialize( //30 мин
                 [
                     'questions_list' => $this->result['questions_list'],
                     'pagination' => $this->result['pagination']
@@ -73,6 +91,8 @@ class QuestionsController extends ApiController
         $this->getDate();
 
         $this->pageNotFound(!$this->result['questions_list']);
+
+        $this->result['canonical'] = 'https://pravo.rg.ru';
 
         return $this->result;
     }

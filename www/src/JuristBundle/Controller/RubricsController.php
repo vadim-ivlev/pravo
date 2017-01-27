@@ -19,14 +19,14 @@ class RubricsController extends ApiController
 {
 
     /**
-     * @param $numberPage - для погинации
+     * @param $id - на рубрики
      * @return mixed
      */
-    public function formedDataAction ($numberPage)
+    public function formedDataAction ($id)
     {
         $this->result['material_title'] = 'Рубрики и актуальные теги';
 
-        $nameRedisNow = "PravoRubrics(" . strval($numberPage) . ")";
+        $nameRedisNow = "PravoRubrics(" . strval($id) . ")";
         $redis = $this->redis->get($nameRedisNow);
         $redis = unserialize($redis);
 
@@ -37,9 +37,9 @@ class RubricsController extends ApiController
                 ->getRepository('JuristBundle:Rubrics')
                 ->findBy([], ['name' => 'ASC']);
 
-            if ($numberPage) {
+            if ($id) {
 
-                $this->formedTagsForRubrics($rubrics, $numberPage); //Хардкор для ВСЕХ рубрик
+                $this->formedTagsForRubrics($rubrics, $id); //Хардкор для ВСЕХ рубрик
 
             } else { //Если рубрика не выбрана - т.е в разделе ВСЕ рубрики
 
@@ -65,18 +65,20 @@ class RubricsController extends ApiController
 
         $this->getDate();
 
+        $this->result['canonical'] = "https://pravo.rg.ru/rubrics/{$id}/";
+
         return $this->result;
     }
 
     /**
-     * @param int $numberPage - Номер страницы пагинации
+     * @param int $id - Номер страницы пагинации
      * @return JsonResponse|Response
      */
-    public function RubricAction ($numberPage = 0)
+    public function RubricAction ($id = 0)
     {
         if ($this->fetchFormat() === 'json') {
 
-            $this->formedDataAction ($numberPage);
+            $this->formedDataAction ($id);
 
             $response = new JsonResponse();
             $response
@@ -91,7 +93,7 @@ class RubricsController extends ApiController
             return new Response(
                 $m->render(
                     @file_get_contents(dirname(__FILE__) . '/../Resources/views/rubrics.html'),
-                    json_decode(json_encode($this->formedDataAction($numberPage)))
+                    json_decode(json_encode($this->formedDataAction($id)))
                 )
             );
 

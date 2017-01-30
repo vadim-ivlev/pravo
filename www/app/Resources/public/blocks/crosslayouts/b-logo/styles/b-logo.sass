@@ -5,12 +5,14 @@
 
 // Объявляем блок
 $block: '.b-logo'
+$header: '.b-header'
 
 // Модификаторы
 
 // Стили 
 #{$block}
     display: inline-block
+    vertical-align: top
     padding: 20px 20px 10px
     &.b-header__info-item
         display: inline-block
@@ -89,3 +91,12 @@ $block: '.b-logo'
             &__image
 //width: 220px
 //height: 76px
+
+#{$header}
+
+    &_index
+
+        #{$block}
+
+            &__image
+                pointer-events: none

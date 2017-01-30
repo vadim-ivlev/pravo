@@ -1,0 +1,1 @@
+<a class="b-rg__link" href="{[ data.link ]}">{[ data.text ]}</a>

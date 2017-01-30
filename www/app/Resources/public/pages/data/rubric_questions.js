@@ -18,20 +18,20 @@ module.exports = {
                         tag: "meta",
                         attrs: {
                             property: "og:title",
-                            content: "Рубрика {{ current_rubric.current_rubric_name }} — Юридическая консультация"
+                            content: "{{# description_rubric}}{{# description_length}}{{ description_title }}{{/ description_length}}{{/ description_rubric}}"
                         }
                     }
                 },
-                /*{
+                {
                     name: "crosspagesOgDescription",
                     opt: {
                         tag: "meta",
                         attrs: {
                             property: "og:description",
-                            content: "Правовая поддержка граждан: вы можете получить юридическую помощь бесплатно. Задайте вопрос опытному юристу"
+                            content: "{{# description_rubric}}{{# description_length}}{{ description_description }}{{/ description_length}}{{/ description_rubric}}"
                         }
                     }
-                },*/
+                },
                 {
                     name: "canonicalLink",
                     opt: {
@@ -48,21 +48,21 @@ module.exports = {
                         tag: "title",
                         contents: [
                             {
-                                data: "Рубрика {{ current_rubric.current_rubric_name }} — Юридическая консультация"
+                                data: "{{# description_rubric}}{{# description_length}}{{ description_title }}{{/ description_length}}{{/ description_rubric}}"
                             }
                         ]
                     }
                 },
-                /*{
+                {
                     name: "indexDescription",
                     opt: {
                         tag: "meta",
                         attrs: {
                             name: "description",
-                            content: "Российская газета - издание Правительства Российской Федерации, официальный публикатор документов"
+                            content: "{{# description_rubric}}{{# description_length}}{{ description_description }}{{/ description_length}}{{/ description_rubric}}"
                         }
                     }
-                },*/
+                },
                 {
                     name: "indexYandexVerification",
                     opt: {

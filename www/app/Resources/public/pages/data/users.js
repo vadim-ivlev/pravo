@@ -18,20 +18,20 @@ module.exports = {
                         tag: "meta",
                         attrs: {
                             property: "og:title",
-                            content: "Список юристов{{# rubrics__conditions }}{{# rubrics__conditions__current_id }} {{rubrics__conditions__name}}{{/ rubrics__conditions__current_id }}{{/ rubrics__conditions }}{{# pagination }}{{# all__pages }}{{^ first }}{{# current }}, страница {{ number_page }}{{/ current }}{{/ first }}{{/ all__pages }}{{/ pagination }} — Юридическая консультация"
+                            content: "Список юристов, которым вы можете задать вопрос бесплатно"
                         }
                     }
                 },
-                /*{
+                {
                     name: "crosspagesOgDescription",
                     opt: {
                         tag: "meta",
                         attrs: {
                             property: "og:description",
-                            content: "Правовая поддержка граждан: вы можете получить юридическую помощь бесплатно. Задайте вопрос опытному юристу"
+                            content: "Перечень всех юристов, оказывающих бесплатные юридические консультации. Среди них специалисты по наследственным, семейным, жилищным, налоговым, судебным и другим вопросам"
                         }
                     }
-                },*/
+                },
                 {
                     name: "canonicalLink",
                     opt: {
@@ -48,21 +48,21 @@ module.exports = {
                         tag: "title",
                         contents: [
                             {
-                                data: "Список юристов{{# rubrics__conditions }}{{# rubrics__conditions__current_id }} {{rubrics__conditions__name}}{{/ rubrics__conditions__current_id }}{{/ rubrics__conditions }}{{# pagination }}{{# all__pages }}{{^ first }}{{# current }}, страница {{ number_page }}{{/ current }}{{/ first }}{{/ all__pages }}{{/ pagination }} — Юридическая консультация"
+                                data: "Список юристов, которым вы можете задать вопрос бесплатно"
                             }
                         ]
                     }
                 },
-                /*{
+                {
                     name: "indexDescription",
                     opt: {
                         tag: "meta",
                         attrs: {
                             name: "description",
-                            content: "Российская газета - издание Правительства Российской Федерации, официальный публикатор документов"
+                            content: "Перечень всех юристов, оказывающих бесплатные юридические консультации. Среди них специалисты по наследственным, семейным, жилищным, налоговым, судебным и другим вопросам"
                         }
                     }
-                },*/
+                },
                 {
                     name: "indexYandexVerification",
                     opt: {

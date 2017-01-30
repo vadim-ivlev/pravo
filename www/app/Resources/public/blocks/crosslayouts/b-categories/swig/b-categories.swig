@@ -9,7 +9,7 @@
 		</div>
 		{{# categories }}
 			{{# rubrics }}
-				<div class="b-categories__item{% if mod == "main" %} b-categories__item_main{% endif %}{{# rubrics__active }} b-categories__item_active{{/ rubrics__active }}">
+				<div class="b-categories__item{% if mod == "main" %} b-categories__item_main{% endif %}{{# select_rubric}} b-categories__item_highlighted{{/ select_rubric}}{{# rubrics__active }} b-categories__item_active{{/ rubrics__active }}">
 					{{^ rubrics__active }}
 						<a href="{{ rubrics__link }}" class="b-link b-categories__link">{{ rubrics__title }}</a>
 					{{/ rubrics__active }}

@@ -31,11 +31,12 @@
 
                         <div class="b-material-head">
                         	{{# questions__head__author__active}}
-                            {% if data[mod].showBlocks.author %}
-                                {{# questions__head__author }}
-                                    <span class="b-question-block__author">{{ questions__head__author__name }}{{# questions__head__author__location }} ({{ questions__head__author__location }}){{/ questions__head__author__location }}</span>
-                                {{/ questions__head__author }}
-                            {% endif %}
+                                {% if data[mod].showBlocks.author %}
+                                    {{# questions__head__author }}
+                                        <span class="b-question-block__author">{{ questions__head__author__name }}{{# questions__head__author__location }} ({{ questions__head__author__location }}){{/ questions__head__author__location }}</span>
+                                    {{/ questions__head__author }}
+                                {% endif %}
+                            {{/ questions__head__author__active}}
                             {% if data[mod].showBlocks.date %}
                                 {{# questions__item_complete }}
                                     <span class="b-question-block__date">{{ questions__head__date }}</span>
@@ -43,7 +44,6 @@
                             {% endif %}
 
                             <span class="b-material-head__rubric">Рубрика:{{# rubrics }} <a class="b-link b-material-head__rubric-name" href="{{ rubrics__link }}">{{ rubrics__title }}</a>{{^ rubrics__LAST__ }},{{/ rubrics__LAST__ }}{{/ rubrics}}</span>
-                            {{/ questions__head__author__active}}
 
                         </div>
 

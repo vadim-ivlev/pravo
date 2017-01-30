@@ -1,6 +1,7 @@
 JuristBundle\Entity\AuthUsers:
     type: entity
     table: jurist.auth_users
+    repositoryClass: JuristBundle\Entity\AuthUsersRepository
     id:
         id:
             type: integer
@@ -81,6 +82,7 @@ JuristBundle\Entity\AuthUsers:
         rubrics:
             targetEntity: Rubrics
             inversedBy: auth_users
+            #fetch: EAGER
             joinTable:
               name: jurist.auth_users_rubrics
               joinColumns:
@@ -89,18 +91,20 @@ JuristBundle\Entity\AuthUsers:
               inverseJoinColumns:
                 rubrics_id:
                   referencedColumnName: id
-    #oneToOne:User_modefieded todo
     oneToOne:
         UserModefiededId:
             targetEntity: UserModefieded
             mappedBy: AuthUserId
+            #fetch: EAGER
     oneToMany:
         answers:
             targetEntity: Answers
             mappedBy: authUsersId
+            #fetch: EAGER
     manyToOne:
             companiesId:
                 targetEntity: Companies
+                #fetch: EAGER
                 joinColumn:
                     name: companies_id
                     referencedColumnName: id

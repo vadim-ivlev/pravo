@@ -1,6 +1,7 @@
 JuristBundle\Entity\Questions:
     type: entity
     table: jurist.questions
+    repositoryClass: JuristBundle\Entity\QuestionsRepository
     id:
         id:
             type: integer
@@ -8,9 +9,6 @@ JuristBundle\Entity\Questions:
             generator:
                 strategy: AUTO
     fields:
-        #juristsId:
-        #    type: integer
-        #    column: jurists_id
         AuthUsersId:
             type: integer
             column: authUsers_id
@@ -21,9 +19,23 @@ JuristBundle\Entity\Questions:
         title:
             type: string
             length: '150'
+        titleSeo:
+            column: title_seo
+            type: string
+            length: '150'
+            nullable: TRUE
+        keywordsSeo:
+            column: keywords_seo
+            type: string
+            length: '255'
+            nullable: TRUE
         date:
             type: datetime
         description:
+            type: text
+            nullable: TRUE
+        descriptionSeo:
+            column: description_seo
             type: text
             nullable: TRUE
         status:
@@ -46,8 +58,6 @@ JuristBundle\Entity\Questions:
         editedAt:
             type: datetime
             nullable: TRUE
-        #questionId:
-        #    type: integer
     oneToOne:
         answersId:
             targetEntity: Answers
@@ -55,7 +65,6 @@ JuristBundle\Entity\Questions:
     manyToOne:
         authorId:
           targetEntity: Author
-          #inversedBy: questions
           joinColumn:
             name: author_id
             referencedColumnName: id

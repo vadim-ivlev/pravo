@@ -24,6 +24,8 @@ class QuestionsController extends ApiController
         $redisNow = $this->redis->get($keyRedis);
         $redisNow = unserialize($redisNow);
 
+	$this->pageNotFound($limitPagination < (int)0);
+
         if ($redisNow) {
             $this->result = $redisNow;
         } else {

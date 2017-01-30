@@ -17,6 +17,12 @@ JuristBundle\Entity\Tags:
             type: datetime
         editedAt:
             type: datetime
+        title:
+            type: text
+            nullable: TRUE
+        description:
+            type: text
+            nullable: TRUE
 #    manyToOne:
 #                creator:
 #                    targetEntity: RG\WorkspaceBundle\Entity\User

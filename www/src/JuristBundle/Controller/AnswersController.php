@@ -74,8 +74,8 @@ class AnswersController extends ApiController
                             'questions__head__author__name' => $Question->getAuthorId()->getName(),
                             'questions__head__author__location' => $Question->getAuthorId()->getCity(),
                         ],
-                'questions__head__author__active' => $this->hideTargetCityAndFIO($Question->getRubrics()->toArray())
                     ],
+                'questions__head__author__active' => $this->hideTargetCityAndFIO($Question->getRubrics()->toArray()),
                 'questions__head__date' => $Question->getDate()->format('d.m.Y'),
             ];
             $this->result['questions_item']['rubrics'] = $this->formedTagsAndRubrics($Question->getRubrics()->toArray()); //$rubric_result;

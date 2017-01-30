@@ -13,27 +13,26 @@ JuristBundle\Entity\Rubrics:
             type: string
             length: '100'
             unique: true
+        title:
+            type: text
+            nullable: TRUE
+        CPUName:
+            column: CPU_name
+            type: string
+            length: '255'
+            unique: true
+        description:
+            type: text
+            nullable: TRUE
         createdAt:
             type: datetime
         editedAt:
             type: datetime
     manyToMany:
-                    #companies: #todo START выпелин из-за ненадобности
-                    #    targetEntity: Companies
-                    #    mappedBy: rubrics
-                    #inversedBy: rubrics #todo END выпелин из-за ненадобности
-
-                    #joinTable:
-                      #name: jurist.companies_rubrics
-                      #joinColumns:
-                        #rubrics_id:
-                          #referencedColumnName: id
-                      #inverseJoinColumns:
-                      #  companies_id:
-                      #    referencedColumnName: id
                 tags:
                     targetEntity: Tags
                     inversedBy: rubrics
+                    #fetch: EAGER
                     joinTable:
                       name: jurist.tags_rubrics
                       joinColumns:
@@ -45,6 +44,7 @@ JuristBundle\Entity\Rubrics:
                 questions:
                     targetEntity: Questions
                     inversedBy: rubrics
+                    #fetch: EAGER
                     joinTable:
                       name: jurist.rubrics_questions
                       joinColumns:
@@ -53,19 +53,8 @@ JuristBundle\Entity\Rubrics:
                       inverseJoinColumns:
                         questions_id:
                           referencedColumnName: id
-                #jurists: #todo
-                #    targetEntity: Jurists
-                #    mappedBy: rubrics
                 authUsers:
                     targetEntity: AuthUsers
                     mappedBy: rubrics
-                    #inversedBy: rubrics
-                    #joinTable:
-                    #  name: jurist.jurists_rubrics
-                    #  joinColumns:
-                    #    rubrics_id:
-                    #      referencedColumnName: id
-                    #  inverseJoinColumns:
-                    #    questions_id:
-                    #      referencedColumnName: id
+                    #fetch: EAGER
     lifecycleCallbacks: {  }

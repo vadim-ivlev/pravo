@@ -1,6 +1,6 @@
-jurist_homepage:
-    path:     /hello/
-    defaults: { _controller: JuristBundle:Default:index }
+#jurist_test:
+#    path:     /test/
+#    defaults: { _controller: JuristBundle:Test:# }
 
 jurist_get_list_of_questions:
     path:     /questions/{rubric}/{tag}
@@ -16,18 +16,6 @@ jurist_get_answer:
     path:     /question/{id}/answer/
     defaults: { _controller: JuristBundle:Question:getAnswer }
 
-jurist_get_list_of_jurists:
-    path:     /users/
-    defaults: { _controller: JuristBundle:JuristSS:getAll }
-
-jurist_get_one_jurist:
-    path:     /user/{id}/
-    defaults: { _controller: JuristBundle:JuristSS:getOne }
-
-jurist_get_tags_of_rubrics:
-    path:     /rubric/{id}/
-    defaults: { _controller: JuristBundle:Rubric:getTags }
-
 rg_main_page_1: #главная
         path:     /
         defaults: { _controller: JuristBundle:Questions:main,  page: 1 }
@@ -38,99 +26,76 @@ rg_main_page_2: #главная
         requirements:
                     _pageId: "/d+"
 
-#rg_main_page: #главная
-#        #path:     /main/{pageId}/{format}/{limit_pagination}/
-#        path:     /main/1/
-#        defaults: { _controller: JuristBundle:Questions:main,  page: pageId } #, format: html, limit_pagination: 0}
-#        alias: /
-#        #requirements:
-#                    #_pageId: "/d+"
-#                    #_format: "html/json"
-#                    #_limit_pagination: "/d+"
-#
-#rg_main_page: #главная
-#        #path:     /main/{pageId}/{format}/{limit_pagination}/
-#        path:     /main/{pageId}/
-#        defaults: { _controller: JuristBundle:Questions:main,  page: pageId } #, format: html, limit_pagination: 0}
+#rg_main_page_3: #главная тестовая
+#        path:     /main1/{pageId}/
+#        defaults: { _controller: JuristBundle:Questions1:main,  page: pageId }
 #        requirements:
 #                    _pageId: "/d+"
-#                    #_format: "html/json"
-#                    #_limit_pagination: "/d+"
 
 rg_answer_page: #вопрос-ответ
-        path:     /rubrics/question/{id}/ #{format}/
-        defaults: { _controller: JuristBundle:Answers:answer,  id: null } #, format: html}
+        path:     /rubrics/question/{id}/
+        defaults: { _controller: JuristBundle:Answers:answer,  id: null }
         requirements:
                     _id: "/d+"
-                    #_format: "html/json"
 
-rg_jurist_page1: #страница конкретного юриста
+rg_jurist_page1: #страница конкретного юриста без пагинации
         path:     /jurist/{id}/
         defaults: { _controller: JuristBundle:Jurist:jurist, page: 1, id: null}
         requirements:
                     _id: "/d+"
 
 rg_jurist_page: #страница конкретного юриста
-        path:     /jurist/{pageId}/{id}/ #{format}/
-        #defaults: { _controller: JuristBundle:Jurist:jurist,  id: null, format: html}
+        path:     /jurist/{pageId}/{id}/
         defaults: { _controller: JuristBundle:Jurist:jurist, page: pageId, id: null}
         requirements:
                     _id: "/d+"
                     _pageId: "/d+"
-                    #_format: "html/json"
 
 rg_jurists_page: #страница всех юристов
-        path:     /jurists/{id}/ #{format}/{limit_pagination}/
-        defaults: { _controller: JuristBundle:Jurists:jurists,  id: null } #, format: html , limit_pagination: 0}
+        path:     /jurists/{id}/
+        defaults: { _controller: JuristBundle:Jurists:jurists,  id: null}
         requirements:
                     _id: "/d+"
-                    #_format: "html/json"
-                   #_limit_pagination: "/d+"
 
 
 rg_rubrics_page: # страница рубрик
-        #path:     /rubrics/{format}/{id}/
         path:     /rubrics/{id}/
-        defaults: { _controller: JuristBundle:Rubrics:rubric, id: null } # format: html, id: null}
+        defaults: { _controller: JuristBundle:Rubrics:rubric, id: 0 }
         requirements:
-                    #_format: "html/json"
                     _id: "/d+"
+
+rg_rubric_page_1: # страница конкретной рубрики
+        path:     /rubric/{CPUName}/
+        defaults: { _controller: JuristBundle:Rubric:rubric,  numberPage: 1 }
+        requirements:
+                    _CPUName: "/w+"
+                    _numberPage: "/d+"
 
 rg_rubric_page: # страница конкретной рубрики
-        #path:     /rubric/{number_page}/{format}/{offset}/{id}/
-        path:     /rubric/{number_page}/{id}/
+        path:     /rubric/{numberPage}/{CPUName}/
         defaults: { _controller: JuristBundle:Rubric:rubric}
         requirements:
-                    #_format: "html/json"
-                    _id: "/d+"
-                    _id_page: "/d+"
+                    _CPUName: "/w+"
+                    _numberPage: "/d+"
 
 rg_tag_page: # страница конкретного тега
-        #path:     /tag/{format}/{id}/{id_page}/
-        path:     /tag/{id_page}/{id}/
+        path:     /tag/{idPage}/{id}/
         defaults: { _controller: JuristBundle:Tag:tag}
         requirements:
-                    #_format: "html/json"
-                    _id_page: "/d+"
+                    _idPage: "/d+"
                     _id: "/d+"
 
 ask_page: # форма задачи вопроса
-        path:     /ask/ #{format}/
-        defaults: { _controller: JuristBundle:Ask:ask } #, format: html}
-        #requirements:
-                    #_format: "html/json"
+        path:     /ask/
+        defaults: { _controller: JuristBundle:Ask:ask }
 
 rules_page: # правила
-        path:     /rules/ #{format}/
-        defaults: { _controller: JuristBundle:Rules:rules } #, format: html}
-        #requirements:
-                   #_format: "html/json"
+        path:     /rules/
+        defaults: { _controller: JuristBundle:Rules:rules }
 
 partners_page: # партнеры
-        path:     /partners/ #{format}/
-        defaults: { _controller: JuristBundle:Partners:partners } #, format: html}
-        #requirements:
-                    #_format: "html/json"
+        path:     /partners/
+        defaults: { _controller: JuristBundle:Partners:partners }
 
 rating_page: # рейтинг вопроса
         path:     /rating/{id}/
@@ -150,17 +115,22 @@ rg_sidebar_page:
         requirements:
                     _format: "html/json"
 
-rg_test_update:
-        path:     /tu/{id}
-        defaults: { _controller: JuristBundle:Api:TestUpdate,  id: null}
-        requirements:
-                    _id: "/d+"
-
-#test_resource:
-#        resource: "@JuristBundle/Resources/public/css"
-#        type:     annotation
-#        prefix:   /test/css/
-
 sort:
         path:     /sort/
         defaults: { _controller: JuristBundle:Sort:MakeSort}
+
+search:
+        path:     /search/{pageVal}/
+        defaults: { _controller: JuristBundle:Search:Search, pageVal: 0}
+        requirements:
+                    _pageVal: "/d+"
+
+
+get_robots_txt:
+        path:     /get_robots/
+        defaults: { _controller: JuristBundle:RobotsTxt:GetRobotsTxt}
+
+
+set_robots_txt:
+        path:     /set_robots/
+        defaults: { _controller: JuristBundle:RobotsTxt:SetRobotsTxt}

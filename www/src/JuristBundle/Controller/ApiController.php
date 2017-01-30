@@ -85,6 +85,25 @@ class ApiController extends Controller implements ContainerAwareInterface
         'Статьи'
     ];
 
+    const LIST_RUBRIC_FOR_SORT_AND_DOWN_IN_LEFT_SIDEBAR = [ //Рубрики которые надо опустить вниз в сайдбаре не выделяя цветом
+        'Другое'
+    ];
+
+    /**
+     * Данный геттер возвращает выборку для сортировки вниз
+     * и в случае необходимости ее выделения
+     */
+    private function getDownCategoryForSort() {
+        $tmpListRubricsForSortAndDownInLeftSidebar = [];
+        foreach (self::LIST_RUBRIC_FOR_SORT_AND_DOWN_IN_LEFT_SIDEBAR as $itemWithoutSelectRubric)
+            $tmpListRubricsForSortAndDownInLeftSidebar[$itemWithoutSelectRubric] = [];
+        foreach (self::LIST_FOR_HIDE_CITY_AND_FIO as $itemWithSelectRubric)
+            $tmpListRubricsForSortAndDownInLeftSidebar[$itemWithSelectRubric] = [
+                'select_rubric' => true
+            ];
+        return $tmpListRubricsForSortAndDownInLeftSidebar;
+    }
+
     public $filtersForJurists = [
         'alphabet' => 'По алфавиту',
         'rating' => 'По рейтингу',
@@ -719,7 +738,7 @@ class ApiController extends Controller implements ContainerAwareInterface
                         'book__download__link' => '//bibliotechka.rg.ru/upload/iblock/e3d/e3d4d386a6fe115b2a87cca8b628ac0e.pdf',
                         'book__download__size' => '46,1 Кб'
                     ],
-                    'book__price' => '265 руб.',
+                    'book__price' => '295 руб.',
                     'book__purchase_link' => '//bibliotechka.rg.ru/products/?action=ADD2BASKET&id=494&SECTION_ID=35&ELEMENT_ID=494',
                 ],
             ],
@@ -749,7 +768,7 @@ class ApiController extends Controller implements ContainerAwareInterface
                         'book__download__link' => '//bibliotechka.rg.ru/upload/iblock/048/048e0eb426e7855816af3ccbc54df816.pdf',
                         'book__download__size' => '43,8 Кб'
                     ],
-                    'book__price' => '265 руб.',
+                    'book__price' => '295 руб.',
                     'book__purchase_link' => '//bibliotechka.rg.ru/products/?action=ADD2BASKET&id=498&SECTION_ID=35&ELEMENT_ID=498',
                 ],
             ],
@@ -775,7 +794,7 @@ class ApiController extends Controller implements ContainerAwareInterface
                         'book__download__link' => '//bibliotechka.rg.ru//upload/iblock/96b/96b016c79f6b2fd916080da347925d35.pdf',
                         'book__download__size' => '40,6 Кб'
                     ],
-                    'book__price' => '265 руб.',
+                    'book__price' => '295 руб.',
                     'book__purchase_link' => '//bibliotechka.rg.ru/products/?action=ADD2BASKET&id=501&SECTION_ID=35&ELEMENT_ID=501',
                 ],
             ],
@@ -805,7 +824,7 @@ class ApiController extends Controller implements ContainerAwareInterface
                         'book__download__link' => '//bibliotechka.rg.ru/upload/iblock/4f4/4f46477f3232ff3f6fb2cfbfe2bf209c.pdf',
                         'book__download__size' => '3.5 Кб'
                     ],
-                    'book__price' => '265 руб.',
+                    'book__price' => '295 руб.',
                     'book__purchase_link' => '//bibliotechka.rg.ru/products/?SECTION_ID=35&ELEMENT_ID=490&sphrase_id=11577',
                 ],
             ],
@@ -1037,11 +1056,21 @@ class ApiController extends Controller implements ContainerAwareInterface
                 ];
             }
 
-            usort($this->result['sidebar']['categories']['rubrics'], function($firstVal, $twoVal) {
-                if($firstVal['rubrics__title'] === 'Другое') { //Помещаем указанное слово вниз, поп росьбе сео и проект менеджера
-                    return 1;
+            foreach ($this->getDownCategoryForSort() as $key => $allRubricForDown) {
+                usort($this->result['sidebar']['categories']['rubrics'], function($firstVal, $twoVal) use ($key) {
+                    if($firstVal['rubrics__title'] === $key) { //Помещаем указанное слово вниз, поп росьбе сео и проект менеджера
+                        return 1;
+                    }
+                });
+                foreach ($this->result['sidebar']['categories']['rubrics'] as &$rubricItem) {
+                    $rubricItem['select_rubric'] = (
+                        empty($rubricItem['select_rubric']) ? (
+                            $rubricItem['rubrics__title'] === $key ? $allRubricForDown['select_rubric'] : false
+                        ) : $rubricItem['select_rubric']
+                    );
                 }
-            });
+                unset($rubricItem);
+            }
 
             $this->redis->setEx($nameRedisNow, (60 * 120), serialize($this->result)); //Expires на 2 часа
 

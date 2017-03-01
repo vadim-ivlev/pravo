@@ -64,6 +64,11 @@ class GenerateSSIController extends Controller
             $this->get('kernel')->getRootDir() . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'src' . DIRECTORY_SEPARATOR .
             'JuristBundle' . DIRECTORY_SEPARATOR . 'Resources' . DIRECTORY_SEPARATOR . 'public' /*. DIRECTORY_SEPARATOR . 'include' . DIRECTORY_SEPARATOR*/;
 
+        /**
+         * Проверить из конфигов корректность
+         * потом сделать mkdir
+         */
+
         //$exec = `ls $pathToInclude`;
         //$mkdir = mkdir($pathToInclude . $path, 0755, true);
         //dump($exec);

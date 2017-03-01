@@ -66,7 +66,7 @@ module.exports = function(data){
 						tag: "link",
 						attrs: {
 							rel: "shortcut icon",
-							href: "/bundles/jurist/root/favicon.ico"
+							href: "/favicon.ico"
 						}
 					}
 				},
@@ -77,7 +77,7 @@ module.exports = function(data){
 						attrs: {
 							rel: "apple-touch-icon",
 							sizes: "76x76",
-							href: "/bundles/jurist/root/touch-icon-ipad.png"
+							href: "/touch-icon-ipad.png"
 						}
 					}
 				},
@@ -88,7 +88,7 @@ module.exports = function(data){
 						attrs: {
 							rel: "apple-touch-icon",
 							sizes: "120x120",
-							href: "/bundles/jurist/root/touch-icon-iphone-retina.png"
+							href: "/touch-icon-iphone-retina.png"
 						}
 					}
 				},
@@ -99,7 +99,7 @@ module.exports = function(data){
 						attrs: {
 							rel: "apple-touch-icon",
 							sizes: "152x152",
-							href: "/bundles/jurist/root/touch-icon-ipad-retina.png"
+							href: "/touch-icon-ipad-retina.png"
 						}
 					}
 				},

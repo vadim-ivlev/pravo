@@ -35,8 +35,6 @@ class AuthUsersRepository extends \Doctrine\ORM\EntityRepository implements crea
 
         $query->execute();
         return $query->fetchAll( \PDO::FETCH_ASSOC);
-
-
     }
 
     public function generateSiteMap()
@@ -51,5 +49,78 @@ class AuthUsersRepository extends \Doctrine\ORM\EntityRepository implements crea
         ";
 
         return $this->fetchAllQuery($sql);
+    }
+
+    public function fetchJurists(array $orderBy, array $where, $offset, $limit = \JuristBundle\Controller\JuristsController::COUNT_RECORDS_ON_PAGE_JURISTS)
+    {
+        $whereSQL = "";
+        foreach ($where as $value) {
+            $whereSQL .= " {$value['field_condition']} {$value['field_oDBAL']}";
+        }
+
+        $this->oDBALConnection->query('SET group_concat_max_len = 10048')->execute();
+
+        $sql = "
+            SELECT 
+            
+            au.id AS au_id, au.name AS au_name, au.second_name AS au_second_name, au.disabled AS au_disabled,
+            au.graduate AS au_graduate, au.patronymic AS au_patronymic, au.total_rating AS au_total_rating,
+            au.directory AS au_directory, au.filename AS au_filename,
+            
+            c.id AS c_id, c.name AS c_name,
+            
+            (SELECT COUNT(a1.id) FROM answers AS a1 WHERE a1.auth_users_id = au.id) AS a_count,
+            
+            (
+              SELECT 
+                CONCAT('[', GROUP_CONCAT('{\"r_id\":\"', r1.id, '\",\"r_name\":\"', r1.name SEPARATOR '\"}, '), '\"}]') AS `data`
+              FROM rubrics AS r1
+                JOIN auth_users_rubrics AS aur1 ON aur1.rubrics_id = r1.id
+                JOIN auth_users AS au1 ON au1.id = aur1.auth_users_id
+              WHERE au1.id = au.id 
+            ) AS `rubric`
+              
+            FROM 
+              auth_users AS au
+            
+              LEFT JOIN answers AS a ON a.auth_users_id = au.id
+              JOIN companies AS c ON c.id = au.companies_id
+              
+              JOIN auth_users_rubrics AS aur ON aur.auth_users_id = au.id
+              JOIN rubrics AS r1 ON r1.id = aur.rubrics_id
+              
+            WHERE 
+              au.disabled = :disabled AND au.is_jurist = :is_jurist AND au.id != :au_id {$whereSQL}
+            GROUP BY au.id
+            ORDER BY " . implode(', ', $orderBy) . "
+            LIMIT :limit
+            OFFSET :offset
+        ";
+
+        try {
+            $stmt = $this->oDBALConnection->prepare($sql);
+
+            $stmt->bindValue('disabled', (boolean)\JuristBundle\Controller\ApiController::VALUE_ACTIVE_USER);
+            $stmt->bindValue('is_jurist', true);
+            $stmt->bindValue('au_id', \JuristBundle\Controller\ApiController::ID_USER_WITHOUT_AVATARS);
+
+            if (!empty($where))
+                foreach ($where as $value)
+                    $stmt->bindValue($value['field_oDBAL'], $value['value']);
+
+            //$stmt->bindValue('order_by', implode(', ', $orderBy), \PDO::PARAM_STR);
+
+//            if ($_SERVER['REMOTE_ADDR'] === '212.69.111.131') {
+//                    dump($limit . " | " . $offset);die;
+//                    var_dump($sql);die;
+//                }
+            $stmt->bindValue('limit', $limit, \PDO::PARAM_INT);
+            $stmt->bindValue('offset', $offset, \PDO::PARAM_INT);
+            $stmt->execute();
+            return $stmt->fetchAll(\PDO::FETCH_NAMED);
+
+        } catch (\PDOException $e) {
+            $e->getTrace();
+        }
     }
 }

@@ -77,6 +77,9 @@ JuristBundle\Entity\AuthUsers:
         totalRating:
             type: integer
             column: total_rating
+        totalCountPublicAnswers:
+            type: integer
+            column: total_count_public_answers
 
     manyToMany:
         rubrics:

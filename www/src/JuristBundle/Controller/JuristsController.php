@@ -41,8 +41,8 @@ class JuristsController extends ApiController
             $rubricsConditionsGet = $request->query->get('rubrics_conditions'); //Сортировка по специализации
             $filtersForJuristGet = $request->query->get('order_by'); //Сортировка по рейтинг/алфавит/компания
 
-            $rubricsСonditions = $this->connect_to_Jurists_bd //Получаем рубрики для селекта Сonditions
-                ->getRepository('JuristBundle:Rubrics')
+            $rubricsСonditions = $this->connect_to_Jurists_bd//Получаем рубрики для селекта Сonditions
+            ->getRepository('JuristBundle:Rubrics')
                 ->findBy([]);
 
             $this->result['rubrics__conditions'][] = [ //Получаем рубрики для селекта (хардкодим Любая специализация)
@@ -51,7 +51,7 @@ class JuristsController extends ApiController
                 'rubrics__conditions__name' => 'Любая специализация',
             ];
 
-            foreach ($rubricsСonditions as $rubricsСondition ){ //Формируем рубрики для селекта
+            foreach ($rubricsСonditions as $rubricsСondition) { //Формируем рубрики для селекта
                 $this->result['rubrics__conditions'][] = [
                     'rubrics__conditions__current_id' => (!empty($rubricsСonditions) && $rubricsConditionsGet == $rubricsСondition->getId()) ? 'selected' : false,
                     'rubrics__conditions__id' => $rubricsСondition->getId(),
@@ -72,83 +72,59 @@ class JuristsController extends ApiController
             switch ($requestsOrderBy) {
                 case 'rating':
                     $orderBy = [
-                        'j.totalRating',
-                        'desc'
+                        'au.total_rating desc'
                     ];
                     break;
                 case 'company':
                     $orderBy = [
-                        'c.name',
-                        'desc'
+                        'c.name desc'
                     ];
                     break;
                 default:
                     $orderBy = [
-                        'j.secondName',
-                        'asc'
+                        'au.second_name asc'
                     ];
             }
 
-            if (!empty($request->query->get(self::RUBRICS_CONDITION_NAME))) { //TODO переделать
+            $AllJurist = $this->connect_to_Jurists_bd
+                ->getRepository('JuristBundle:AuthUsers')
+                ->createQueryBuilder('j')
+                ->select('COUNT(DISTINCT j.id)')
+                ->join('j.rubrics', 'r')
+                ->where('j.disabled = false')
+                ->andWhere('j.isJurist = true')
+                ->andWhere('j.id != ' . self::ID_USER_WITHOUT_AVATARS);
 
-                $Jurists = $this->connect_to_Jurists_bd
-                    ->getRepository('JuristBundle:AuthUsers')
-                    ->createQueryBuilder('j')
-                    ->setFirstResult($limitPagination) //Offset
-                    ->setMaxResults(self::COUNT_RECORDS_ON_PAGE_JURISTS) //Limit
-                    ->join('j.rubrics', 'r')
-                    ->join('JuristBundle:Companies', 'c')
-                    ->where('j.disabled = :disabled')
-                    ->andWhere('j.isJurist = :isJurist')
-                    ->andWhere('j.id != :id')
-                    ->andWhere('c.id = j.companiesId')
-                    ->andWhere('r.id  = ' . $request->query->get(self::RUBRICS_CONDITION_NAME))
-                    ->setParameters(array('disabled' => false, 'isJurist' => true, 'id' => self::ID_USER_WITHOUT_AVATARS))
-                    ->orderBy($orderBy[0], $orderBy[1])
-                    ->getQuery()
-                    ->execute();
+            if (!empty($request->query->get(self::RUBRICS_CONDITION_NAME))) {
+                $Jurists = $this->connect_to_Jurists_bd//Получаем рубрики для селекта Сonditions
+                ->getRepository('JuristBundle:AuthUsers')
+                    ->fetchJurists(
+                        $orderBy,
+                        [
+                            [
+                                'field_condition' => 'AND r1.id = ',
+                                'field_oDBAL' => ':r_id',
+                                'value' => $request->query->get(self::RUBRICS_CONDITION_NAME),
+                            ]
+                        ],
+                        $limitPagination
+                    );
 
-                $AllJurist = $this->connect_to_Jurists_bd
-                    ->getRepository('JuristBundle:AuthUsers')
-                    ->createQueryBuilder('j')
-                    ->join('j.rubrics', 'r')
-                    ->where('j.disabled = false')
-                    ->andWhere('j.isJurist = true')
-                    ->andWhere('r.id  = ' . $request->query->get(self::RUBRICS_CONDITION_NAME))
-                    ->andWhere('j.id != ' . self::ID_USER_WITHOUT_AVATARS)
-                    ->orderBy('j.secondName', 'ASC')
-                    ->getQuery()
-                    ->execute();
+                $AllJurist = $AllJurist->andWhere('r.id  = ' . $request->query->get(self::RUBRICS_CONDITION_NAME));
             } else {
-
-                $Jurists = $this->connect_to_Jurists_bd
-                    ->getRepository('JuristBundle:AuthUsers')
-                    ->createQueryBuilder('j')
-                    ->setFirstResult($limitPagination) //Offset
-                    ->setMaxResults(self::COUNT_RECORDS_ON_PAGE_JURISTS) //Limit
-                    ->join('JuristBundle:Companies', 'c')
-                    ->where('j.disabled = :disabled')
-                    ->andWhere('j.isJurist = :isJurist')
-                    ->andWhere('j.id != :id')
-                    ->andWhere('c.id = j.companiesId')
-                    ->setParameters(array('disabled' => false, 'isJurist' => true, 'id' => self::ID_USER_WITHOUT_AVATARS))
-                    ->orderBy($orderBy[0], $orderBy[1])
-                    ->getQuery()
-                    ->execute();
-
-                $AllJurist = $this->connect_to_Jurists_bd
-                    ->getRepository('JuristBundle:AuthUsers')
-                    ->createQueryBuilder('j')
-                    ->where('j.disabled = false')
-                    ->andWhere('j.isJurist = true')
-                    ->andWhere('j.id != ' . self::ID_USER_WITHOUT_AVATARS)
-                    ->orderBy('j.secondName', 'ASC')
-                    ->getQuery()
-                    ->execute();
-
+                $Jurists = $this->connect_to_Jurists_bd //Получаем рубрики для селекта Сonditions
+                ->getRepository('JuristBundle:AuthUsers')
+                    ->fetchJurists($orderBy, [], $limitPagination);
             }
+//                if ($_SERVER['REMOTE_ADDR'] === '212.69.111.131') {
+//                    dump($Jurists);die;
+//                }
+            $AllJurist = $AllJurist
+                ->getQuery()
+                ->getSingleScalarResult();
 
-            $this->formedJurists($Jurists);
+
+            $this->formedJuristsoDBAL($Jurists);
 
             $this->pageNotFound(!isset($this->result['jurists_list']));
 
@@ -225,7 +201,7 @@ class JuristsController extends ApiController
         $limitPagination = $this->generateOffsetPagination($id); //Образуем offset
 
         if ($this->fetchFormat() === 'json') {
-            
+
             $this->formedDataAction($id, $limitPagination);
 
             $response = new JsonResponse();

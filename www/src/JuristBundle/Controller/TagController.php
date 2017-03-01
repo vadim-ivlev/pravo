@@ -38,7 +38,12 @@ class TagController extends ApiController
                 ->getRepository('JuristBundle:Tags')
                 ->findOneById($id);
 
-            $this->pageNotFound(!$Tag);
+//            if ($_SERVER['REMOTE_ADDR'] === '212.69.111.131') {
+//                //var_dump($Tag->getDisabled()); //PravoTag(id:1/numberPage:1)
+//                var_dump(!$Tag || !$Tag->getDisabled()); //PravoTag(id:1/numberPage:1)
+//                //var_dump("PravoTag(id:{$id}/numberPage:{$numberPage})");
+//            }
+            $this->pageNotFound(!$Tag || !$Tag->getDisabled());
 
             $this->formedQuestions($Tag->getQuestions()->toArray());
 

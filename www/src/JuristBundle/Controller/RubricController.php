@@ -25,17 +25,7 @@ class RubricController extends ApiController
         $redis = $this->redis->get($keyRedis);
         $redis = unserialize($redis);
 
-        $Questions = $this->connect_to_Jurists_bd
-            ->getRepository('JuristBundle:Questions')
-            ->createQueryBuilder('q')
-            ->innerJoin('q.rubrics', 'r')
-            ->innerJoin('q.answersId', 'a')
-            ->where('r.CPUName = :CPUName')
-            ->andWhere('q.step = :step')
-            ->setParameters(['CPUName' => $CPUName, 'step' => self::FINISHED_STEP])
-            ->orderBy('a.date', 'DESC')
-            ->getQuery()
-            ->execute();
+        $Questions = $this->connect_to_Jurists_bd->getRepository('JuristBundle:Questions')->fetchAllQuestionsForRubric($CPUName);
 
         $Rubric = $this->connect_to_Jurists_bd
             ->getRepository('JuristBundle:Rubrics')
@@ -44,10 +34,9 @@ class RubricController extends ApiController
         if ($redis) {
             $this->result = $redis;
         } else {
-
             $this->pageNotFound(!$Questions);
 
-            $this->formedQuestions($Questions);
+            $this->formedQuestionsDBAL($Questions);
 
             $this->PaginationAction(
                 $this->result['questions_list'],
@@ -57,7 +46,7 @@ class RubricController extends ApiController
                 '/rubric/',
                 1,
                 "/" . trim($CPUName) //trim потому что лезут пробелы
-            ); //Место расположения должно быть ибо тут важно место
+            ); //Место расположения должно быть именно тут важно место
 
             $crutchForPagination = []; //Потому что архитектура первоначально была не верно заложенна
 
@@ -80,13 +69,13 @@ class RubricController extends ApiController
             ];
 
             $this->redis->setEx($keyRedis, (60 * 180), serialize( //На 3 часа
-                    [
-                        'questions_list' => $this->result['questions_list'],
-                        'current_rubric' => $this->result['current_rubric'],
-                        'description_rubric' => $this->result['description_rubric'],
-                        'pagination' => $this->result['pagination']
-                    ]
-                ));
+                [
+                    'questions_list' => $this->result['questions_list'],
+                    'current_rubric' => $this->result['current_rubric'],
+                    'description_rubric' => $this->result['description_rubric'],
+                    'pagination' => $this->result['pagination']
+                ]
+            ));
         }
 
         $this->HeaderAction(self::TABS_MAIN);

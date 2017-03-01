@@ -18,7 +18,43 @@ class RubricsRepository extends \Doctrine\ORM\EntityRepository
 
     const RUBRICS = '/jurists/rubrics/';
 
-    public function fetchRubrics($field) {
+    private $oDBALConnection;
+
+    public function __construct($em, $class)
+    {
+        parent::__construct($em, $class);
+        $this->oDBALConnection = $this->getEntityManager()->getConnection();
+    }
+
+    public function fetchRubricsDBAL(array $orderBy)
+    {
+        $sql = "
+          SELECT *
+          FROM rubrics
+        ";
+
+        if ($orderBy) {
+            $orderByStr = "ORDER BY ";
+            foreach ($orderBy as $field => $paramSort) {
+                if(is_numeric($field)) { //Если не передано, то устанавливаем дефолтное значения для $paramSort
+                    $field = $paramSort;
+                    $paramSort = 'ASC';
+                }
+
+                if(!next($orderBy)) $orderByStr .= "{$field} {$paramSort}";
+                else $orderByStr .= "{$field} {$paramSort}, ";
+            }
+            $sql .= $orderByStr;
+        }
+
+        $query = $this->oDBALConnection->executeQuery($sql);
+        $query->execute();
+
+        return $query->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
+    public function fetchRubrics($field)
+    {
         $rubric_result = [];
 
         $Rubrics = $this

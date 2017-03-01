@@ -19,6 +19,71 @@ class RubricsController extends ApiController
 {
 
     /**
+     * Генерирует единую структуру вывода тегов для рубрик
+     * @param $rubrics
+     * @param null $id
+     */
+    private function formedTagsForRubrics($rubrics, $id = null)
+    {
+
+        /**
+         * Хардкор для ВСЕХ рубрик
+         */
+        define('TYPE_PAGE', '');
+
+        $this->result['categories']['rubrics'][] = [
+            'rubrics__title' => 'Все',
+            'rubrics__link' => self::RUBRICS . TYPE_PAGE .'0' . self::REDIRECT,
+            'rubrics__active' => (!isset($id)) ? 1 : 0, //Если вызов во "ВСЕХ" рубриках
+            'rubric__id' => null
+        ];
+
+
+        foreach ($rubrics as $rubric) {
+            $this->result['categories']['rubrics'][] = [
+                'rubrics__title' => $rubric->getName(),
+                'rubrics__link' => self::RUBRICS . TYPE_PAGE . $rubric->getId() . self::REDIRECT,
+                'rubrics__active' => (isset($id) && $id == $rubric->getId()) ? 1 : 0, //Если вызов во НЕ ВО "ВСЕХ" рубриках и проверка на тру для конкретного юзвера
+                'rubrics__id' => $rubric->getId()
+            ];
+
+            $rubrics_tags__items = [];
+            foreach ($rubric->getTags()->toArray() as $val_tags) {
+                if (!empty($val_tags->getName()) && (boolean)$val_tags->getDisabled() !== false) {
+
+                    $rubrics_tags__items['rubrics_tags__items'][] = [
+                        'rubrics_tags__items__title' => $val_tags->getName(),
+                        'rubrics_tags__items__link' => self::TAG . '1/' . $val_tags->getId()  . self::REDIRECT,
+                        'rubrics_tags__items__frequency' => (!$val_tags->getCountPublicQuestions()) ? false : $val_tags->getCountPublicQuestions()  //Количество тегов в поросе
+                    ];
+                }
+            }
+
+            /**
+             * @var $rubrics_tags__items !empty($rubrics_tags__items) - нужен и там, и там, чтоб не попадали рубрики у которых еще нет связанных тегов
+             * @var $id - проверка для вывода ВСЕХ тегов, если id КОНКРЕТНОЙ рубрики не определен
+             *
+             */
+            if (!empty($rubrics_tags__items)) {
+                if (isset($id) && $rubric->getId() == $id) {
+                    $this->result['categories']['rubrics_tags'][] = [
+                        'rubrics_tags__name' => $rubric->getName(),
+                        'rubrics_tags__links' => self::RUBRIC . '1/' . $rubric->getId() . self::REDIRECT,
+                        'rubrics_tags__items_unit' => $rubrics_tags__items
+                    ];
+                } else if (!isset($id)) {
+                    $this->result['categories']['rubrics_tags'][] = [
+                        'rubrics_tags__name' => $rubric->getName(),
+                        'rubrics_tags__links' => self::RUBRIC . '1/' . $rubric->getId() . self::REDIRECT,
+                        'rubrics_tags__items_unit' => $rubrics_tags__items
+                    ];
+                }
+            }
+        }
+
+    }
+
+    /**
      * @param $id - на рубрики
      * @return mixed
      */

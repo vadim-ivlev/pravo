@@ -23,6 +23,13 @@ JuristBundle\Entity\Tags:
         description:
             type: text
             nullable: TRUE
+        disabled:
+            type: boolean
+            default: true
+        countPublicQuestions:
+            column: count_public_questions
+            type: integer
+            length: '10'
 #    manyToOne:
 #                creator:
 #                    targetEntity: RG\WorkspaceBundle\Entity\User

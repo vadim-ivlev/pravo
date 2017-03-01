@@ -1,6 +1,9 @@
-#jurist_test:
-#    path:     /test/
-#    defaults: { _controller: JuristBundle:Test:# }
+#генерация SSI
+generate_SSI:
+    path:     /generate_ssi/
+    defaults: { _controller: JuristBundle:GenerateSSI:getURISSI }
+    requirements:
+            _method:  GET
 
 jurist_get_list_of_questions:
     path:     /questions/{rubric}/{tag}
@@ -26,12 +29,6 @@ rg_main_page_2: #главная
         requirements:
                     _pageId: "/d+"
 
-#rg_main_page_3: #главная тестовая
-#        path:     /main1/{pageId}/
-#        defaults: { _controller: JuristBundle:Questions1:main,  page: pageId }
-#        requirements:
-#                    _pageId: "/d+"
-
 rg_answer_page: #вопрос-ответ
         path:     /rubrics/question/{id}/
         defaults: { _controller: JuristBundle:Answers:answer,  id: null }
@@ -56,6 +53,12 @@ rg_jurists_page: #страница всех юристов
         defaults: { _controller: JuristBundle:Jurists:jurists,  id: null}
         requirements:
                     _id: "/d+"
+
+#rg_jurists_page1: #страница всех юристов
+#        path:     /jurists1/{id}/
+#        defaults: { _controller: JuristBundle:Jurists1:jurists,  id: null}
+#        requirements:
+#                    _id: "/d+"
 
 
 rg_rubrics_page: # страница рубрик
@@ -84,6 +87,13 @@ rg_tag_page: # страница конкретного тега
         requirements:
                     _idPage: "/d+"
                     _id: "/d+"
+
+#rg_tag_page_test: # страница конкретного тега
+#        path:     /tag1/{idPage}/{id}/
+#        defaults: { _controller: JuristBundle:Tag1:tag}
+#        requirements:
+#                    _idPage: "/d+"
+#                    _id: "/d+"
 
 ask_page: # форма задачи вопроса
         path:     /ask/

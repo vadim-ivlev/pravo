@@ -49,6 +49,7 @@ JuristBundle\Entity\Answers:
     oneToOne:
         question:
             targetEntity: Questions
+            inversedBy: answersId #TODO
             #fetch: EAGER
             joinColumn:
                 name: question_id

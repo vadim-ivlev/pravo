@@ -143,6 +143,11 @@ class AuthUsers
     private $totalRating;
 
     /**
+     * @var integer
+     */
+    private $totalCountPublicAnswers;
+
+    /**
      * Get id
      *
      * @return integer
@@ -775,6 +780,30 @@ class AuthUsers
     public function getTotalRating()
     {
         return $this->totalRating;
+    }
+
+    /**
+     * Set totalCountPublicAnswers
+     *
+     * @param integer $totalCountPublicAnswers
+     *
+     * @return AuthUsers
+     */
+    public function setTotalCountPublicAnswers($totalCountPublicAnswers)
+    {
+        $this->totalCountPublicAnswers = $totalCountPublicAnswers;
+
+        return $this;
+    }
+
+    /**
+     * Get totalCountPublicAnswers
+     *
+     * @return integer
+     */
+    public function getTotalCountPublicAnswers()
+    {
+        return $this->totalCountPublicAnswers;
     }
 }
 

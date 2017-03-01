@@ -24,7 +24,7 @@ class QuestionsController extends ApiController
         $redisNow = $this->redis->get($keyRedis);
         $redisNow = unserialize($redisNow);
 
-	$this->pageNotFound($limitPagination < (int)0);
+	    $this->pageNotFound($limitPagination < (int)0);
 
         if ($redisNow) {
             $this->result = $redisNow;
@@ -92,7 +92,7 @@ class QuestionsController extends ApiController
 
         $this->getDate();
 
-        $this->pageNotFound(!$this->result['questions_list']);
+        //$this->pageNotFound(!$this->result['questions_list']);
 
         $this->result['canonical'] = 'https://pravo.rg.ru';
 

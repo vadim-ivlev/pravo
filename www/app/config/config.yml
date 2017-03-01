@@ -39,6 +39,9 @@ framework:
 twig:
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
+    exception_controller:  JuristBundle:Exception:showException
+    paths:
+            "%kernel.root_dir%/../app/Resources/TwigBundle/views/Exception/": exception_template_path
 
 # Doctrine Configuration
 #doctrine:

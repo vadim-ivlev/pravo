@@ -1,0 +1,15 @@
+# /include/
+# /default path to include/
+# U R T M
+# описать возможные offset,
+
+#years:
+#  start: 1990
+#  end:   2015
+#  date_years: [1891, 1903, 1916, 1937, 1941, 1956, 1984, 2003, 2014, 2020]
+
+args:
+  tmpl: ['questions', 'tags', 'rubrics', 'jurists']
+  order_by: 'DESC'
+  limit: 7
+  offset: 7

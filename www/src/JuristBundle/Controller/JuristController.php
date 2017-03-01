@@ -23,7 +23,7 @@ class JuristController extends ApiController
             ->getRepository('JuristBundle:AuthUsers')
             ->findOneBy(['id' => $id]);
 
-        $this->pageNotFound(!$Jurist || $pageId <= 0);
+        $this->pageNotFound(!$Jurist || $pageId <= 0 || $Jurist->getDisabled() !== self::DISABLED_VALUE_ON || $Jurist->getIsJurist() != true);
 
         if ($Jurist->getDisabled() === self::DISABLED_VALUE_ON && $Jurist->getIsJurist() == true) {
 
@@ -96,8 +96,7 @@ class JuristController extends ApiController
             }
 
             $this->PaginationAction($AllQuestionsAfterCheck, self::PAGINATION_FOR_JURISTS, self::COUNT_RECORDS_ON_PAGE_JURISTS, $pageId, '/jurist/', 1, "/" . trim($id));
-
-
+            
             $this->formedQuestions($Questions);
 
             $this->getDate();

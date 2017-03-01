@@ -212,6 +212,18 @@ class ApiController extends Controller implements ContainerAwareInterface
         return true;
     }
 
+    public function hideTargetCityAndFIOoDBAL(array $arrayRubrics)
+    {//скрывает у рубрики СТАТЬИ город и ФИО
+        foreach (self::LIST_FOR_HIDE_CITY_AND_FIO as $rubric) {
+            foreach ($arrayRubrics as $rubricName) {
+                if ($rubric === $rubricName['r_name'])
+                    return false;
+            }
+        }
+
+        return true;
+    }
+
     private function getData()
     {
         $request = Request::createFromGlobals();
@@ -250,6 +262,9 @@ class ApiController extends Controller implements ContainerAwareInterface
         if (!empty($data)) {
             $result = [];
             foreach ($data as $data_val) {
+                /** Не выводить скрытые отключенные теги*/
+                if (method_exists($data_val, 'getDisabled') && (boolean)$data_val->getDisabled() === false)
+                    continue;
                 /**
                  * эти проверки ключей нужны для мусташа, так как в случае ошибки ключа, он будет искать
                  * key с аналогичным именим и может возникнуть путаница
@@ -272,7 +287,57 @@ class ApiController extends Controller implements ContainerAwareInterface
                         ? 'tags__id'
                         : 'rubrics__id'
                     =>
-                        $data_val->getId()
+                        $data_val->getId()/*,
+                    (stristr((string)key($data_val), 'Tags'))
+                        ? 'tags__disabled'
+                        : 'rubrics__disabled'
+                    =>
+                        (stristr((string)key($data_val), 'Tags'))
+                            ? $data_val->getDisabled()
+                            : '',*/
+                ];
+            }
+            return $result;
+        }
+    }
+
+    protected function formedTagsAndRubricsoDBAL($data)
+    {
+        if (!empty($data)) {
+            $result = [];
+            foreach ($data as $data_val) {
+                if (isset($data_val['t_disabled']) && (boolean)$data_val['t_disabled'] === false)
+                    continue;
+//                if ($_SERVER['REMOTE_ADDR'] === '212.69.111.131') {
+//
+//                }
+                /**
+                 * эти проверки ключей нужны для мусташа, так как в случае ошибки ключа, он будет искать
+                 * key с аналогичным именим и может возникнуть путаница
+                 **/
+                $result[] = [
+                    (stristr((string)key($data_val), 't_'))
+                        ? 'tags__title'
+                        : 'rubrics__title'
+                    =>
+                        (stristr((string)key($data_val), 't_'))
+                            ? $data_val['t_name']
+                            : $data_val['r_name'],
+
+                    (stristr((string)key($data_val), 't_'))
+                        ? 'tags__link'
+                        : 'rubrics__link'
+                    =>
+                        (stristr((string)key($data_val), 't_'))
+                            ? self::TAG . '1/' . $data_val['t_id'] . self::REDIRECT
+                            : self::RUBRICS . $data_val['r_id'] . self::REDIRECT,
+                    (stristr((string)key($data_val), 't_'))
+                        ? 'tags__id'
+                        : 'rubrics__id'
+                    =>
+                        (stristr((string)key($data_val), 't_'))
+                            ? $data_val['t_id']
+                            : $data_val['r_id']
                 ];
             }
             return $result;
@@ -345,6 +410,39 @@ class ApiController extends Controller implements ContainerAwareInterface
         return $imageMedium;
     }
 
+    protected function fetchAvataroDBAl($question)
+    {
+        if (!empty($question['au_filename'])) {
+            $imageMedium = [
+                'jurist__img__type_medium' => 1,
+                'jurist__img__file' => $question['au_directory'] . $question['au_filename'],
+                'jurist__img__title' => $question['au_name'] . ' ' . $question['au_second_name'],
+//                'jurist__img__title' => (method_exists($question, 'getAnswersId')) ? //Проверка нужна для того, какой параметр получается. Question как на main и answers или как на Jurists
+//                    $question->getAnswersId()->getAuthUsersId()->getName() . ' ' .
+//                    $question->getAnswersId()->getAuthUsersId()->getSecondName()
+//                    :
+//                    $question->getName() . ' ' .
+//                    $question->getSecondName(),
+                'jurist__img__width' => 100,
+                'jurist__img__height' => 100,
+            ];
+        } else {
+            $userNotHaveAvatar = $this->connect_to_Jurists_bd
+                ->getRepository('JuristBundle:AuthUsers')
+                ->findOneById(self::ID_USER_WITHOUT_AVATARS);
+
+            $imageMedium = [
+                'jurist__img__type_medium' => 1,
+                'jurist__img__file' => $userNotHaveAvatar->getDirectory().$userNotHaveAvatar->getFilename(),
+                'jurist__img__title' => $userNotHaveAvatar->getName() . ' ' . $userNotHaveAvatar->getSecondName(),
+                'jurist__img__width' => $userNotHaveAvatar->getWidth(),
+                'jurist__img__height' => $userNotHaveAvatar->getHeight(),
+            ];
+        }
+
+        return $imageMedium;
+    }
+
     protected function receiveAnOverallRating($ratings) //СТАРЫЙ! Пееренесен в репозиторий Questions
     {
         $totalRating = 0; //Рейтинг юриста считается по вытаскиванию его рейтинга из всех вопросов и его суммирования
@@ -354,76 +452,6 @@ class ApiController extends Controller implements ContainerAwareInterface
             }
         }
         return $totalRating;
-    }
-
-    /**
-     * Генерирует единую структуру вывода тегов для рубрик
-     * @param $rubrics
-     * @param null $id
-     */
-    protected function formedTagsForRubrics($rubrics, $id = null)
-    {
-
-        /**
-         * Хардкор для ВСЕХ рубрик
-         */
-        define('TYPE_PAGE', '');
-
-        $this->result['categories']['rubrics'][] = [
-            'rubrics__title' => 'Все',
-            'rubrics__link' => self::RUBRICS . TYPE_PAGE .'0' . self::REDIRECT,
-            'rubrics__active' => (!isset($id)) ? 1 : 0, //Если вызов во "ВСЕХ" рубриках
-            'rubric__id' => null
-        ];
-
-        foreach ($rubrics as $rubric) {
-            $this->result['categories']['rubrics'][] = [
-                'rubrics__title' => $rubric->getName(),
-                'rubrics__link' => self::RUBRICS . TYPE_PAGE . $rubric->getId() . self::REDIRECT,
-                'rubrics__active' => (isset($id) && $id == $rubric->getId()) ? 1 : 0, //Если вызов во НЕ ВО "ВСЕХ" рубриках и проверка на тру для конкретного юзвера
-                'rubrics__id' => $rubric->getId()
-            ];
-
-            $rubrics_tags__items = [];
-            foreach ($rubric->getTags()->toArray() as $val_tags) {
-                if (!empty($val_tags->getName())) {
-
-                    $total_frequency = 0;
-
-                    foreach ($val_tags->getQuestions()->toArray() as $check_finished_step) { //Проверка, что тянутые теги
-                        if ($check_finished_step->getStep() >= self::FINISHED_STEP) ++$total_frequency;
-                    }
-
-                    $rubrics_tags__items['rubrics_tags__items'][] = [
-                        'rubrics_tags__items__title' => $val_tags->getName(),
-                        'rubrics_tags__items__link' => self::TAG . '1/' . $val_tags->getId()  . self::REDIRECT,
-                        'rubrics_tags__items__frequency' => (!$total_frequency) ? false : $total_frequency  //Количество тегов в поросе
-                    ];
-                }
-            }
-
-            /**
-             * @var $rubrics_tags__items !empty($rubrics_tags__items) - нужен и там, и там, чтоб не попадали рубрики у которых еще нет связанных тегов
-             * @var $id - проверка для вывода ВСЕХ тегов, если id КОНКРЕТНОЙ рубрики не определен
-             *
-             */
-            if (!empty($rubrics_tags__items)) {
-                if (isset($id) && $rubric->getId() == $id) {
-                    $this->result['categories']['rubrics_tags'][] = [
-                        'rubrics_tags__name' => $rubric->getName(),
-                        'rubrics_tags__links' => self::RUBRIC . '1/' . $rubric->getId() . self::REDIRECT,
-                        'rubrics_tags__items_unit' => $rubrics_tags__items
-                    ];
-                } else if (!isset($id)) {
-                    $this->result['categories']['rubrics_tags'][] = [
-                        'rubrics_tags__name' => $rubric->getName(),
-                        'rubrics_tags__links' => self::RUBRIC . '1/' . $rubric->getId() . self::REDIRECT,
-                        'rubrics_tags__items_unit' => $rubrics_tags__items
-                    ];
-                }
-            }
-        }
-
     }
 
     /**
@@ -439,7 +467,7 @@ class ApiController extends Controller implements ContainerAwareInterface
     {
 
         foreach ($Jurists as $Jurist) {
-            if ($Jurist->getDisabled() === self::DISABLED_VALUE_ON){
+            if ($Jurist->getDisabled() === self::DISABLED_VALUE_ON) {
                 $rubrics = [];
 
                 foreach ($Jurist->getRubrics()->toArray() as $rubric) {
@@ -471,6 +499,56 @@ class ApiController extends Controller implements ContainerAwareInterface
             }
         }
 
+
+        foreach ($this->result['jurists_list'] as &$val) {
+            $val['jurist__education__length'] =  (strlen($val['jurist__education']) > 0) ? 1 : 0;
+            $val['jurist__company__length'] =  (strlen($val['jurist__company']) > 0) ? 1 : 0;
+            $val['mods__length'] = count($val['mods']);
+            $val['rubrics__length'] = count($val['rubrics']);
+            $this->generateFirstLast($val['rubrics']);
+        }
+        unset($val);
+
+    }
+
+    protected function formedJuristsoDBAL($Jurists)
+    {
+
+        foreach ($Jurists as $Jurist) {
+
+            if ((boolean)$Jurist['au_disabled'] === self::DISABLED_VALUE_ON) {
+                $rubrics = [];
+
+                foreach (json_decode($Jurist['rubric']) as $rubric) {
+                    $rubrics[] = [
+                        'rubrics__title' => $rubric->r_name,
+                        'rubrics__link' => self::RUBRICS . $rubric->r_id . self::REDIRECT,
+                    ];
+                }
+
+                $this->result['jurists_list'][] =
+                    [
+                        'mods' => 'list',
+                        'jurist__img' => [$this->fetchAvataroDBAL($Jurist)],
+                        'jurist__first_name' => $Jurist['au_name'],
+                        'jurist__link' => self::JURIST . $Jurist['au_id'] . self::REDIRECT,
+                        'jurist__last_name' => $Jurist['au_second_name'],
+                        'jurist__patronymic' => $Jurist['au_patronymic'],
+                        'jurist__education' => $Jurist['au_graduate'],
+                        'rubrics' => $rubrics,
+                        'jurist__company' => (!empty($Jurist['c_id'])) ? $Jurist['c_name'] : '',
+                        'jurist__rate' => [
+                            'jurist__rate__author' => $Jurist['au_total_rating'], //Общий рейтинг
+                        ],
+                        'jurist__consultations' => $Jurist['a_count'],
+                        'jurist__id' => $Jurist['au_id'],
+                    ];
+
+                $pagination[] = $Jurist['au_id'];
+            }
+        }
+
+        $this->pageNotFound(!isset($this->result['jurists_list']));
 
         foreach ($this->result['jurists_list'] as &$val) {
             $val['jurist__education__length'] =  (strlen($val['jurist__education']) > 0) ? 1 : 0;
@@ -599,28 +677,60 @@ class ApiController extends Controller implements ContainerAwareInterface
         }
     }
 
+    /**
+     * @param array $data
+     * @param $keyNewManyToManyArray
+     * @param array $field - ключ названия нового подмасива, где manyToMany. значение - массив с ключами, ключ должен соответствывать имени нужного поля
+     * @return array
+     */
+    protected function hackManyToMany(array &$data, $keyNewManyToManyArray, array $field) {
+        $result = [];
+
+        foreach ($data as &$dataVal)
+            foreach ($field as $newSubManyToMayName => $valueNewSubArray) {
+                $resultSubArray = [];
+                foreach ($valueNewSubArray as $key => $val) $resultSubArray[$val] = $dataVal[$val];
+
+                if (array_key_exists($dataVal[$keyNewManyToManyArray], $result)) { //Если уже есть, то добавляем в существующий
+                    $result[$dataVal[$keyNewManyToManyArray]][$newSubManyToMayName][] = $resultSubArray;
+                    foreach ($result[$dataVal[$keyNewManyToManyArray]][$newSubManyToMayName] as $duplicateVal) //Чтоб не было дублей
+                        if ($duplicateVal[key($duplicateVal)] === $resultSubArray[key($resultSubArray)]) continue 3;
+
+                } else { //Если еще нет, то создаем
+                    $dataVal[$newSubManyToMayName][] = $resultSubArray;
+                    $result[$dataVal[$keyNewManyToManyArray]] = $dataVal;
+                }
+            }
+        unset($dataVal);
+
+        return $result;
+    }
+
     protected function formedQuestionsDBAL ($questions)
     {
-
+        $questions = $this->hackManyToMany($questions, 'q_id', [
+            'tags' => ['t_id', 't_name', 't_disabled'],
+            'rubrics' => ['r_id', 'r_name']
+        ]);
         foreach ($questions as $questionKey => $question) {
 
-            dump($question);die;
             /**
              * Проверка что есть ответ. Потому что нельзя сделать сразу выборку по ассоциативным полям answersId
              */
-            if (!empty($question->getAnswersId()) && $question->getStep() >= self::FINISHED_STEP) {
+            if (!empty($question['a_id']) && $question['q_step'] >= self::FINISHED_STEP) {
 
                 /**
                  * генерация mods
                  *
                  * */
+
                 $this->result['questions_list'][] = [
                     'mods' => [
-                        ($question->getAnswersId()->getAuthUsersId()->getDateEndPay() > new \DateTime('now'))
+                        ($question['au_dateEndPay'] > new \DateTime('now'))
                             ? self::NAME_PAY_JURIST
                             : '', //Оплачен ли юрист
 
-                        ($question->getAnswersId()->getTypeCards() === 'card')
+                        ($question['a_typeCards'] === 'card')
                             ? 'card'
                             : '', //Является ли вопрос карточкой
                     ],
@@ -630,32 +740,33 @@ class ApiController extends Controller implements ContainerAwareInterface
                      *
                      * */
                     'questions__head' =>
-                        ['questions__head__author' =>
-                            [
+                        [
+                            'questions__head__author' =>
                                 [
-                                    'questions__head__author__name' => $question->getAuthorId()->getName(),
-                                    'questions__head__author__location' => $question->getAuthorId()->getCity(),
-                                ]
-                            ]
+                                    [
+                                        'questions__head__author__name' => $question['author_name'],
+                                        'questions__head__author__location' => $question['author_city']
+                                    ]
+                                ],
+                            'questions__head__author__active' => $this->hideTargetCityAndFIOoDBAL($question['rubrics'])
+
                         ]
                     ,
                     'questions_list__bibliotechka' => ($questionKey == 2) ? true : false,
-                    'tags' => $this->formedTagsAndRubrics($question->getTags()->toArray()), //tags_result,
-                    'link' => self::RUBRICS . self::QUESTIONS . $question->getId() .  self::REDIRECT,
-                    'rubrics' => $this->formedTagsAndRubrics($question->getRubrics()->toArray()),
-                    'title' => $question->getTitle(),
-                    //'title' => (!empty($question->getTitleSeo()) ? $question->getTitleSeo() : $question->getTitle()),
-                    'text' => $question->getDescription(),
-                    //'text' => (!empty($question->getDescriptionSeo()) ? $question->getDescriptionSeo() : $question->getDescription()),
+                    'tags' => $this->formedTagsAndRubricsoDBAL($question['tags']), //tags_result,
+                    'link' => self::RUBRICS . self::QUESTIONS . $question['q_id'] .  self::REDIRECT,
+                    'rubrics' => $this->formedTagsAndRubricsoDBAL($question['rubrics']),
+                    'title' => $question['q_title'],
+                    'text' => $question['q_description'],
                     'jurist' => [
-                        'jurist__active' => ($question->getAnswersId()->getAuthUsersId()->getDisabled() == self::DISABLED_VALUE_ON) ? !self::DISABLED_VALUE_ON : self::DISABLED_VALUE_ON,
-                        'jurist__first_name' => $question->getAnswersId()->getAuthUsersId()->getName(),
-                        'jurist__last_name' => $question->getAnswersId()->getAuthUsersId()->getSecondName(),
-                        'jurist__link' => self::JURIST . $question->getAnswersId()->getAuthUsersId()->getId() . self::REDIRECT,
-                        'jurist__img' => [$this->fetchAvatar($question->getAnswersId()->getAuthUsersId(), $question)],
+                        'jurist__active' => ($question['au_disabled'] == self::DISABLED_VALUE_ON) ? !self::DISABLED_VALUE_ON : self::DISABLED_VALUE_ON,
+                        'jurist__first_name' => $question['au_name'],
+                        'jurist__last_name' => $question['au_second_name'],
+                        'jurist__link' => self::JURIST . $question['au_id'] . self::REDIRECT,
+                        'jurist__img' => [$this->fetchAvataroDBAl($question)],
                         'jurist__rate' => [
-                            'jurist__rate__reply' => $question->getAnswersId()->getRating(),
-                            'jurist__rate__author' => $this->receiveAnOverallRating($question->getAnswersId()->getAuthUsersId()->getAnswers()->toArray()) //total_rating
+                            'jurist__rate__reply' => $question['a_rating'],
+                            'jurist__rate__author' => (empty($question['au_total_rating']) ? 0 : $question['au_total_rating']) //total_rating
                         ]
                     ],
                     'questions__item_complete' => 0,
@@ -676,6 +787,7 @@ class ApiController extends Controller implements ContainerAwareInterface
                      * Если первый ключ равен оплаченому юристу self::NAME_PAY_JURIST, то выставляем визабилити,
                      * если нет, то сносим.
                      */
+
                     if (!empty($val['mods'][0]) && $val['mods'][0] === self::NAME_PAY_JURIST) {
                         $val['visibility'] = [//true если mods = highlighted
                             'visibility__state' => 'visible'
@@ -712,6 +824,120 @@ class ApiController extends Controller implements ContainerAwareInterface
             }
         }
     }
+
+//    protected function formedQuestionsDBAL ($questions)
+//    {
+//
+//        foreach ($questions as $questionKey => $question) {
+//
+//            dump($question);die;
+//            /**
+//             * Проверка что есть ответ. Потому что нельзя сделать сразу выборку по ассоциативным полям answersId
+//             */
+//            if (!empty($question->getAnswersId()) && $question->getStep() >= self::FINISHED_STEP) {
+//
+//                /**
+//                 * генерация mods
+//                 *
+//                 * */
+//                $this->result['questions_list'][] = [
+//                    'mods' => [
+//                        ($question->getAnswersId()->getAuthUsersId()->getDateEndPay() > new \DateTime('now'))
+//                            ? self::NAME_PAY_JURIST
+//                            : '', //Оплачен ли юрист
+//
+//                        ($question->getAnswersId()->getTypeCards() === 'card')
+//                            ? 'card'
+//                            : '', //Является ли вопрос карточкой
+//                    ],
+//
+//                    /**
+//                     * генерация автора
+//                     *
+//                     * */
+//                    'questions__head' =>
+//                        ['questions__head__author' =>
+//                            [
+//                                [
+//                                    'questions__head__author__name' => $question->getAuthorId()->getName(),
+//                                    'questions__head__author__location' => $question->getAuthorId()->getCity(),
+//                                ]
+//                            ]
+//                        ]
+//                    ,
+//                    'questions_list__bibliotechka' => ($questionKey == 2) ? true : false,
+//                    'tags' => $this->formedTagsAndRubrics($question->getTags()->toArray()), //tags_result,
+//                    'link' => self::RUBRICS . self::QUESTIONS . $question->getId() .  self::REDIRECT,
+//                    'rubrics' => $this->formedTagsAndRubrics($question->getRubrics()->toArray()),
+//                    'title' => $question->getTitle(),
+//                    //'title' => (!empty($question->getTitleSeo()) ? $question->getTitleSeo() : $question->getTitle()),
+//                    'text' => $question->getDescription(),
+//                    //'text' => (!empty($question->getDescriptionSeo()) ? $question->getDescriptionSeo() : $question->getDescription()),
+//                    'jurist' => [
+//                        'jurist__active' => ($question->getAnswersId()->getAuthUsersId()->getDisabled() == self::DISABLED_VALUE_ON) ? !self::DISABLED_VALUE_ON : self::DISABLED_VALUE_ON,
+//                        'jurist__first_name' => $question->getAnswersId()->getAuthUsersId()->getName(),
+//                        'jurist__last_name' => $question->getAnswersId()->getAuthUsersId()->getSecondName(),
+//                        'jurist__link' => self::JURIST . $question->getAnswersId()->getAuthUsersId()->getId() . self::REDIRECT,
+//                        'jurist__img' => [$this->fetchAvatar($question->getAnswersId()->getAuthUsersId(), $question)],
+//                        'jurist__rate' => [
+//                            'jurist__rate__reply' => $question->getAnswersId()->getRating(),
+//                            'jurist__rate__author' => $this->receiveAnOverallRating($question->getAnswersId()->getAuthUsersId()->getAnswers()->toArray()) //total_rating
+//                        ]
+//                    ],
+//                    'questions__item_complete' => 0,
+//                ];
+//
+//
+//                if ($questionKey == 3) {
+//                    $this->result['questions_list'][] = [
+//                        'mods' => [
+//                            'bibliotechka'
+//                        ]
+//                    ];
+//                }
+//
+//                foreach ($this->result['questions_list'] as &$val) {
+//
+//                    /**
+//                     * Если первый ключ равен оплаченому юристу self::NAME_PAY_JURIST, то выставляем визабилити,
+//                     * если нет, то сносим.
+//                     */
+//                    if (!empty($val['mods'][0]) && $val['mods'][0] === self::NAME_PAY_JURIST) {
+//                        $val['visibility'] = [//true если mods = highlighted
+//                            'visibility__state' => 'visible'
+//                        ];
+//                    } else if (isset($val['mods'][0]) && $val['mods'][0] === '') {
+//                        unset($val['mods'][0]);
+//                    }
+//                    if (isset($val['mods'][1]) && $val['mods'][1] === '') unset($val['mods'][1]);
+//                    if (!empty($val['mods']) &&  count($val['mods']) > 0) {
+//                        $val['mods__length'] = count($val['mods']);
+//                    } else {
+//                        unset($val['mods']);
+//                    }
+//
+//                    if (!empty($val['mods']))$val['mods'] = array_values($val['mods']); //Потому что тупой мусташ считает [1 => 'cart'] массивом, хотя, явно это не указанно
+//
+//                    /**
+//                     * Работа с тегами и рубриками
+//                     */
+//                    $this->generateFirstLast($val['rubrics']);
+//
+//                    $this->generateFirstLast($val['tags']);
+//
+//                    $val['tags__length'] = count($val['tags']);
+//
+//                    /**
+//                     * Работаем с хранилищем аватарок для юристов
+//                     */
+//                    if (isset($val['jurist']) && count($val['jurist']['jurist__img']) > 0) {
+//                        $val['jurist']['jurist__img__length'] = count($val['jurist']['jurist__img']);
+//                    }
+//                }
+//                unset($val);
+//            }
+//        }
+//    }
 
     protected function bibliotechkaRand ()
     {
@@ -1193,7 +1419,12 @@ class ApiController extends Controller implements ContainerAwareInterface
             throw new Exception("Не допустимое значение: id = $currentPage");
         }
         $countRecords = (gettype($query) === 'string') ? $query : count($query);
-        $totalPages = ceil($countRecords / $countRecordsOnPage);
+
+        if ($countRecords < $countRecordsOnPage) {
+            $totalPages = ceil($countRecords / $countRecordsOnPage);
+        } else {
+            $totalPages = floor($countRecords / $countRecordsOnPage);
+        }
 
         /**
          * start numeric_page

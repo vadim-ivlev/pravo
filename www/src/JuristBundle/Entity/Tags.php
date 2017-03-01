@@ -42,6 +42,16 @@ class Tags
      */
     private $editedAt;
 
+    /**
+     * @var integer
+     */
+    private $countPublicQuestions;
+
+    /**
+     * @var boolean
+     */
+    private $disabled;
+
 
     /**
      * Get id
@@ -130,7 +140,7 @@ class Tags
      *
      * @param integer $questions
      *
-     * @return Questions
+     * @return Tags
      */
     public function setQuestions($questions)
     {
@@ -226,5 +236,53 @@ class Tags
     public function removeQuestion(\JuristBundle\Entity\Questions $question)
     {
         $this->questions->removeElement($question);
+    }
+
+    /**
+     * Set questions
+     *
+     * @param integer $countPublicQuestions
+     *
+     * @return Tags
+     */
+    public function setCountPublicQuestions($countPublicQuestions)
+    {
+        $this->countPublicQuestions = $countPublicQuestions;
+
+        return $this;
+    }
+
+    /**
+     * Get countPublicQuestions
+     *
+     * @return integer
+     */
+    public function getCountPublicQuestions()
+    {
+        return $this->countPublicQuestions;
+    }
+
+    /**
+     * Set disabled
+     *
+     * @param boolean $disabled
+     *
+     * @return Tags
+     */
+    public function setDisabled($disabled)
+    {
+        $this->disabled = $disabled;
+
+        return $this;
+    }
+
+    /**
+     * Get disabled
+     *
+     * @return boolean
+     */
+    public function getDisabled()
+    {
+        return $this->disabled;
     }
 }

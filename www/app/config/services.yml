@@ -11,3 +11,15 @@ services:
           class: JuristBundle\Services\Pagination
           arguments: ["@service_container"]
 
+      app.configer:
+          class: JuristBundle\Services\Configer
+          arguments: ["@service_container"]
+
+      app.arr:
+          class: JuristBundle\Services\Arr
+          arguments: ["@service_container"]
+
+      app.entity_management_guesser:
+          class: JuristBundle\Services\EntityManagementGuesser
+          #arguments: ["@service_container"]
+

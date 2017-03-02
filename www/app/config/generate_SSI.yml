@@ -3,13 +3,24 @@
 # U R T M
 # описать возможные offset,
 
-#years:
-#  start: 1990
-#  end:   2015
-#  date_years: [1891, 1903, 1916, 1937, 1941, 1956, 1984, 2003, 2014, 2020]
-
 args:
-  tmpl: ['questions', 'tags', 'rubrics', 'jurists']
-  order_by: 'DESC'
+  default_start_uri: '/include/'
+  default_args_tmpl: 'tmpl'
+  tables:
+    #Ключами в этом массиве являются из значения из uri, если вдруг надо будет поменять под стандарт RG
+    tags: tags
+    rubrics: rubrics
+    jurists: jurists
+  order_by_default_sort: DESC
+  order_by_default_value: &order_by_default_value answer_date DESC
+  order_by_allow: ['answer_date', 'jurist_name'] #Разрешенные поля для order_by
+  allowed_args:
+    order_by: *order_by_default_value
+    limit: 7
+    offset: 7
+    tags: 0
+    rubrics: 0
+    jurists: 0
   limit: 7
   offset: 7
+max_limit: 1000

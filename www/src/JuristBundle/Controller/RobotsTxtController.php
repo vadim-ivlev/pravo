@@ -44,7 +44,8 @@ class RobotsTxtController extends Controller
 
         $this->checkAccess($request);
 
-        if (!empty($request->request->get('data')) && file_put_contents($this->pathToFile(), $request->request->get('data'))) return new Response('success');
+        if (!empty($request->request->get('data')) && file_put_contents($this->pathToFile(), $request->request->get('data')))
+            return new Response('success');
 
         return new Response('error');
 

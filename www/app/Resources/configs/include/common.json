@@ -1,0 +1,98 @@
+{
+    "name": "include:common",
+    "subTasks": [
+        {
+        	"name": "question:item",
+        	"dest": "/src/JuristBundle/Resources/views/include",
+        	"src": {
+        		"include": [ "/app/Resources/public/pages/include/route.html" ]
+        	},
+        	"plugins": [
+        		{
+        			"name": "gulp-rgswig",
+        			"options": {
+        				"data": {
+        					"tmplFile": "../../pages/include/question_item.swig"
+        				}
+        			}
+        		},
+        		{
+        			"name": "gulp-minify-html",
+        			"options": {
+        				"conditionals": true,
+        				"comments": true,
+        				"quotes": true
+        			}
+        		},
+        		{
+        			"name": "gulp-rename",
+        			"options": {
+        				"basename": "question_item"
+        			}
+        		}
+        	]
+        },
+        {
+            "name": "question:latest",
+            "dest": "/src/JuristBundle/Resources/views/include",
+            "src": {
+                "include": [ "/app/Resources/public/pages/include/route.html" ]
+            },
+            "plugins": [
+                {
+                    "name": "gulp-rgswig",
+                    "options": {
+                        "data": {
+                            "tmplFile": "../../pages/include/question_latest.swig"
+                        }
+                    }
+                },
+                {
+                    "name": "gulp-minify-html",
+                    "options": {
+                        "conditionals": true,
+                        "comments": true,
+                        "quotes": true
+                    }
+                },
+                {
+                    "name": "gulp-rename",
+                    "options": {
+                        "basename": "question_latest"
+                    }
+                }
+            ]
+        },
+        {
+            "name": "question:list",
+            "dest": "/src/JuristBundle/Resources/views/include",
+            "src": {
+                "include": [ "/app/Resources/public/pages/include/route.html" ]
+            },
+            "plugins": [
+                {
+                    "name": "gulp-rgswig",
+                    "options": {
+                        "data": {
+                            "tmplFile": "../../pages/include/question_list.swig"
+                        }
+                    }
+                },
+                {
+                    "name": "gulp-minify-html",
+                    "options": {
+                        "conditionals": true,
+                        "comments": true,
+                        "quotes": true
+                    }
+                },
+                {
+                    "name": "gulp-rename",
+                    "options": {
+                        "basename": "question_list"
+                    }
+                }
+            ]
+        }
+    ]
+}

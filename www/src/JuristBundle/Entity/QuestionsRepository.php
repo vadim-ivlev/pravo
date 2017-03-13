@@ -108,6 +108,14 @@ class QuestionsRepository extends \Doctrine\ORM\EntityRepository
         return $stmt->fetchAll(\PDO::FETCH_NAMED);
     }
 
+    public function fetchSSI($sql)
+    {
+        $stmt = $this->oDBALConnection->prepare($sql);
+        $stmt->execute();
+
+        return $stmt->fetchAll(\PDO::FETCH_NAMED);
+    }
+
     public function fetchQuestionsForTag($tagId)
     {
         $sql = "

@@ -25,6 +25,65 @@ class AuthUsersRepository extends \Doctrine\ORM\EntityRepository implements crea
         $this->oDBALConnection = $this->getEntityManager()->getConnection();
     }
 
+    /**
+     * @param array $data - данные из фабрики, типа rubrics-1, это с like-ом ищется в БД
+     * @return bool
+     */
+    public function invalidateCacheSSI(array $data)
+    {
+        if (count($data) !== 2)
+            return false;
+
+        $delimiter = \JuristBundle\Controller\GenerateSSIController::TABLE_SEPARATOR;
+        $sql = "
+            SELECT path
+            FROM ssi_storage_path
+            WHERE
+                path like '%{$data[0]}-%{$data[1]}/'
+                OR path like '%{$data[0]}-{$data[1]}%'
+                OR path like '%{$data[0]}-{$data[1]}{$delimiter}%/'
+                OR path like '%{$data[0]}-%{$delimiter}{$data[1]}{$delimiter}%/';
+        ";
+
+        try {
+            $stmt = $this->oDBALConnection->prepare($sql);
+
+            $stmt->execute();
+
+            return $stmt->fetchAll(\PDO::FETCH_NAMED);
+
+        } catch (\PDOException $e) {
+            $e->getTrace();
+        }
+    }
+
+    /**
+     * @param $rootPath - /var/www/pravo/www/app/../src/JuristBundle/Resources/include/tmpl-main/rubrics-1/tags-2AND3/
+     * @param $pathInDB - /include/tmpl-main/rubrics-1/tags-2AND3/
+     */
+    public function delPathSSI($rootPath, $pathInDB)
+    {
+
+        //$rootPath = $rootPath . '123';
+        //`rm -rf $rootPath`;die;
+
+        /*try {
+            $sql = "
+              DELETE FROM ssi_storage_path
+              WHERE
+                  path = '{$pathInDB}'
+            ";
+
+            $stmt = $this->oDBALConnection->prepare($sql);
+
+            dump(1);
+            $stmt->execute();
+            dump(1);die;
+        } catch (\PDOException $e) {
+            $e->getTrace();
+        }*/
+    }
+
     private function fetchAllQuery($sql, array $arrayAnswersId = [], array $doctrineParam = [])
     {
         $query = $this->oDBALConnection->executeQuery(

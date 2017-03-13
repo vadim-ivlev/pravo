@@ -11,21 +11,25 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
-use JuristBundle\Classes\ErrorFabricMethodClasses;
-use JuristBundle\Classes\AbstractFactoryForGenerateSSI\AbstractFactoryGenerateSSI;
+use Mustache_Engine;
+use \JuristBundle\Controller\ApiController;
 
-class GenerateSSIController extends Controller
+use JuristBundle\Classes\ErrorFabricMethodClasses;
+
+class GenerateSSI1Controller extends Controller
     implements ContainerAwareInterface
 {
     protected $connect_to_Jurists_bd, $container;
 
-    private $JsonErrorMessage, $HtmlErrorMessage, $pathToResource;
+    private $JsonErrorMessage, $HtmlErrorMessage, $pathToResource, $pathToTmpl;
 
     const
         DIRECTORY_SEPARATOR = DIRECTORY_SEPARATOR,
         ARGS_SEPARATOR = '-',
         ALLOW_FORMAT_TMPL = '.html',
-        TABLE_SEPARATOR = 'AND';
+        ALLOW_NAME_FILE = 'index',
+        TABLE_SEPARATOR = 'AND'
+    ;
 
     public function setContainer(ContainerInterface $container = null)
     {
@@ -44,26 +48,11 @@ class GenerateSSIController extends Controller
     public function getURISSIAction(Request $request)
     {
 
-        var_dump($request->query->all());
-        var_dump($_SERVER['REMOTE_ADDR']);
-        return new Response('<br><hr>Это генератор symfony SSI');
         $uri = $request->query->get('uri');
         if (empty($uri))
             return new Response($this->HtmlErrorMessage->generateError('uri not found'));
 
-        die;
-
-        /**TODO должен быть другой класс, который генерит Q, R, T, U и удаляет их по конфигу
-         * Тут создаем по заданной из конфигов SSI */
-
-        /**
-         * Про этот класс
-         * generatePathSSI - генерирует путь
-         * generatePathSSI - отдает путь, куда собирать ssi- createSSI
-         */
         return $this->generatePathSSI($uri);
-//        return new Response($data);
-//        return new Response('<div style="margin-left: 20px; width: 100px; height: 20px; border: 1px solid red">123</div>');
     }
 
     private function validateUri($uri)
@@ -80,12 +69,18 @@ class GenerateSSIController extends Controller
         if (stripos($uri, $defaultStartUri) !== 0) //Если uri не начинается с /include/
             return new Response($this->HtmlErrorMessage->generateError('uri must start with /include/'));
 
+        if (!(boolean)preg_match("/\/" . $this::ALLOW_NAME_FILE . $this::ALLOW_FORMAT_TMPL . "$/", $uri)) //Если не оканчивается на index.html
+            return new Response($this->HtmlErrorMessage->generateError('uri must end /' . $this::ALLOW_NAME_FILE . $this::ALLOW_FORMAT_TMPL));
+        else //Если оканчивается, то удаляем index.html
+            $uri = substr($uri, 0, - strlen($this::ALLOW_NAME_FILE . $this::ALLOW_FORMAT_TMPL));
+
         $args = ltrim($uri, $defaultStartUri); //Удаляем из начала /include/
 
         if($args[strlen($args) - 1] === DIRECTORY_SEPARATOR) //Если последний символ DIRECTORY_SEPARATOR, то удаляем его, так, как потом бьем по сепаратору и он не нужен лишний
             $args = substr($args, 0, -1);
 
         $args = explode($this::DIRECTORY_SEPARATOR, $args);
+
         $defaultArgsTmpl = $appConfiger->getBy(null, 'generate_SSI', 'args:default_args_tmpl');
 
         if (stripos($args[0], $defaultArgsTmpl . $this::ARGS_SEPARATOR) !== 0) //Проверяем, что после /include/ идет имя шаблон
@@ -98,9 +93,10 @@ class GenerateSSIController extends Controller
         if (empty($tmpl))
             return new Response($this->HtmlErrorMessage->generateError('name tmpl is empty'));
 
-        $pathToTmpl = $this->pathToResource . 'views' . DIRECTORY_SEPARATOR . $tmpl . GenerateSSIController::ALLOW_FORMAT_TMPL;
-        if (!is_readable($pathToTmpl)) //Если нет tmpl
-            return new Response($this->HtmlErrorMessage->generateError("tmpl not found or not readble check rules {$pathToTmpl}" ));
+        $this->pathToTmpl = $this->pathToResource . 'views' . DIRECTORY_SEPARATOR . 'include' . DIRECTORY_SEPARATOR . $tmpl . GenerateSSIController::ALLOW_FORMAT_TMPL;
+        //dump($this->pathToTmpl);die;
+        if (!is_readable($this->pathToTmpl)) //Если нет tmpl
+            return new Response($this->HtmlErrorMessage->generateError("tmpl not found or not readble check rules {$this->pathToTmpl}" ));
 
         /**
          * могут быть
@@ -157,10 +153,14 @@ class GenerateSSIController extends Controller
         $queryTables = array_intersect_key($queryArgs, $tables); // Забираем таблицы
 
         foreach ($queryTables as $key => &$queryTable) {
-            if ($queryTable == 0) //Если не указали, то удалить
+            if ($queryTable === 0) {//Если не указали, то удалить
                 unset($queryTables[$key]);
+            }
 
-            $queryTable = explode('_', $queryTable); //Если указанно несколько
+            $queryTable = explode(GenerateSSI1Controller::TABLE_SEPARATOR, $queryTable); //Если указанно несколько
+
+            if ($key === 'rubrics' && count($queryTable) > 1) //TODO 
+                return new Response($this->HtmlErrorMessage->generateError("Rubrics can`t content more 1 value"));
         }
         unset($queryTable);
 
@@ -183,21 +183,148 @@ class GenerateSSIController extends Controller
 
         $pathCreate = $this->pathToResource . 'public' . $this::DIRECTORY_SEPARATOR . $pathCreate;
 
+        $fabric = new \JuristBundle\Classes\SelectionFabric\SelectionFabricReal($this->connect_to_Jurists_bd, $this->HtmlErrorMessage);
+        $fabric = $fabric->assembler($args);
+
+        /**
+         * помнить про ограничения рубрик, тегов, юристов
+         */
+        if ($fabric instanceof Response)
+            return $fabric;
+
+
+        //Создать иерархию папок
+        $pathCreateHierarchy = substr($pathCreate, 0, - strlen($this::ALLOW_NAME_FILE . $this::ALLOW_FORMAT_TMPL));
         try {
-            if (!mkdir($pathCreate, 0775, true))
-                return new Response($this->HtmlErrorMessage->generateError("error create {$pathCreate}"));
+            if (!mkdir($pathCreateHierarchy, 0775, true)) //mkdir -p /foo/bar/baz/
+                return new Response($this->HtmlErrorMessage->generateError("error create {$pathCreateHierarchy}"));
         } catch (\Exception $e) {
             if($e->getMessage() !== 'Warning: mkdir(): File exists')
                 return new Response($this->HtmlErrorMessage->generateError("unknown error: " . $e->getMessage()));
         }
 
-        $fabric = new AbstractFactoryGenerateSSI($this->connect_to_Jurists_bd, $this->HtmlErrorMessage);
-        $fabric = $fabric->a(['tables' => [], 'conditions' => [1]]);
+        $tmpl = $this->generateTemplate($path, $this->pathToTmpl, $fabric);
 
-        if ($fabric instanceof Response)
-            return $fabric;
+        $savePath = $this->connect_to_Jurists_bd //Записать путь
+            ->getRepository('JuristBundle:SsiStoragePath')
+            ->savePath(substr($path, 0, - strlen($this::ALLOW_NAME_FILE . $this::ALLOW_FORMAT_TMPL)));
+        if(!$savePath) //Если произошла ошибка при сохранение
+            return new Response($this->HtmlErrorMessage->generateError("error save uri in BD"));
 
-        return new Response($fabric);
+        return new Response($tmpl);
 
+    }
+
+    private function generateTemplate($pathToWrite, $pathTmpl, array $data)
+    {
+
+        $data = $this->formedData($data); //Сформировал данные
+
+        $readyTmpl = $this->writeTmpl($pathToWrite, $pathTmpl, $data); //Совместил данные с шаблоном
+
+        return $readyTmpl;
+    }
+
+    public function hideTargetCityAndFIOoDBAL(array $arrayRubrics)
+    {//скрывает у рубрики СТАТЬИ город и ФИО
+
+        foreach (ApiController::LIST_FOR_HIDE_CITY_AND_FIO as $rubric) {
+            foreach ($arrayRubrics as $rubricName) {
+                if (!empty($rubricName) && $rubric === $rubricName)
+                    return false;
+            }
+        }
+
+        return true;
+    }
+
+    private function formedData($data)
+    {
+        $result['questions'] = [];
+
+        foreach ($data['query'] as $questionKey => $item) {
+            $tags = json_decode($item['tags']);
+            if (isset($item['current_rubric']))
+                $currentRubric = json_decode($item['current_rubric']);
+
+            $result['questions'][] = [
+              'questions__head' => [
+                  [
+                      'questions__head__author' => [
+                          'questions__head__author__name' => $item['author_name'],
+                          'questions__head__author__location' => $item['author_city']
+                      ],
+                      'questions__head__author__active' => $this->hideTargetCityAndFIOoDBAL([$item['r_name']])
+                  ]
+              ],
+              'questions__list__bibliotechka' => ($questionKey == 2) ? true : false,
+              'tags' => $tags,
+              'tags__length' => count($tags),
+              'link' => ApiController::RUBRICS . ApiController::QUESTIONS . $item['q_id'] .  ApiController::REDIRECT,
+              'rubrics' => [
+                  [
+                      'rubrics__title' =>  $item['r_name'],
+                      'rubrics__link' =>  '/rubrics/' . $item['r_id'] . ApiController::REDIRECT,
+                      'rubrics__id' =>  $item['r_id'],
+                      'rubrics__FIRST__' =>  1,
+                      'rubrics__LAST__' =>  1
+                  ]
+              ],
+              'title' => $item['q_title'],
+              'title_seo' => ((!empty($item['q_title_seo'])) ? $item['q_title_seo'] : $item['q_title']),
+              'text' => $item['q_description'],
+              'keywords' => ((!empty($item['q_keywords_seo'])) ? $item['q_keywords_seo'] : false),
+              'jurist' => [
+                  'jurist__active' => (((bool)$item === (bool)ApiController::DISABLED_VALUE_ON) ? !ApiController::DISABLED_VALUE_ON : ApiController::DISABLED_VALUE_ON),
+                  'jurist__first_name' => $item['au_name'],
+                  'jurist__last_name' => $item['au_second_name'],
+                  'jurist__link' => ApiController::JURIST . $item['au_id'] . ApiController::REDIRECT,
+                  'jurist__img' => [
+                      [
+                          'jurist__img__type_medium' => 1,
+                          'jurist__img__file' => "{$item['au_directory']}{$item['au_filename']}",
+                          'jurist__img__title' => "{$item['au_name']} {$item['au_second_name']}",
+                          'jurist__img__width' => 100,
+                          'jurist__img__height' => 100,
+                      ]
+                  ],
+                  'jurist__rate' => [
+                      'jurist__rate__reply' => $item['a_rating'],
+                      'jurist__rate__author' => $item['au_total_rating']
+                  ],
+                  'jurist__img__length' => 1,
+              ],
+              'current_rubric' => ((isset($currentRubric)) ? $currentRubric[0] : false)
+            ];
+        }
+
+        return array_merge(
+            $result,
+            [
+                'pagination' => $data['pagination']
+            ]
+        );
+    }
+
+    /**
+     * @param $pathToWrite - куда записывать готовый ssi
+     * @param $pathTmpl - шаблон
+     * @param $data - данные для шаблона
+     * @return mixed
+     */
+    private function writeTmpl($pathToWrite, $pathTmpl, $data)
+    {
+
+        $m = new Mustache_Engine();
+
+        $result = $m->render(
+            @file_get_contents($pathTmpl),
+            $data
+        );
+
+        $pathToWrite = $this->pathToResource . 'public' . $this::DIRECTORY_SEPARATOR . $pathToWrite;
+        @file_put_contents($pathToWrite, $result);
+
+        return @file_get_contents($pathToWrite);
     }
 }

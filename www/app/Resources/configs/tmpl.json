@@ -147,6 +147,26 @@
             ]
           },
           "plugins": "~"
+        },
+        {
+          "name": "search1",
+          "dest": "/src/JuristBundle/Resources/views",
+          "src": {
+            "include": [
+              "/app/Resources/public/pages/data/search1.js"
+            ]
+          },
+          "plugins": "~"
+        },
+        {
+          "name": "tags",
+          "dest": "/src/JuristBundle/Resources/views",
+          "src": {
+            "include": [
+              "/app/Resources/public/pages/data/tags.js"
+            ]
+          },
+          "plugins": "~"
         }
 	]
 }	

@@ -16,7 +16,16 @@ use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 class TagsRepository extends \Doctrine\ORM\EntityRepository
 {
 
+    private $oDBALConnection;
+
+    public function __construct($em, $class)
+    {
+        parent::__construct($em, $class);
+        $this->oDBALConnection = $this->getEntityManager()->getConnection();
+    }
+
     const TAGS = '/jurists/tags/';
+    const TAGS_FIELD = 'tags', RUBRICS_FIELD = 'rubrics';
 
     public function fetchTags($field) {
         $tags_result = [];
@@ -38,5 +47,68 @@ class TagsRepository extends \Doctrine\ORM\EntityRepository
             ];
         }
         return $tags_result;
+    }
+
+    /**
+     * @param array $fieldName - например rubrics
+     * @param array $id - например 6
+     * @return bool
+     */
+    public function invalidateCacheSSI($fieldName, $id)
+    {
+        $delimiter = \JuristBundle\Controller\GenerateSSIController::TABLE_SEPARATOR;
+        $sql = "
+            SELECT path
+            FROM ssi_storage_path
+            WHERE
+                path like '%{$fieldName}-%{$id}/'
+                OR path like '%{$fieldName}-{$id}%'
+                OR path like '%{$fieldName}-{$id}{$delimiter}%/'
+                OR path like '%{$fieldName}-%{$delimiter}{$id}{$delimiter}%/';
+        ";
+
+        try {
+            $stmt = $this->oDBALConnection->prepare($sql);
+
+            $stmt->execute();
+
+            return $stmt->fetchAll(\PDO::FETCH_NAMED);
+
+        } catch (\PDOException $e) {
+            $e->getTrace();
+        }
+    }
+
+
+    public function getAllRelatedRubricsTags($fieldName, $id)
+    {
+        $sql = "
+            SELECT 
+                tags_id AS tags, r.CPU_name AS rubrics
+            FROM tags_rubrics
+              JOIN rubrics AS r ON r.id = rubrics_id
+            WHERE {$fieldName}_id = :id
+        ";
+
+        try {
+            $stmt = $this->oDBALConnection->prepare($sql);
+            $stmt->bindValue('id', $id);
+
+            $stmt->execute();
+        } catch (\PDOException $e) {
+            $e->getTrace();
+        }
+
+        $targetFiled = (($fieldName === self::TAGS_FIELD) ? self::RUBRICS_FIELD : self::TAGS_FIELD);
+        $results = [];
+
+        foreach ($stmt->fetchAll(\PDO::FETCH_NAMED) AS $path) {
+            $resultInvalidateCacheSSI = $this->invalidateCacheSSI($targetFiled, $path[$targetFiled]);
+
+            if (!empty($resultInvalidateCacheSSI))
+                $results = array_merge($results, $resultInvalidateCacheSSI);
+        }
+
+        return $results;
     }
 }

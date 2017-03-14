@@ -5,7 +5,7 @@ namespace JuristBundle\Classes\ValidateSSIFabric;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
-class InvalidateSSIJurist implements InvalidateSSIInterface
+class InvalidateSSIJurist extends InvalidateSSIAbstract
 {
     private $em, $name, $container;
 

@@ -26,45 +26,13 @@ class AuthUsersRepository extends \Doctrine\ORM\EntityRepository implements crea
     }
 
     /**
-     * @param array $data - данные из фабрики, типа rubrics-1, это с like-ом ищется в БД
-     * @return bool
-     */
-    public function invalidateCacheSSI(array $data)
-    {
-        if (count($data) !== 2)
-            return false;
-
-        $delimiter = \JuristBundle\Controller\GenerateSSIController::TABLE_SEPARATOR;
-        $sql = "
-            SELECT path
-            FROM ssi_storage_path
-            WHERE
-                path like '%{$data[0]}-%{$data[1]}/'
-                OR path like '%{$data[0]}-{$data[1]}%'
-                OR path like '%{$data[0]}-{$data[1]}{$delimiter}%/'
-                OR path like '%{$data[0]}-%{$delimiter}{$data[1]}{$delimiter}%/';
-        ";
-
-        try {
-            $stmt = $this->oDBALConnection->prepare($sql);
-
-            $stmt->execute();
-
-            return $stmt->fetchAll(\PDO::FETCH_NAMED);
-
-        } catch (\PDOException $e) {
-            $e->getTrace();
-        }
-    }
-
-    /**
      * @param $rootPath - /var/www/pravo/www/app/../src/JuristBundle/Resources/include/tmpl-main/rubrics-1/tags-2AND3/
      * @param $pathInDB - /include/tmpl-main/rubrics-1/tags-2AND3/
      */
     public function delPathSSI($rootPath, $pathInDB)
     {
 
-        //$rootPath = $rootPath . '123';
+        //TODO
         //`rm -rf $rootPath`;die;
 
         /*try {
@@ -108,6 +76,21 @@ class AuthUsersRepository extends \Doctrine\ORM\EntityRepository implements crea
         ";
 
         return $this->fetchAllQuery($sql);
+    }
+
+    public function getAllPathJurists()
+    {
+        $sql = "SELECT * FROM ssi_storage_path WHERE path like '%jurists%';";
+
+        try {
+            $stmt = $this->oDBALConnection->prepare($sql);
+            $stmt->execute();
+
+            return $stmt->fetchAll(\PDO::FETCH_NAMED);
+
+        } catch (\PDOException $e) {
+            $e->getTrace();
+        }
     }
 
     public function fetchJurists(array $orderBy, array $where, $offset, $limit = \JuristBundle\Controller\JuristsController::COUNT_RECORDS_ON_PAGE_JURISTS)

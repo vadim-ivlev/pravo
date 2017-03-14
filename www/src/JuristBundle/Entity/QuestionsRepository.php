@@ -60,6 +60,19 @@ class QuestionsRepository extends \Doctrine\ORM\EntityRepository
         );
     }
 
+    public function getAllQuestionPathWithoutParameters()
+    {
+        $sql = "
+            SELECT path FROM ssi_storage_path
+            where path not like '%tags%' AND path not like '%rubrics%' AND path not like '%jurists%'
+        ";
+
+        $stmt = $this->oDBALConnection->prepare($sql);
+        $stmt->execute();
+
+        return $stmt->fetchAll(\PDO::FETCH_NAMED);
+    }
+
     public function fetchQuestions($limit, $offset)
     {
         $sql = "

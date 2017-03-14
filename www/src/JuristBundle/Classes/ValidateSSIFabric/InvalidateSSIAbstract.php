@@ -35,18 +35,25 @@ abstract class InvalidateSSIAbstract
      */
     protected function delArrayPath(array $arrayPath)
     {
-        $pathForDel = [];
-        foreach ($arrayPath as $item)
-            if($item['path'])
-                $pathForDel[] = $this->path . $item['path'];
+        $pathToRMRF = [];
+        $whereSQL = "path in (";
+        foreach ($arrayPath as $key => $item)
+            if(isset($item['path']) && !in_array($this->path . $item['path'], $pathToRMRF)) {
+                $pathToRMRF[] = $this->path . $item['path'];
 
-        $pathForDel = array_unique($pathForDel);
+                (($key != count($arrayPath) - 1)
+                    ? $whereSQL .= "'{$item['path']}', "
+                    : $whereSQL .= "'{$item['path']}')");
+            }
 
-        $pathToRMRF = implode(' ', $pathForDel); // Для rm -rf
+        $pathToRMRF = implode(' ', $pathToRMRF); // Для rm -rf
 
-        $pathToSQL = "";
-        // Для sql
-        dump($pathToSQL);
-        dump($pathForDel);die;
+        dump($pathToRMRF, $whereSQL);die;
+
+        //exec("rm -rf $pathToRMRF");
+
+//        $this->em
+//            ->getRepository('JuristBundle:AuthUsers')
+//            ->delPathSSI($whereSQL);
     }
 }

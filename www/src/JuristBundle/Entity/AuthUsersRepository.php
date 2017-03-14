@@ -26,30 +26,23 @@ class AuthUsersRepository extends \Doctrine\ORM\EntityRepository implements crea
     }
 
     /**
-     * @param $rootPath - /var/www/pravo/www/app/../src/JuristBundle/Resources/include/tmpl-main/rubrics-1/tags-2AND3/
-     * @param $pathInDB - /include/tmpl-main/rubrics-1/tags-2AND3/
+     * Удаляет из ssi_storage_path уже не существующие пути до ssi
+     * @param $where
      */
-    public function delPathSSI($rootPath, $pathInDB)
+    public function delPathSSI($where)
     {
-
-        //TODO
-        //`rm -rf $rootPath`;die;
-
-        /*try {
+        try {
             $sql = "
               DELETE FROM ssi_storage_path
-              WHERE
-                  path = '{$pathInDB}'
+              WHERE {$where}
             ";
 
             $stmt = $this->oDBALConnection->prepare($sql);
 
-            dump(1);
             $stmt->execute();
-            dump(1);die;
         } catch (\PDOException $e) {
             $e->getTrace();
-        }*/
+        }
     }
 
     private function fetchAllQuery($sql, array $arrayAnswersId = [], array $doctrineParam = [])

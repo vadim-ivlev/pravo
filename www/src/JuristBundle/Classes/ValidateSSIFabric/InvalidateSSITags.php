@@ -40,24 +40,5 @@ class InvalidateSSITags extends InvalidateSSIAbstract
 
         $pathForDels = array_merge($tags, $question, $rubrics, $jurists);
         $this->delArrayPath($pathForDels);
-        die;
-
-        $pathForDel = [];
-
-        foreach ($pathForDels as $item)
-            $pathForDel[] = $item['path'];
-
-
-        $this->delArrayPath(array_unique($pathForDel));die;
-        //dump($tags, $question, $rubrics, $jurists);
-
-//        foreach ($tags as $tag) {
-//            $this->em
-//                ->getRepository('JuristBundle:AuthUsers')
-//                ->delPathSSI($this->path . $tag['path'], $tag['path']);
-//        }
-
-        die;
-        return $this->name;
     }
 }

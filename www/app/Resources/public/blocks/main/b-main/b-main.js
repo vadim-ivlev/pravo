@@ -95,7 +95,7 @@ module.exports = function(data){
 
                             users: "usersSelection juristsList pagination juristsFeed juristsTop",
 
-                            rubrics: "materialHead categoriesMain tags juristsFeed",
+                            tags: "materialHead tags juristsFeed",
 
                             rubric_tags: "materialHead categoriesMain tags juristsFeed",
 
@@ -106,6 +106,7 @@ module.exports = function(data){
                             search: "categoriesSidebar searchResults pagination juristsFeed juristsTop",
 
                             error404: "articleError404"
+
                         }
 
                     }

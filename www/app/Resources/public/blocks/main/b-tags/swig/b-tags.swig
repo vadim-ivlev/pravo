@@ -1,18 +1,14 @@
-{{# categories }}
-    {{# rubrics_tags }}
-        <h2 class="b-tags__title">
-            <a class="b-link" href="{{ rubrics_tags__links }}">{{ rubrics_tags__name }}</a>
-        </h2>
-        <ul class="b-tags__list">
-            {{# rubrics_tags__items_unit }}
-                {{# rubrics_tags__items }}
-                    {{# rubrics_tags__items__frequency }}
-                        <li class="b-tags__list-item">
-                            <a href="{{ rubrics_tags__items__link }}" class="b-link">{{ rubrics_tags__items__title }} <span class="b-grey-text">({{ rubrics_tags__items__frequency }})</span></a>
-                        </li>
-                    {{/ rubrics_tags__items__frequency }}
-                {{/ rubrics_tags__items }}
-            {{/ rubrics_tags__items_unit }}
+{{# tags }}
+    {{# length }}
+        <h2 class="b-tags__title">{{ tags__letter }}</h2>
+        <ul class="b-tags__list">            
+            {{# tags__items }}
+                {{# tags__items__frequency }}
+                    <li class="b-tags__list-item">
+                        <a href="{{ tags__items__link }}" class="b-link" rel="nofollow" from="tags-list">{{ tags__items__title }} <span class="b-grey-text">({{ tags__items__frequency }})</span></a>
+                    </li>
+                {{/ tags__items__frequency }}
+            {{/ tags__items }}
         </ul>
-    {{/ rubrics_tags }}
-{{/ categories }}
+    {{/ length }}
+{{/ tags }}

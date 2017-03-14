@@ -55,7 +55,7 @@ module.exports = function(data){
 
 							users: "juristsFeed juristsTop",
 
-							rubrics: "juristsFeed",
+							tags: "categoriesSidebar juristsFeed",
 
 							rubric_tags: "juristsFeed",
 							

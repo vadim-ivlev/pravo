@@ -43,7 +43,7 @@ module.exports = function(data){
 
 							users: "adfoxSidebarRight yandexDirect",
 
-							rubrics: "adfoxSidebarRight yandexDirect",
+							tags: "adfoxSidebarRight yandexDirect",
 
 							rubric_tags: "adfoxSidebarRight yandexDirect",
 

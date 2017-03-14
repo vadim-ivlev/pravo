@@ -85,7 +85,7 @@
                             {{# tags__length }}
 
                                 {{# tags}}
-                                    <a href="{{ tags__link }}" class="b-link b-link_tag">{{ tags__title }}</a>{{^ tags__LAST__ }},{{/ tags__LAST__ }}
+                                    <a href="{{ tags__link }}" class="b-link b-link_tag" rel="nofollow">{{ tags__title }}</a>{{^ tags__LAST__ }},{{/ tags__LAST__ }}
                                 {{/ tags }}
 
                             {{/ tags__length }}

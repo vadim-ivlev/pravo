@@ -13,7 +13,7 @@ class DecoratorJurists implements DecoratorQueryInterface
     public function where(&$query, array $id = null)
     {
         if (!empty($id))
-            $query .= " au.id in (" . implode(', ', $id) . ")";
+            $query .= " AND au.id in (" . implode(', ', $id) . ")";
 
         unset($query);
     }

@@ -57,7 +57,8 @@ class TagsRepository extends \Doctrine\ORM\EntityRepository
     public function invalidateCacheSSI($fieldName, $id)
     {
         $delimiter = \JuristBundle\Controller\GenerateSSIController::TABLE_SEPARATOR;
-        $sql = "
+        // Были проблемы, когда приходила 4 искалось 494
+        /*$sql = "
             SELECT path
             FROM ssi_storage_path
             WHERE
@@ -65,6 +66,16 @@ class TagsRepository extends \Doctrine\ORM\EntityRepository
                 OR path like '%{$fieldName}-{$id}%'
                 OR path like '%{$fieldName}-{$id}{$delimiter}%/'
                 OR path like '%{$fieldName}-%{$delimiter}{$id}{$delimiter}%/';
+        ";*/
+
+        $sql = "
+            SELECT path
+            FROM ssi_storage_path
+            WHERE
+                path like '%{$fieldName}-{$id}{$delimiter}%' OR
+                path like '%{$fieldName}-{$id}/%' OR
+                path like '%{$fieldName}-%{$delimiter}{$id}/%' OR
+                path like '%{$fieldName}-%{$delimiter}{$id}{$delimiter}%';
         ";
 
         try {

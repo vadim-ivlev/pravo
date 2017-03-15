@@ -5,10 +5,8 @@ namespace JuristBundle\Classes\ValidateSSIFabric;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
-
-class InvalidateSSITags extends InvalidateSSIAbstract
+class InvalidateSSIQuestion extends InvalidateSSIAbstract
 {
-    //private $em, $name, $container, $path;
     private $name;
 
     public function __construct(EntityManager $em, $name, ContainerInterface $container)
@@ -26,20 +24,15 @@ class InvalidateSSITags extends InvalidateSSIAbstract
 
         $question = $this->getAllQuestionWithoutParameters(); // Получаем все вопросы с главной и где использованно без параметров
 
-        $tags = $this->em
-            ->getRepository('JuristBundle:Tags')
-            ->invalidateCacheSSI($filedName, $id);
-
-        $rubrics = $this->em // Получить все связанные рубрики
-            ->getRepository('JuristBundle:Tags')
-            ->getAllRelatedRubricsTags($filedName, $id);
-
-        $jurists = $this->em
+        $rubricsAndTags = $this->em // Получить все связанные рубрики и теги
             ->getRepository('JuristBundle:AuthUsers')
-            ->getAllPathJurists();
+            ->getRubricsAndTagsViaQuestionIdPathSSI($this->em, $id);
 
-        $pathForDels = array_merge($tags, $question, $rubrics, $jurists);
+        $jurist = $this->em // Получить все связанные рубрики и теги
+            ->getRepository('JuristBundle:AuthUsers')
+            ->getJuristByQuestionId($this->em, $id);
 
+        $pathForDels = array_merge($question, $jurist, $rubricsAndTags);
         if (!empty($pathForDels))
             $this->delArrayPath($pathForDels);
     }

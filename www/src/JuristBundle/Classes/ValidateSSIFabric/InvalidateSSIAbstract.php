@@ -48,12 +48,13 @@ abstract class InvalidateSSIAbstract
 
         $pathToRMRF = implode(' ', $pathToRMRF); // Для rm -rf
 
-        dump($pathToRMRF, $whereSQL);die;
+        dump($whereSQL, $pathToRMRF);
+        /*if (!empty($pathToRMRF))
+            exec("rm -rf $pathToRMRF");*/
 
-        //exec("rm -rf $pathToRMRF");
-
-//        $this->em
-//            ->getRepository('JuristBundle:AuthUsers')
-//            ->delPathSSI($whereSQL);
+        /*if (!empty($arrayPath))
+            $this->em
+                ->getRepository('JuristBundle:AuthUsers')
+                ->delPathSSI($whereSQL);*/
     }
 }

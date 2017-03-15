@@ -26,10 +26,10 @@ class ValidateSSIFactory extends ValidateSSIFactoryAbstract
                     return new InvalidateSSITags($this->em, $name, $this->container);
                 break;
                 case (bool)preg_match('/^' . static::RUBRIC_FACTORY . '\d*$/', $name):
-                    return 3333;
+                    return new InvalidateSSIRubrics($this->em, $name, $this->container);
                 break;
                 case (bool)preg_match('/^' . static::QUESTION_FACTORY . '\d*$/', $name):
-                    return 4444;
+                    return new InvalidateSSIQuestion($this->em, $name, $this->container);
                 break;
                 default:
                     throw new \Exception('Class not register');

@@ -30,11 +30,6 @@ class ValidateSSIController extends Controller
         $this->connect_to_Jurists_bd = $this
             ->getDoctrine()
             ->getManager(ApiController::NAME_BD);
-
-//        $this->HtmlErrorMessage = ErrorFabricMethodClasses::initial('HtmlErrorClasses');
-//
-//        $this->pathToResource = $this->get('kernel')->getRootDir() . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR .
-//            'src' . DIRECTORY_SEPARATOR . 'JuristBundle' . DIRECTORY_SEPARATOR .  'Resources' . DIRECTORY_SEPARATOR;
     }
 
     private function checkAccess($request)
@@ -47,19 +42,28 @@ class ValidateSSIController extends Controller
     }
 
     public function handlerAction(Request $request) {
-        //$this->checkAccess($request);
+        $this->checkAccess($request); // Чтоб запрос только с админки был
 
         $fabric = new \JuristBundle\Classes\ValidateSSIFabric\ValidateSSIFactory($this->connect_to_Jurists_bd, $this->container);
 
-
-        $concreteFabric = $fabric->make('tags-2');
-
-        if (isset($concreteFabric)) {
-            dump($concreteFabric->invalidateCache());
-        }
-
-
+        /**
+         * Вся информация указанная ниже, акктуальна на 15.03.17
+         * Допустимые значения, которые приходят из $request->request->get('data');
+         * Можно тестить от сюда https://jurist-admin.rg.ru/project/consultation/?r=/validate_ssi/
+         * в формочку, вбиваем, например, jurists-1 и отправляем, trim() не прекручивал, так что вбивай без пробелов
+         * Отправляется данные на ивалидацию POST-ом сюда https://jurist-admin.rg.ru/project/consultation/?r=/validate_ssi/edit/{id}/save/
+         * Путь /var/www/outer/plain/jurist/project/consultation/src/Models/ValidatessiModel.php
+         * jurists-id
+         * rubrics-id
+         * questions-id
+         * tags-id
+         */
         var_dump($request->request->get('data'));
+        //$concreteFabric = $fabric->make($request->request->get('data'));
+
+        if (isset($concreteFabric)) //Если нашелся подходящий фабричный метод
+            $concreteFabric->invalidateCache();
+
         return new Response('Success');
     }
 }

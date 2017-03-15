@@ -45,6 +45,162 @@ class AuthUsersRepository extends \Doctrine\ORM\EntityRepository implements crea
         }
     }
 
+    public function getRubricsAndTagsPathSSI($em, $juristId)
+    {
+        try {
+            $sql = "
+              SELECT aur.auth_users_id, aur.rubrics_id, r.CPU_name AS cpu_name
+              FROM auth_users_rubrics AS aur
+                JOIN rubrics AS r ON r.id = aur.rubrics_id
+              WHERE auth_users_id = :id;
+            ";
+
+            $stmt = $this->oDBALConnection->prepare($sql);
+            $stmt->bindValue('id', $juristId);
+
+            $stmt->execute();
+
+            $rubrics = $tags = [];
+
+            foreach ($stmt->fetchAll( \PDO::FETCH_ASSOC) as $rubric) {
+                $result = $em
+                    ->getRepository('JuristBundle:Tags')
+                    ->getAllRelatedRubricsTags('rubrics', $rubric['rubrics_id']);
+                if (!empty($result))
+                    $tags = array_merge($tags, $result);
+
+                $result = $em
+                    ->getRepository('JuristBundle:Tags')
+                    ->invalidateCacheSSI('rubrics', $rubric['cpu_name']);
+                if (!empty($result))
+                    $rubrics = array_merge($rubrics, $result);
+            }
+
+            return array_merge($rubrics, $tags);
+        } catch (\PDOException $e) {
+            $e->getTrace();
+        }
+    }
+
+    public function getRubricsAndTagsViaQuestionIdPathSSI($em, $questionId)
+    {
+        try {
+            $sql = "
+              SELECT rq.rubrics_id, rq.questions_id, r.CPU_name AS cpu_name
+                  FROM rubrics_questions AS rq
+              JOIN rubrics AS r on r.id = rq.rubrics_id
+              WHERE rq.questions_id = :id;
+            ";
+
+            $stmt = $this->oDBALConnection->prepare($sql);
+            $stmt->bindValue('id', $questionId);
+
+            $stmt->execute();
+
+            $rubrics = $tags = [];
+
+            foreach ($stmt->fetchAll( \PDO::FETCH_ASSOC) as $rubric) {
+                $result = $em
+                    ->getRepository('JuristBundle:Tags')
+                    ->getAllRelatedRubricsTags('rubrics', $rubric['rubrics_id']);
+                if (!empty($result))
+                    $tags = array_merge($tags, $result);
+
+                $result = $em
+                    ->getRepository('JuristBundle:Tags')
+                    ->invalidateCacheSSI('rubrics', $rubric['cpu_name']);
+                if (!empty($result))
+                    $rubrics = array_merge($rubrics, $result);
+            }
+
+            return array_merge($rubrics, $tags);
+        } catch (\PDOException $e) {
+            $e->getTrace();
+        }
+    }
+
+    public function getRubricsTagsAndJuristsViaRubricsIdPathSSI($em, $rubricsId)
+    {
+        try {
+            $sql = "
+              SELECT r.id AS rubrics_id, t.id AS tags_id, r.CPU_name AS cpu_name
+              FROM tags_rubrics AS tg
+                  JOIN rubrics AS r ON r.id = tg.rubrics_id
+                  JOIN tags AS t ON t.id = tg.tags_id
+              WHERE tg.rubrics_id = :id;
+            ";
+
+            $stmt = $this->oDBALConnection->prepare($sql);
+            $stmt->bindValue('id', $rubricsId);
+
+            $stmt->execute();
+
+            $rubrics = $tags = $jurists = [];
+
+            $rubricsAndTags = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+            foreach ($rubricsAndTags as $rubric) {
+                $result = $em
+                    ->getRepository('JuristBundle:Tags')
+                    ->invalidateCacheSSI('tags', $rubric['tags_id']);
+                if (!empty($result))
+                    $tags = array_merge($tags, $result);
+            }
+
+            if (!empty($rubricsAndTags[0]['cpu_name'])) {
+                $result = $em
+                    ->getRepository('JuristBundle:Tags')
+                    ->invalidateCacheSSI('rubrics', $rubricsAndTags[0]['cpu_name']);
+                if (!empty($result))
+                    $rubrics = array_merge($rubrics, $result);
+            }
+
+            $sql = "
+                SELECT au.id as au_id
+                FROM auth_users_rubrics AS aur
+                    JOIN auth_users AS au ON aur.auth_users_id = au.id
+                WHERE aur.rubrics_id = :id;
+            ";
+
+            $stmt = $this->oDBALConnection->prepare($sql);
+            $stmt->bindValue('id', $rubricsId);
+
+            $stmt->execute();
+
+            foreach ($stmt->fetchAll(\PDO::FETCH_ASSOC) as $jurist) {
+                $result = $em
+                    ->getRepository('JuristBundle:Tags')
+                    ->invalidateCacheSSI('jurists', $jurist['au_id']);
+                if (!empty($result)) {
+                    $jurists = array_merge($jurists, $result);
+                }
+            }
+
+            return array_merge($rubrics, $tags, $jurists);
+        } catch (\PDOException $e) {
+            $e->getTrace();
+        }
+    }
+
+    public function getJuristByQuestionId($em, $questionId)
+    {
+        try {
+            $sql = "
+              SELECT q.authUsers_id FROM questions AS q where q.id = :id;
+            ";
+
+            $stmt = $this->oDBALConnection->prepare($sql);
+            $stmt->bindValue('id', $questionId);
+
+            $stmt->execute();
+
+            return $em
+                ->getRepository('JuristBundle:Tags')
+                ->invalidateCacheSSI('jurists', $stmt->fetchColumn());
+        } catch (\PDOException $e) {
+            $e->getTrace();
+        }
+    }
+
     private function fetchAllQuery($sql, array $arrayAnswersId = [], array $doctrineParam = [])
     {
         $query = $this->oDBALConnection->executeQuery(

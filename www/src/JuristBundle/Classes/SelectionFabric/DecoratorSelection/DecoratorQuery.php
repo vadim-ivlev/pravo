@@ -21,7 +21,6 @@ class DecoratorQuery extends DecoratorQueryAbstract
             $className->select($this->querySelect);
             $className->from($this->queryFrom);
             $className->where($this->queryWhere, $id);
-
         }
 
         return $this->querySelect . $this->queryFrom . $this->queryWhere;
@@ -49,7 +48,6 @@ class DecoratorQuery extends DecoratorQueryAbstract
                 $className->fromCount($this->queryFrom);
             }
             $className->where($this->queryWhere, $id);
-
         }
 
         return $this->querySelect . $this->queryFrom . $this->queryWhere;

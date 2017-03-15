@@ -34,7 +34,6 @@ class SelectionFabricReal extends SelectionFabricAbstract
 
         try {
             $this->query = $this->decorator->compile($this->tables);
-            //dump($this->query);die;
             $result = $this->em
             ->getRepository('JuristBundle:Questions')
             ->fetchSSI(
@@ -47,8 +46,7 @@ class SelectionFabricReal extends SelectionFabricAbstract
             if (empty($result))
                 return new Response($this->HtmlErrorMessage->generateError("Query return empty results"));
 
-            //Вставить тут пагинацию
-            $resultCount = $this->em
+            $resultCount = $this->em // Пагинация
                 ->getRepository('JuristBundle:Questions')
                 ->fetchSSI(
                     $this->decorator->compileCount($this->tables)

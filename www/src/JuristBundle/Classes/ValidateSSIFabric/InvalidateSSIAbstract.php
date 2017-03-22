@@ -13,7 +13,10 @@ abstract class InvalidateSSIAbstract
     {
         $this->em = $em;
         $this->container = $container;
-        $this->path = $this->container->get('kernel')->getRootDir() . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'src' . DIRECTORY_SEPARATOR . 'JuristBundle' . DIRECTORY_SEPARATOR . 'Resources' . DIRECTORY_SEPARATOR . 'public';
+        $this->path =
+            $this->container->get('kernel')->getRootDir() . DIRECTORY_SEPARATOR . '..' .
+            DIRECTORY_SEPARATOR . 'src' . DIRECTORY_SEPARATOR . 'JuristBundle';
+            //. DIRECTORY_SEPARATOR . 'Resources' . DIRECTORY_SEPARATOR . 'public';
     }
 
     abstract public function invalidateCache();
@@ -48,7 +51,7 @@ abstract class InvalidateSSIAbstract
 
         $pathToRMRF = implode(' ', $pathToRMRF); // Для rm -rf
 
-        dump($whereSQL, $pathToRMRF);
+        dump($whereSQL, $pathToRMRF);die;
         /*if (!empty($pathToRMRF))
             exec("rm -rf $pathToRMRF");*/
 

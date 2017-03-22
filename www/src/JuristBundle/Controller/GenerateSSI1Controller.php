@@ -42,7 +42,7 @@ class GenerateSSI1Controller extends Controller
         $this->HtmlErrorMessage = ErrorFabricMethodClasses::initial('HtmlErrorClasses');
 
         $this->pathToResource = $this->get('kernel')->getRootDir() . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR .
-            'src' . DIRECTORY_SEPARATOR . 'JuristBundle' . DIRECTORY_SEPARATOR .  'Resources' . DIRECTORY_SEPARATOR;
+            'src' . DIRECTORY_SEPARATOR . 'JuristBundle' . DIRECTORY_SEPARATOR;// .  'Resources' . DIRECTORY_SEPARATOR;
     }
 
     public function getURISSIAction(Request $request)
@@ -93,8 +93,8 @@ class GenerateSSI1Controller extends Controller
         if (empty($tmpl))
             return new Response($this->HtmlErrorMessage->generateError('name tmpl is empty'));
 
-        $this->pathToTmpl = $this->pathToResource . 'views' . DIRECTORY_SEPARATOR . 'include' . DIRECTORY_SEPARATOR . $tmpl . GenerateSSIController::ALLOW_FORMAT_TMPL;
-        //dump($this->pathToTmpl);die;
+        //Проверяем наличие указанного шаблона после tmpl-...
+        $this->pathToTmpl = $this->pathToResource . 'Resources' . self::DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR . 'include' . DIRECTORY_SEPARATOR . $tmpl . GenerateSSIController::ALLOW_FORMAT_TMPL;
         if (!is_readable($this->pathToTmpl)) //Если нет tmpl
             return new Response($this->HtmlErrorMessage->generateError("tmpl not found or not readble check rules {$this->pathToTmpl}" ));
 
@@ -181,7 +181,7 @@ class GenerateSSI1Controller extends Controller
         if ($pathCreate[0] === $this::DIRECTORY_SEPARATOR)
             $pathCreate = substr($pathCreate, 1);
 
-        $pathCreate = $this->pathToResource . 'public' . $this::DIRECTORY_SEPARATOR . $pathCreate;
+        $pathCreate = $this->pathToResource . /*'public' . $this::DIRECTORY_SEPARATOR .*/ $pathCreate;
 
         $fabric = new \JuristBundle\Classes\SelectionFabric\SelectionFabricReal($this->connect_to_Jurists_bd, $this->HtmlErrorMessage);
         $fabric = $fabric->assembler($args);
@@ -322,7 +322,7 @@ class GenerateSSI1Controller extends Controller
             $data
         );
 
-        $pathToWrite = $this->pathToResource . 'public' . $this::DIRECTORY_SEPARATOR . $pathToWrite;
+        $pathToWrite = $this->pathToResource /*. 'public' . $this::DIRECTORY_SEPARATOR*/ . $pathToWrite;
         @file_put_contents($pathToWrite, $result);
 
         return @file_get_contents($pathToWrite);

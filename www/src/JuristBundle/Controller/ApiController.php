@@ -282,7 +282,7 @@ class ApiController extends Controller implements ContainerAwareInterface
                     =>
                         (stristr((string)key($data_val), 'Tags'))
                         ? self::TAG . '1/' . $data_val->getId() . self::REDIRECT
-                        : self::RUBRICS . $data_val->getId() . self::REDIRECT,
+                        : self::RUBRIC . $data_val->getCPUName() . self::REDIRECT,
                     (stristr((string)key($data_val), 'Tags'))
                         ? 'tags__id'
                         : 'rubrics__id'

@@ -47,16 +47,17 @@ class ValidateSSIController extends Controller
         $fabric = new \JuristBundle\Classes\ValidateSSIFabric\ValidateSSIFactory($this->connect_to_Jurists_bd, $this->container);
 
         /**
-         * Вся информация указанная ниже, акктуальна на 15.03.17
-         * Допустимые значения, которые приходят из $request->request->get('data');
+         * Вся информация указанная ниже, актуальна на 15.03.17
          * Можно тестить от сюда https://jurist-admin.rg.ru/project/consultation/?r=/validate_ssi/
          * в формочку, вбиваем, например, jurists-1 и отправляем, trim() не прекручивал, так что вбивай без пробелов
          * Отправляется данные на ивалидацию POST-ом сюда https://jurist-admin.rg.ru/project/consultation/?r=/validate_ssi/edit/{id}/save/
          * Путь /var/www/outer/plain/jurist/project/consultation/src/Models/ValidatessiModel.php
-         * jurists-id
-         * rubrics-id
-         * questions-id
-         * tags-id
+         *
+         * Допустимые значения, которые приходят из $request->request->get('data');
+         *  jurists-id
+         *  rubrics-id
+         *  questions-id
+         *  tags-id
          */
         var_dump($request->request->get('data'));
         //$concreteFabric = $fabric->make($request->request->get('data'));

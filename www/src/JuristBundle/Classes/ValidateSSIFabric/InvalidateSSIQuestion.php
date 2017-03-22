@@ -28,7 +28,7 @@ class InvalidateSSIQuestion extends InvalidateSSIAbstract
             ->getRepository('JuristBundle:AuthUsers')
             ->getRubricsAndTagsViaQuestionIdPathSSI($this->em, $id);
 
-        $jurist = $this->em // Получить все связанные рубрики и теги
+        $jurist = $this->em
             ->getRepository('JuristBundle:AuthUsers')
             ->getJuristByQuestionId($this->em, $id);
 

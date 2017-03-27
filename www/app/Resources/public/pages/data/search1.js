@@ -102,7 +102,7 @@ module.exports = {
 
             blocks: [
 
-                RGB('header'), // шапка сайта
+                RGB('header:search1'), // шапка сайта
 
                 RGB('main:rubrics') // основной контент
 

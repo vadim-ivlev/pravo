@@ -5,6 +5,16 @@ module.exports = {
 		RGInclude('modules/Fonts', 'scripts inline'), // подключение шрифтов
 		
 		{
+			name: "crosspageGoogleFontsRoboto",
+			opt: {
+				tag: "link",
+				attrs: {
+					rel: "stylesheet",
+					href: "https://fonts.googleapis.com/css?family=Roboto"
+				}
+			}
+		},
+		{
 			name: "crosspagejQueryUi-1.11.4.Style",
 			opt: {
 				tag: "link",

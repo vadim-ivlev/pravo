@@ -17,7 +17,9 @@ module.exports = function(data){
 							
 							logo: RGB('logo'), // логотип
 
-							rgLink: RGB('rg, tablet tabletLandscape desktop desktopFull:active'), // ссылка на РГ
+							logoTest: RGB('logo-test'),
+
+							// rgLink: RGB('rg, tablet tabletLandscape desktop desktopFull:active'), // ссылка на РГ
 
 							adBanner: RGB('ads:top'), // верхий баннер-растяжка
 
@@ -35,7 +37,9 @@ module.exports = function(data){
 
 							tag_questions: "logo adBanner menu",
 
-							error404: "logo"
+							error404: "logo",
+
+							search1: "logoTest menu menuMobile"
 						}
 						
 					}

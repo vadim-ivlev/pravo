@@ -305,12 +305,12 @@ class ApiController extends Controller implements ContainerAwareInterface
     {
         if (!empty($data)) {
             $result = [];
+            /*if ($_SERVER['REMOTE_ADDR'] === '212.69.111.131') {
+            }*/
             foreach ($data as $data_val) {
                 if (isset($data_val['t_disabled']) && (boolean)$data_val['t_disabled'] === false)
                     continue;
-//                if ($_SERVER['REMOTE_ADDR'] === '212.69.111.131') {
-//
-//                }
+
                 /**
                  * эти проверки ключей нужны для мусташа, так как в случае ошибки ключа, он будет искать
                  * key с аналогичным именим и может возникнуть путаница
@@ -460,7 +460,8 @@ class ApiController extends Controller implements ContainerAwareInterface
      */
     protected function pageNotFound ($dataForCheck, $message = '404: Page Not Found')
     {
-        if ($dataForCheck) throw $this->createNotFoundException($message);
+        if ($dataForCheck)
+            throw $this->createNotFoundException($message);
     }
 
     protected function formedJurists ($Jurists)
@@ -706,8 +707,130 @@ class ApiController extends Controller implements ContainerAwareInterface
         return $result;
     }
 
+    protected function formedQuestionsoDBAL ($questions)
+    { // Нормальная версия, используется в поиске
+        foreach ($questions as &$question) {
+            $question["tags"] = $this->formedTagsAndRubricsoDBAL(json_decode($question["tags"], true));
+            $question["rubrics"] = $this->formedTagsAndRubricsoDBAL(
+                [
+                    [
+                        "r_id" => $question["r_id"],
+                        "r_name" => $question["r_name"]
+                    ]
+                ]
+            );
+        }
+        unset($question);
+
+        foreach ($questions as $questionKey => $question) {
+            $this->result['questions_list'][] = [
+                'mods' => [
+                    ($question['au_dateEndPay'] > new \DateTime('now'))
+                        ? self::NAME_PAY_JURIST
+                        : '', //Оплачен ли юрист
+
+                    ($question['a_typeCards'] === 'card')
+                        ? 'card'
+                        : '', //Является ли вопрос карточкой
+                ],
+
+                /**
+                 * генерация автора
+                 *
+                 * */
+                'questions__head' =>
+                    [
+                        'questions__head__author' =>
+                            [
+                                [
+                                    'questions__head__author__name' => $question['author_name'],
+                                    'questions__head__author__location' => $question['author_city']
+                                ]
+                            ],
+                        'questions__head__author__active' => $this->hideTargetCityAndFIOoDBAL([
+                            [
+                                'r_name' => $question['r_name']
+                            ]
+                        ])
+
+                    ]
+                ,
+                'questions_list__bibliotechka' => ($questionKey == 2) ? true : false,
+                'tags' => $question['tags'], //tags_result,
+                'link' => self::RUBRICS . self::QUESTIONS . $question['q_id'] .  self::REDIRECT,
+                'rubrics' => $question['rubrics'],
+                'title' => $question['q_title'],
+                'text' => $question['q_description'],
+                'jurist' => [
+                    'jurist__active' => ($question['au_disabled'] == self::DISABLED_VALUE_ON) ? !self::DISABLED_VALUE_ON : self::DISABLED_VALUE_ON,
+                    'jurist__first_name' => $question['au_name'],
+                    'jurist__last_name' => $question['au_second_name'],
+                    'jurist__link' => self::JURIST . $question['au_id'] . self::REDIRECT,
+                    'jurist__img' => [$this->fetchAvataroDBAl($question)],
+                    'jurist__rate' => [
+                        'jurist__rate__reply' => $question['a_rating'],
+                        'jurist__rate__author' => (empty($question['au_total_rating']) ? 0 : $question['au_total_rating']) //total_rating
+                    ]
+                ],
+                'questions__item_complete' => 0,
+            ];
+
+            if ($questionKey == 3) {
+                $this->result['questions_list'][] = [
+                    'mods' => [
+                        'bibliotechka'
+                    ]
+                ];
+            }
+
+            foreach ($this->result['questions_list'] as &$val) {
+
+                /**
+                 * Если первый ключ равен оплаченому юристу self::NAME_PAY_JURIST, то выставляем визабилити,
+                 * если нет, то сносим.
+                 */
+
+                if (!empty($val['mods'][0]) && $val['mods'][0] === self::NAME_PAY_JURIST) {
+                    $val['visibility'] = [//true если mods = highlighted
+                        'visibility__state' => 'visible'
+                    ];
+                } else if (isset($val['mods'][0]) && $val['mods'][0] === '') {
+                    unset($val['mods'][0]);
+                }
+                if (isset($val['mods'][1]) && $val['mods'][1] === '') unset($val['mods'][1]);
+                if (!empty($val['mods']) &&  count($val['mods']) > 0) {
+                    $val['mods__length'] = count($val['mods']);
+                } else {
+                    unset($val['mods']);
+                }
+
+                if (!empty($val['mods']))$val['mods'] = array_values($val['mods']); //Потому что тупой мусташ считает [1 => 'cart'] массивом, хотя, явно это не указанно
+
+                /**
+                 * Работа с тегами и рубриками
+                 */
+                $this->generateFirstLast($val['rubrics']);
+
+                $this->generateFirstLast($val['tags']);
+
+                $val['tags__length'] = count($val['tags']);
+
+                /**
+                 * Работаем с хранилищем аватарок для юристов
+                 */
+                if (isset($val['jurist']) && count($val['jurist']['jurist__img']) > 0) {
+                    $val['jurist']['jurist__img__length'] = count($val['jurist']['jurist__img']);
+                }
+            }
+            unset($val);
+            
+        }
+    }
+
     protected function formedQuestionsDBAL ($questions)
-    {
+    { // Кривая версия для бесконечной подгрузки, по-идее, когда ты будешь это читать, то она уже будет не нужна. Это должно перенестись на генератор SSI и JSON
+        /*if ($_SERVER['REMOTE_ADDR'] == '212.69.111.131') { // Для дебага
+        }*/
         $questions = $this->hackManyToMany($questions, 'q_id', [
             'tags' => ['t_id', 't_name', 't_disabled'],
             'rubrics' => ['r_id', 'r_name']

@@ -7,6 +7,7 @@ use JuristBundle\Entity\Tags;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
+
 /**
  * TagsRepository
  *
@@ -27,7 +28,8 @@ class TagsRepository extends \Doctrine\ORM\EntityRepository
     const TAGS = '/jurists/tags/';
     const TAGS_FIELD = 'tags', RUBRICS_FIELD = 'rubrics';
 
-    public function fetchTags($field) {
+    public function fetchTags($field)
+    {
         $tags_result = [];
 
         $Tags = $this
@@ -40,7 +42,7 @@ class TagsRepository extends \Doctrine\ORM\EntityRepository
             ->getQuery()
             ->getArrayResult();
 
-        foreach ($Tags as $tag_result){
+        foreach ($Tags as $tag_result) {
             $tags_result[] = [
                 'tags_title' => $tag_result['name'],
                 'tags_link' => self::TAGS . $tag_result['id']

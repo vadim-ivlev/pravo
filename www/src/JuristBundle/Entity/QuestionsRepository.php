@@ -4,6 +4,9 @@ namespace JuristBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
 use JuristBundle\Entity\Questions;
+
+use JuristBundle\InterfaceCustom\SearchEntityInterface;
+
 /**
  * QuestionRepository
  *
@@ -11,6 +14,7 @@ use JuristBundle\Entity\Questions;
  * repository methods below.
  */
 class QuestionsRepository extends \Doctrine\ORM\EntityRepository
+    implements SearchEntityInterface
 {
     private $oDBALConnection;
 
@@ -28,9 +32,8 @@ class QuestionsRepository extends \Doctrine\ORM\EntityRepository
     public function fetchDataByAnswerId(array $Answers, $finishedStep)
     { //use dbal
         $arrayAnswersId = [];
-        foreach ($Answers as $Answer) {
+        foreach ($Answers as $Answer)
             $arrayAnswersId[] = $Answer->getId();
-        }
 
         $sql = "
           SELECT 
@@ -198,7 +201,7 @@ class QuestionsRepository extends \Doctrine\ORM\EntityRepository
         );
 
         $query->execute();
-        $query = $query->fetchAll( \PDO::FETCH_ASSOC);
+        $query = $query->fetchAll(\PDO::FETCH_ASSOC);
 
         /**
          * Создаем массив такой структуры
@@ -243,7 +246,7 @@ class QuestionsRepository extends \Doctrine\ORM\EntityRepository
         );
 
         $query->execute();
-        $query = $query->fetchAll( \PDO::FETCH_ASSOC);
+        $query = $query->fetchAll(\PDO::FETCH_ASSOC);
 
         return array_combine(
             array_column($query, 'au_id'), //Задаем структуру ['a_id' => ['a_id' = 1, 'some_variable' => 2]]
@@ -260,7 +263,7 @@ class QuestionsRepository extends \Doctrine\ORM\EntityRepository
         );
 
         $query->execute();
-        return $query->fetchAll( \PDO::FETCH_ASSOC);
+        return $query->fetchAll(\PDO::FETCH_ASSOC);
     }
 
     public function totalCountConsultation(array $Jurists, $date = null)
@@ -313,9 +316,9 @@ class QuestionsRepository extends \Doctrine\ORM\EntityRepository
         $sql = "
             SELECT {$select}
             FROM questions AS q
-            JOIN answers AS a ON a.question_id = q.id
-            JOIN auth_users AS au ON au.id = q.authUsers_id
-            JOIN author AS author ON author.id = q.author_id
+              JOIN answers AS a ON a.question_id = q.id
+              JOIN auth_users AS au ON au.id = q.authUsers_id
+              JOIN author AS author ON author.id = q.author_id
             WHERE q.step = ?
             ORDER BY a.date DESC
             LIMIT ?
@@ -346,7 +349,7 @@ class QuestionsRepository extends \Doctrine\ORM\EntityRepository
         return $result;
     }
 
-    private function fetchAllQuery($sql, $condition , $DBALParam = null)
+    private function fetchAllQuery($sql, $condition, $DBALParam = null)
     {
         $query = $this->oDBALConnection->executeQuery(
             $sql,
@@ -403,6 +406,73 @@ class QuestionsRepository extends \Doctrine\ORM\EntityRepository
 
         //return $stmt->fetchAll(\PDO::FETCH_OBJ);
         return $stmt->fetchAll(\PDO::FETCH_NAMED);
+    }
+
+    public function getSearchResult(array $idSearch, $limit, $offset) : array
+    {
+        $sql = "
+            SELECT 
+                q.id AS q_id, q.author_id AS q_author_id, q.authUsers_id AS q_authUsers_id, q.step AS q_step, q.title AS q_title, 
+                q.date AS q_date, q.description AS q_description, q.status AS q_status, q.deadline AS q_deadline, q.deadline_id AS q_deadline_id, 
+                q.deadline_info AS q_deadline_info, q.title_seo AS q_title_seo, q.description_seo AS q_description_seo, q.keywords_seo AS q_keywords_seo,
+                
+                a.id AS a_id, a.question_id AS a_question_id, a.auth_users_id AS a_auth_users_id, 
+                a.answers AS a_answers, a.answers_steps AS a_answers_steps, a.date AS a_date, a.rating AS a_rating,
+                a.typeCards AS a_typeCards, a.secure_entry_check AS a_secure_entry_check, 
+                a.entry_feed_check AS a_entry_feed_check, a.entry_feed_date AS a_entry_feed_date, a.actual_user_charge AS a_actual_user_charge,
+                
+                au.id AS au_id, au.companies_id AS au_companies_id, au.dateEndPay as au_dateEndPay, au.disabled AS au_disabled, au.name AS au_name, 
+                au.second_name AS au_second_name, au.filename AS au_filename, au.directory AS au_directory, au.total_rating AS au_total_rating, 
+                au.total_count_public_answers AS au_total_count_public_answers,
+                
+                author.name AS author_name, author.city AS author_city,
+                
+                r.id AS r_id, r.name AS r_name,
+                
+                (
+					SELECT 
+						CONCAT('[', GROUP_CONCAT('{\"t_id\":\"', t1.id, '\",\"t_name\":\"', t1.name, '\",\"t_disabled\":\"', t1.disabled SEPARATOR '\"}, '), '\"}]') AS `data`
+					FROM tags AS t1
+						INNER JOIN tags_questions AS tq1 ON t1.id = tq1.tags_id
+						INNER JOIN questions AS q1 ON q1.id = tq1.questions_id
+					WHERE q1.id = q.id
+                ) AS tags
+                
+            FROM questions AS q 
+                INNER JOIN rubrics_questions AS rq ON q.id = rq.questions_id
+                INNER JOIN rubrics AS r ON r.id = rq.rubrics_id
+                
+                INNER JOIN answers AS a ON a.question_id = q.id
+                INNER JOIN auth_users AS au ON au.id = q.authUsers_id
+                INNER JOIN author ON author.id = q.author_id
+            WHERE q.id IN (?) AND q.step = ?
+            ORDER BY a.date DESC
+            LIMIT ?
+            OFFSET ?
+        ";
+
+        try {
+
+            $stmt = $this->oDBALConnection->executeQuery(
+                $sql,
+                [
+                    $idSearch, // Array id for search
+                    (int)\JuristBundle\Controller\ApiController::FINISHED_STEP, // Констранта финального (опубликованного юриста)
+                    (int) $limit,
+                    (int) $offset
+                ],
+                [\Doctrine\DBAL\Connection::PARAM_STR_ARRAY, \PDO::PARAM_INT, \PDO::PARAM_INT, \PDO::PARAM_INT]
+            );
+
+            $stmt->execute();
+
+            return $stmt->fetchAll(\PDO::FETCH_NAMED);
+
+        } catch (\PDOException $e) {
+            $e->getTrace();
+
+            return [];
+        }
     }
 }
 

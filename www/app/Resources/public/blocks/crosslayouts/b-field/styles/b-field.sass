@@ -60,8 +60,20 @@ $search-results: '.b-search-results__form'
                 border-color: $red-warn
 
     &_input_checkbox
+
         &_highlighted
-            border: 1px solid $red-warn
+
+            #{$block}
+
+                &__icon
+                    box-shadow: 0 0 0 1px $red-warn inset, 0 0 0 2px $white inset
+
+    &_select_highlighted
+
+        #{$block}
+
+            &__select
+                border-color: $red-warn
 
 
     // INPUT TEXT

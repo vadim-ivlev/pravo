@@ -21,7 +21,9 @@ module.exports = function(data){
 
 							// adsSidebarRight: RGB('ads:sidebar-right, tablet tabletLandscape'), // рекламный баннер
 
-							adfoxSidebarRight: RGB('adfox:pravo-sidebar, tablet tabletLandscape'), // рекламный баннер
+							adfoxSidebarRight: RGB('adfox:media-2, tablet tabletLandscape'), // рекламный баннер
+
+							adfoxSidebarLeft: RGB('adfox:media-1'), // рекламный баннер медиа-1
 
 							// feed: RGB('projects.juristical.feed:offers, tablet tabletLandscape desktop desktopFull:active'), // предложение услуг
 
@@ -41,29 +43,33 @@ module.exports = function(data){
 
 							// 'default': "categoriesSidebar adsSidebarRight juristsFeed juristsTop yandexDirect",
 
-							index: "categoriesSidebar adfoxSidebarRight juristsFeed juristsTop yandexDirect",
+							index: "categoriesSidebar adfoxSidebarLeft adfoxSidebarRight juristsFeed juristsTop yandexDirect",
 
-							rubric_questions: "categoriesSidebar adsSidebarRight juristsFeed juristsTop yandexDirect",
+							rubric_questions: "categoriesSidebar adfoxSidebarLeft adsSidebarRight juristsFeed juristsTop yandexDirect",
 
-							tag_questions: "adsSidebarRight juristsFeed juristsTop yandexDirect",
+							tag_questions: "adfoxSidebarLeft adsSidebarRight juristsFeed juristsTop yandexDirect",
 
-							answer: "categoriesSidebarActiveLink questionsLatest adsSidebarRight yandexDirect",
+							answer: "categoriesSidebarActiveLink adfoxSidebarLeft questionsLatest adsSidebarRight yandexDirect",
 
-							ask: "questionsLatest adsSidebarRight",
+							ask: "adfoxSidebarLeft questionsLatest adsSidebarRight",
 
-							rules: "juristsFeed",
+							rules: "adfoxSidebarLeft juristsFeed",
 
-							users: "juristsFeed juristsTop",
+							users: "adfoxSidebarLeft juristsFeed juristsTop",
 
-							tags: "categoriesSidebar juristsFeed",
+							tags: "categoriesSidebar adfoxSidebarLeft juristsFeed",
 
-							rubric_tags: "juristsFeed",
+							rubric_tags: "adfoxSidebarLeft juristsFeed",
 							
-							lawer: "juristsFeed questionsLatest",
+							lawer: "adfoxSidebarLeft juristsFeed questionsLatest",
 
-							partners: "juristsFeed",
+							partners: "adfoxSidebarLeft juristsFeed",
 
-							search: "categoriesSidebar adfoxSidebarRight juristsFeed juristsTop yandexDirect"
+							search: "categoriesSidebar adfoxSidebarLeft adfoxSidebarRight juristsFeed juristsTop yandexDirect",
+
+							main1: "categoriesSidebar adfoxSidebarRight juristsFeed juristsTop yandexDirect",
+
+							search2: "categoriesSidebar adfoxSidebarRight juristsFeed juristsTop yandexDirect"
 						}
 					}
 				}

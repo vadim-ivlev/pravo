@@ -7,10 +7,11 @@
  */
 
 module.exports = {
-	'media-1': { // Медийный #1 (Центральная перетяжка)
-		pp: 'ibg'
+	'media-1': { // Медийный #1 (Левая колонка)
+		pp: 'iiy',
+		screenType: 'desktop desktopFull'
 	},
-	'media-2': { // Медийный #2 (Левая колонка)
+	'media-2': { // Медийный #2 (Правая колонка)
 		pp: 'iix',
 		screenType: 'tablet tabletLandscape desktop desktopFull'
 	},

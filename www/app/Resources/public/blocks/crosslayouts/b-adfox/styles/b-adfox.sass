@@ -24,15 +24,15 @@ $dataCompareMore300: '[data-compare^=">=300"]'
 
         // Отступы у всех контейнеров для баннеров
         & #{$adb}
-            width: auto!important
-            height: auto!important
+            // width: auto!important
+            // height: auto!important
 
             display: block
 
             margin-bottom: 20px
             padding: 0.1px // предотвращаем схлопывание блоков
 
-            background-color: $today-bg-color
+            // background-color: $today-bg-color
 
             // Добавляем центрирование баннера
             & > *
@@ -76,7 +76,7 @@ $dataCompareMore300: '[data-compare^=">=300"]'
         &
 
             &_media-1
-                width: $width-wrapper-tablet
+                // width: $width-wrapper-tablet
 
             // Убираем отступ у последнего элемента
             .b-sidebar-left__item &:last-child #{$adb}
@@ -87,7 +87,7 @@ $dataCompareMore300: '[data-compare^=">=300"]'
         &
 
             &_media-1
-                width: $width-wrapper-tabletLandscape
+                // width: $width-wrapper-tabletLandscape
 
             // Убираем отступ у баннеров правого сайтбара
             // наследуемый от right__item
@@ -99,7 +99,7 @@ $dataCompareMore300: '[data-compare^=">=300"]'
         &
 
             &_media-1
-                width: $width-wrapper-desktop
+                // width: $width-wrapper-desktop
 
             &.b-sidebar-right__item #{$adb} > *
                 margin-top: 20px
@@ -109,7 +109,7 @@ $dataCompareMore300: '[data-compare^=">=300"]'
         &
 
             &_media-1
-                width: $width-wrapper-desktopFull
+                // width: $width-wrapper-desktopFull
 
             // Убираем отступы у элементов
             .b-sidebar-left__item & #{$adb}
@@ -128,5 +128,5 @@ $dataCompareMore300: '[data-compare^=">=300"]'
 
             .b-sidebar-left__item &__item #{$adb} > *,
             &_media-7 #{$adb} > *
-                margin-top: 20px
+                // margin-top: 20px
                 margin-bottom: 20px

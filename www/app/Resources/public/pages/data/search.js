@@ -75,6 +75,15 @@ module.exports = {
 
     		blocks: [
 
+    			{
+					name: "infiniteLoadingScript",
+					opt: {
+						contents: [
+							{ data: "<script src=\"/bundles/jurist/js/list.js\"></script>" }
+						]
+					}
+				},
+
 				{
 					opt: {
 						contents: [

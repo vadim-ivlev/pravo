@@ -29,144 +29,144 @@
 			]
 		},
 		{
-      		"name": "ask",
-      		"dest": "/src/JuristBundle/Resources/views",
-      		"src": {
-      		  "include": [
-      		    "/app/Resources/public/pages/data/ask.js"
-      		  ]
-      		},
-      		"plugins": "~"
-    	},
-    	{
-    	  	"name": "answer",
-    	  	"dest": "/src/JuristBundle/Resources/views",
-    	  	"src": {
-    	  	  "include": [
-    	  	    "/app/Resources/public/pages/data/answer.js"
-    	  	  ]
-    	  	},
-    	  	"plugins": "~"
-    	},
-    	{
-    	  	"name": "users",
-    	  	"dest": "/src/JuristBundle/Resources/views",
-    	  	"src": {
-    	  	  "include": [
-    	  	    "/app/Resources/public/pages/data/users.js"
-    	  	  ]
-    	  	},
-    	  	"plugins": "~"
-    	},
-    	{
-    	  "name": "lawer",
-    	  "dest": "/src/JuristBundle/Resources/views",
-    	  "src": {
-    	    "include": [
-    	      "/app/Resources/public/pages/data/lawer.js"
-    	    ]
-    	  },
-    	  "plugins": "~"
-    	},
-    	{
-    	  "name": "rubrics",
-    	  "dest": "/src/JuristBundle/Resources/views",
-    	  "src": {
-    	    "include": [
-    	      "/app/Resources/public/pages/data/rubrics.js"
-    	    ]
-    	  },
-    	  "plugins": "~"
-    	},
-    	{
-    	  "name": "rules",
-    	  "dest": "/src/JuristBundle/Resources/views",
-    	  "src": {
-    	    "include": [
-    	      "/app/Resources/public/pages/data/rules.js"
-    	    ]
-    	  },
-    	  "plugins": "~"
-    	},
-    	{
-    	  "name": "rubric_questions",
-    	  "dest": "/src/JuristBundle/Resources/views",
-    	  "src": {
-    	    "include": [
-    	      "/app/Resources/public/pages/data/rubric_questions.js"
-    	    ]
-    	  },
-    	  "plugins": "~"
-    	},
-    	{
-    	  "name": "rubric_tags",
-    	  "dest": "/src/JuristBundle/Resources/views",
-    	  "src": {
-    	    "include": [
-    	      "/app/Resources/public/pages/data/rubric_tags.js"
-    	    ]
-    	  },
-    	  "plugins": "~"
-    	},
-    	{
-    	  "name": "tag_questions",
-    	  "dest": "/src/JuristBundle/Resources/views",
-    	  "src": {
-    	    "include": [
-    	      "/app/Resources/public/pages/data/tag_questions.js"
-    	    ]
-    	  },
-    	  "plugins": "~"
-    	},
-    	{
-    	  "name": "partners",
-    	  "dest": "/src/JuristBundle/Resources/views",
-    	  "src": {
-    	    "include": [
-    	      "/app/Resources/public/pages/data/partners.js"
-    	    ]
-    	  },
-    	  "plugins": "~"
-    	},
-        {
-          "name": "search",
-          "dest": "/src/JuristBundle/Resources/views",
-          "src": {
-            "include": [
-              "/app/Resources/public/pages/data/search.js"
-            ]
-          },
-          "plugins": "~"
-        },
-        {
-          "name": "error404",
-          "dest": "/src/JuristBundle/Resources/views",
-          "src": {
-            "include": [
-              "/app/Resources/public/pages/data/error404.js"
-            ]
-          },
-          "plugins": "~"
-        },
-        {
-          "name": "search1",
-          "dest": "/src/JuristBundle/Resources/views",
-          "src": {
-            "include": [
-              "/app/Resources/public/pages/data/search1.js"
-            ]
-          },
-          "plugins": "~"
-        },
-        {
-          "name": "tags",
-          "dest": "/src/JuristBundle/Resources/views",
-          "src": {
-            "include": [
-              "/app/Resources/public/pages/data/tags.js"
-            ]
-          },
-          "plugins": "~"
-        }
+      "name": "ask",
+      "dest": "/src/JuristBundle/Resources/views",
+      "src": {
+        "include": [
+          "/app/Resources/public/pages/data/ask.js"
+        ]
+      },
+      "plugins": "~"
+    },
+    {
+      	"name": "answer",
+      	"dest": "/src/JuristBundle/Resources/views",
+      	"src": {
+      	  "include": [
+      	    "/app/Resources/public/pages/data/answer.js"
+      	  ]
+      	},
+      	"plugins": "~"
+    },
+    {
+      	"name": "users",
+      	"dest": "/src/JuristBundle/Resources/views",
+      	"src": {
+      	  "include": [
+      	    "/app/Resources/public/pages/data/users.js"
+      	  ]
+      	},
+      	"plugins": "~"
+    },
+    {
+      "name": "lawer",
+      "dest": "/src/JuristBundle/Resources/views",
+      "src": {
+        "include": [
+          "/app/Resources/public/pages/data/lawer.js"
+        ]
+      },
+      "plugins": "~"
+    },
+    {
+      "name": "rubrics",
+      "dest": "/src/JuristBundle/Resources/views",
+      "src": {
+        "include": [
+          "/app/Resources/public/pages/data/rubrics.js"
+        ]
+      },
+      "plugins": "~"
+    },
+    {
+      "name": "rules",
+      "dest": "/src/JuristBundle/Resources/views",
+      "src": {
+        "include": [
+          "/app/Resources/public/pages/data/rules.js"
+        ]
+      },
+      "plugins": "~"
+    },
+    {
+      "name": "rubric_questions",
+      "dest": "/src/JuristBundle/Resources/views",
+      "src": {
+        "include": [
+          "/app/Resources/public/pages/data/rubric_questions.js"
+        ]
+      },
+      "plugins": "~"
+    },
+    {
+      "name": "rubric_tags",
+      "dest": "/src/JuristBundle/Resources/views",
+      "src": {
+        "include": [
+          "/app/Resources/public/pages/data/rubric_tags.js"
+        ]
+      },
+      "plugins": "~"
+    },
+    {
+      "name": "tag_questions",
+      "dest": "/src/JuristBundle/Resources/views",
+      "src": {
+        "include": [
+          "/app/Resources/public/pages/data/tag_questions.js"
+        ]
+      },
+      "plugins": "~"
+    },
+    {
+      "name": "partners",
+      "dest": "/src/JuristBundle/Resources/views",
+      "src": {
+        "include": [
+          "/app/Resources/public/pages/data/partners.js"
+        ]
+      },
+      "plugins": "~"
+    },
+    {
+      "name": "search",
+      "dest": "/src/JuristBundle/Resources/views",
+      "src": {
+        "include": [
+          "/app/Resources/public/pages/data/search.js"
+        ]
+      },
+      "plugins": "~"
+    },
+    {
+      "name": "error404",
+      "dest": "/src/JuristBundle/Resources/views",
+      "src": {
+        "include": [
+          "/app/Resources/public/pages/data/error404.js"
+        ]
+      },
+      "plugins": "~"
+    },
+    {
+      "name": "search1",
+      "dest": "/src/JuristBundle/Resources/views",
+      "src": {
+        "include": [
+          "/app/Resources/public/pages/data/search1.js"
+        ]
+      },
+      "plugins": "~"
+    },
+    {
+      "name": "tags",
+      "dest": "/src/JuristBundle/Resources/views",
+      "src": {
+        "include": [
+          "/app/Resources/public/pages/data/tags.js"
+        ]
+      },
+      "plugins": "~"
+    }
 	]
 }	

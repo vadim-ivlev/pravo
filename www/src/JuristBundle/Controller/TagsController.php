@@ -25,7 +25,7 @@ class TagsController extends ApiController
 
         $this->result['material_title'] = 'Актуальные теги';
 
-        $nameRedisNow = "PravoTags(" . strval($id) . ")";
+        $nameRedisNow = "PravoTags(id:" . strval($id) . ")";
         $redis = $this->redis->get($nameRedisNow);
         $redis = unserialize($redis);
 
@@ -52,7 +52,7 @@ class TagsController extends ApiController
                     if (!empty($tag->getName()) && mb_substr($tag->getName(), 0, 1) === $arrLetter['tags__letter']) {
                         $arrLetter['tags__items'][] = [
                             'tags__items__title' => $tag->getName(),
-                            'tags__items__link' => self::TAG . '1/' . $tag->getId() . self::REDIRECT,
+                            'tags__items__link' => self::TAG . $tag->getId() . self::REDIRECT,
                             'tags__items__frequency' => (!$tag->getCountPublicQuestions()) ? false : $tag->getCountPublicQuestions(),
                         ];
                         $arrLetter['length']++;

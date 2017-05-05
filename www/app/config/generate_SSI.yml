@@ -1,5 +1,5 @@
 args:
-  default_start_uri: '/include/'
+  default_start_uri: '/views/include/'
   default_args_tmpl: 'tmpl'
   tables:
     #Ключами в этом массиве являются из значения из uri, если вдруг надо будет поменять под стандарт RG

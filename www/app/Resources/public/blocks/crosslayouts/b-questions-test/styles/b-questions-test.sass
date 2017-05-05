@@ -1,0 +1,37 @@
+/*
+ * Блок вопросов
+ *
+ */
+
+
+// Объявляем блок
+$block: '.b-questions-test'
+
+// Стили
+#{$block}
+
+    &__name
+        font-size: 16px
+        font-family: "NotoSerif", sans-serif
+        font-style: italic
+        font-weight: bold
+        margin-bottom: 15px
+
+    &_latest
+        border: 1px solid $grey-cloud
+        padding: 15px 20px 0
+        margin-bottom: 20px
+
+    +bp-tabletLandscape
+
+        &
+            &_latest
+                margin-bottom: 30px
+
+    //&__item
+    //    font-size: 13px
+    //    border-bottom: 1px solid $border-color
+    //    margin-bottom: 10px
+    //    &:last-child
+    //        border-bottom: none
+    //        margin-bottom: 0

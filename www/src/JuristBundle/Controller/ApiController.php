@@ -122,7 +122,8 @@ class ApiController extends Controller implements ContainerAwareInterface
 
     const ID_USER_WITHOUT_AVATARS = 6; //todo id workspace->user у которого берется картинка, если нет еще у юзера авы
 
-    const NAME_PAY_JURIST = 'highlighted'; //Оплаченный юрист
+    const NAME_PAY_JURIST = 'highlighted'; // Оплаченный юрист
+    const TYPE_CARD = 'card'; // Является ли ответ карточкой?
 
     const MESSAGE_FROM_RUBRIC_THAT_DOES_NOT_HAVE_TAGS = 'Для этой рубрики теги еще не добавлены.'; //Тайтл для рубрик у которых пустой тег
 
@@ -1262,7 +1263,7 @@ class ApiController extends Controller implements ContainerAwareInterface
 
                 $rubrics[] = [
                     'rubrics__title' => htmlspecialchars($dataByAnswerId[$Answer->getId()]['r_name']),
-                    'rubrics__link' =>  self::RUBRICS . $dataByAnswerId[$Answer->getId()]['r_id'] . self::REDIRECT
+                    'rubrics__link' =>  self::RUBRIC . $dataByAnswerId[$Answer->getId()]['r_CPU_name'] . self::REDIRECT
                 ];
 
                 $questionsLatest[] = [

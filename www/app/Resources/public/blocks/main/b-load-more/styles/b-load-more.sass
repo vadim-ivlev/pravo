@@ -1,0 +1,38 @@
+/*
+ * Блок бесконечной подгрузки
+ * 
+ */
+
+// Объявляем блок
+$block: '.b-load-more'
+
+// Стили
+#{$block}
+    text-align: center
+    margin-bottom: 20px
+
+    &__button
+        +button-field($time-color)
+        display: inline-block
+        cursor: pointer
+        position: relative
+
+        &.has-loading
+            +opacity(.7)
+            color: transparent
+            pointer-events: none
+
+            &:before
+                content: ''
+                width: 20px
+                height: 20px
+                margin: auto
+
+                position: absolute
+                top: 0
+                right: 0
+                bottom: 0
+                left: 0
+
+                background: url($spinner) no-repeat center center transparent
+                background-size: contain

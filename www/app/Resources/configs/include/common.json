@@ -3,7 +3,7 @@
     "subTasks": [
         {
         	"name": "question:item",
-        	"dest": "/src/JuristBundle/Resources/views/include",
+        	"dest": "/src/JuristBundle/Resources/views/includeTemplate",
         	"src": {
         		"include": [ "/app/Resources/public/pages/include/route.html" ]
         	},
@@ -34,7 +34,7 @@
         },
         {
             "name": "question:latest",
-            "dest": "/src/JuristBundle/Resources/views/include",
+            "dest": "/src/JuristBundle/Resources/views/includeTemplate",
             "src": {
                 "include": [ "/app/Resources/public/pages/include/route.html" ]
             },
@@ -64,8 +64,8 @@
             ]
         },
         {
-            "name": "question:list",
-            "dest": "/src/JuristBundle/Resources/views/include",
+            "name": "questions:list",
+            "dest": "/src/JuristBundle/Resources/views/includeTemplate",
             "src": {
                 "include": [ "/app/Resources/public/pages/include/route.html" ]
             },
@@ -74,7 +74,7 @@
                     "name": "gulp-rgswig",
                     "options": {
                         "data": {
-                            "tmplFile": "../../pages/include/question_list.swig"
+                            "tmplFile": "../../pages/include/questions_list.swig"
                         }
                     }
                 },
@@ -89,7 +89,38 @@
                 {
                     "name": "gulp-rename",
                     "options": {
-                        "basename": "question_list"
+                        "basename": "questions_list"
+                    }
+                }
+            ]
+        },
+        {
+            "name": "jurists:list",
+            "dest": "/src/JuristBundle/Resources/views/includeTemplate",
+            "src": {
+                "include": [ "/app/Resources/public/pages/include/route.html" ]
+            },
+            "plugins": [
+                {
+                    "name": "gulp-rgswig",
+                    "options": {
+                        "data": {
+                            "tmplFile": "../../pages/include/jurists_list.swig"
+                        }
+                    }
+                },
+                {
+                    "name": "gulp-minify-html",
+                    "options": {
+                        "conditionals": true,
+                        "comments": true,
+                        "quotes": true
+                    }
+                },
+                {
+                    "name": "gulp-rename",
+                    "options": {
+                        "basename": "jurists_list"
                     }
                 }
             ]

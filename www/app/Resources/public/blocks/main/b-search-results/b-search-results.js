@@ -10,9 +10,11 @@ module.exports = function(data){
 
                         blocks: {
 
-                            questionsList: RGB('questions:list'), // список вопросов в результатах поиска
+                            itemsListQuestions: RGB('items-list:questions'), // список вопросов
 
-                            juristsList: RGB('jurists:list') // список юристов в результатах поиска
+                            itemsListJurists: RGB('items-list:jurists'), // список юристов в результатах поиска
+
+                            loadChain: RGB('load-chain') // блок бесконечной подгрузки
 
                         }
                     }

@@ -89,7 +89,10 @@ gulp.task('lib:scripts', function () {
             "./app/Resources/public/scripts/vendors/adfox/adfox.reload_code.embeds.min.js",
             "./app/Resources/public/scripts/vendors/jwplayer/jwplayer.min.js",
             "./app/Resources/public/scripts/vendors/jquery.sticky-kit.js",
-            "./app/Resources/public/scripts/vendors/jquery.appear.js"
+            "./app/Resources/public/scripts/vendors/jquery.appear.js",
+            "./app/Resources/public/scripts/vendors/promise.js",
+            "./app/Resources/public/scripts/vendors/fetch.js",
+            "./app/Resources/public/scripts/vendors/fetchJsonp.js"
         ])
 
         .pipe(

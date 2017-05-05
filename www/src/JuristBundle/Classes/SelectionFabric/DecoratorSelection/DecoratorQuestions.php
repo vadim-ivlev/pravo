@@ -45,7 +45,7 @@ class DecoratorQuestions implements DecoratorQueryInterface, DecoratorCountInter
 				GROUP_CONCAT('
 					{
 						\"tags__id\":\"', t1.id, 
-						'\",\"tags__link\":\"/tag/1/', t1.id,
+						'\",\"tags__link\":\"/tag/', t1.id,
 						'/\",\"tags__disabled\":\"', t1.disabled,
 						'\",\"tags__title\":\"', t1.name SEPARATOR '\"
 					}, '), '\", \"tags__LAST__\": 1}]' 
@@ -55,7 +55,7 @@ class DecoratorQuestions implements DecoratorQueryInterface, DecoratorCountInter
 			  WHERE tq1.questions_id = q.id  
 			) AS `tags`,
             
-            r.id AS r_id, r.name AS r_name
+            r.id AS r_id, r.name AS r_name, r.CPU_name AS r_CPU_name
         ";
 
         unset($query);

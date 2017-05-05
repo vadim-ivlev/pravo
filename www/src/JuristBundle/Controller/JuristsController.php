@@ -137,7 +137,7 @@ class JuristsController extends ApiController
             if (isset($nameRedisNow) && $this->AllowParamGet($request)) {
                 $this->redis->setEx(
                     $nameRedisNow,
-                    (60 * 60), //Expires на 1 час
+                    (60 * 30), //Expires на 30 мин
                     serialize(
                         [
                             'pagination' => $this->result['pagination'],

@@ -37,7 +37,7 @@ class QuestionsRepository extends \Doctrine\ORM\EntityRepository
 
         $sql = "
           SELECT 
-            r.id AS r_id, r.name AS r_name, 
+            r.id AS r_id, r.name AS r_name, r.CPU_name AS r_CPU_name,
             a.id AS a_id, 
             q.id AS q_id, q.title AS q_title
           FROM 

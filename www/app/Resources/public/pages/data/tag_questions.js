@@ -80,6 +80,15 @@ module.exports = {
                 //RGInclude('/custom/projects/juristical/global', 'scripts') // скрипты
 
                 {
+                    name: "infiniteLoadingScript",
+                    opt: {
+                        contents: [
+                            { data: "<script src=\"/bundles/jurist/js/list.js\"></script>" }
+                        ]
+                    }
+                },
+
+                {
                     opt: {
                         contents: [
                             { data: "<script src=\"/bundles/jurist/js/pagination.js\"></script>" }

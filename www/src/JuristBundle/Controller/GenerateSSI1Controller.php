@@ -21,7 +21,7 @@ class GenerateSSI1Controller extends Controller
 {
     protected $connect_to_Jurists_bd, $container;
 
-    private $JsonErrorMessage, $HtmlErrorMessage, $pathToResource, $pathToTmpl;
+    private $JsonErrorMessage, $HtmlErrorMessage, $pathToResource, $pathToTmpl, $redis;
 
     const
         DIRECTORY_SEPARATOR = DIRECTORY_SEPARATOR,
@@ -43,6 +43,8 @@ class GenerateSSI1Controller extends Controller
 
         $this->pathToResource = $this->get('kernel')->getRootDir() . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR .
             'src' . DIRECTORY_SEPARATOR . 'JuristBundle' . DIRECTORY_SEPARATOR;// .  'Resources' . DIRECTORY_SEPARATOR;
+
+        $this->redis = $this->container->get('snc_redis.default');
     }
 
     public function getURISSIAction(Request $request)
@@ -67,14 +69,14 @@ class GenerateSSI1Controller extends Controller
         $defaultStartUri = $appConfiger->getBy(null, 'generate_SSI', 'args:default_start_uri');
 
         if (stripos($uri, $defaultStartUri) !== 0) //Если uri не начинается с /include/
-            return new Response($this->HtmlErrorMessage->generateError('uri must start with /include/'));
+            return new Response($this->HtmlErrorMessage->generateError("uri must start with ${$defaultStartUri}"));
 
         if (!(boolean)preg_match("/\/" . $this::ALLOW_NAME_FILE . $this::ALLOW_FORMAT_TMPL . "$/", $uri)) //Если не оканчивается на index.html
             return new Response($this->HtmlErrorMessage->generateError('uri must end /' . $this::ALLOW_NAME_FILE . $this::ALLOW_FORMAT_TMPL));
         else //Если оканчивается, то удаляем index.html
             $uri = substr($uri, 0, - strlen($this::ALLOW_NAME_FILE . $this::ALLOW_FORMAT_TMPL));
 
-        $args = ltrim($uri, $defaultStartUri); //Удаляем из начала /include/
+        $args = ltrim($uri, $defaultStartUri); //Удаляем из начала /views/include/
 
         if($args[strlen($args) - 1] === DIRECTORY_SEPARATOR) //Если последний символ DIRECTORY_SEPARATOR, то удаляем его, так, как потом бьем по сепаратору и он не нужен лишний
             $args = substr($args, 0, -1);
@@ -94,7 +96,8 @@ class GenerateSSI1Controller extends Controller
             return new Response($this->HtmlErrorMessage->generateError('name tmpl is empty'));
 
         //Проверяем наличие указанного шаблона после tmpl-...
-        $this->pathToTmpl = $this->pathToResource . 'Resources' . self::DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR . 'include' . DIRECTORY_SEPARATOR . $tmpl . GenerateSSIController::ALLOW_FORMAT_TMPL;
+        $this->pathToTmpl = $this->pathToResource . 'Resources' . self::DIRECTORY_SEPARATOR .
+            'views' . DIRECTORY_SEPARATOR . 'includeTemplate' . DIRECTORY_SEPARATOR . $tmpl . self::ALLOW_FORMAT_TMPL;
         if (!is_readable($this->pathToTmpl)) //Если нет tmpl
             return new Response($this->HtmlErrorMessage->generateError("tmpl not found or not readble check rules {$this->pathToTmpl}" ));
 
@@ -172,6 +175,30 @@ class GenerateSSI1Controller extends Controller
 
     private function generatePathSSI($path)
     {
+        $ifJSON = strpos($path, "?");
+        if ($ifJSON) { // Если запрос на JSON, то проверяем, что верные параметры в GET
+            $isJSON = substr($path, $ifJSON + 1);
+            $parseGetQuery = explode("=", $isJSON);
+            if ($parseGetQuery[0] === "format" && $parseGetQuery[1] === "json") {
+                $returnJSON = true;
+                $path = substr($path, 0, -strlen($isJSON) - 1); // Приводим путь к норм виду удаляя GET запрос
+
+                $redis = unserialize($this->redis->get($path)); // Должно быть после, тк пишется в редис с именим без ?format=json
+
+                if (!empty($redis)) {
+                    $response = new JsonResponse();
+                    $response
+                        ->setData([
+                            "items_list" => $redis['questions'],
+                            "infiniteScroll" => $redis['pagination']
+                        ], JSON_UNESCAPED_SLASHES)
+                        ->headers->set('Content-Type', 'application/json');
+                    return $response;
+                }
+            }
+        }
+
+
         $args = $this->validateUri($path);
 
         if ($args instanceof Response)
@@ -181,7 +208,8 @@ class GenerateSSI1Controller extends Controller
         if ($pathCreate[0] === $this::DIRECTORY_SEPARATOR)
             $pathCreate = substr($pathCreate, 1);
 
-        $pathCreate = $this->pathToResource . /*'public' . $this::DIRECTORY_SEPARATOR .*/ $pathCreate;
+        //$pathCreate = $this->pathToResource . /*'public' .*/ $this::DIRECTORY_SEPARATOR . $pathCreate;
+        $pathCreate = $this->pathToResource . 'Resources' . $this::DIRECTORY_SEPARATOR . $pathCreate;
 
         $fabric = new \JuristBundle\Classes\SelectionFabric\SelectionFabricReal($this->connect_to_Jurists_bd, $this->HtmlErrorMessage);
         $fabric = $fabric->assembler($args);
@@ -192,12 +220,15 @@ class GenerateSSI1Controller extends Controller
         if ($fabric instanceof Response)
             return $fabric;
 
+        if (isset($returnJSON)) //Если format=json то и возвращаем JSON
+            return $this->generateJSON($fabric, $path);
 
-        //Создать иерархию папок
+        // Создать иерархию папок
         $pathCreateHierarchy = substr($pathCreate, 0, - strlen($this::ALLOW_NAME_FILE . $this::ALLOW_FORMAT_TMPL));
         try {
-            if (!mkdir($pathCreateHierarchy, 0775, true)) //mkdir -p /foo/bar/baz/
-                return new Response($this->HtmlErrorMessage->generateError("error create {$pathCreateHierarchy}"));
+            if (!is_dir($pathCreateHierarchy)) // Если нет директории, то создаем
+                if (!mkdir($pathCreateHierarchy, 0775, true)) //mkdir -p /foo/bar/baz/
+                    return new Response($this->HtmlErrorMessage->generateError("error create {$pathCreateHierarchy}"));
         } catch (\Exception $e) {
             if($e->getMessage() !== 'Warning: mkdir(): File exists')
                 return new Response($this->HtmlErrorMessage->generateError("unknown error: " . $e->getMessage()));
@@ -205,22 +236,45 @@ class GenerateSSI1Controller extends Controller
 
         $tmpl = $this->generateTemplate($path, $this->pathToTmpl, $fabric);
 
-        $savePath = $this->connect_to_Jurists_bd //Записать путь
+        $savePath = $this->connect_to_Jurists_bd //Записать путь для инвалидации
             ->getRepository('JuristBundle:SsiStoragePath')
             ->savePath(substr($path, 0, - strlen($this::ALLOW_NAME_FILE . $this::ALLOW_FORMAT_TMPL)));
-        if(!$savePath) //Если произошла ошибка при сохранение
+        if(!$savePath) // Если произошла ошибка при сохранение
             return new Response($this->HtmlErrorMessage->generateError("error save uri in BD"));
 
         return new Response($tmpl);
 
     }
 
+    private function generateJSON(array $data, $redisName) {
+        $data = $this->formedData($data);
+        
+        $this->redis->setEx(
+            $redisName,
+            (60 * 5), // Expires на 5 минут
+            serialize(
+                [
+                    'questions' => $data['questions'],
+                    'pagination' => $data['pagination'],
+                ]
+            ));
+
+        $response = new JsonResponse();
+        $response
+            ->setData([
+              "items_list" => $data['questions'],
+              "infiniteScroll" => $data['pagination']
+              ], JSON_UNESCAPED_SLASHES)
+            ->headers->set('Content-Type', 'application/json');
+        return $response;
+    }
+
     private function generateTemplate($pathToWrite, $pathTmpl, array $data)
     {
 
-        $data = $this->formedData($data); //Сформировал данные
+        $data = $this->formedData($data); // Сформировал данные
 
-        $readyTmpl = $this->writeTmpl($pathToWrite, $pathTmpl, $data); //Совместил данные с шаблоном
+        $readyTmpl = $this->writeTmpl($pathToWrite, $pathTmpl, $data); // Совместил данные с шаблоном
 
         return $readyTmpl;
     }
@@ -247,7 +301,20 @@ class GenerateSSI1Controller extends Controller
             if (isset($item['current_rubric']))
                 $currentRubric = json_decode($item['current_rubric']);
 
+            $mods = $visibility = [];
+            if($item['au_dateEndPay']) // Оплачен ли юрист
+                $mods[] = ApiController::NAME_PAY_JURIST;
+
+            if($item['a_typeCards'] === ApiController::TYPE_CARD) // Является ли карточкой
+                $mods[] = ApiController::TYPE_CARD;
+
             $result['questions'][] = [
+              "mods" => $mods,
+              "visibility" => [
+                "visibility__state" => (((bool)$item['au_dateEndPay']) ? "visible" : false), // Оплачен ли юрист
+              ],
+              "mods__length" => count($mods),
+              "visibility__length" => (int)$item['au_dateEndPay'],
               'questions__head' => [
                   [
                       'questions__head__author' => [
@@ -264,7 +331,7 @@ class GenerateSSI1Controller extends Controller
               'rubrics' => [
                   [
                       'rubrics__title' =>  $item['r_name'],
-                      'rubrics__link' =>  '/rubrics/' . $item['r_id'] . ApiController::REDIRECT,
+                      'rubrics__link' =>  ApiController::RUBRIC . $item['r_CPU_name'] . ApiController::REDIRECT,
                       'rubrics__id' =>  $item['r_id'],
                       'rubrics__FIRST__' =>  1,
                       'rubrics__LAST__' =>  1
@@ -275,7 +342,7 @@ class GenerateSSI1Controller extends Controller
               'text' => $item['q_description'],
               'keywords' => ((!empty($item['q_keywords_seo'])) ? $item['q_keywords_seo'] : false),
               'jurist' => [
-                  'jurist__active' => (((bool)$item === (bool)ApiController::DISABLED_VALUE_ON) ? !ApiController::DISABLED_VALUE_ON : ApiController::DISABLED_VALUE_ON),
+                  'jurist__active' => (((bool)$item['au_disabled'] === (bool)ApiController::DISABLED_VALUE_ON) ? !ApiController::DISABLED_VALUE_ON : ApiController::DISABLED_VALUE_ON),
                   'jurist__first_name' => $item['au_name'],
                   'jurist__last_name' => $item['au_second_name'],
                   'jurist__link' => ApiController::JURIST . $item['au_id'] . ApiController::REDIRECT,
@@ -322,7 +389,8 @@ class GenerateSSI1Controller extends Controller
             $data
         );
 
-        $pathToWrite = $this->pathToResource /*. 'public' . $this::DIRECTORY_SEPARATOR*/ . $pathToWrite;
+        //$pathToWrite = $this->pathToResource /*. 'public' . $this::DIRECTORY_SEPARATOR*/ . $pathToWrite;
+        $pathToWrite = $this->pathToResource . 'Resources' . $this::DIRECTORY_SEPARATOR . $pathToWrite;
         @file_put_contents($pathToWrite, $result);
 
         return @file_get_contents($pathToWrite);

@@ -17,66 +17,24 @@ use AppBundle\Services\Configer;
 
 class RubricController extends ApiController
 {
-
-    public function formedDataAction ($numberPage = 1, $offset = 0, $CPUName)
+    const URN = "https://pravo.rg.ru/generate_ssi1/?uri=/views/include/tmpl-question_item/rubrics-";
+    const URL = "/index.html?format=json";
+    
+    public function formedDataAction ($CPUName)
     {
-
-        $keyRedis = "PravoRubric(id:{$CPUName}/numberPage:{$numberPage})";
-        $redis = $this->redis->get($keyRedis);
-        $redis = unserialize($redis);
-
-        $Questions = $this->connect_to_Jurists_bd->getRepository('JuristBundle:Questions')->fetchAllQuestionsForRubric($CPUName);
-
         $Rubric = $this->connect_to_Jurists_bd
             ->getRepository('JuristBundle:Rubrics')
             ->findOneBy(['CPUName' => $CPUName]);
+        
+        $this->result['current_rubric'] = [
+            'current_rubric_name' => $Rubric->getName(),
+            'current_rubric_id' => $Rubric->getId()
+        ];
 
-        if ($redis) {
-            $this->result = $redis;
-        } else {
-            $this->pageNotFound(!$Questions);
-
-            $this->formedQuestionsDBAL($Questions);
-
-            $this->PaginationAction(
-                $this->result['questions_list'],
-                self::PAGINATION_FOR_JURISTS,
-                self::COUNT_RECORDS_ON_PAGE_JURISTS,
-                $numberPage,
-                '/rubric/',
-                1,
-                "/" . trim($CPUName) //trim потому что лезут пробелы
-            ); //Место расположения должно быть именно тут важно место
-
-            $crutchForPagination = []; //Потому что архитектура первоначально была не верно заложенна
-
-            foreach ($this->result['questions_list'] as $keyCrutchForPagination => $valCrutchForPagination) {
-                if ($keyCrutchForPagination >= $offset && $keyCrutchForPagination < $offset + self::COUNT_RECORDS_ON_PAGE_JURISTS) { //Диапозон записей на странице, по умолчанию 7
-                    $crutchForPagination[] = $valCrutchForPagination;
-                }
-            }
-
-            $this->result['questions_list'] = $crutchForPagination; //Костыль
-            $this->result['current_rubric'] = [
-                'current_rubric_name' => $Rubric->getName(),
-                'current_rubric_id' => $Rubric->getId()
-            ];
-
-            $this->result['description_rubric'] = [
-                'description_title' => ((!empty($Rubric->getTitle())) ? $Rubric->getTitle() : $Rubric->getName()),
-                'description_description' => ((!empty($Rubric->getDescription())) ? $Rubric->getDescription() : false),
-                'description_length' => ((!empty($Rubric->getDescription())) ? true : false),
-            ];
-
-            $this->redis->setEx($keyRedis, (60 * 180), serialize( //На 3 часа
-                [
-                    'questions_list' => $this->result['questions_list'],
-                    'current_rubric' => $this->result['current_rubric'],
-                    'description_rubric' => $this->result['description_rubric'],
-                    'pagination' => $this->result['pagination']
-                ]
-            ));
-        }
+        $questionsAndLimit = json_decode(@file_get_contents(self::URN . $CPUName . self::URL), true);
+        $this->result["items_list"] = $questionsAndLimit["items_list"];
+        $this->result["infiniteScroll"] = $questionsAndLimit["infiniteScroll"];
+        $this->result["requestUri"] = "https://pravo.rg.ru/generate_ssi1/?uri=/views/include/tmpl-question_item/rubrics-" . $CPUName;
 
         $this->HeaderAction(self::TABS_MAIN);
 
@@ -86,17 +44,15 @@ class RubricController extends ApiController
 
         $this->result['canonical'] = "https://pravo.rg.ru/rubric/{$CPUName}/";
 
-        $this->pageNotFound(empty($this->result['questions_list']));
+        $this->pageNotFound(empty($this->result['items_list']));
 
         return $this->result;
 
     }
 
-    public function RubricAction ($numberPage = 1, $CPUName = null)
+    public function RubricAction ($CPUName = null)
     {
-        $offset = $this->generateOffsetPagination($numberPage);
-
-        if(is_numeric(intval($CPUName)) && intval($CPUName) !== 0) { //Редирект со старых id на новые
+        if(is_numeric(intval($CPUName)) && intval($CPUName) !== 0) { // Редирект со старых id на новые
 
             //За
             $Rubric = $this->connect_to_Jurists_bd
@@ -111,7 +67,7 @@ class RubricController extends ApiController
         }
 
         if($this->fetchFormat() === 'json') {
-            $this->formedDataAction($numberPage, $offset, $CPUName);
+            $this->formedDataAction($CPUName);
 
             $response = new JsonResponse();
             $response
@@ -124,7 +80,7 @@ class RubricController extends ApiController
             return new Response(
                 $m->render(
                     @file_get_contents(dirname(__FILE__) . '/../Resources/views/rubric_questions.html'),
-                    json_decode(json_encode($this->formedDataAction($numberPage, $offset, $CPUName)))
+                    json_decode(json_encode($this->formedDataAction($CPUName)))
                 )
             );
         } else {

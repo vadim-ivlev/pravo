@@ -65,11 +65,8 @@ module.exports = function(data){
 
 							partners: "adfoxSidebarLeft juristsFeed",
 
-							search: "categoriesSidebar adfoxSidebarLeft adfoxSidebarRight juristsFeed juristsTop yandexDirect",
-
-							main1: "categoriesSidebar adfoxSidebarRight juristsFeed juristsTop yandexDirect",
-
-							search2: "categoriesSidebar adfoxSidebarRight juristsFeed juristsTop yandexDirect"
+							search: "categoriesSidebar adfoxSidebarLeft adfoxSidebarRight juristsFeed juristsTop yandexDirect"
+							
 						}
 					}
 				}

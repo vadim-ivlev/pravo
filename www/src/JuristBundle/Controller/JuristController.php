@@ -17,13 +17,16 @@ use AppBundle\Services\Configer;
 
 class JuristController extends ApiController
 {
-    public function formedDataAction ($id, $limitPagination, $pageId = 1, $aliasEntity = 'q')
+    const URN = "https://pravo.rg.ru/generate_ssi1/?uri=/views/include/tmpl-question_item/jurists-";
+    const URL = "/index.html?format=json";
+
+    public function formedDataAction ($id, $aliasEntity = 'q')
     {
         $Jurist = $this->connect_to_Jurists_bd
             ->getRepository('JuristBundle:AuthUsers')
             ->findOneBy(['id' => $id]);
 
-        $this->pageNotFound(!$Jurist || $pageId <= 0 || $Jurist->getDisabled() !== self::DISABLED_VALUE_ON || $Jurist->getIsJurist() != true);
+        $this->pageNotFound(!$Jurist || $Jurist->getDisabled() !== self::DISABLED_VALUE_ON || $Jurist->getIsJurist() != true);
 
         if ($Jurist->getDisabled() === self::DISABLED_VALUE_ON && $Jurist->getIsJurist() == true) {
 
@@ -34,7 +37,7 @@ class JuristController extends ApiController
                     'rubrics__link' => self::RUBRICS . $rubric->getId() . self::REDIRECT,
                 ];
             }
-            
+
             $this->result['jurists_profile'] = array(
                 'mods' => array('profile'),
                 'jurist__img' => [$this->fetchAvatar($Jurist, $Jurist)],
@@ -65,52 +68,18 @@ class JuristController extends ApiController
 
             $this->generateFirstLast($dataJurist['rubrics']);
             unset($data_jurist);
-            
-            $Questions = $this->connect_to_Jurists_bd
-                ->getRepository('JuristBundle:Questions')
-                ->createQueryBuilder('q')
-                ->innerJoin("q.answersId", 'a', 'WITH', "q.id = a.question")
-                ->where('q.AuthUsersId = :AuthUsersId')
-                ->setParameters(array('AuthUsersId' => $Jurist->getId()))
-                ->setFirstResult($limitPagination) //offset
-                ->setMaxResults(self::COUNT_RECORDS_ON_PAGE_JURISTS) //limit
-                ->orderBy('a.date', 'DESC')
-                ->getQuery()
-                ->execute();
 
-            $AllQuestions = $this->connect_to_Jurists_bd
-            ->getRepository('JuristBundle:Questions')
-            ->createQueryBuilder($aliasEntity)
-            ->innerJoin("q.answersId", 'a', 'WITH', "q.id = a.question")
-            ->where('q.AuthUsersId = :AuthUsersId')
-            ->setParameters(array('AuthUsersId' => $Jurist->getId()))
-            ->orderBy('a.date', 'DESC')
-            ->getQuery()
-            ->execute();
-
-            $AllQuestionsAfterCheck = [];
-            foreach ($AllQuestions as $AllQuestion){
-                if(!empty($AllQuestion->getAnswersId())){
-                    $AllQuestionsAfterCheck[] = $AllQuestion;
-                }
-            }
-
-            $this->PaginationAction($AllQuestionsAfterCheck, self::PAGINATION_FOR_JURISTS, self::COUNT_RECORDS_ON_PAGE_JURISTS, $pageId, '/jurist/', 1, "/" . trim($id));
-            
-            $this->formedQuestions($Questions);
-
-            $this->getDate();
+            //Infinity scroll
+            $questionsAndLimit = json_decode(@file_get_contents(self::URN . $id . self::URL), true);
+            $this->result["items_list"] = $questionsAndLimit["items_list"];
+            $this->result["infiniteScroll"] = $questionsAndLimit["infiniteScroll"];
+             $this->result["requestUri"] = self::URN . $id;
 
         } else {
             $this->result['Ban'] = 'Users block';
         }
 
-        
-        if (isset($this->result['pagination'])) { //Если пагинация есть и $pageId > count($this->result['pagination'])
-            if ($pageId > count($this->result['pagination'])) $this->pageNotFound(true);
-        } else {
-            if ($pageId != 1) $this->pageNotFound(true);
-        }
+        $this->getDate();
 
         $this->HeaderAction(self::TABS_JURIST);
 
@@ -121,12 +90,11 @@ class JuristController extends ApiController
         return $this->result;
     }
 
-    public function JuristAction($pageId = 1, $id = null)
+    public function JuristAction($id = null)
     {
-        $limitPagination = $this->generateOffsetPagination($pageId);
 
         if (!empty($id) && $this->fetchFormat() === 'json') {
-            $this->formedDataAction($id, $limitPagination, $pageId);
+            $this->formedDataAction($id);
 
             $response = new JsonResponse();
             $response
@@ -139,7 +107,7 @@ class JuristController extends ApiController
             return new Response(
                 $m->render(
                     @file_get_contents(dirname(__FILE__) . '/../Resources/views/lawer.html'),
-                    json_decode(json_encode($this->formedDataAction($id, $limitPagination, $pageId)))
+                    json_decode(json_encode($this->formedDataAction($id)))
                 )
             );
         } else {

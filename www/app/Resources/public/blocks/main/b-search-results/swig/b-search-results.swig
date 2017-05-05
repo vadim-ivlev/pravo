@@ -10,7 +10,12 @@
     <input class="b-btn b-btn_orange" type="submit" value="Найти">
 </form>
 
-	{[ macro.RGBi(blocks.questionsList, parent) ]}
-	{[ macro.RGBi(blocks.juristsList, parent) ]}
+{{# infiniteScroll.isQuestions}}
+	{[ macro.RGBi(blocks.itemsListQuestions, parent) ]}
+{{/ infiniteScroll.isQuestions}}
+{{# infiniteScroll.isJurists}}
+	{[ macro.RGBi(blocks.itemsListJurists, parent) ]}
+{{/ infiniteScroll.isJurists}}
+{[ macro.RGBi(blocks.loadChain, parent) ]}
 
 {{{ empty_search }}}

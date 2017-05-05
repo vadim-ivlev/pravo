@@ -37,6 +37,8 @@ module.exports = function(data){
 
                             // bibliotechkaAdvert: RGB('bibliotechka-advert, mobile tablet tabletLandscape'), // блок библиотечки обычный
 
+                            bibliotechkaAdvert: RGB('bibliotechka-advert, mobile tablet tabletLandscape'), // блок библиотечки на мобильных устройствах
+
                             bibliotechkaAdvertAnswer: RGB('bibliotechka-advert:answer'), // блок библиотечки на странице ответа
 
                             formAsk: RGB('form:ask'), // форма отправки вопроса
@@ -73,7 +75,11 @@ module.exports = function(data){
 
                             searchResults: RGB('search-results'), // блок результатов поиска
 
-                            adfoxMainTop: RGB('adfox:media-4, desktop desktopFull:active') // баннер в правом вернхем углу основного контента
+                            adfoxMainTop: RGB('adfox:media-4, desktop desktopFull:active'), // баннер в правом вернхем углу основного контента
+
+                            loadChain: RGB('load-chain'), // блок бесконечной подгрузки
+
+                            itemsListQuestions: RGB('items-list:questions'), // список вопросов
 
                         },
 
@@ -81,11 +87,11 @@ module.exports = function(data){
 
                             // 'default': "breadcrumbs questionsList pagination",
 
-                            index: "breadcrumbsMain categoriesSidebar questionsList pagination juristsFeed juristsTop",
+                            index: "breadcrumbsMain categoriesSidebar bibliotechkaAdvert itemsListQuestions loadChain juristsFeed juristsTop",
 
-                            rubric_questions: "breadcrumbsRubric categoriesSidebar questionsList pagination",
+                            rubric_questions: "breadcrumbsRubric categoriesSidebar itemsListQuestions loadChain",
 
-                            tag_questions: "breadcrumbsTag questionsList pagination",
+                            tag_questions: "breadcrumbsTag itemsListQuestions loadChain",
 
                             answer: "breadcrumbsAnswer categoriesSidebar questionsItem answerBlock adfox questionsLatest bibliotechkaAdvertAnswer",
 
@@ -99,11 +105,11 @@ module.exports = function(data){
 
                             rubric_tags: "materialHead categoriesMain tags juristsFeed",
 
-                            lawer: "juristsProfile questionsList pagination juristsFeed questionsLatest",
+                            lawer: "juristsProfile itemsListQuestions loadChain juristsFeed questionsLatest",
 
                             partners: "articlePartners",
 
-                            search: "categoriesSidebar searchResults pagination juristsFeed juristsTop",
+                            search: "categoriesSidebar searchResults juristsFeed juristsTop",
 
                             error404: "articleError404"
 

@@ -336,6 +336,51 @@
       ]
     },
     {
+      "name": "script:list",
+      "dest": "/src/JuristBundle/Resources/public/js",
+      "src": {
+        "include": [
+          "/app/Resources/public/scripts/list.js"
+        ]
+      },
+      "sourcemaps": true,
+      "browserify": {
+        "transforms": [
+          {
+            "name": "ractivate",
+            "options": {
+              "extensions": [
+                ".ihtml"
+              ]
+            }
+          }
+        ],
+        "watchify": true
+      },
+      "watch": false,
+      "plugins": [
+        {
+          "name": "gulp-debug",
+          "options": {
+            "title": "Js:"
+          }
+        },
+        {
+          "name": "gulp-babel",
+          "options": {
+            "compact": true
+          }
+        },
+        {
+          "name": "gulp-uglify"
+        },
+        {
+          "name": "gulp-concat",
+          "options": "list.js"
+        }
+      ]
+    },
+    {
       "name": "images",
       "dest": "/src/JuristBundle/Resources/public/img",
       "src": {

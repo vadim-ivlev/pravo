@@ -149,15 +149,3 @@ RG.Menu = RG.Menu || require('../../blocks/header/b-menu/scripts/b-menu');
  * Формы РГ
  */
 RG.forms = RG.forms || {};
-
-/**
- * Подключение модуля бесконечной подгрузки
- */
-
-/*RG.LoadChain = RG.LoadChain || require('../modules/LoadChain');
-
-$(function() {
-
-    new RG.LoadChain();
-
-});*/

@@ -46,6 +46,7 @@ var init = function() {
                     setCookie('rating', id, expireTime);
                 } else {
                     $(".b-rate__value").append('<span class="b-rate__notification">Вы уже сказали спасибо.</span>');
+                    $(".js-link-btn-thanx").css("pointer-events", "none");
                     // $(".b-rate__value").css({'font-size' : '10px'});
                 }
             },

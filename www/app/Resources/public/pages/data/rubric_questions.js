@@ -18,7 +18,7 @@ module.exports = {
                         tag: "meta",
                         attrs: {
                             property: "og:title",
-                            content: "{{# description_rubric}}{{# description_length}}{{ description_title }}{{/ description_length}}{{/ description_rubric}}"
+                            content: "{{# current_rubric}}{{ seo_title_rubric }}{{/ current_rubric}}"
                         }
                     }
                 },
@@ -28,7 +28,7 @@ module.exports = {
                         tag: "meta",
                         attrs: {
                             property: "og:description",
-                            content: "{{# description_rubric}}{{# description_length}}{{ description_description }}{{/ description_length}}{{/ description_rubric}}"
+                            content: "{{# current_rubric}}{{ seo_title_description }}{{/ current_rubric}}"
                         }
                     }
                 },
@@ -48,7 +48,7 @@ module.exports = {
                         tag: "title",
                         contents: [
                             {
-                                data: "{{# description_rubric}}{{# description_length}}{{ description_title }}{{/ description_length}}{{/ description_rubric}}"
+                                data: "{{# current_rubric}}{{ seo_title_rubric }}{{/ current_rubric}}"
                             }
                         ]
                     }
@@ -59,7 +59,7 @@ module.exports = {
                         tag: "meta",
                         attrs: {
                             name: "description",
-                            content: "{{# description_rubric}}{{# description_length}}{{ description_description }}{{/ description_length}}{{/ description_rubric}}"
+                            content: "{{# current_rubric}}{{ seo_title_description }}{{/ current_rubric}}"
                         }
                     }
                 },

@@ -1,0 +1,35 @@
+/*
+ * Блок seo-текста
+ *
+ */
+
+// Объявляем блок
+$block: '.b-seo-info'
+
+// Стили
+#{$block}
+    display: none
+    margin-bottom: 20px
+
+    &__body
+        padding: $indent-title 20px
+
+        background-color: $today-bg-color
+
+    &__name
+        +font(15px)
+        font-style: italic
+        font-weight: bold
+
+        margin-bottom: $indent-title
+
+        color: #000
+
+    &__content
+        word-wrap: break-word
+        line-height: 1.6em
+
+    +bp-tablet
+
+        &
+            display: block

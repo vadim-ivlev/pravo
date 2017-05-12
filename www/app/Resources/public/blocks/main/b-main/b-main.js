@@ -81,15 +81,17 @@ module.exports = function(data){
 
                             itemsListQuestions: RGB('items-list:questions'), // список вопросов
 
+                            seoInfo: RGB('seo-info') // блок с SEO-текстом под вопросами
+
                         },
 
                         sortBlocks: {
 
                             // 'default': "breadcrumbs questionsList pagination",
 
-                            index: "breadcrumbsMain categoriesSidebar bibliotechkaAdvert itemsListQuestions loadChain juristsFeed juristsTop",
+                            index: "breadcrumbsMain categoriesSidebar bibliotechkaAdvert itemsListQuestions loadChain seoInfo juristsFeed juristsTop",
 
-                            rubric_questions: "breadcrumbsRubric categoriesSidebar itemsListQuestions loadChain",
+                            rubric_questions: "breadcrumbsRubric categoriesSidebar itemsListQuestions loadChain seoInfo",
 
                             tag_questions: "breadcrumbsTag itemsListQuestions loadChain",
 

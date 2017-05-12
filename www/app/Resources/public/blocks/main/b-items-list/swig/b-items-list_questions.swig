@@ -19,7 +19,7 @@
                     <span class="b-question-block__author">{{ questions__head__author__name }}{{# questions__head__author__location }} ({{ questions__head__author__location }}){{/ questions__head__author__location }}</span>
                 {{/ questions__head__author }}
             {{/ questions__head__author__active}}
-            <span class="b-material-head__rubric">Рубрика:{{# rubrics }} <a class="b-link b-material-head__rubric-name" href="{{ rubrics__link }}">{{ rubrics__title }}</a>{{^ rubrics__LAST__ }},{{/ rubrics__LAST__ }}{{/ rubrics}}</span>
+            <span class="b-material-head__rubric">Рубрика:{{^ current_rubric}}{{# rubrics }} <a class="b-link b-material-head__rubric-name" href="{{ rubrics__link }}">{{ rubrics__title }}</a>{{^ rubrics__LAST__ }},{{/ rubrics__LAST__ }}{{/ rubrics}}{{/ current_rubric}}{{# current_rubric}}{{# rubrics }} <span class="b-material-head__rubric-name">{{ rubrics__title }}</span>{{^ rubrics__LAST__ }},{{/ rubrics__LAST__ }}{{/ rubrics}}{{/ current_rubric}}</span>
         </div>
     {{/ questions__head}}
     <a class="b-link" href="{{ link }}">

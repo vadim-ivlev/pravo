@@ -18,20 +18,20 @@ module.exports = {
                         tag: "meta",
                         attrs: {
                             property: "og:title",
-                            content: "{{# jurists_profile }}{{ jurist__last_name }} {{ jurist__first_name }} {{ jurist__patronymic }}{{/ jurists_profile }} — Юридическая консультация"
+                            content: "{{{ jurists_profile.jurist__seo_title }}}"
                         }
                     }
                 },
-                /*{
+                {
                     name: "crosspagesOgDescription",
                     opt: {
                         tag: "meta",
                         attrs: {
                             property: "og:description",
-                            content: "Правовая поддержка граждан: вы можете получить юридическую помощь бесплатно. Задайте вопрос опытному юристу"
+                            content: "{{# jurists_profile.jurist__seo_description_length}}{{{jurists_profile.jurist__seo_description}}}{{/ jurists_profile.jurist__seo_description_length}}"
                         }
                     }
-                },*/
+                },
                 {
                     name: "canonicalLink",
                     opt: {
@@ -48,21 +48,21 @@ module.exports = {
                         tag: "title",
                         contents: [
                             {
-                                data: "{{# jurists_profile }}{{ jurist__last_name }} {{ jurist__first_name }} {{ jurist__patronymic }}{{/ jurists_profile }} — Юридическая консультация"
+                                data: "{{{ jurists_profile.jurist__seo_title }}}"
                             }
                         ]
                     }
                 },
-                /*{
+                {
                     name: "indexDescription",
                     opt: {
                         tag: "meta",
                         attrs: {
                             name: "description",
-                            content: "Российская газета - издание Правительства Российской Федерации, официальный публикатор документов"
+                            content: "{{# jurists_profile.jurist__seo_description_length}}{{{jurists_profile.jurist__seo_description}}}{{/ jurists_profile.jurist__seo_description_length}}"
                         }
                     }
-                },*/
+                },
                 {
                     name: "indexYandexVerification",
                     opt: {

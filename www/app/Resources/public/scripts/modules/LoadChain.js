@@ -33,11 +33,20 @@ var LoadChain = function() {
                 tmplValue: rootEl.getAttribute('data-value'),
                 search: rootEl.getAttribute('data-search'),
                 requestUri: rootEl.getAttribute('data-request-uri'),
-                show: true
+                show: true,
+                count: rootEl.getAttribute('data-count')
             }
         },
         onrender() {
-            var self = this,
+
+            var count = +this.get('count'),
+                limit = +this.get('limit');
+
+            this.set('items', '');
+            if (!count || (count < limit)) {
+                this.set('show', false);
+            }
+            /*var self = this,
                 querySym = (window.location.href.indexOf('?') !== -1) ? '&' : '?';
 
             // Запрашиваем данные для вывода при отрисовке шаблона
@@ -54,7 +63,7 @@ var LoadChain = function() {
                         	self.set('show', false);
                         }
                     });
-                });
+                });*/
         }
     });
 

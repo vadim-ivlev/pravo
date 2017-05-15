@@ -58,6 +58,16 @@ class Rubrics
     private $description;
 
     /**
+     * @var string
+     */
+    private $titleForBlock;
+
+    /**
+     * @var string
+     */
+    private $descriptionForBlock;
+
+    /**
      * @var \DateTime
      */
     private $createdAt;
@@ -292,6 +302,54 @@ class Rubrics
     public function getDescription()
     {
         return $this->description;
+    }
+
+    /**
+     * Set titleForBlock
+     *
+     * @param string $titleForBlock
+     *
+     * @return Rubrics
+     */
+    public function setTitleForBlock($titleForBlock)
+    {
+        $this->titleForBlock = $titleForBlock;
+
+        return $this;
+    }
+
+    /**
+     * Get titleForBlock
+     *
+     * @return string
+     */
+    public function getTitleForBlock()
+    {
+        return $this->titleForBlock;
+    }
+
+    /**
+     * Set descriptionForBlock
+     *
+     * @param string $descriptionForBlock
+     *
+     * @return Rubrics
+     */
+    public function setDescriptionForBlock($descriptionForBlock)
+    {
+        $this->descriptionForBlock = $descriptionForBlock;
+
+        return $this;
+    }
+
+    /**
+     * Get descriptionForBlock
+     *
+     * @return string
+     */
+    public function getDescriptionForBlock()
+    {
+        return $this->descriptionForBlock;
     }
 
     /**

@@ -34,7 +34,7 @@ class QuestionsController extends ApiController
         $questionsAndLimit = json_decode(@file_get_contents(self::URI), true);
         $questions = [];
         foreach ($questionsAndLimit["items_list"] as $k => $item) {
-            if ($k == 3)
+            if ($k == 3) // Вставлять после 4-ого вопроса бибиотечку
                 $questions[] = [
                     "mods" => [
                         "bibliotechka"

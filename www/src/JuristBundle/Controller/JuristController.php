@@ -41,6 +41,9 @@ class JuristController extends ApiController
             $this->result['jurists_profile'] = array(
                 'mods' => array('profile'),
                 'jurist__img' => [$this->fetchAvatar($Jurist, $Jurist)],
+                'jurist__seo_title' => ((!empty($Jurist->getSeoTitle())) ? $Jurist->getSeoTitle() : $Jurist->getSecondName() . " " . $Jurist->getName() . " " . $Jurist->getPatronymic() . " - Юридическая консультация"),
+                'jurist__seo_description' => $Jurist->getSeoDescription(),
+                'jurist__seo_description_length' => ((strlen($Jurist->getSeoDescription()) !== 0) ? true : false),
                 'jurist__first_name' => $Jurist->getName(),
                 'jurist__last_name' => $Jurist->getSecondName(),
                 'jurist__patronymic' => $Jurist->getPatronymic(),

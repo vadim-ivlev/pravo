@@ -263,6 +263,7 @@ class QuestionsRepository extends \Doctrine\ORM\EntityRepository
         );
 
         $query->execute();
+
         return $query->fetchAll(\PDO::FETCH_ASSOC);
     }
 
@@ -283,6 +284,9 @@ class QuestionsRepository extends \Doctrine\ORM\EntityRepository
 
         $resultSql = $this->SqlQueryExec($sql, [$arrayJuristsId], [\Doctrine\DBAL\Connection::PARAM_INT_ARRAY]);
 
+        /*if ($_SERVER['REMOTE_ADDR'] === '212.69.111.131') {
+            var_dump($resultSql);die;
+        }*/
         $result['result'] = array_combine(
             array_column($resultSql, 'au_id'), //Задаем структуру ['a_id' => ['a_id' = 1, 'some_variable' => 2]]
             $resultSql
@@ -410,8 +414,11 @@ class QuestionsRepository extends \Doctrine\ORM\EntityRepository
 
     public function getSearchResult(array $idSearch, $limit, $offset) : array
     {
+        // SQL_CALC_FOUND_ROWS - не пашет, found_rows и Over() тоже, так что такой ад
         $sql = "
             SELECT 
+            (SELECT COUNT(q1.id) FROM questions AS q1 WHERE q1.id IN (?) AND q1.step = ?) AS total_count,
+            
                 q.id AS q_id, q.author_id AS q_author_id, q.authUsers_id AS q_authUsers_id, q.step AS q_step, q.title AS q_title, 
                 q.date AS q_date, q.description AS q_description, q.status AS q_status, q.deadline AS q_deadline, q.deadline_id AS q_deadline_id, 
                 q.deadline_info AS q_deadline_info, q.title_seo AS q_title_seo, q.description_seo AS q_description_seo, q.keywords_seo AS q_keywords_seo,
@@ -458,10 +465,23 @@ class QuestionsRepository extends \Doctrine\ORM\EntityRepository
                 [
                     $idSearch, // Array id for search
                     (int)\JuristBundle\Controller\ApiController::FINISHED_STEP, // Констранта финального (опубликованного юриста)
+
+                    $idSearch, // Array id for search
+                    (int)\JuristBundle\Controller\ApiController::FINISHED_STEP, // Констранта финального (опубликованного юриста)
+
                     (int) $limit,
                     (int) $offset
                 ],
-                [\Doctrine\DBAL\Connection::PARAM_STR_ARRAY, \PDO::PARAM_INT, \PDO::PARAM_INT, \PDO::PARAM_INT]
+                [
+                    \Doctrine\DBAL\Connection::PARAM_STR_ARRAY,
+                    \PDO::PARAM_INT,
+
+                    \Doctrine\DBAL\Connection::PARAM_STR_ARRAY,
+                    \PDO::PARAM_INT,
+
+                    \PDO::PARAM_INT,
+                    \PDO::PARAM_INT
+                ]
             );
 
             $stmt->execute();

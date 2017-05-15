@@ -28,7 +28,11 @@ class RubricController extends ApiController
         
         $this->result['current_rubric'] = [
             'current_rubric_name' => $Rubric->getName(),
-            'current_rubric_id' => $Rubric->getId()
+            'current_rubric_id' => $Rubric->getId(),
+            'seo_title_rubric' => htmlspecialchars($Rubric->getTitle()),
+            'seo_title_rubric_for_block' => htmlspecialchars($Rubric->getTitleForBlock()),
+            'seo_title_description' => htmlspecialchars($Rubric->getDescription()),
+            'seo_title_description_for_block' => $Rubric->getDescriptionForBlock()
         ];
 
         $questionsAndLimit = json_decode(@file_get_contents(self::URN . $CPUName . self::URL), true);

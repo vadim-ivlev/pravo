@@ -306,8 +306,6 @@ class ApiController extends Controller implements ContainerAwareInterface
     {
         if (!empty($data)) {
             $result = [];
-            /*if ($_SERVER['REMOTE_ADDR'] === '212.69.111.131') {
-            }*/
             foreach ($data as $data_val) {
                 if (isset($data_val['t_disabled']) && (boolean)$data_val['t_disabled'] === false)
                     continue;
@@ -1415,7 +1413,7 @@ class ApiController extends Controller implements ContainerAwareInterface
                 foreach ($this->result['sidebar']['categories']['rubrics'] as &$rubricItem) {
                     $rubricItem['select_rubric'] = (
                         empty($rubricItem['select_rubric']) ? (
-                            $rubricItem['rubrics__title'] === $key ? $allRubricForDown['select_rubric'] : false
+                            $rubricItem['rubrics__title'] === $key ? @$allRubricForDown['select_rubric'] : false // Lel. I`m know about this error :p
                         ) : $rubricItem['select_rubric']
                     );
                 }

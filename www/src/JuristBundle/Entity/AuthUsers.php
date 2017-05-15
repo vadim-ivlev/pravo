@@ -148,6 +148,16 @@ class AuthUsers
     private $totalCountPublicAnswers;
 
     /**
+     * @var string
+     */
+    private $seoTitle;
+
+    /**
+     * @var string
+     */
+    private $seoDescription;
+
+    /**
      * Get id
      *
      * @return integer
@@ -804,6 +814,54 @@ class AuthUsers
     public function getTotalCountPublicAnswers()
     {
         return $this->totalCountPublicAnswers;
+    }
+
+    /**
+     * Set seoTitle
+     *
+     * @param string $seoTitle
+     *
+     * @return AuthUsers
+     */
+    public function setSeoTitle($seoTitle)
+    {
+        $this->seoTitle = $seoTitle;
+
+        return $this;
+    }
+
+    /**
+     * Get seoTitle
+     *
+     * @return string
+     */
+    public function getSeoTitle()
+    {
+        return $this->seoTitle;
+    }
+
+    /**
+     * Set seoDescription
+     *
+     * @param string $seoDescription
+     *
+     * @return AuthUsers
+     */
+    public function setSeoDescription($seoDescription)
+    {
+        $this->seoDescription = $seoDescription;
+
+        return $this;
+    }
+
+    /**
+     * Get seoDescription
+     *
+     * @return string
+     */
+    public function getSeoDescription()
+    {
+        return $this->seoDescription;
     }
 }
 

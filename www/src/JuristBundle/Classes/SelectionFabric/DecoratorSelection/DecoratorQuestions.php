@@ -51,7 +51,7 @@ class DecoratorQuestions implements DecoratorQueryInterface, DecoratorCountInter
 					}, '), '\", \"tags__LAST__\": 1}]' 
 			)
 			  FROM tags AS t1
-				JOIN tags_questions AS tq1 ON tq1.tags_id = t1.id
+				JOIN tags_questions AS tq1 ON (tq1.tags_id = t1.id AND t1.disabled = 1)
 			  WHERE tq1.questions_id = q.id  
 			) AS `tags`,
             

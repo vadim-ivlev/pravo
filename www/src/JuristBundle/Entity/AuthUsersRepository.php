@@ -319,8 +319,11 @@ class AuthUsersRepository extends \Doctrine\ORM\EntityRepository
 
     public function getSearchResult(array $idSearch, $limit, $offset) : array
     {
+        // SQL_CALC_FOUND_ROWS - не пашет, found_rows и Over() тоже, так что такой ад
         $sql = "
-            SELECT
+            SELECT 
+            (SELECT COUNT(au1.id) FROM auth_users AS au1 WHERE au1.id IN (?) AND au1.disabled = ? AND au1.is_jurist = ?) AS total_count,
+            
                 au.id AS au_id, au.name AS au_name, au.second_name AS au_second_name, au.disabled AS au_disabled,
                 au.graduate AS au_graduate, au.patronymic AS au_patronymic, au.total_rating AS au_total_rating,
                 au.directory AS au_directory, au.filename AS au_filename,
@@ -360,10 +363,26 @@ class AuthUsersRepository extends \Doctrine\ORM\EntityRepository
                     $idSearch, // Array id for search
                     (boolean)\JuristBundle\Controller\ApiController::VALUE_ACTIVE_USER, // Констранта включенного юриста
                     true,
+
+                    $idSearch, // Array id for search
+                    (boolean)\JuristBundle\Controller\ApiController::VALUE_ACTIVE_USER, // Констранта включенного юриста
+                    true,
+
                     (int) $limit,
                     (int) $offset
                 ],
-                [\Doctrine\DBAL\Connection::PARAM_STR_ARRAY, \PDO::PARAM_BOOL, \PDO::PARAM_BOOL, \PDO::PARAM_INT, \PDO::PARAM_INT]
+                [
+                    \Doctrine\DBAL\Connection::PARAM_STR_ARRAY,
+                    \PDO::PARAM_BOOL,
+                    \PDO::PARAM_BOOL,
+
+                    \Doctrine\DBAL\Connection::PARAM_STR_ARRAY,
+                    \PDO::PARAM_BOOL,
+                    \PDO::PARAM_BOOL,
+
+                    \PDO::PARAM_INT,
+                    \PDO::PARAM_INT
+                ]
             );
 
             $stmt->execute();

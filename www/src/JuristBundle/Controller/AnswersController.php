@@ -30,9 +30,9 @@ class AnswersController extends ApiController
          * FISH END
          */
 
-        $this->SidebarAction('json');
+        //$this->SidebarAction('json');
 
-        $this->getDate();
+        //$this->getDate();
 
         $nameRedisNow = "PravoQuestionAnswers({$id})";
         $redis = $this->redis->get($nameRedisNow);
@@ -146,6 +146,10 @@ class AnswersController extends ApiController
                     ]
                 ));
         }
+
+        $this->SidebarAction('json');
+
+        $this->getDate();
 
         return $this->result;
     }

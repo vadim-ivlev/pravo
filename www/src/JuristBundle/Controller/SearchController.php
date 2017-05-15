@@ -83,6 +83,10 @@ class SearchController extends ApiController
 
             $results = $results->getSearchResult(array_keys($resultSphinx['matches']), $request->query->get('limit', ApiController::COUNT_RECORDS_ON_PAGE_JURISTS), $request->query->get('offset', 0));
 
+            //if ($_SERVER['REMOTE_ADDR'] == '212.69.111.131') { //TODO для сортировки
+                $this->result['infiniteScroll']['count_records'] = ((isset($results[0]['total_count'])) ? $results[0]['total_count'] : 0);
+            //}
+
             $this->{"{$indexerName}Action"}($results, $indexerName, $request->query->get('query')); //Динамическое обращение к классу, который сформирует данные для Mustache. Имя класса, например, QuestionsAction
 
         } else {

@@ -31,15 +31,18 @@ class JuristController extends ApiController
         if ($Jurist->getDisabled() === self::DISABLED_VALUE_ON && $Jurist->getIsJurist() == true) {
 
             $rubrics = [];
-            foreach($Jurist->getRubrics()->toArray() as $rubric){
+            foreach($Jurist->getRubrics()->toArray() as $rubric) {
                 $rubrics[] = [
                     'rubrics__title' => $rubric->getName(),
                     'rubrics__link' => self::RUBRICS . $rubric->getId() . self::REDIRECT,
                 ];
             }
 
-            $this->result['jurists_profile'] = array(
-                'mods' => array('profile'),
+            $totalRating = $this->connect_to_Jurists_bd->getRepository('JuristBundle:Questions')->fetchTotalRatingJurist([$Jurist], parent::FINISHED_STEP);
+
+	    $juristRateAuthor = $totalRating[$Jurist->getId()]['total_rating'];
+            $this->result['jurists_profile'] = [
+                'mods' => ['profile'],
                 'jurist__img' => [$this->fetchAvatar($Jurist, $Jurist)],
                 'jurist__seo_title' => ((!empty($Jurist->getSeoTitle())) ? $Jurist->getSeoTitle() : $Jurist->getSecondName() . " " . $Jurist->getName() . " " . $Jurist->getPatronymic() . " - Юридическая консультация"),
                 'jurist__seo_description' => $Jurist->getSeoDescription(),
@@ -52,7 +55,8 @@ class JuristController extends ApiController
                 'jurist__company' => htmlspecialchars($Jurist->getCompaniesId()->getName()),
                 'jurist__bio' => $Jurist->getBiography(),
                 'jurist__rate' => [
-                    'jurist__rate__author' => $this->receiveAnOverallRating($Jurist->getAnswers()->toArray()), //Общий рейтинг
+                    //'jurist__rate__author' => $this->receiveAnOverallRating($Jurist->getAnswers()->toArray()), //Общий рейтинг. Старный O(n) зависимость от количества вопросов
+                    'jurist__rate__author' => ((isset($juristRateAuthor)) ? $juristRateAuthor : 0), //Общий рейтинг. Такая проверка, ибо, если у юриста нет ответов, то null и не отображается
                 ],
                 'jurist__consultations' => $this->getCountConsultation($Jurist->getId()),
                 'jurist__paid__feedback' => [ //Кнопка обратной связи у юристов
@@ -60,7 +64,7 @@ class JuristController extends ApiController
                     'type__feedback__email' => ($Jurist->getJuristFeedbackSiteOrEmail() === true) ? true : false, //site == false,
                     'feedback__data' => $Jurist->getJuristDataFeedback(),
                 ]
-            );
+            ];
 
             $dataJurist = &$this->result['jurists_profile'];
 

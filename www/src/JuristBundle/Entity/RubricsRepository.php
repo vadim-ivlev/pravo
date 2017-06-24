@@ -66,12 +66,14 @@ class RubricsRepository extends \Doctrine\ORM\EntityRepository
             ->setParameter('questions_id', $field)
             ->getQuery()
             ->getArrayResult();
-        foreach ($Rubrics as $rubric){
+
+        foreach ($Rubrics as $rubric) {
             $rubric_result[] = [
                 'rubric_link' => self::RUBRICS . $rubric['id'],
                 'rubric_text' => $rubric['name']
             ];
         }
+        
         return $rubric_result;
     }
 }

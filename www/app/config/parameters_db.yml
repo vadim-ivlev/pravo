@@ -7,5 +7,5 @@ parameters:
     database.jurist.host: web-db.rg.ru
     database.jurist.port: "3306"
     database.jurist.name: jurist
-    database.jurist.user: jurist
-    database.jurist.password: jeiT1peephaipaijei
+    database.jurist.user: juristng
+    database.jurist.password: Aiqu1eiSh1auR2aekee

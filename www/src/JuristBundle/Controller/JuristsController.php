@@ -77,7 +77,7 @@ class JuristsController extends ApiController
                     break;
                 case 'company':
                     $orderBy = [
-                        'c.name desc'
+                        'c.name asc'
                     ];
                     break;
                 default:

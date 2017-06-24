@@ -60,7 +60,7 @@ class SelectionFabricReal extends SelectionFabricAbstract
                 'pagination' => $pagination
             ];
         } catch (\Exception $e) {
-//            dump($e->getMessage());die;
+            //dump($e->getMessage());die;
             return new Response($this->HtmlErrorMessage->generateError("Internal MySQL error"));
         }
     }

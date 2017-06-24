@@ -24,7 +24,7 @@ class RobotsTxtController extends Controller
     private function checkAccess($request)
     {
         if (
-            $this->container->get('request_stack')->getCurrentRequest()->getClientIp() !== '212.69.111.12'
+            $this->container->get('request_stack')->getCurrentRequest()->getClientIp() !== '212.69.111.246'
             || empty($request->request->get('pass'))
             || $request->request->get('pass') !== $this->pass . date('Y-m-d H:i')
         ) throw $this->createNotFoundException();
@@ -32,6 +32,7 @@ class RobotsTxtController extends Controller
 
     public function GetRobotsTxtAction(Request $request)
     {
+        //return new Response($_SERVER['REMOTE_ADDR']);
         $this->checkAccess($request);
 
         $value = htmlspecialchars(file_get_contents($this->pathToFile()));

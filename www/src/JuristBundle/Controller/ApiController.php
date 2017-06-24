@@ -1202,7 +1202,7 @@ class ApiController extends Controller implements ContainerAwareInterface
 
         if ($format === 'json') {
 
-            $nameRedisNow = 'Pravo:Api:SidebarAction';
+            $nameRedisNow = 'Pravo:Api:SidebarAction1';
 
             $redisNow = $this->redis->get($nameRedisNow);
 
@@ -1272,12 +1272,14 @@ class ApiController extends Controller implements ContainerAwareInterface
                 ];
 
                 foreach ($questionsLatest as $keyQuestionLatest => &$questionLatest) {
-                    if (count($questionLatest['rubrics']) == 0) {
+
+                    if (count($questionLatest['rubrics']) == 0)
                         unset($questionsLatest[$keyQuestionLatest]);
-                    }
+
                     $questionLatest['mods__length'] = count($questionLatest['mods']);
                     $questionLatest['rubrics__length'] = count($questionLatest['rubrics']);
                 }
+
                 unset($questionLatest);
 
             }
@@ -1300,8 +1302,8 @@ class ApiController extends Controller implements ContainerAwareInterface
                  *  перебираем id юристов у которых есть ответы за последнию неделю
                  */
 
-                foreach ($idJuristsTop  as $idJuristTop) {
-                    if ($Jurist->getId() == $idJuristTop) {
+                foreach ($idJuristsTop  as $idJuristTop)
+                    if ($Jurist->getId() == $idJuristTop)
                         $juristsTop[] = [
                             'mods' => [$juristsTopMods],
                             'jurist__img' => [$this->fetchAvatar($Jurist, $Jurist)],
@@ -1312,25 +1314,20 @@ class ApiController extends Controller implements ContainerAwareInterface
                             //'jurist__rate__author' => $this->receiveAnOverallRating($Jurist->getAnswers()->toArray()), //Общий рейтинг Старый способ
                             'jurist__rate__author' => $totalRatingJurist[$Jurist->getId()]['total_rating'], //Общий рейтинг
                         ];
-                    }
-                }
+
 
                 $rubrics = [];
-                if(isset($dataByJuristRubric[$Jurist->getId()])) {
-
-                    foreach ($dataByJuristRubric[$Jurist->getId()] as $rubricVal) { //Формируем рубрики для юристов
+                if(isset($dataByJuristRubric[$Jurist->getId()]))
+                    foreach ($dataByJuristRubric[$Jurist->getId()] as $rubricVal)  //Формируем рубрики для юристов
                         $rubrics[] = [
                             'rubrics__title' => $rubricVal['r_name'],
                             'rubrics__link' => self::RUBRICS . $rubricVal['r_id'] . self::REDIRECT,
                         ];
-                    }
-
-                }
 
                 /**
                  * todo jurists_feed
                  */
-                if ($Jurist->getDateEndOfferServices() > new \DateTime('now') && $Jurist->getDisabled() === self::DISABLED_VALUE_ON) { //Проверка оплачености и активности
+                if ($Jurist->getDateEndOfferServices() > new \DateTime('now') && $Jurist->getDisabled() === self::DISABLED_VALUE_ON) //Проверка оплачености и активности
                     $juristFeed[] = [
                         'mods' => [$juristsLatestMods],
                         'jurist__img' => [$this->fetchAvatar($Jurist, $Jurist)],
@@ -1343,7 +1340,6 @@ class ApiController extends Controller implements ContainerAwareInterface
                         'jurist__patronymic' => $Jurist->getPatronymic(),
                         'rubrics' => $rubrics
                     ];
-                }
 
             }
 
@@ -1385,39 +1381,43 @@ class ApiController extends Controller implements ContainerAwareInterface
             unset($valJuristFeed);
 
             $this->result['sidebar'] = [
-                'bibliotechka' => $this->bibliotechkaRand()[0], //Ибо нужно только один
+                //'bibliotechka' => $this->bibliotechkaRand()[0], // Ибо нужно только один
+                'bibliotechka' => null,
             ];
 
-            $this->result['questions_latest'] = $questionsLatest; //Последние вопросы
+            $this->result['questions_latest'] = $questionsLatest; // Последние вопросы
 
             $this->result['questions_latest__length'] = count($questionsLatest);
 
             $this->result['jurists_feed'] = $juristFeed;
 
-            $this->result['jurists_top'] = $juristsTop; //Юристы в топе за неделю
+            $this->result['jurists_top'] = $juristsTop; // Юристы в топе за неделю
 
-            foreach($RubricsQuery as $rubricValue) {
+            foreach($RubricsQuery as $rubricValue)
                 $this->result['sidebar']['categories']['rubrics'][] = [
                     'rubrics__title' => $rubricValue->getName(),
                     'rubrics__link' => self::RUBRIC . $rubricValue->getCPUName() . self::REDIRECT,
                     //'rubrics__active' => (!empty($id) && $id == $rubricValue->getId()) ? true : false,
                 ];
-            }
+
 
             foreach ($this->getDownCategoryForSort() as $key => $allRubricForDown) {
+
                 usort($this->result['sidebar']['categories']['rubrics'], function($firstVal, $twoVal) use ($key) {
-                    if($firstVal['rubrics__title'] === $key) { //Помещаем указанное слово вниз, поп росьбе сео и проект менеджера
+
+                    if($firstVal['rubrics__title'] === $key) // Помещаем указанное слово вниз, поп росьбе сео и проект менеджера
                         return 1;
-                    }
+
                 });
-                foreach ($this->result['sidebar']['categories']['rubrics'] as &$rubricItem) {
+
+                foreach ($this->result['sidebar']['categories']['rubrics'] as &$rubricItem)
                     $rubricItem['select_rubric'] = (
                         empty($rubricItem['select_rubric']) ? (
                             $rubricItem['rubrics__title'] === $key ? @$allRubricForDown['select_rubric'] : false // Lel. I`m know about this error :p
                         ) : $rubricItem['select_rubric']
                     );
-                }
                 unset($rubricItem);
+
             }
 
             $this->redis->setEx($nameRedisNow, (60 * 120), serialize($this->result)); //Expires на 2 часа

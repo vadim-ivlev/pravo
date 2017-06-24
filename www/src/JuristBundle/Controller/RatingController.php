@@ -37,23 +37,17 @@ class RatingController extends ApiController
 
             try {
                 $em->flush();
-            } catch( Exception $e ) {//доделать при возможности на 23000(1062) уникальное поле обработку ошибки
-                //if($e->getCode() == '2300')
-                    //echo $e->getMessage();
-                        $rating = array(
-                            'status' => 500
-                        );
-                        $response = new JsonResponse();
-                        $response
-                            ->setData($rating, JSON_UNESCAPED_SLASHES)
-                            ->headers->set('Content-Type', 'application/json');
-                        return $response;
-                //}
-
-                //else throw $e;
-            } /*finally {
-                //TODO доделать закрытие коннекта BD
-            }*/
+            } catch( Exception $e ) {
+                $rating = [
+                    'status' => 500
+                ];
+                $em->close();
+                $response = new JsonResponse();
+                $response
+                    ->setData($rating, JSON_UNESCAPED_SLASHES)
+                    ->headers->set('Content-Type', 'application/json');
+                return $response;
+            }
 
             $answer = $this->connect_to_Jurists_bd->
                             getRepository('JuristBundle:Answers')->
@@ -66,10 +60,14 @@ class RatingController extends ApiController
 
             $rating = $answer->getRating();
 
+            $idForQuestion = $answer->getQuestion()->getId();
+
             $answer->setRating(++$rating);
             $this->connect_to_Jurists_bd->flush();
 
             $em->close();
+
+            $this->redis->del("PravoQuestionAnswers({$idForQuestion})"); // Удаляем кеш
 
             $rating = array(
                 'rating' => $rating,

@@ -270,9 +270,8 @@ class QuestionsRepository extends \Doctrine\ORM\EntityRepository
     public function totalCountConsultation(array $Jurists, $date = null)
     {
         $arrayJuristsId = [];
-        foreach ($Jurists as $Jurist) {
+        foreach ($Jurists as $Jurist)
             $arrayJuristsId[] = $Jurist->getId();
-        }
 
         $sql = "
             SELECT count(a.id) AS total_count, au.id AS au_id
@@ -284,9 +283,6 @@ class QuestionsRepository extends \Doctrine\ORM\EntityRepository
 
         $resultSql = $this->SqlQueryExec($sql, [$arrayJuristsId], [\Doctrine\DBAL\Connection::PARAM_INT_ARRAY]);
 
-        /*if ($_SERVER['REMOTE_ADDR'] === '212.69.111.131') {
-            var_dump($resultSql);die;
-        }*/
         $result['result'] = array_combine(
             array_column($resultSql, 'au_id'), //Задаем структуру ['a_id' => ['a_id' = 1, 'some_variable' => 2]]
             $resultSql

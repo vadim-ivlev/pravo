@@ -32,21 +32,24 @@ class QuestionsController extends ApiController
         $this->result['canonical'] = 'https://pravo.rg.ru';
 
         $questionsAndLimit = json_decode(@file_get_contents(self::URI), true);
-        $questions = [];
-        foreach ($questionsAndLimit["items_list"] as $k => $item) {
-            if ($k == 3) // Вставлять после 4-ого вопроса бибиотечку
-                $questions[] = [
-                    "mods" => [
-                        "bibliotechka"
-                    ],
-                    "mods__length" => 1,
-                    "rubrics" => null,
-                    "tags" => null,
-                    "tags__length" => 0
-                ];
 
-            $questions[] = $item;
-        }
+        //dump($questionsAndLimit);die;
+        $questions = [];
+        if (!empty($questionsAndLimit["items_list"]) && is_array($questionsAndLimit["items_list"] ))
+          foreach ($questionsAndLimit["items_list"] as $k => $item) {
+              if ($k == 3) // Вставлять после 4-ого вопроса бибиотечку
+                  $questions[] = [
+                      "mods" => [
+                          "bibliotechka"
+                      ],
+                      "mods__length" => 1,
+                      "rubrics" => null,
+                      "tags" => null,
+                      "tags__length" => 0
+                  ];
+
+              $questions[] = $item;
+          }
 
         $this->result["items_list"] = $questions;
         $this->result["infiniteScroll"] = $questionsAndLimit["infiniteScroll"];

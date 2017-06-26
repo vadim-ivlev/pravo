@@ -81,7 +81,9 @@ module.exports = function(data){
 
                             itemsListQuestions: RGB('items-list:questions'), // список вопросов
 
-                            seoInfo: RGB('seo-info') // блок с SEO-текстом под вопросами
+                            seoInfo: RGB('seo-info'), // блок с SEO-текстом под вопросами
+
+                            yandexDirect: RGB('yadirect:main-mobile') // Яндекс-директ 
 
                         },
 
@@ -95,7 +97,7 @@ module.exports = function(data){
 
                             tag_questions: "breadcrumbsTag itemsListQuestions loadChain",
 
-                            answer: "breadcrumbsAnswer categoriesSidebar questionsItem answerBlock adfox questionsLatest bibliotechkaAdvertAnswer",
+                            answer: "breadcrumbsAnswer categoriesSidebar questionsItem answerBlock yandexDirect adfox questionsLatest bibliotechkaAdvertAnswer",
 
                             ask: "formAsk questionsLatest",
 

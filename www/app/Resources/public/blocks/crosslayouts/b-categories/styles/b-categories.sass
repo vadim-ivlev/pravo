@@ -5,6 +5,7 @@
 
 // Объявляем блок
 $block: '.b-categories'
+$sidebar-rubric-auestions: '.b-sidebar-left_rubric_questions'
 
 // Стили
 #{$block}
@@ -156,3 +157,16 @@ $block: '.b-categories'
 
                 &_mobile
                     display: none
+
+#{$sidebar-rubric-auestions}
+
+	#{$block}
+
+		&__item
+
+			&_active
+
+				#{$block}
+					
+					&__link
+						pointer-events: none

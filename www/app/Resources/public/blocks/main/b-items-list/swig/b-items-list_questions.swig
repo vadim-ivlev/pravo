@@ -36,7 +36,7 @@
 </div>
 {{# jurist }}
     <div class="b-question-block__bottom">
-        Отвечает
+        <div class="b-question-block__bottom-title">Отвечает</div>
         {{# jurist__active }}
             <a href="{{ jurist__link }}" class="b-question-block__reply-link b-link b-link_blue">
                 {{# jurist__img__length }}

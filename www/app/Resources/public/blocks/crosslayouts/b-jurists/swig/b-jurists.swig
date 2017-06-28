@@ -238,6 +238,12 @@
 
                 {{/ jurist__paid__feedback }}
 
+                {{^ jurist__paid__feedback.feedback__active}}
+
+                    {[ macro.RGBi(blocks.askLink) ]}
+
+                {{/ jurist__paid__feedback.feedback__active}}
+
             {% endif %}
 
         </div>

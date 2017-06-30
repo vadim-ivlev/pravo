@@ -45,8 +45,12 @@ class ApiController extends Controller implements ContainerAwareInterface
     const CHECK_STEP = 6; //Проверка после ответа юристом
     const DELETE_STEP = 7; //Вопрос, который удалили
 
-    const WITHDRAWN_BEFORE_STEP = 11; //Отозванный вопрос до публикации
-    const WITHDRAWN_AFTER_STEP = 12; //Отозванный вопрос после публикации
+    /**
+     * Закомиченно 28.06.17 Glushenkov Yuri, чтоб не вводить в заблуждение т.к. не нигде не используется, хотя, первоночально
+     * планировалось использование.
+     */
+//    const WITHDRAWN_BEFORE_STEP = 11; //Отозванный вопрос до публикации
+//    const WITHDRAWN_AFTER_STEP = 12; //Отозванный вопрос после публикации
 
     const RETURN_STEP = 14; //Вопрос, (отложенный)
     const FINISHED_STEP = 15; //Шаг, когда у вопроса есть ответ и он прошел модерацию

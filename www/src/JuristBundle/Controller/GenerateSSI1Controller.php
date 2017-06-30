@@ -31,6 +31,11 @@ class GenerateSSI1Controller extends Controller
         TABLE_SEPARATOR = 'AND'
     ;
 
+    /**
+     * Регулярка странныхслов, должна быть регистро не зависимая!!
+     */
+    const BLACK_LIST_CHARACTERS_AND_WORDS = '/select|delete|insert|update|sleep|into|join|having|\slimit|table.?|schema|info|from|\+|--|\(|\)|\||\s/i';
+
     public function setContainer(ContainerInterface $container = null)
     {
         $this->container = $container;
@@ -175,7 +180,11 @@ class GenerateSSI1Controller extends Controller
 
     private function generatePathSSI($path)
     {
-        $ifJSON = strpos($path, "?");
+        $ifJSON = strpos($path, "?"); // Проверка, что JSON
+
+        if ((bool)preg_match(GenerateSSI1Controller::BLACK_LIST_CHARACTERS_AND_WORDS, $path)) // Если есть запрещенные слова в запросе
+            die;
+
         if ($ifJSON) { // Если запрос на JSON, то проверяем, что верные параметры в GET
             $isJSON = substr($path, $ifJSON + 1);
             $parseGetQuery = explode("=", $isJSON);
@@ -222,6 +231,12 @@ class GenerateSSI1Controller extends Controller
 
         if (isset($returnJSON)) //Если format=json то и возвращаем JSON
             return $this->generateJSON($fabric, $path);
+
+        /**
+         * Чтоб нельзя было забить сервак произвольными SSI. Все равно не работает SSI, если когда-то будет нужна
+         * такая возможность, тогда и включить
+        */
+        die;
 
         // Создать иерархию папок
         $pathCreateHierarchy = substr($pathCreate, 0, - strlen($this::ALLOW_NAME_FILE . $this::ALLOW_FORMAT_TMPL));

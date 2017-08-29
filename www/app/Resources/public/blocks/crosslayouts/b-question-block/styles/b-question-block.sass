@@ -57,6 +57,24 @@ $block: '.b-question-block'
             & > a
                 color: $link-color
 
+        & > ul
+            margin: 0 0 7px 0
+
+            & > li
+                position: relative
+                padding-left: 25px
+                margin-bottom: 7px
+
+                &:before
+                    content: ''
+                    position: absolute
+                    top: 9px
+                    left: 0
+                    width: 5px
+                    height: 5px
+                    border-radius: 50%
+                    background-color: $red
+
     &__tags
         +font(13px)
         color: $comment-color

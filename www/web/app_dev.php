@@ -17,7 +17,8 @@ function closeAppDev() {
     die;
 }
 
-if(@$_SERVER['REMOTE_ADDR'] !== '212.69.111.131' && @$_SERVER['REMOTE_ADDR'] !== '192.168.1.2') {
+if(@$_SERVER['REMOTE_ADDR'] !== '212.69.111.131' /*&& @$_SERVER['REMOTE_ADDR'] !== '192.168.1.2'*/) {
+
     closeAppDev();
 }
 

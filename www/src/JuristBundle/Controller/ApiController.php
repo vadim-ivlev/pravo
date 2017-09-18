@@ -1206,7 +1206,7 @@ class ApiController extends Controller implements ContainerAwareInterface
 
         if ($format === 'json') {
 
-            $nameRedisNow = 'Pravo:Api:SidebarAction1';
+            $nameRedisNow = 'Pravo:Api:SidebarAction';
 
             $redisNow = $this->redis->get($nameRedisNow);
 
@@ -1385,14 +1385,15 @@ class ApiController extends Controller implements ContainerAwareInterface
             unset($valJuristFeed);
 
             $this->result['sidebar'] = [
-                //'bibliotechka' => $this->bibliotechkaRand()[0], // Ибо нужно только один
-                'bibliotechka' => null,
-            ];
+                'bibliotechka' => $this->bibliotechkaRand()[0],
+            ]; // Ибо нужно только один
 
             $this->result['questions_latest'] = $questionsLatest; // Последние вопросы
 
             $this->result['questions_latest__length'] = count($questionsLatest);
 
+            $this->result['abyrvalg'] = 'glavryba';
+            
             $this->result['jurists_feed'] = $juristFeed;
 
             $this->result['jurists_top'] = $juristsTop; // Юристы в топе за неделю

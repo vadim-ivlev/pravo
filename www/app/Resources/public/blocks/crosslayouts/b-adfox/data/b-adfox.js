@@ -51,12 +51,12 @@ module.exports = {
 	'media-12': { // Медийный #12 (в блоке "Юридическая консультация" на главной)
 		pp: 'ikz',
 		screenType: 'desktopFull'
-	}/*,
+	},
 	'tgb-1': { // ТГБ #1 (Правая колонка. ТГБ)
-		pp: 'ijp',
+		pp: 'lid',
 		p2: 'fkqy',
 		screenType: 'desktop desktopFull'
-	},
+	}/*,
 	'tgb-2': { // ТГБ #2 (Правая колонка. ТГБ)
 		pp: 'ijq',
 		p2: 'fkqy',

@@ -21,6 +21,8 @@ module.exports = function(data){
 
 							bibliotechkaAdvert: RGB('bibliotechka-advert, desktop desktopFull:active'), // блок библиотечки
 
+							rightTgb: RGB('adfox:tgb-1'), // баннер ТГБ
+
 							yandexDirect: RGB('yadirect:sidebar-right') // Яндекс-директ 
 							
 						},
@@ -29,29 +31,29 @@ module.exports = function(data){
 
 							'default': "bibliotechkaAdvert yandexDirect",
 
-							index: "adfoxSidebarRight bibliotechkaAdvert yandexDirect",
+							index: "adfoxSidebarRight bibliotechkaAdvert rightTgb yandexDirect",
 
-							rubric_questions: "adfoxSidebarRight yandexDirect",
+							rubric_questions: "adfoxSidebarRight rightTgb yandexDirect",
 
-							tag_questions: "adfoxSidebarRight yandexDirect",
+							tag_questions: "adfoxSidebarRight rightTgb yandexDirect",
 
-							answer: "adfoxSidebarRight yandexDirect",
+							answer: "adfoxSidebarRight rightTgb yandexDirect",
 
-							ask: "adfoxSidebarRight yandexDirect",
+							ask: "adfoxSidebarRight rightTgb yandexDirect",
 							
 							rules: "adfoxSidebarRight",
 
-							users: "adfoxSidebarRight yandexDirect",
+							users: "adfoxSidebarRight rightTgb yandexDirect",
 
-							tags: "adfoxSidebarRight yandexDirect",
+							tags: "adfoxSidebarRight rightTgb yandexDirect",
 
-							rubric_tags: "adfoxSidebarRight yandexDirect",
+							rubric_tags: "adfoxSidebarRight rightTgb yandexDirect",
 
-							lawer: "adfoxSidebarRight yandexDirect",
+							lawer: "adfoxSidebarRight rightTgb yandexDirect",
 
 							partners: "adfoxSidebarRight",
 
-							search: "adfoxSidebarRight bibliotechkaAdvert yandexDirect"
+							search: "adfoxSidebarRight bibliotechkaAdvert rightTgb yandexDirect"
 
 						}
 

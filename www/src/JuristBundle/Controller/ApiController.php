@@ -1069,14 +1069,34 @@ class ApiController extends Controller implements ContainerAwareInterface
     {
         try {
             // stylish, lookish, youngish
-            $rubric = 'avto';
+            $rubrics = [
+                'avto' => 'Авто',
+                'banki' => 'Банки',
+                'biznes' => 'Бизнес',
+                'ghilye' => 'Жилье',
+                'ghkh' => 'ЖКХ',
+                'zemlya' => 'Земля',
+                'nalogi' => 'Налоги',
+                'nasledstvo' => 'Наследство',
+                'obrazovanie' => 'Образование',
+                'rabota' => 'Работа',
+                'semyya' => 'Семья',
+                'socobespechenie' => 'Соцобеспечение',
+                'strahovanie' => 'Страхование',
+                'sudy' => 'Суды',
+                'drugoe' => 'Другое',
+            ];
+
+            $rubric = $rubrics[array_rand($rubrics)];
+
             $raw_rubric = $this->redis->get('biblio:' . $rubric);
             $rubric_array = json_decode($raw_rubric);
 
             $result = array_splice($rubric_array, 0, 2);
         } catch (\Exception $e) {
-            return [];
-//            return $this->oldDeprecatedBiblioRand();
+//            throw new Exception('cannot get result');
+//            return [];
+            return $this->oldDeprecatedBiblioRand();
         }
 
         return $result;
@@ -1204,7 +1224,7 @@ class ApiController extends Controller implements ContainerAwareInterface
 
         while (count($result_array) < 2) {
 
-            $rand = rand(0, count($bibliotechkaRand) - 1);
+            $rand = array_rand($bibliotechkaRand);
 
             if (!key_exists($rand, $result_array)) { //Проверяем, чтоб не было дублей
                 $result_array[$rand] = $bibliotechkaRand[$rand];

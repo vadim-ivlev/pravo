@@ -1,0 +1,68 @@
+JuristBundle\Entity\Rubrics:
+    type: entity
+    table: jurist.rubrics
+    repositoryClass: JuristBundle\Entity\RubricsRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        name:
+            type: string
+            length: '100'
+            unique: true
+        title:
+            type: text
+            nullable: TRUE
+        CPUName:
+            column: CPU_name
+            type: string
+            length: '255'
+            unique: true
+        description:
+            type: text
+            nullable: TRUE
+        titleForBlock:
+            column: title_for_block
+            type: text
+            nullable: TRUE
+        descriptionForBlock:
+            column: description_for_block
+            type: text
+            nullable: TRUE
+        createdAt:
+            type: datetime
+        editedAt:
+            type: datetime
+    manyToMany:
+                tags:
+                    targetEntity: Tags
+                    inversedBy: rubrics
+                    #fetch: EAGER
+                    joinTable:
+                      name: jurist.tags_rubrics
+                      joinColumns:
+                        rubrics_id:
+                          referencedColumnName: id
+                      inverseJoinColumns:
+                        tags_id:
+                          referencedColumnName: id
+                questions:
+                    targetEntity: Questions
+                    inversedBy: rubrics
+                    #fetch: EAGER
+                    joinTable:
+                      name: jurist.rubrics_questions
+                      joinColumns:
+                        rubrics_id:
+                          referencedColumnName: id
+                      inverseJoinColumns:
+                        questions_id:
+                          referencedColumnName: id
+                authUsers:
+                    targetEntity: AuthUsers
+                    mappedBy: rubrics
+                    #fetch: EAGER
+    lifecycleCallbacks: {  }

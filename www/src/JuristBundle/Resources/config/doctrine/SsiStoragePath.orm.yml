@@ -1,0 +1,16 @@
+JuristBundle\Entity\SsiStoragePath:
+    type: entity
+    table: jurist.ssi_storage_path
+    repositoryClass: JuristBundle\Repository\SsiStoragePathRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        path:
+            type: string
+            length: 255
+            unique: true
+    lifecycleCallbacks: {  }

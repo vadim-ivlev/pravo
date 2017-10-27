@@ -20,5 +20,6 @@ share/
 node_modules/
 npm-debug.log
 www/web/robots.txt
-www/src/JuristBundle/Resources/
+www/src/JuristBundle/Resources/public
+www/src/JuristBundle/Resources/views
 www/web/sitemaps/*

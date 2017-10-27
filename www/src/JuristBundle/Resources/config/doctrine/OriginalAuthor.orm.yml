@@ -1,0 +1,30 @@
+JuristBundle\Entity\OriginalAuthor:
+    type: entity
+    table: jurist.original_author
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        firstName:
+            type: string
+            length: 255
+        dateModefieded:
+            type: datetime
+            column: date_modefieded
+        lastName:
+            type: string
+            length: 255
+        email:
+            type: string
+            length: 255
+        city:
+            type: string
+            length: '100'
+    #oneToMany:
+    #        questionId:
+    #          targetEntity: Questions
+    #          mappedBy: authorId
+    lifecycleCallbacks: {  }

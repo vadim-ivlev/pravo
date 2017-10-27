@@ -1,0 +1,46 @@
+JuristBundle\Entity\OriginalQuestions:
+    type: entity
+    table: jurist.original_questions
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        juristsId:
+            type: integer
+            column: jurists_id
+        AuthUsersId:
+            type: integer
+            column: authUsers_id
+        dateModefieded:
+            type: datetime
+            column: date_modefieded
+        step:
+            type: smallint
+            default: 0
+        title:
+            type: string
+            length: '100'
+        date:
+            type: datetime
+        description:
+            type: text
+        status:
+            type: integer
+        deadline:
+            type: datetime
+        deadlineId:
+            type: integer
+            column: deadline_id
+        deadlineInfo:
+            type: integer
+            column: deadline_info
+        createdAt:
+            type: datetime
+        editedAt:
+            type: datetime
+        #questionId:
+        #    type: integer
+    lifecycleCallbacks: {  }

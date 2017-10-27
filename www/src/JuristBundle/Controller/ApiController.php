@@ -62,7 +62,7 @@ class ApiController extends Controller implements ContainerAwareInterface
 
     /**
      * Значение для ВКЛЮЧЕННОГО юзера
-     * 0 = false 
+     * 0 = false
      */
     const VALUE_ACTIVE_USER = 0;
 
@@ -119,9 +119,9 @@ class ApiController extends Controller implements ContainerAwareInterface
         $request = Request::createFromGlobals();
         $format = $request->query->get('format');
         if (empty($format)) $format = self::FORMAT;
-        
+
         return $format;
-        
+
     }
 
     const ID_USER_WITHOUT_AVATARS = 6; //todo id workspace->user у которого берется картинка, если нет еще у юзера авы
@@ -574,7 +574,7 @@ class ApiController extends Controller implements ContainerAwareInterface
              * Проверка что есть ответ. Потому что нельзя сделать сразу выборку по ассоциативным полям answersId
              */
             if (!empty($question->getAnswersId()) && $question->getStep() >= self::FINISHED_STEP) {
-                
+
                 /**
                  * генерация mods
                  *
@@ -826,7 +826,7 @@ class ApiController extends Controller implements ContainerAwareInterface
                 }
             }
             unset($val);
-            
+
         }
     }
 
@@ -1393,7 +1393,7 @@ class ApiController extends Controller implements ContainerAwareInterface
             $this->result['questions_latest__length'] = count($questionsLatest);
 
             $this->result['abyrvalg'] = 'glavryba';
-            
+
             $this->result['jurists_feed'] = $juristFeed;
 
             $this->result['jurists_top'] = $juristsTop; // Юристы в топе за неделю
@@ -1478,7 +1478,7 @@ class ApiController extends Controller implements ContainerAwareInterface
         ];
 
         return $this->result;
-        
+
     }
 
     protected function PaginationGenerateArrowAction ($numberPage, $currentPage, $link, $conditionId = '', $getString)
@@ -1498,7 +1498,7 @@ class ApiController extends Controller implements ContainerAwareInterface
                 'arrow__link' => $link . $numberPage . $conditionId . self::REDIRECT . $getString,
             ];
         }
-        
+
         return $arrow;
     }
 
@@ -1647,7 +1647,7 @@ class ApiController extends Controller implements ContainerAwareInterface
                 }
                 $arrow = $this::PaginationGenerateArrowAction($i, $currentPage, $link, $conditionId, $getString);
             } elseif ($currentPage == $totalPages - 1 && $i > $totalPages - $countNumericPage) { //TODO на предпоследний странице
-                
+
                 $numericPage[] = [
                     'number_page' => $i,
                     'link' => $link . $i . $conditionId . self::REDIRECT . $getString,

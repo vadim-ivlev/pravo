@@ -22,4 +22,3 @@ services:
       app.entity_management_guesser:
           class: JuristBundle\Services\EntityManagementGuesser
           #arguments: ["@service_container"]
-

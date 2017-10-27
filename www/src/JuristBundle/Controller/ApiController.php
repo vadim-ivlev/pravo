@@ -1067,6 +1067,24 @@ class ApiController extends Controller implements ContainerAwareInterface
 
     protected function bibliotechkaRand ()
     {
+        try {
+            // stylish, lookish, youngish
+            $rubric = 'avto';
+            $raw_rubric = $this->redis->get('biblio:' . $rubric);
+            $rubric_array = json_decode($raw_rubric);
+
+            $result = array_splice($rubric_array, 0, 2);
+        } catch (\Exception $e) {
+            return [];
+//            return $this->oldDeprecatedBiblioRand();
+        }
+
+        return $result;
+    }
+
+    private function oldDeprecatedBiblioRand()
+    {
+        // old school
         $bibliotechkaRand = [
             [
                 'bibliotechka__issue__array' => [
@@ -1186,15 +1204,17 @@ class ApiController extends Controller implements ContainerAwareInterface
 
         while (count($result_array) < 2) {
 
-            $rand = rand(0, count($bibliotechkaRand)-1);
+            $rand = rand(0, count($bibliotechkaRand) - 1);
 
             if (!key_exists($rand, $result_array)) { //Проверяем, чтоб не было дублей
                 $result_array[$rand] = $bibliotechkaRand[$rand];
             }
         }
 
+        //Для мусташа, а иначе он не понимает ключи, т.е. порядок [3 => 'ddd', 1 => 'bbb'] ему не понятен, а так понятен [0 => 'ddd', 1 => 'bbb']
+        $result = array_values($result_array);
 
-        return array_values($result_array); //Для мусташа, а иначе он не понимает ключи, т.е. порядок [3 => 'ddd', 1 => 'bbb'] ему не понятен, а так понятен [0 => 'ddd', 1 => 'bbb']
+        return $result;
     }
 
     public function SidebarAction(

@@ -1087,16 +1087,20 @@ class ApiController extends Controller implements ContainerAwareInterface
                 'drugoe' => 'Другое',
             ];
 
-            $rubric = $rubrics[array_rand($rubrics)];
+            $rubric = array_rand($rubrics);
 
             $raw_rubric = $this->redis->get('biblio:' . $rubric);
-            $rubric_array = json_decode($raw_rubric);
+            $rubric_array = unserialize($raw_rubric);
+//            $this->redis->set(
+//                'test:' . $rubric,
+//                'count: ' . count($rubric_array) . ', top: ' . json_encode($rubric_array)
+//            );
 
-            $result = array_splice($rubric_array, 0, 2);
+            $result = array_values( array_splice($rubric_array, 0, 2) );
         } catch (\Exception $e) {
 //            throw new Exception('cannot get result');
-//            return [];
-            return $this->oldDeprecatedBiblioRand();
+            return [];
+//            return $this->oldDeprecatedBiblioRand();
         }
 
         return $result;

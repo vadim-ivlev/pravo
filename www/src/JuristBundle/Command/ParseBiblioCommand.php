@@ -87,7 +87,10 @@ class ParseBiblioCommand extends Command
                     ];
                 }
 
-                $redis->set('biblio:'. $key, json_encode($rubric, JSON_UNESCAPED_UNICODE));
+                $prepared = serialize($rubric);
+//                $prepared = json_encode($rubric, JSON_UNESCAPED_UNICODE);
+
+                $redis->set('biblio:'. $key, $prepared);
 
                 sleep(1); // На всякий случай, что бы Битрикс не заблокировал (или не упал :) )
             }

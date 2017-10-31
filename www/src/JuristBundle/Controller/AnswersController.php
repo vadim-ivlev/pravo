@@ -2,6 +2,7 @@
 
 namespace JuristBundle\Controller;
 
+use JuristBundle\Entity\Rubrics;
 use JuristBundle\Entity\SectionsRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
@@ -22,18 +23,6 @@ class AnswersController extends ApiController
 
         $this->HeaderAction(self::TABS_MAIN);
 
-        /**
-         * FISH START
-         */
-        $this->result['bibliotechka'] = $this->bibliotechkaRand();
-        /**
-         * FISH END
-         */
-
-        //$this->SidebarAction('json');
-
-        //$this->getDate();
-
         $nameRedisNow = "PravoQuestionAnswers({$id})";
         $redis = $this->redis->get($nameRedisNow);
         $redis = unserialize($redis);
@@ -43,16 +32,21 @@ class AnswersController extends ApiController
             $this->result['jurist'] =  $redis['jurist'];
             $this->result['answer'] =  $redis['answer'];
             $this->result['current_rubric'] =  $redis['current_rubric'];
+
+            $cpu_name = $this->result['current_rubric']['current_rubric_cpu_name'] ?? null;
+
+            $this->result['bibliotechka'] = $this->bibliotechkaRand($cpu_name);
+            
         } else {
             $Question = $this->connect_to_Jurists_bd
-               ->getRepository('JuristBundle:Questions')
-               ->createQueryBuilder('q')
-               ->where('q.step = :step')
-               ->andWhere('q.id = :id')
-               ->setParameters(['step' => self::FINISHED_STEP, 'id' => $id])
-               ->setMaxResults(1) //limit на всякий случай, с учетом getOneOrNullResult ;)
-               ->getQuery()
-               ->getOneOrNullResult();
+                ->getRepository('JuristBundle:Questions')
+                ->createQueryBuilder('q')
+                ->where('q.step = :step')
+                ->andWhere('q.id = :id')
+                ->setParameters(['step' => self::FINISHED_STEP, 'id' => $id])
+                ->setMaxResults(1) //limit на всякий случай, с учетом getOneOrNullResult ;)
+                ->getQuery()
+                ->getOneOrNullResult();
 
             $this->pageNotFound(!$Question);
 
@@ -127,10 +121,12 @@ class AnswersController extends ApiController
                 }
             }
 
+            /** @var Rubrics $rubricCurrentId */
             foreach ($Question->getRubrics()->toArray() as $rubricCurrentId) {
                 $this->result['current_rubric'] = [
                     'current_rubric_name' => $rubricCurrentId->getName(),
-                    'current_rubric_id' => $rubricCurrentId->getId()
+                    'current_rubric_id' => $rubricCurrentId->getId(),
+                    'current_rubric_cpu_name' => $rubricCurrentId->getCPUName(),
                 ];
             }
 
@@ -145,6 +141,10 @@ class AnswersController extends ApiController
                         'current_rubric' => $this->result['current_rubric'],
                     ]
                 ));
+
+            $cpu_name = $this->result['current_rubric']['current_rubric_cpu_name'] ?? null;
+            $this->result['bibliotechka'] = $this->bibliotechkaRand($cpu_name);
+
         }
 
         $this->SidebarAction('json');
@@ -162,7 +162,7 @@ class AnswersController extends ApiController
     {
         if ($this->fetchFormat() === 'json') {
             $this->formedDataAction($id);
-            
+
             $response = new JsonResponse();
             $response
                 ->setData($this->result, JSON_UNESCAPED_SLASHES)

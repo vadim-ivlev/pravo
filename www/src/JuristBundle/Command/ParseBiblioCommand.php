@@ -78,7 +78,7 @@ class ParseBiblioCommand extends Command
                             'book__annotation' => $keyArr -> DESCRIPTION,
                             'book__download' => [
                                 'book__download__link' => $keyArr -> PDF -> LINK,
-                                'book__download__size' => $keyArr -> PDF -> FILE_SIZE,
+                                'book__download__size' => $this->human_filesize($keyArr->PDF->FILE_SIZE),
                                 'book__download__type' => $keyArr -> PDF -> CONTENT_TYPE,
                             ],
                             'book__price' => $keyArr -> PRICE,
@@ -100,5 +100,11 @@ class ParseBiblioCommand extends Command
         } catch (Exception $e) {
             var_export($e->getMessage());
         }
+    }
+
+    private function human_filesize($bytes, $decimals = 2) {
+        $sz = 'BKMGTP';
+        $factor = floor((strlen($bytes) - 1) / 3);
+        return sprintf("%.{$decimals}f", $bytes / pow(1024, $factor)) . @$sz[$factor];
     }
 }

@@ -1065,42 +1065,19 @@ class ApiController extends Controller implements ContainerAwareInterface
 //        }
 //    }
 
-    protected function bibliotechkaRand ()
+    protected function bibliotechkaRand($cpu_name = null)
     {
         try {
-            // stylish, lookish, youngish
-            $rubrics = [
-                'avto' => 'Авто',
-                'banki' => 'Банки',
-                'biznes' => 'Бизнес',
-                'ghilye' => 'Жилье',
-                'ghkh' => 'ЖКХ',
-                'zemlya' => 'Земля',
-                'nalogi' => 'Налоги',
-                'nasledstvo' => 'Наследство',
-                'obrazovanie' => 'Образование',
-                'rabota' => 'Работа',
-                'semyya' => 'Семья',
-                'socobespechenie' => 'Соцобеспечение',
-                'strahovanie' => 'Страхование',
-                'sudy' => 'Суды',
-                'drugoe' => 'Другое',
-            ];
+            $raw_rubric = $this->redis->get('biblio:' . $cpu_name);
+            if (!$raw_rubric) return [];
 
-            $rubric = array_rand($rubrics);
-
-            $raw_rubric = $this->redis->get('biblio:' . $rubric);
             $rubric_array = unserialize($raw_rubric);
-//            $this->redis->set(
-//                'test:' . $rubric,
-//                'count: ' . count($rubric_array) . ', top: ' . json_encode($rubric_array)
-//            );
 
             $result = array_values( array_splice($rubric_array, 0, 2) );
+
         } catch (\Exception $e) {
-//            throw new Exception('cannot get result');
-            return [];
-//            return $this->oldDeprecatedBiblioRand();
+//            return [];
+            return $this->oldDeprecatedBiblioRand();
         }
 
         return $result;
@@ -1265,6 +1242,10 @@ class ApiController extends Controller implements ContainerAwareInterface
                 $this->result['jurists_feed'] =  $redisUnserialize['jurists_feed'];
                 $this->result['jurists_top'] =  $redisUnserialize['jurists_top'];
 
+                $cpu_name = $this->result['current_rubric']['current_rubric_cpu_name'] ?? null;
+                $bibl = $this->bibliotechkaRand($cpu_name)[0];
+                $this->result['sidebar']['bibliotechka'] = $bibl;
+
                 return $this->result;
             }
 
@@ -1428,9 +1409,6 @@ class ApiController extends Controller implements ContainerAwareInterface
             }
             unset($valJuristFeed);
 
-            $this->result['sidebar'] = [
-                'bibliotechka' => $this->bibliotechkaRand()[0],
-            ]; // Ибо нужно только один
 
             $this->result['questions_latest'] = $questionsLatest; // Последние вопросы
 
@@ -1442,6 +1420,7 @@ class ApiController extends Controller implements ContainerAwareInterface
 
             $this->result['jurists_top'] = $juristsTop; // Юристы в топе за неделю
 
+            $this->result['sidebar'] = [];
             foreach($RubricsQuery as $rubricValue)
                 $this->result['sidebar']['categories']['rubrics'][] = [
                     'rubrics__title' => $rubricValue->getName(),
@@ -1449,6 +1428,9 @@ class ApiController extends Controller implements ContainerAwareInterface
                     //'rubrics__active' => (!empty($id) && $id == $rubricValue->getId()) ? true : false,
                 ];
 
+            $cpu_name = $this->result['current_rubric']['current_rubric_cpu_name'] ?? null;
+            $bibl = $this->bibliotechkaRand($cpu_name)[0];
+            $this->result['sidebar']['bibliotechka'] = $bibl;
 
             foreach ($this->getDownCategoryForSort() as $key => $allRubricForDown) {
 

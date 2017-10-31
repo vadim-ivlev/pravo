@@ -1073,14 +1073,31 @@ class ApiController extends Controller implements ContainerAwareInterface
 
             $rubric_array = unserialize($raw_rubric);
 
-            $result = array_values( array_splice($rubric_array, 0, 2) );
+            $cap = count($rubric_array);
+            if ($cap < 2) {
+                return $rubric_array;
+            }
+
+            $result_raw = [];
+
+            for ($i = 0; $i < $cap; $i++) {
+                $rand_book = array_rand($rubric_array);
+
+                if (!key_exists($rand_book, $result_raw)) { //Проверяем, чтоб не было дублей
+                    $result_raw[$rand_book] = $rubric_array[$rand_book];
+                }
+
+                if (count($result_raw) == 2) break;
+            }
+
+            $result = array_values($result_raw);
+
+            return $result;
 
         } catch (\Exception $e) {
 //            return [];
             return $this->oldDeprecatedBiblioRand();
         }
-
-        return $result;
     }
 
     private function oldDeprecatedBiblioRand()

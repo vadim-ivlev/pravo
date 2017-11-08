@@ -1067,6 +1067,8 @@ class ApiController extends Controller implements ContainerAwareInterface
 
     protected function bibliotechkaRand($cpu_name = null)
     {
+        if (is_null($cpu_name))
+            return $this->oldDeprecatedBiblioRand();
         try {
             $raw_rubric = $this->redis->get('biblio:' . $cpu_name);
             if (!$raw_rubric) return [];

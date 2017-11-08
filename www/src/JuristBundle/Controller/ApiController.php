@@ -1595,7 +1595,7 @@ class ApiController extends Controller implements ContainerAwareInterface
         if ($countRecords < $countRecordsOnPage) {
             $totalPages = ceil($countRecords / $countRecordsOnPage);
         } else {
-            $totalPages = floor($countRecords / $countRecordsOnPage);
+            $totalPages = floor($countRecords / $countRecordsOnPage) + 1;
         }
 
         /**
@@ -1691,7 +1691,7 @@ class ApiController extends Controller implements ContainerAwareInterface
                     ];
                 }
                 $arrow = $this::PaginationGenerateArrowAction($i, $currentPage, $link, $conditionId, $getString);
-            } elseif ($currentPage == $totalPages - 1 && $i > $totalPages - $countNumericPage) { //TODO на предпоследний странице
+            } elseif ( ($currentPage == $totalPages - 1) && ($i > $totalPages - $countNumericPage) ) { //TODO на предпоследний странице
 
                 $numericPage[] = [
                     'number_page' => $i,

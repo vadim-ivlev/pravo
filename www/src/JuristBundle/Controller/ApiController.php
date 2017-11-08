@@ -1625,7 +1625,7 @@ class ApiController extends Controller implements ContainerAwareInterface
 
         if ($totalPages <= 1) return false; //Если 1 страница всего
 
-        for ($i = $firstPage; $i <= $totalPages; ++$i) {//TODO оптимизировать
+        foreach (range($firstPage, $totalPages) as $i) {
 
             if ($currentPage == $firstPage && $i <= $countNumericPage) { //TODO на первой странице
                 if ($i < $countNumericPage) {

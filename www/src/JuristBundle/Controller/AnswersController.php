@@ -35,6 +35,7 @@ class AnswersController extends ApiController
             $this->result['answer'] =  $redis['answer'];
             $this->result['current_rubric'] =  $redis['current_rubric'];
             $this->result['similar_questions'] = $redis['similar_questions'];
+            $this->result['similar_questions__length'] = count($redis['similar_questions']);
 
             $cpu_name = $this->result['current_rubric']['current_rubric_cpu_name'] ?? null;
 
@@ -144,6 +145,7 @@ class AnswersController extends ApiController
         }
 
         $this->result['similar_questions'] = $this->fetchSimilarQuestions($Question, $om);
+        $this->result['similar_questions__length'] = count($this->result['similar_questions']);
 
         $this->redis->setEx(
             $nameRedisNow,

@@ -34,6 +34,7 @@ class AnswersController extends ApiController
             $this->result['jurist'] =  $redis['jurist'];
             $this->result['answer'] =  $redis['answer'];
             $this->result['current_rubric'] =  $redis['current_rubric'];
+            $this->result['similar_questions'] = $redis['similar_questions'];
 
             $cpu_name = $this->result['current_rubric']['current_rubric_cpu_name'] ?? null;
 

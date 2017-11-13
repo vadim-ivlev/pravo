@@ -423,6 +423,7 @@ class AnswersController extends ApiController
                 $q['mods'] = [
                     'similar'
                 ];
+                $q['mods__length'] = 1;
                 return $q;
             },
             $same_questions

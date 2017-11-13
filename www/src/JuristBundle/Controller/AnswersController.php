@@ -420,6 +420,9 @@ class AnswersController extends ApiController
                     'rg_answer_page',
                     ['id' => $q['id']]
                 );
+                $q['mods'] = [
+                    'similar'
+                ];
                 return $q;
             },
             $same_questions

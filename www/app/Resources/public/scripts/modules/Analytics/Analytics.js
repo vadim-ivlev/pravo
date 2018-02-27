@@ -6,7 +6,7 @@
 var
 
     // Модуль Чартбита
-    Chartbeat = require('./Chartbeat'),
+    // Chartbeat = require('./Chartbeat'),
 
     // Модуль Google Аналитики
     Ga = require('./Ga'),
@@ -16,19 +16,19 @@ var
 
     // Инициализация модулей
     init = () => {
-        Chartbeat.init();
+        // Chartbeat.init();
         Ga.init();
         Contentinsights.init();
     },
 
     // Запуск модулей
     run = () => {
-        RG.events.publish(`${Chartbeat._modulePrefix}.run`);
+        // RG.events.publish(`${Chartbeat._modulePrefix}.run`);
         RG.events.publish(`${Ga._modulePrefix}.run`);
     };
 
 module.exports = {
-    Chartbeat,
+    // Chartbeat,
     Ga,
     Contentinsights,
     init,

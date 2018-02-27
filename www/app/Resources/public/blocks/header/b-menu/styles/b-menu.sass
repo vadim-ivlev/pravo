@@ -41,3 +41,34 @@ $block: '.b-menu'
                 &_right
                     position: static
                     margin-top: -10px
+
+            &_fixed
+                position: fixed
+                top: 0
+                width: 730px
+                margin-left: -10px
+                padding: 20px 10px 0
+                box-shadow: 0 0 60px -3px $box-shadow
+                background: $white
+                z-index: 9
+
+    +bp-tabletLandscape
+
+        &
+
+            &_fixed
+                width: 930px
+
+    +bp-desktop
+
+        &
+
+            &_fixed
+                width: 1200px
+
+    +bp-desktopFull
+
+        &
+
+            &_fixed
+                width: 1270px

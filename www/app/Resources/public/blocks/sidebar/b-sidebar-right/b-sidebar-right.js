@@ -23,7 +23,9 @@ module.exports = function(data){
 
 							rightTgb: RGB('adfox:tgb-1'), // баннер ТГБ
 
-							yandexDirect: RGB('yadirect:sidebar-right') // Яндекс-директ 
+							yandexDirect: RGB('yadirect:sidebar-right'), // Яндекс-директ
+
+							similarQuestions: RGB('questions:similar, tablet tabletLandscape desktop desktopFull:active', '#similar_questions__length'), // Похожие вопросы
 							
 						},
 						
@@ -37,7 +39,7 @@ module.exports = function(data){
 
 							tag_questions: "adfoxSidebarRight rightTgb yandexDirect",
 
-							answer: "adfoxSidebarRight rightTgb yandexDirect",
+							answer: "adfoxSidebarRight rightTgb yandexDirect similarQuestions",
 
 							ask: "adfoxSidebarRight rightTgb yandexDirect",
 							

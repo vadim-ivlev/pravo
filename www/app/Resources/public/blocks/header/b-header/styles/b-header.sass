@@ -16,6 +16,7 @@ $block: '.b-header'
     left: 0
     background-color: $white
     z-index: 10
+    border-bottom: 1px solid $border-color
 
     &__bottom
         padding-top: 8px
@@ -80,18 +81,18 @@ $block: '.b-header'
         width: 100%
 
     // Белые распорки вокруг
-    &:before
-        top: 0
+    // &:before
+    //     top: 0
 
-    &:after
-        content: ""
-        width: 100%
-        padding: 0 20px
-        position: relative
-        display: block
-        border-bottom: 1px solid #dedede
-        z-index: 0
-        top: 0
+    // &:after
+    //     content: ""
+    //     width: 100%
+    //     padding: 0 20px
+    //     position: relative
+    //     display: block
+    //     border-bottom: 1px solid #dedede
+    //     z-index: 0
+    //     top: 0
 
     // Tablet
     +bp-tablet
@@ -160,6 +161,15 @@ $block: '.b-header'
                 left: -$indent-g
                 padding-right: $indent-g + $indent-g
 
+            // &_fixed
+            //     position: fixed
+            //     right: auto
+            //     left: auto
+            //     width: 730px
+            //     margin-left: -10px
+            //     padding: 0 10px
+            //     box-shadow: 0 0 5px 5px $box-shadow
+
     // Tablet landscape
     +bp-tabletLandscape
 
@@ -177,6 +187,9 @@ $block: '.b-header'
 
             &_promo:after
                 width: 100%
+
+            // &_fixed
+            //     width: 930px
 
     // Desktop
     +bp-desktop
@@ -200,6 +213,10 @@ $block: '.b-header'
             &_promo:after
                 width: 100%
 
+            // &_fixed
+            //     position: fixed
+            //     width: 1200px
+
     // Desktop full
     +bp-desktopFull
 
@@ -217,3 +234,8 @@ $block: '.b-header'
             &:before
                 left: -$indent-g*2
                 padding-right: $indent-g*2 + $indent-g
+
+            // &_fixed
+            //     position: fixed
+            //     width: 1270px
+            //     box-shadow: 0 0 10px 10px $box-shadow

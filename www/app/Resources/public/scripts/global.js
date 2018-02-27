@@ -1279,6 +1279,25 @@ $(function() {
         return false;
     }
 
+    function setFixedMenu() {
+    	var scrollStart = 100,
+    		scrollCurrent = $(window).scrollTop(),
+    		menu = document.querySelector('.b-menu');
+
+    	if (scrollCurrent > scrollStart) {
+
+    		menu.classList.add('b-menu_fixed');
+
+    	} else {
+
+    		menu.classList.remove('b-menu_fixed')
+
+    	}
+
+    }
+
+    $(window).on('scroll', setFixedMenu);
+
 /**
  * Инициализация модуля замены списка выпадающим меню
  */

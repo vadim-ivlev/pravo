@@ -31,8 +31,6 @@ module.exports = function(data){
 
 							questionsLatest: RGB('questions:latest, tablet tabletLandscape desktop desktopFull:active', '#questions_latest__length'), // Последние вопросы
 
-							similarQuestions: RGB('questions:similar, tablet tabletLandscape desktop desktopFull:active', '#similar_questions__length'), // Похожие вопросы
-
 							yandexDirect: RGB('yadirect:sidebar-left'), // Яндекс-директ
 
 							juristsFeed: RGB('jurists:feed, tablet tabletLandscape desktop desktopFull:active', '#jurists_feed'), // лента юристов, предлагающих услуги (в сайдбаре)
@@ -51,9 +49,9 @@ module.exports = function(data){
 
 							tag_questions: "adfoxSidebarLeft adsSidebarRight juristsFeed juristsTop yandexDirect",
 
-							answer: "categoriesSidebarActiveLink adfoxSidebarLeft questionsLatest similarQuestions adsSidebarRight yandexDirect",
+							answer: "categoriesSidebarActiveLink adfoxSidebarLeft questionsLatest adsSidebarRight yandexDirect",
 
-							ask: "adfoxSidebarLeft questionsLatest similarQuestions adsSidebarRight",
+							ask: "adfoxSidebarLeft questionsLatest adsSidebarRight",
 
 							rules: "adfoxSidebarLeft juristsFeed",
 
@@ -63,7 +61,7 @@ module.exports = function(data){
 
 							rubric_tags: "adfoxSidebarLeft juristsFeed",
 							
-							lawer: "adfoxSidebarLeft juristsFeed questionsLatest similarQuestions",
+							lawer: "adfoxSidebarLeft juristsFeed questionsLatest",
 
 							partners: "adfoxSidebarLeft juristsFeed",
 

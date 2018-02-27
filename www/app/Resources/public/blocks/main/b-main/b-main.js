@@ -33,6 +33,8 @@ module.exports = function(data){
 
                             questionsLatest: RGB('questions:latest, mobile', '#questions_latest__length'), // Последние вопросы
 
+                            similarQuestions: RGB('questions:similar, mobile', '#similar_questions__length'), // Похожие вопросы
+
                             answerBlock: RGB('answer', '#answer'), // блок с ответом
 
                             // bibliotechkaAdvert: RGB('bibliotechka-advert, mobile tablet tabletLandscape'), // блок библиотечки обычный
@@ -99,9 +101,9 @@ module.exports = function(data){
 
                             tag_questions: "breadcrumbsTag itemsListQuestions loadChain",
 
-                            answer: "breadcrumbsAnswer categoriesSidebar questionsItem answerBlock yandexDirect adfox questionsLatest bibliotechkaAdvertAnswer yandexDirectMain",
+                            answer: "breadcrumbsAnswer categoriesSidebar questionsItem answerBlock bibliotechkaAdvertAnswer yandexDirect adfox questionsLatest similarQuestions yandexDirectMain",
 
-                            ask: "formAsk questionsLatest",
+                            ask: "formAsk questionsLatest similarQuestions",
 
                             rules: "articleRules juristsFeed",
 
@@ -111,7 +113,7 @@ module.exports = function(data){
 
                             rubric_tags: "materialHead categoriesMain tags juristsFeed",
 
-                            lawer: "juristsProfile itemsListQuestions loadChain juristsFeed questionsLatest",
+                            lawer: "juristsProfile itemsListQuestions loadChain juristsFeed questionsLatest similarQuestions",
 
                             partners: "articlePartners",
 

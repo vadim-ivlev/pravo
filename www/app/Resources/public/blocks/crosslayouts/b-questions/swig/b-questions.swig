@@ -5,7 +5,7 @@
     {{# {[ data[mod].object ]} }}
         <div class="b-question-block{{# mods__length}}{{# mods}} b-question-block_{{ . }}{{/ mods}}{{/ mods__length}}">
 
-            {% if data[mod].showBlocks.answer %}
+            <!--{% if data[mod].showBlocks.answer %}
 
                 {% if data[mod].showBlocks.answer.jurist %}
 
@@ -23,7 +23,7 @@
 
                 {% endif %}
 
-            {% endif %}
+            {% endif %}-->
 
             <div class="b-question-block__body">
 
@@ -57,10 +57,10 @@
                 {% endif %}
 
                 {% if mod !== "item" %}
-                    <a class="b-link{% if mod == "latest" %} b-link_block{% endif %}" href="{{ link }}">
+                    <a class="b-link{% if mod == "latest" || mod == "similar" %} b-link_block{% endif %}" href="{{ link }}">
 
                         {% if data[mod].showBlocks.title %}
-                            <div class="b-question-block__title b-link b-link_title{% if data[mod].showBlocks.mod %} b-link_latest{% endif %}">{{{  title }}}</div>
+                            <div class="b-question-block__title b-link b-link_title{% if data[mod].showBlocks.mod %} b-link_latest{% endif %}{% if mod == "similar" %} b-link_similar{% endif %}">{{{  title }}}</div>
                         {% endif %}
 
                         {% if data[mod].showBlocks.text %}

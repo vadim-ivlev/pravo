@@ -29,7 +29,9 @@ module.exports = function(data){
 
 							// topJurist: RGB('projects.juristical.top-jurist, tablet tabletLandscape desktop desktopFull:active'), // лучшие за неделю
 
-							questionsLatest: RGB('questions:latest, teblet tabletLandscape desktop desktopFull:active', '#questions_latest__length'), // Последние вопросы
+							questionsLatest: RGB('questions:latest, tablet tabletLandscape desktop desktopFull:active', '#questions_latest__length'), // Последние вопросы
+
+							similarQuestions: RGB('questions:similar, tablet tabletLandscape desktop desktopFull:active', '#similar_questions__length'), // Похожие вопросы
 
 							yandexDirect: RGB('yadirect:sidebar-left'), // Яндекс-директ
 
@@ -49,9 +51,9 @@ module.exports = function(data){
 
 							tag_questions: "adfoxSidebarLeft adsSidebarRight juristsFeed juristsTop yandexDirect",
 
-							answer: "categoriesSidebarActiveLink adfoxSidebarLeft questionsLatest adsSidebarRight yandexDirect",
+							answer: "categoriesSidebarActiveLink adfoxSidebarLeft questionsLatest similarQuestions adsSidebarRight yandexDirect",
 
-							ask: "adfoxSidebarLeft questionsLatest adsSidebarRight",
+							ask: "adfoxSidebarLeft questionsLatest similarQuestions adsSidebarRight",
 
 							rules: "adfoxSidebarLeft juristsFeed",
 
@@ -61,7 +63,7 @@ module.exports = function(data){
 
 							rubric_tags: "adfoxSidebarLeft juristsFeed",
 							
-							lawer: "adfoxSidebarLeft juristsFeed questionsLatest",
+							lawer: "adfoxSidebarLeft juristsFeed questionsLatest similarQuestions",
 
 							partners: "adfoxSidebarLeft juristsFeed",
 

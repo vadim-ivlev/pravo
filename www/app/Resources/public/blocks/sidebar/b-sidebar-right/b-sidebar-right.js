@@ -33,7 +33,7 @@ module.exports = function(data){
 
 							'default': "bibliotechkaAdvert yandexDirect",
 
-							index: "adfoxSidebarRight bibliotechkaAdvert rightTgb yandexDirect",
+							index: "adfoxSidebarRight rightTgb bibliotechkaAdvert yandexDirect",
 
 							rubric_questions: "adfoxSidebarRight rightTgb yandexDirect",
 

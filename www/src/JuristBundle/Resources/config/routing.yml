@@ -192,3 +192,9 @@ get_robots_txt:
 set_robots_txt:
         path:     /set_robots/
         defaults: { _controller: JuristBundle:RobotsTxt:SetRobotsTxt}
+
+yandex_turbo:
+    path:     /turbo/
+    defaults: { _controller: JuristBundle:Turbo:RSS }
+    requirements:
+            _method:  GET

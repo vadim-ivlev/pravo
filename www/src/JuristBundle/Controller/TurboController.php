@@ -2,6 +2,7 @@
 
 namespace JuristBundle\Controller;
 
+use JuristBundle\Entity\Answers;
 use Symfony\Component\HttpFoundation\Response;
 
 class TurboController extends ApiController
@@ -10,26 +11,43 @@ class TurboController extends ApiController
     public function RSSAction()
     {
         try {
-            $root = '<?xml version="1.0" encoding="utf-8"?>
-            <rss xmlns:yandex="http://news.yandex.ru"
-    xmlns:media="http://search.yahoo.com/mrss/"
-    xmlns:turbo="http://turbo.yandex.ru"
-    version="2.0">
+            $root = '<?xml version="1.0" encoding="UTF-8"?><rss xmlns:yandex="http://news.yandex.ru"
+                xmlns:media="http://search.yahoo.com/mrss/"
+                xmlns:turbo="http://turbo.yandex.ru"
+                version="2.0">
             </rss>';
 
             $xml = new \SimpleXMLElement($root);
 
-            $channel = $xml->addChild('channel', 'rss 2.0 coming soon...');
+            $channel = $xml->addChild('channel');
 
-            $channel->addChild('item');
+            $questions = $this->getDoctrine()
+                ->getRepository('JuristBundle:Questions')
+                ->fetchQuestions(10, 0)
+            ;
 
-            $channel->item->addAttribute('turbo', 'true');
+            foreach ($questions as $question) {
+                $channel->addChild('item');
+
+                $channel->item->addAttribute('turbo', 'true');
+
+                $channel->addChild('link', 'https://pravo.rg.ru/rubrics/question/' . $question['q_id'] . '/');
+                $channel->addChild('title', $question['q_title']);
+                $channel->addChild('description', $question['q_description']);
+                $channel->addChild('pubDate', $question['q_date']);
+                $channel->addChild('category', $question['r_name']);
+
+
+                $channel->addChild('content', 'content', 'turbo');
+                $channel->addChild('related', 'related', 'yandex');
+            }
+
 
             $content = $xml->asXML();
         } catch (\Exception $e) {
-            $content = 'EXC: ' . $e->getTraceAsString();
+            $content = 'EXC: ' . $e->getMessage() . ' ### <br/>' . $e->getTraceAsString();
         } catch (\Error $e) {
-            $content = 'ERR: ' . $e->getTraceAsString();
+            $content = 'ERR: ' . $e->getMessage() . ' ### <br/>' . $e->getTraceAsString();
         }
 
         return new Response(

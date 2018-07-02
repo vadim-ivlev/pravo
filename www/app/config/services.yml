@@ -22,3 +22,7 @@ services:
       app.entity_management_guesser:
           class: JuristBundle\Services\EntityManagementGuesser
           #arguments: ["@service_container"]
+
+      app.cdata_simplexmlelement:
+          class: JuristBundle\Services\ExSimpleXMLElement
+          #arguments: ["@service_container"]

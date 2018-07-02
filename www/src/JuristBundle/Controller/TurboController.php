@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class TurboController extends ApiController
 {
+    const TURBO_RSS_LIMIT = 10;
 
     public function RSSAction()
     {
@@ -17,13 +18,14 @@ class TurboController extends ApiController
                 version="2.0">
             </rss>';
 
-            $xml = new \SimpleXMLElement($root);
+//            $xml = new \SimpleXMLElement($root);
+            $xml = $this->get('app.cdata_simplexmlelement')->create($root);
 
             $channel = $xml->addChild('channel');
 
             $questions = $this->getDoctrine()
                 ->getRepository('JuristBundle:Questions')
-                ->fetchQuestions(10, 0)
+                ->fetchQuestions(self::TURBO_RSS_LIMIT, 0)
             ;
 
             foreach ($questions as $question) {
@@ -37,6 +39,10 @@ class TurboController extends ApiController
                 $channel->addChild('pubDate', $question['q_date']);
                 $channel->addChild('category', $question['r_name']);
 
+                $cdata = '<i>' . $question['author_name'] . '</i><div>' . $question['q_description'] . '</div>';
+                $cdata .= '<h3>' . $question['au_name'] . '</h3><div>' . $question['a_answers'] . '</div>';
+                $channel->addChildCData('content', $cdata);
+
 
                 $channel->addChild('content', 'content', 'turbo');
                 $channel->addChild('related', 'related', 'yandex');
@@ -44,10 +50,10 @@ class TurboController extends ApiController
 
 
             $content = $xml->asXML();
-        } catch (\Exception $e) {
-            $content = 'EXC: ' . $e->getMessage() . ' ### <br/>' . $e->getTraceAsString();
         } catch (\Error $e) {
             $content = 'ERR: ' . $e->getMessage() . ' ### <br/>' . $e->getTraceAsString();
+        } catch (\Exception $e) {
+            $content = 'EXC: ' . $e->getMessage() . ' ### <br/>' . $e->getTraceAsString();
         }
 
         return new Response(

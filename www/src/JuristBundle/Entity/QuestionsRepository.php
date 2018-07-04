@@ -490,5 +490,67 @@ class QuestionsRepository extends \Doctrine\ORM\EntityRepository
             return [];
         }
     }
+
+    public function fetchQuestionsForTurbo($limit)
+    {
+        $sql = "
+            SELECT
+                q.id AS q_id,
+                q.title AS q_title,
+
+                q.date AS q_date,
+                q.description AS q_description,
+
+                a.answers AS a_answers,
+
+                au.name AS au_name,
+
+                author.name AS author_name,
+
+                r.id AS r_id,
+                r.name AS r_name
+               
+            FROM questions AS q 
+                INNER JOIN rubrics_questions AS rq ON q.id = rq.questions_id
+                INNER JOIN rubrics AS r ON r.id = rq.rubrics_id
+                
+                INNER JOIN answers AS a ON a.question_id = q.id
+                INNER JOIN auth_users AS au ON au.id = q.authUsers_id
+                INNER JOIN author ON author.id = q.author_id
+            WHERE q.step = :step 
+            ORDER BY a.date DESC
+            LIMIT :limit
+        ";
+
+        $stmt = $this->oDBALConnection->prepare($sql);
+        $stmt->bindValue('limit', $limit, \PDO::PARAM_INT);
+        $stmt->bindValue("step", \JuristBundle\Controller\ApiController::FINISHED_STEP);
+        $stmt->execute();
+
+        return $stmt->fetchAll(\PDO::FETCH_NAMED);
+    }
+
+    public function fetchSimilarQuestionsForTurbo(int $id, int $rubric_id)
+    {
+        $sql = "
+            SELECT
+                questions.id,
+                questions.title,
+                rubrics.id AS r_id
+            FROM questions
+            INNER JOIN rubrics_questions ON questions.id = rubrics_questions.questions_id
+            INNER JOIN rubrics ON rubrics.id = rubrics_questions.rubrics_id
+            WHERE questions.id != :id AND rubrics.id = :rubric_id AND questions.step = 15
+            ORDER BY questions.date DESC 
+            LIMIT 4
+        ";
+
+        $stmt = $this->oDBALConnection->prepare($sql);
+        $stmt->bindValue('id', $id, \PDO::PARAM_INT);
+        $stmt->bindValue('rubric_id', $rubric_id, \PDO::PARAM_INT);
+        $stmt->execute();
+
+        return $stmt->fetchAll(\PDO::FETCH_NAMED);
+    }
 }
 

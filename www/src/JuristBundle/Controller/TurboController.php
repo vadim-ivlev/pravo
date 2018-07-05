@@ -122,26 +122,6 @@ class TurboController extends ApiController
             $content
         );
 
-        try {
-
-        } catch (\Error $e) {
-//            $content = 'ERR: ' . $e->getMessage() . ' ### <br/>' . $e->getTraceAsString();
-            $content = 'ERR: nothing to show';
-            return new Response(
-                json_encode($content, JSON_UNESCAPED_UNICODE),
-                200,
-                self::ERR_HEADERS
-            );
-        } catch (\Exception $e) {
-//            $content = 'EXC: ' . $e->getMessage() . ' ### <br/>' . $e->getTraceAsString();
-            $content = 'EXC: nothing to show';
-            return new Response(
-                json_encode($content, JSON_UNESCAPED_UNICODE),
-                200,
-                self::ERR_HEADERS
-            );
-        }
-
         return new Response(
             $content,
             200,

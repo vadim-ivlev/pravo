@@ -30,8 +30,8 @@ class TurboController extends ApiController
         $redis = $this->redis;
 
         // DEBUG, delete it
-        if ($_GET['_neg'] == 'teg')
-            $redis->del([self::YANDEX_TURBO_KEY]);
+//        if ($_GET['_neg'] == 'teg')
+//            $redis->del([self::YANDEX_TURBO_KEY]);
         // DEBUG END, delete it
 
         $content = $redis->get(self::YANDEX_TURBO_KEY);
@@ -44,70 +44,86 @@ class TurboController extends ApiController
             );
         }
 
-        try {
-            $root = '<?xml version="1.0" encoding="UTF-8"?><rss xmlns:yandex="http://news.yandex.ru"
-                xmlns:media="http://search.yahoo.com/mrss/"
-                xmlns:turbo="http://turbo.yandex.ru"
-                version="2.0" compiled-at="' . date('Y-m-d H:i:s') . '">
-            </rss>';
+        $root = '<?xml version="1.0" encoding="UTF-8"?><rss xmlns:yandex="http://news.yandex.ru"
+            xmlns:media="http://search.yahoo.com/mrss/"
+            xmlns:turbo="http://turbo.yandex.ru"
+            version="2.0" compiled-at="' . date('Y-m-d H:i:s') . '">
+        </rss>';
 
-//            $xml = new \SimpleXMLElement($root);
-            $xml = $this->get('app.cdata_simplexmlelement')->create($root);
+        $xml = $this->get('app.cdata_simplexmlelement')->create($root);
 
-            $channel = $xml->addChild('channel');
-            $channel->addChild('title', 'Бесплатная юридическая консультация. Российская газета');
-            $channel->addChild('link', 'https://pravo.rg.ru/');
-            $channel->addChild('description', 'Правовая поддержка граждан: вы можете получить юридическую помощь бесплатно. Практикующие юристы проконсультируют вас онлайн по любым вопросам');
-            $channel->addChild('language', 'ru');
+        $channel = $xml->addChild('channel');
+        $channel->addChild('title', 'Бесплатная юридическая консультация. Российская газета');
+        $channel->addChild('link', 'https://pravo.rg.ru/');
+        $channel->addChild('description', 'Правовая поддержка граждан: вы можете получить юридическую помощь бесплатно. Практикующие юристы проконсультируют вас онлайн по любым вопросам');
+        $channel->addChild('language', 'ru');
 
-            $channel->addChild('yandex:logo', 'https://pravo.rg.ru/touch-icon-ipad-retina.png', self::YANDEX_NS);
-            $square_logo = $channel->addChild(
-                'yandex:logo',
-                'https://pravo.rg.ru/touch-icon-ipad-retina.png',
-                self::YANDEX_NS
-            );
-            $square_logo->addAttribute('type', 'square');
+        $channel->addChild('yandex:logo', 'https://pravo.rg.ru/touch-icon-ipad-retina.png', self::YANDEX_NS);
+        $square_logo = $channel->addChild(
+            'yandex:logo',
+            'https://pravo.rg.ru/touch-icon-ipad-retina.png',
+            self::YANDEX_NS
+        );
+        $square_logo->addAttribute('type', 'square');
 
-            $questions = $this->getDoctrine()
-                ->getRepository('JuristBundle:Questions')
-                ->fetchQuestionsForTurbo(self::TURBO_RSS_LIMIT)
-            ;
+        ## добавим аналитику
+        $ya = $channel->addChild('yandex:analytics', null, self::YANDEX_NS);
+        $ya->addAttribute('type', 'Yandex');
+        $ya->addAttribute('id', '39269930');
 
-            foreach ($questions as $question) {
-                $item = $channel->addChild('item');
+        $go = $channel->addChild('yandex:analytics', null, self::YANDEX_NS);
+        $go->addAttribute('type', 'Google');
+        $go->addAttribute('id', 'UA-7039329-31');
 
-                $item->addAttribute('turbo', 'true');
+        $ma = $channel->addChild('yandex:analytics', null, self::YANDEX_NS);
+        $ma->addAttribute('type', 'MailRu');
+        $ma->addAttribute('id', '2808226');
 
-                $item->addChild('link', 'https://pravo.rg.ru/rubrics/question/' . $question['q_id'] . '/');
-                $item->addChild('title', $this->htmlToPlainText($question['q_title']));
-                $item->addChild('description', $this->htmlToPlainText($question['q_description']));
-                $item->addChild('pubDate', $question['q_date']);
-                $item->addChild('category', $question['r_name']);
+        ## сами вопросы-ответы
+        $questions = $this->getDoctrine()
+            ->getRepository('JuristBundle:Questions')
+            ->fetchQuestionsForTurbo(self::TURBO_RSS_LIMIT)
+        ;
 
-                $cdata = '<i>' . $question['author_name'] . '</i><div>' . $question['q_description'] . '</div>';
-                $cdata .= '<h3>' . $question['au_name'] . '</h3><div>' . $question['a_answers'] . '</div>';
+        foreach ($questions as $question) {
+            $item = $channel->addChild('item');
 
-                $item->addChildCData('turbo:content', $cdata, self::TURBO_NS);
+            $item->addAttribute('turbo', 'true');
+
+            $item->addChild('link', 'https://pravo.rg.ru/rubrics/question/' . $question['q_id'] . '/');
+            $item->addChild('title', $this->htmlToPlainText($question['q_title']));
+            $item->addChild('description', $this->htmlToPlainText($question['q_description']));
+            $item->addChild('pubDate', $question['q_date']);
+            $item->addChild('category', $question['r_name']);
+
+            $cdata = '<i>' . $question['author_name'] . '</i><div>' . $question['q_description'] . '</div>';
+            $cdata .= '<h3>' . $question['au_name'] . '</h3><div>' . $question['a_answers'] . '</div>';
+
+            $item->addChildCData('turbo:content', $cdata, self::TURBO_NS);
 //                $channel->addChild('content', 'content', 'turbo');
 
-                // добавим с той же рубрики 4 вопроса
-                $related = $item->addChild('yandex:related', '', self::YANDEX_NS);
-                $similarQuestions = $this->getDoctrine()
-                    ->getRepository('JuristBundle:Questions')
-                    ->fetchSimilarQuestionsForTurbo($question['q_id'], $question['r_id']);
-                foreach ($similarQuestions as $sq) {
-                    $link = $related->addChild('link', $sq['title']);
-                    $link->addAttribute('url', 'https://pravo.rg.ru/rubrics/question/' . $sq['id'] . '/');
-                }
+            // добавим с той же рубрики 4 вопроса
+            $related = $item->addChild('yandex:related', '', self::YANDEX_NS);
+            $similarQuestions = $this->getDoctrine()
+                ->getRepository('JuristBundle:Questions')
+                ->fetchSimilarQuestionsForTurbo($question['q_id'], $question['r_id']);
+            foreach ($similarQuestions as $sq) {
+                $link = $related->addChild('link', $sq['title']);
+                $link->addAttribute('url', 'https://pravo.rg.ru/rubrics/question/' . $sq['id'] . '/');
             }
+        }
 
-            $content = $xml->asXML();
+        ## выкладываем результат
+        $content = $xml->asXML();
 
-            $redis->setEx(
-                self::YANDEX_TURBO_KEY,
-                60 * 5, // на пять минуток
-                $content
-            );
+        $redis->setEx(
+            self::YANDEX_TURBO_KEY,
+            60 * 5, // на пять минуток
+            $content
+        );
+
+        try {
+
         } catch (\Error $e) {
 //            $content = 'ERR: ' . $e->getMessage() . ' ### <br/>' . $e->getTraceAsString();
             $content = 'ERR: nothing to show';

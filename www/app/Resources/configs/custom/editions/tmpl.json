@@ -1,0 +1,32 @@
+{
+    "name": "tmpl:amp",
+    "subTasks": [
+        {
+            "name": "answer",
+            "dest": "/src/JuristBundle/Resources/views/amp",
+            "src": {
+                "include": [
+                    "/app/Resources/public/pages/custom/editions/amp/data/answer.js"
+                ]
+            },
+            "plugins": [
+                {
+                    "name": "gulp-rgswig",
+                    "options": {
+                        "param": {
+                            "compileType": "data"
+                        }
+                    }
+                },
+                {
+                    "name": "gulp-minify-html",
+                    "options": {
+                        "conditionals": true,
+                        "comments": true,
+                        "quotes": true
+                    }
+                }
+            ]
+        }
+    ]
+}

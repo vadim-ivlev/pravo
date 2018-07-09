@@ -1,0 +1,55 @@
+/*
+ * Блок ответа
+ *
+ */
+
+
+// Объявляем блок
+$block: '.b-answer'
+
+// Стили
+#{$block}
+    background: $today-bg-color
+    padding: 15px 20px
+    margin-bottom: 25px
+
+    &__lower-panel
+        padding: 15px 0 20px
+        border-bottom: 1px solid $border-color
+
+    &__thanx-block
+        display: block
+        margin-bottom: 20px
+
+    &__thanx
+        display: inline-block
+
+    &__bottom
+        overflow: hidden
+        padding: 20px 0 5px
+
+    +bp-tablet
+
+        &
+            &__thanx-block
+                display: inline-block
+                width: 50%
+                margin-bottom: 0
+
+    +bp-tabletLandscape
+
+        &
+
+            &__thanx
+                padding: 0 0 0 20px
+
+    +bp-desktop
+
+        &
+            &__thanx-block
+                width: auto
+
+    +bp-desktopFull
+
+        &
+            padding: 25px 30px 15px

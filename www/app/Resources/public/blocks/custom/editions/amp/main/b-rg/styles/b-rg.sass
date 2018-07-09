@@ -1,0 +1,45 @@
+/*
+ * Подпись к логотипу в шапке
+ * 
+ */
+
+// Объявляем блок
+$block: '.b-rg'
+
+// Модификаторы
+
+// Стили 
+#{$block}
+    display: inline-block
+    vertical-align: top
+    margin-top: 5px
+    border-left: 1px solid #5a6e79
+    line-height: 10px
+    width: 90px
+    height: 20px
+    padding: 0 0 0 10px
+    font-family: 'Roboto', sans-serif
+
+    &__text
+        +font(7px)
+
+    &__link
+        display: none
+    
+
+    +bp-tablet
+
+        &
+            
+            width: 140px
+            height: 52px
+            padding: 5px 0 0 12px
+            line-height: 15px
+
+            &__text
+                +font(12px)
+                color: #868686
+
+            &__link
+                display: block
+                color: #5a6e79

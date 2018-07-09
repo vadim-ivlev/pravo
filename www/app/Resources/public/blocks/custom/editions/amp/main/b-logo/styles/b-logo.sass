@@ -1,0 +1,103 @@
+/*
+ * Логотип в шапке
+ * 
+ */
+
+// Объявляем блок
+$block: '.b-logo'
+$header: '.b-header'
+
+// Модификаторы
+
+// Стили 
+#{$block}
+    display: inline-block
+    vertical-align: top
+    padding: 20px 20px 10px
+    &.b-header__info-item
+        display: inline-block
+        float: left
+
+    &.b-header__content-item
+        display: none
+
+    &__image
+        width: 100px
+        height: 30px
+        margin-right: 12px
+        display: inline-block
+
+        background-repeat: no-repeat
+
+        // маленький логотип
+        background-image: url(#{$img-path}logo/main-logo.png)
+        background-position: 0 -67px
+
+        // Если страница 404
+        .b-header_not-found &
+            width: 220px
+            height: 75px
+
+            background-position: 0 0
+
+        // Ретина
+        +bp-retina
+
+            &
+                // маленький логотип
+                background-image: url(#{$img-path}logo/main-logo2x.png)
+                background-size: 185px 96px
+
+    &_alrf
+        width: 99%
+
+    // Tablet
+    +bp-tablet
+
+        &
+            padding: 20px 0 0
+            &.b-header__info-item
+                display: none
+
+            &.b-header__content-item
+                display: inline-block
+
+            &__image
+                width: 185px
+                height: 64px
+                background-position: 0 0
+                -webkit-background-size: cover
+                background-size: cover
+                margin-right: 14px
+
+    // Основной логотип
+    //background-image: url(#{$img-path}media/logo/rg-main.png)
+    //background-position: 0 0
+    //background-size: cover
+
+    // Tablet
+    +bp-tabletLandscape
+        &
+            &__image
+                width: 185px
+                height: 64px
+                background-position: 0 0
+                background-size: cover
+
+    // Desktop
+    +bp-desktop
+
+        &
+
+            &__image
+//width: 220px
+//height: 76px
+
+#{$header}
+
+    &_index
+
+        #{$block}
+
+            &__image
+                pointer-events: none

@@ -50,6 +50,24 @@ rg_answer_page: #вопрос-ответ
         requirements:
                     _id: "/d+"
 
+
+# вопрос-ответ. AMP - страницы
+
+# Задача Wrike: https://www.wrike.com/workspace.htm?acc=317393#path=mywork&t=259342434
+# 1 августа 2018
+
+#Для этой части необходима отдельная страница + шаблон
+#Как вариант: https://pravo.rg.ru/amp/rubrics/question/6225/
+
+
+
+rg_amp_answer_page:
+        path:     /amp/rubrics/question/{id}/
+        defaults: { _controller: JuristBundle:AMPAnswers:answer,  id: null }
+        requirements:
+                    _id: "/d+"
+
+
 #rg_jurist_page_Old: #страница конкретного юриста без пагинации
 #        path:     /jurist/{id}/
 #        defaults: { _controller: JuristBundle:JuristOld:jurist, page: 1, id: null}

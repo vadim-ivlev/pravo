@@ -42,6 +42,12 @@ class TagController extends ApiController
             'description_length' => ((!empty($Tag->getDescription())) ? true : false),
         ];
 
+        $this->result['seo'] = [
+            'seo__title' => ((!empty($Tag->getTitle())) ? $Tag->getTitle() : $Tag->getName()),
+            'seo__block_text' => ((!empty($Tag->getDescription())) ? $Tag->getDescription() : false),
+            'seo__length' => ((!empty($Tag->getDescription())) ? true : false),
+        ];
+
         $this->HeaderAction(self::TABS_TAGS);
         $this->SidebarAction('json');
 

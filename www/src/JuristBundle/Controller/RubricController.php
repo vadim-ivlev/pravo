@@ -35,6 +35,12 @@ class RubricController extends ApiController
             'seo_title_description_for_block' => $Rubric->getDescriptionForBlock()
         ];
 
+        $this->result['seo'] = [
+            'seo__title' => htmlspecialchars($Rubric->getTitle()),
+            'seo__block_text' => $Rubric->getDescriptionForBlock(),
+            'seo__length' => ((!empty($Rubric->getDescriptionForBlock())) ? true : false)
+        ];
+
         $questionsAndLimit = json_decode(@file_get_contents(self::URN . $CPUName . self::URL), true);
         $this->result["items_list"] = $questionsAndLimit["items_list"];
         $this->result["infiniteScroll"] = $questionsAndLimit["infiniteScroll"];

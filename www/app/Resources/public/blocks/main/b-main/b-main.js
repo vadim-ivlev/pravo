@@ -99,7 +99,7 @@ module.exports = function(data){
 
                             rubric_questions: "breadcrumbsRubric categoriesSidebar itemsListQuestions loadChain seoInfo",
 
-                            tag_questions: "breadcrumbsTag itemsListQuestions loadChain",
+                            tag_questions: "breadcrumbsTag itemsListQuestions loadChain seoInfo",
 
                             answer: "breadcrumbsAnswer categoriesSidebar questionsItem answerBlock bibliotechkaAdvertAnswer yandexDirect adfox questionsLatest similarQuestions yandexDirectMain",
 

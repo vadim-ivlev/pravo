@@ -1,15 +1,15 @@
 {# <div class="b-seo-info__name">{{{current_rubric.seo_title_rubric_for_block}}}</div> #}
-{{^ current_rubric }}
+{{^ seo.seo__length }}
 	<div class="b-seo-info__body">
 		<div class="b-seo-info__content">
 			{[ data.main.text | safe ]}
 		</div>
 	</div>
-{{/ current_rubric}}
-{{# current_rubric.seo_title_description_for_block}}
+{{/ seo.seo__length }}
+{{# seo.seo__length}}
 	<div class="b-seo-info__body">
 		<div class="b-seo-info__content">
-			{{{current_rubric.seo_title_description_for_block}}}
+			{{{seo.seo__block_text}}}
 		</div>
 	</div>
-{{/ current_rubric.seo_title_description_for_block}}
+{{/ seo.seo__length}}

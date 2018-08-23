@@ -87,7 +87,9 @@ module.exports = function(data){
 
                             yandexDirect: RGB('yadirect:main-mobile'), // Яндекс-директ
 
-                            yandexDirectMain: RGB('yadirect:main') // Яндекс-директ под основным контентом
+                            yandexDirectMain: RGB('yadirect:main'), // Яндекс-директ под основным контентом
+
+                            pageTitle: RGB('page-title') // Заголовок страницы рубрики
 
                         },
 
@@ -97,7 +99,7 @@ module.exports = function(data){
 
                             index: "breadcrumbsMain categoriesSidebar bibliotechkaAdvert itemsListQuestions loadChain seoInfo juristsFeed juristsTop",
 
-                            rubric_questions: "breadcrumbsRubric categoriesSidebar itemsListQuestions loadChain seoInfo",
+                            rubric_questions: "breadcrumbsRubric categoriesSidebar pageTitle itemsListQuestions loadChain seoInfo",
 
                             tag_questions: "breadcrumbsTag itemsListQuestions loadChain seoInfo",
 

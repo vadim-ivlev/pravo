@@ -53,7 +53,8 @@ class TagController extends ApiController
 
         $this->getDate();
 
-        $this->result['canonical'] = "https://pravo.rg.ru/tag/1/{$id}/";
+        // $this->result['canonical'] = "https://pravo.rg.ru/tag/1/{$id}/";
+        $this->result['canonical'] = "https://pravo.rg.ru/tag/{$id}/";
 
         $this->pageNotFound(empty($this->result['items_list']));
 

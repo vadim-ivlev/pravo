@@ -285,4 +285,62 @@ class Tags
     {
         return $this->disabled;
     }
+    /**
+     * @var string
+     */
+    private $title_for_block;
+
+    /**
+     * @var string
+     */
+    private $description_for_block;
+
+
+    /**
+     * Set titleForBlock
+     *
+     * @param string $titleForBlock
+     *
+     * @return Tags
+     */
+    public function setTitleForBlock($titleForBlock)
+    {
+        $this->title_for_block = $titleForBlock;
+
+        return $this;
+    }
+
+    /**
+     * Get titleForBlock
+     *
+     * @return string
+     */
+    public function getTitleForBlock()
+    {
+        return $this->title_for_block;
+    }
+
+    /**
+     * Set descriptionForBlock
+     *
+     * @param string $descriptionForBlock
+     *
+     * @return Tags
+     */
+    public function setDescriptionForBlock($descriptionForBlock)
+    {
+        $this->description_for_block = $descriptionForBlock;
+
+        return $this;
+    }
+
+    /**
+     * Get descriptionForBlock
+     *
+     * @return string
+     */
+    public function getDescriptionForBlock()
+    {
+        return $this->description_for_block;
+    }
 }

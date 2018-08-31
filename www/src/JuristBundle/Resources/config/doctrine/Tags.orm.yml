@@ -19,10 +19,10 @@ JuristBundle\Entity\Tags:
             type: datetime
         title:
             type: text
-            nullable: TRUE
+            nullable: false
         description:
             type: text
-            nullable: TRUE
+            nullable: false
         disabled:
             type: boolean
             default: true
@@ -30,6 +30,12 @@ JuristBundle\Entity\Tags:
             column: count_public_questions
             type: integer
             length: '10'
+        title_for_block:
+            type: text
+            nullable: false
+        description_for_block:
+            type: text
+            nullable: false
 #    manyToOne:
 #                creator:
 #                    targetEntity: RG\WorkspaceBundle\Entity\User

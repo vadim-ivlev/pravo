@@ -28,7 +28,7 @@ module.exports = {
                         tag: "title",
                         contents: [
                             {
-                                data: "{{ current_tag }} &mdash; Юридическая консультация"
+                                data: "{{#seo.seo__length}}{{ seo.seo__title }}{{/seo.seo__length}}{{^seo.seo__length}}{{ current_tag }} &mdash; Юридическая консультация{{/seo.seo__length}}"
                             }
                         ]
                     }

@@ -26,6 +26,7 @@ class RubricController extends ApiController
             ->getRepository('JuristBundle:Rubrics')
             ->findOneBy(['CPUName' => $CPUName]);
         
+        $this->result['page__title'] = $Rubric->getName();
         $this->result['current_rubric'] = [
             'current_rubric_name' => $Rubric->getName(),
             'current_rubric_id' => $Rubric->getId(),

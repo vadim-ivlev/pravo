@@ -35,6 +35,7 @@ class TagController extends ApiController
         $this->result["infiniteScroll"] = $questionsAndLimit["infiniteScroll"];
         $this->result["requestUri"] = "https://pravo.rg.ru/generate_ssi1/?uri=/views/include/tmpl-question_item/tags-" . $id;
 
+        $this->result['page__title'] = $Tag->getName();
         $this->result['current_tag'] = $Tag->getName();
         $this->result['description_tag'] = [
             'description_title' => ((!empty($Tag->getTitle())) ? $Tag->getTitle() : $Tag->getName()),

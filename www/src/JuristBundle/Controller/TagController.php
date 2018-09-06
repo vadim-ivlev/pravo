@@ -45,7 +45,8 @@ class TagController extends ApiController
 
         $this->result['seo'] = [
             'seo__title' => ((!empty($Tag->getTitle())) ? $Tag->getTitle() : $Tag->getName()),
-            'seo__block_text' => ((!empty($Tag->getDescription())) ? $Tag->getDescription() : false),
+            //'seo__block_text' => ((!empty($Tag->getDescription())) ? $Tag->getDescription() : false),
+            'seo__block_text' => ((!empty($Tag->getDescriptionForBlock())) ? $Tag->getDescriptionForBlock() : false),
             'seo__length' => ((!empty($Tag->getDescription())) ? true : false),
         ];
 

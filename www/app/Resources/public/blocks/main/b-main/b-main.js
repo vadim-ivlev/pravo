@@ -97,7 +97,7 @@ module.exports = function(data){
 
                             // 'default': "breadcrumbs questionsList pagination",
 
-                            index: "breadcrumbsMain categoriesSidebar bibliotechkaAdvert itemsListQuestions loadChain seoInfo juristsFeed juristsTop",
+                            index: "breadcrumbsMain categoriesSidebar pageTitle bibliotechkaAdvert itemsListQuestions loadChain seoInfo juristsFeed juristsTop",
 
                             rubric_questions: "breadcrumbsRubric categoriesSidebar pageTitle itemsListQuestions loadChain seoInfo",
 

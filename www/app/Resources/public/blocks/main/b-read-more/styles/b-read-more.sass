@@ -1,0 +1,44 @@
+$block: '.b-read-more'
+
+#{$block}
+    +font(13px)
+    margin-bottom: 20px
+    font-style: italic
+    line-height: 24px
+    background: $white
+    border: 1px solid $grey-cloud
+    padding: 5px 20px
+    margin-top: 10px
+
+    &__link
+        color: #2077bb
+        border-bottom: 1px solid #b6d2e9
+
+        &:hover
+            color: #1f77bb
+
+    +bp-tablet
+
+        &
+            +font(15px)
+            line-height: 30px
+
+            &_left,
+            &_right
+                width: 50%
+
+            &_left
+                float: left
+                margin-right: 20px
+
+            &_right
+                float: right
+                margin-left: 20px
+
+    +bp-tabletLandscape
+
+        &
+
+            &_left,
+            &_right
+                width: 280px

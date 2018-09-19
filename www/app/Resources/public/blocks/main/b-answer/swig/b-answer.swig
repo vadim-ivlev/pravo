@@ -29,7 +29,7 @@
     {{/ jurist__active }}
 {{/ jurist}}
 {{# answer}}
-    <div class="b-question-block__text">
+    <div class="b-question-block__text js-answer-text">
         {{{ answer__text }}}
         {{# answer__type_card}}
             <ol class="b-answer-steps">

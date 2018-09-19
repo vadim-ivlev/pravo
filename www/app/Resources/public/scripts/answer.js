@@ -5,10 +5,12 @@
 /**
  * Подключение модуля ответа на вопрос
  */
-var bAnswer =  require('../blocks/main/b-answer/scripts/b-answer');
+var bAnswer = require('../blocks/main/b-answer/scripts/b-answer'),
+	readMore = require('./modules/ReadMore');
 
 $(function(){
 
     bAnswer.init();
+    new readMore();
 
 });

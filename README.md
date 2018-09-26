@@ -19,7 +19,7 @@ pravo  (в контейнерах [docker](https://www.docker.com/)
     ```sh
     git clone git@git.rg.ru:ivlev/db-docker.git
     cd db-docker
-    docker-compose up -d
+    docker-compose up  -d
     ```
 
 --------------------------------------------------
@@ -131,5 +131,3 @@ docker-compose down
 
 Документация об  [удаленной отладке Xdebug](https://xdebug.org/docs/remote). 
 [Интеграция PHPStorm с docker](https://github.com/nanoninja/docker-nginx-php-mysql/blob/master/doc/phpstorm-macosx.md).
-
-

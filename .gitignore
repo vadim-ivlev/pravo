@@ -20,8 +20,21 @@ share/
 node_modules/
 npm-debug.log
 www/web/robots.txt
-www/src/JuristBundle/Resources/public
-www/src/JuristBundle/Resources/views
+#www/src/JuristBundle/Resources/public
+#www/src/JuristBundle/Resources/views
 www/web/sitemaps/*
 www/core
 .idea*
+
+
+
+# PHP composer components
+www/vendor
+
+# Symfony
+www/var/*
+!www/var/logs/.gitkeep
+!www/var/sessions/.gitkeep
+
+
+

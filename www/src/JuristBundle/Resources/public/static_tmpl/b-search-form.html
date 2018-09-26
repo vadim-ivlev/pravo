@@ -1,0 +1,26 @@
+<script>
+    function getSearchBarPosition() {
+        var searchBarPosition = $('.l-page__body').position().left;
+
+        $('#colorbox.b-modal_search').css('left', searchBarPosition);
+    }
+
+    getSearchBarPosition();
+
+	$('.js-search-form').on('submit', function() {
+        window.location.href = 
+		"/search/?query=" + encodeURIComponent($(this).find("input[name=input_text]").val()) + 
+		'&search=' + $(this).find(".js-search-form-select").val();
+	});
+</script>
+
+<form class="b-search-form js-search-form" type="GET" action="javascript:void(null);">
+    <input class="b-search-form__input" name="input_text" type="text">
+    <div class="b-search-form__select-wrapper">
+        <select class="b-search-form__select js-search-form-select" name="input_select">
+            <option value="2">По вопросам</option>
+            <option value="1" default>По юристам</option>
+        </select>
+    </div>
+    <input class="b-submit b-submit_icon b-icon b-icon_type_search" type="submit" value="">
+</form>

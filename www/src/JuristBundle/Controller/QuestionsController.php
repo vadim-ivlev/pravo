@@ -53,7 +53,7 @@ class QuestionsController extends ApiController
 
         $this->result["items_list"] = $questions;
         $this->result["infiniteScroll"] = $questionsAndLimit["infiniteScroll"];
-        $this->result["requestUri"] = "https://pravo.rg.ru/generate_ssi1/?uri=/views/include/tmpl-question_item";
+        $this->result["requestUri"] = "/generate_ssi1/?uri=/views/include/tmpl-question_item";
 
         return $this->result;
     }

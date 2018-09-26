@@ -33,16 +33,16 @@ module.exports = {
                         ]
                     }
                 },
-                /*{
+                {
                     name: "indexDescription",
                     opt: {
                         tag: "meta",
                         attrs: {
                             name: "description",
-                            content: "Российская газета - издание Правительства Российской Федерации, официальный публикатор документов"
+                            content: "{{# description_tag.description_length}}{{description_tag.description_description}}{{/ description_tag.description_length}}"
                         }
                     }
-                },*/
+                },
                 {
                     name: "indexYandexVerification",
                     opt: {

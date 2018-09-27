@@ -1,4 +1,5 @@
 imports:
+    - { resource: parameters_db_local.yml }
     - { resource: parameters_db.yml }
     - { resource: parameters_env.yml }
     - { resource: parameters.yml }

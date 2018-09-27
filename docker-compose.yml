@@ -23,6 +23,7 @@ services:
         command: >
             bash -c " 
             echo 'COMMANDS ------------------------>'
+            && touch /var/www/pravo/www/app/config/parameters_db.yml
             && composer i -d /var/www/pravo/www
             && chmod -R 777  /var/www/pravo/www/var/
             && service redis-server start 

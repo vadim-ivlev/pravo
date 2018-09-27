@@ -1,0 +1,11 @@
+parameters: 
+    database.pravo.host: mysql-com
+    database.pravo.port: "3306"
+    database.pravo.name: pravo
+    database.pravo.user: root
+    database.pravo.password: root
+    database.jurist.host: mysql-com
+    database.jurist.port: "3306"
+    database.jurist.name: jurist
+    database.jurist.user: root
+    database.jurist.password: root

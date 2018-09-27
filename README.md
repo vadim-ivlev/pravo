@@ -37,9 +37,9 @@ pravo  (в контейнерах [docker](https://www.docker.com/)
     ```
 
 
-    Очистка кэша Synfony:
-    ```sh
-    docker-compose exec subs /var/www/pravo/www/bin/console cache:clear --no-warmup --env=prod
+    **Очистка кэша Symfony:**
+    ```
+    docker-compose exec pravo /var/www/pravo/www/bin/console cache:clear --no-warmup --env=prod
     ```
 
     Для контроля запуска откройте браузер :
@@ -84,23 +84,26 @@ www/src/JuristBundle/Resources/views
 
 Временная остановка сервисов 
 
-```sh
+```
 docker-compose stop
 ```
 
 Пуск остановленных сервисов
 
-```sh
+```
 docker-compose start
 ```
 
 Останов и удаление сервисов
 
-```sh
+```
 docker-compose down
 ```
 
 Стартованные сервисы выдерживают перезагрузку компьютера.
+
+
+
 
 <br>
 <br>
@@ -131,3 +134,9 @@ docker-compose down
 
 Документация об  [удаленной отладке Xdebug](https://xdebug.org/docs/remote). 
 [Интеграция PHPStorm с docker](https://github.com/nanoninja/docker-nginx-php-mysql/blob/master/doc/phpstorm-macosx.md).
+
+
+
+TODO:
+
+"Pravo:Api:SidebarAction" redis key creates very slowly.

@@ -1,2 +1,4 @@
 parameters:
-    dns_redis: redis://212.69.111.102/1
+    # dns_redis: redis://212.69.111.102/1
+    dns_redis: redis://127.0.0.1
+    

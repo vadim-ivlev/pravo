@@ -1,11 +1,11 @@
 parameters: 
-    database.pravo.host: g8-8-db.rg.ru
-    database.pravo.port: "3306"
-    database.pravo.name: pravo
-    database.pravo.user: pravo
-    database.pravo.password: Fieng8deighiekei4G
-    database.jurist.host: web-db.rg.ru
-    database.jurist.port: "3306"
-    database.jurist.name: jurist
-    database.jurist.user: juristng
-    database.jurist.password: Aiqu1eiSh1auR2aekee
+   database.pravo.host: g8-8-db.rg.ru
+   database.pravo.port: "3306"
+   database.pravo.name: pravo
+   database.pravo.user: pravo
+   database.pravo.password: Fieng8deighiekei4G
+   database.jurist.host: web-db.rg.ru
+   database.jurist.port: "3306"
+   database.jurist.name: jurist
+   database.jurist.user: juristng
+   database.jurist.password: Aiqu1eiSh1auR2aekee

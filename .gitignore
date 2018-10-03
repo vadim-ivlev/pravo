@@ -37,4 +37,6 @@ www/var/*
 !www/var/sessions/.gitkeep
 
 
+tags
+.tags
 

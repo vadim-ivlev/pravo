@@ -1243,7 +1243,7 @@ class ApiController extends Controller implements ContainerAwareInterface
         $juristsTopMods = 'top', $juristsTopWeek = 3
     )
     {
-
+        
         if ($format === 'json') {
 
             $nameRedisNow = 'Pravo:Api:SidebarAction';
@@ -1295,9 +1295,17 @@ class ApiController extends Controller implements ContainerAwareInterface
             $idJuristsTop = []; //Выборк юристов для топа jurists_top
 
             $dataByAnswerId = $this->connect_to_Jurists_bd->getRepository('JuristBundle:Questions')->fetchDataByAnswerId($Answers, self::FINISHED_STEP);
-
+            
+            //FIXME: Loop counters. To delete.
+            // $c1=0; 
+            // $c2=0;
+            // $c3=0;
+            // FIXME: The loop runs 4000 times.
+            // Each iteration does a request to the DB, that
+            // includes joining 4 tables and sorting the result.
+            // Is there a simpler solution?
             foreach ($Answers as $Answer) {
-
+                // $c1++;
                 /**
                  * Выборка вопросов которые уже опубликованы
                  */
@@ -1318,19 +1326,34 @@ class ApiController extends Controller implements ContainerAwareInterface
                     'title' => $dataByAnswerId[$Answer->getId()]['q_title'],
                     'link' => self::RUBRICS . self::QUESTIONS . $dataByAnswerId[$Answer->getId()]['q_id'] .  self::REDIRECT,
                 ];
+                // FIXME: this loop runs ~ 8 000 000 times
+                // foreach ($questionsLatest as $keyQuestionLatest => &$questionLatest) {
+                //     $c2++;
+                //     if (count($questionLatest['rubrics']) == 0)
+                //         unset($questionsLatest[$keyQuestionLatest]);
 
-                foreach ($questionsLatest as $keyQuestionLatest => &$questionLatest) {
+                //     $questionLatest['mods__length'] = count($questionLatest['mods']);
+                //     $questionLatest['rubrics__length'] = count($questionLatest['rubrics']);
+                // }
 
-                    if (count($questionLatest['rubrics']) == 0)
-                        unset($questionsLatest[$keyQuestionLatest]);
-
-                    $questionLatest['mods__length'] = count($questionLatest['mods']);
-                    $questionLatest['rubrics__length'] = count($questionLatest['rubrics']);
-                }
-
-                unset($questionLatest);
+                // unset($questionLatest);
 
             }
+
+            //FIXME: this loop runs ~ 8 000 000 times
+            foreach ($questionsLatest as $keyQuestionLatest => &$questionLatest) {
+                // $c2++;
+                if (count($questionLatest['rubrics']) == 0)
+                    unset($questionsLatest[$keyQuestionLatest]);
+
+                // $questionLatest['mods__length'] = count($questionLatest['mods']);
+                // $questionLatest['rubrics__length'] = count($questionLatest['rubrics']);
+            }
+
+            unset($questionLatest);
+
+
+
 
             $juristFeed = [];
 

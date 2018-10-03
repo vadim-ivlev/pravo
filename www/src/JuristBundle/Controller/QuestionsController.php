@@ -18,7 +18,9 @@ use AppBundle\Services\Configer;
 
 class QuestionsController extends ApiController
 {
-    const URI = "https://pravo.rg.ru/generate_ssi1/?uri=/views/include/tmpl-question_item/index.html?format=json";
+
+    // const URI0 = "https://pravo.rg.ru/generate_ssi1/?uri=/views/include/tmpl-question_item/index.html?format=json";
+    const URI = "/generate_ssi1/?uri=/views/include/tmpl-question_item/index.html?format=json";
 
     public function formedDataAction()
     {
@@ -30,8 +32,7 @@ class QuestionsController extends ApiController
         $this->getDate();
 
         $this->result['canonical'] = 'https://pravo.rg.ru';
-
-        $questionsAndLimit = json_decode(@file_get_contents(self::URI), true);
+        $questionsAndLimit  = json_decode(@file_get_contents(head42().self::URI), true);
 
         //dump($questionsAndLimit);die;
         $questions = [];

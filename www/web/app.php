@@ -2,6 +2,10 @@
 
 use Symfony\Component\HttpFoundation\Request;
 
+require __DIR__.'/global_functions.php';
+
+
+
 /**
  * @var Composer\Autoload\ClassLoader
  */

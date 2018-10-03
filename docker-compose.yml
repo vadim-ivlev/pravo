@@ -19,14 +19,22 @@ services:
             - mysql-com
             - mysql-com:web-db.rg.ru
             - mysql-com:g8-8-db.rg.ru
-        
+            
+        # to check if the code runs inside container
+        environment: 
+            - INDOCKER=1
+
         command: >
             bash -c " 
             echo 'COMMANDS ------------------------>'
             && touch /var/www/pravo/www/app/config/parameters_db.yml
             && composer i -d /var/www/pravo/www
             && chmod -R 777  /var/www/pravo/www/var/
-            && service redis-server start 
+            && /var/www/pravo/www/bin/console cache:clear --no-warmup --env=prod
+            && /var/www/pravo/www/bin/console cache:clear --no-warmup --env=dev
+            && sed -i 's/^bind .*/bind 0.0.0.0/g' /etc/redis/redis.conf
+            && sed -i 's/^\(protected-mode\) .*/\1 no/g' /etc/redis/redis.conf
+            && redis-server /etc/redis/redis.conf
             && php-fpm & nginx -g 'daemon off;'"
 
         stdin_open: true

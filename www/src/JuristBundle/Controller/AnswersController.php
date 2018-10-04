@@ -177,17 +177,22 @@ class AnswersController extends ApiController
      */
     public function AnswerAction($id = null)
     {
+        prof_flag("answerAction");
         if ($this->fetchFormat() === 'json') {
+            prof_flag("formedDataAction");
             $this->formedDataAction($id);
 
             $response = new JsonResponse();
             $response
                 ->setData($this->result, JSON_UNESCAPED_SLASHES)
                 ->headers->set('Content-Type', 'application/json');
+            \prof_flag("return");
+            prof_print(); 
             return $response;
         } elseif ($this->fetchFormat() === 'html') {
+            \prof_flag("Mustache_Engine");
             $m = new Mustache_Engine();
-
+            prof_print();
             return new Response(
                 $m->render(
                     @file_get_contents(dirname(__FILE__) . '/../Resources/views/answer.html'),

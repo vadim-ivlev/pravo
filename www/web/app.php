@@ -2,7 +2,8 @@
 
 use Symfony\Component\HttpFoundation\Request;
 
-require __DIR__.'/global_functions.php';
+require __DIR__.'/func.php';
+require __DIR__.'/prof.php';
 
 
 

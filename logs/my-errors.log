@@ -1,0 +1,43 @@
+
+# Run this to watch log in real time.
+# To stop watching press 'CTRL-C' to quit 'less' follow mode,
+# end then press 'q' to quit 'less'.\n\n
+new Mustache_Engine() | 0.0003 
+@file_get_contents | 0.0000 
+json_decode(json_encode($this->formedDataAction($id))); | 0.0000 
+Redis | 0.0006 
+$om = $this->connect_to_Jurists_bd | 0.0000 
+@var Questions $Question | 0.0482 
+pageNotFound | 0.0000 
+$answer_steps = json_decode | 0.0000 
+result block | 0.0719 
+$this->SidebarAction | 0.0003 
+getDate | 0.0004 
+$m->render($template, $context ) | 0.0400 
+return 
+new Mustache_Engine() | 0.0003 
+@file_get_contents | 0.0000 
+json_decode(json_encode($this->formedDataAction($id))); | 0.0000 
+Redis | 0.0007 
+$om = $this->connect_to_Jurists_bd | 0.0000 
+@var Questions $Question | 0.0482 
+pageNotFound | 0.0000 
+$answer_steps = json_decode | 0.0000 
+result block | 0.0400 
+$this->SidebarAction | 0.0007 
+getDate | 0.0010 
+$m->render($template, $context ) | 0.0671 
+return 
+new Mustache_Engine() | 0.0003 
+@file_get_contents | 0.0000 
+json_decode(json_encode($this->formedDataAction($id))); | 0.0000 
+Redis | 0.0005 
+$om = $this->connect_to_Jurists_bd | 0.0000 
+@var Questions $Question | 0.0496 
+pageNotFound | 0.0000 
+$answer_steps = json_decode | 0.0000 
+result block | 0.0249 
+$this->SidebarAction | 0.0003 
+getDate | 0.0005 
+$m->render($template, $context ) | 0.0426 
+return 

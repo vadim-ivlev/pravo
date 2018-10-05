@@ -25,32 +25,37 @@ class AnswersController extends ApiController
 
         $this->HeaderAction(self::TABS_MAIN);
 
+        \prof\flag('Redis');
+
         $nameRedisNow = "PravoQuestionAnswers({$id})";
         $redis = $this->redis->get($nameRedisNow);
         $redis = unserialize($redis);
 
-        if ($redis) {
-            $this->result['questions_item'] =  $redis['questions_item'];
-            $this->result['jurist'] =  $redis['jurist'];
-            $this->result['answer'] =  $redis['answer'];
-            $this->result['current_rubric'] =  $redis['current_rubric'];
-            $this->result['similar_questions'] = $redis['similar_questions'];
-            $this->result['similar_questions__length'] = count($redis['similar_questions']);
+        // if ($redis) {
+        //     $this->result['questions_item'] =  $redis['questions_item'];
+        //     $this->result['jurist'] =  $redis['jurist'];
+        //     $this->result['answer'] =  $redis['answer'];
+        //     $this->result['current_rubric'] =  $redis['current_rubric'];
+        //     $this->result['similar_questions'] = $redis['similar_questions'];
+        //     $this->result['similar_questions__length'] = count($redis['similar_questions']);
 
-            $cpu_name = $this->result['current_rubric']['current_rubric_cpu_name'] ?? null;
+        //     $cpu_name = $this->result['current_rubric']['current_rubric_cpu_name'] ?? null;
 
-            $this->result['bibliotechka'] = $this->bibliotechkaRand($cpu_name);
+        //     $this->result['bibliotechka'] = $this->bibliotechkaRand($cpu_name);
 
-            $this->SidebarAction('json');
+        //     $this->SidebarAction('json');
 
-            $this->getDate();
+        //     $this->getDate();
 
-            return $this->result;
-        }
+        //     return $this->result;
+        // }
 
+        \prof\flag('$om = $this->connect_to_Jurists_bd');
         /** @var ObjectManager $om */
         $om = $this->connect_to_Jurists_bd;
 
+
+        \prof\flag('@var Questions $Question');
         /** @var Questions $Question */
         $Question = $om
             ->getRepository('JuristBundle:Questions')
@@ -61,9 +66,11 @@ class AnswersController extends ApiController
             ->setMaxResults(1) //limit на всякий случай, с учетом getOneOrNullResult ;)
             ->getQuery()
             ->getOneOrNullResult();
-
+        
+        \prof\flag('pageNotFound');
         $this->pageNotFound(!$Question);
 
+        \prof\flag('$answer_steps = json_decode');
         /**
          * start answers_steps, если у ответа тип card
          */
@@ -72,6 +79,8 @@ class AnswersController extends ApiController
          * end answers_steps, если у ответа тип card
          */
 
+
+        \prof\flag('result block');
         /**
          * result block
          */
@@ -163,9 +172,9 @@ class AnswersController extends ApiController
         $cpu_name = $this->result['current_rubric']['current_rubric_cpu_name'] ?? null;
         $this->result['bibliotechka'] = $this->bibliotechkaRand($cpu_name);
 
-
+        \prof\flag('$this->SidebarAction');
         $this->SidebarAction('json');
-
+        \prof\flag('getDate');
         $this->getDate();
 
         return $this->result;
@@ -177,28 +186,33 @@ class AnswersController extends ApiController
      */
     public function AnswerAction($id = null)
     {
-        prof_flag("answerAction");
         if ($this->fetchFormat() === 'json') {
-            prof_flag("formedDataAction");
+
             $this->formedDataAction($id);
 
             $response = new JsonResponse();
             $response
                 ->setData($this->result, JSON_UNESCAPED_SLASHES)
                 ->headers->set('Content-Type', 'application/json');
-            \prof_flag("return");
-            prof_print(); 
             return $response;
         } elseif ($this->fetchFormat() === 'html') {
-            \prof_flag("Mustache_Engine");
+            
+
+            \prof\flag('new Mustache_Engine()');
             $m = new Mustache_Engine();
-            prof_print();
-            return new Response(
-                $m->render(
-                    @file_get_contents(dirname(__FILE__) . '/../Resources/views/answer.html'),
-                    json_decode(json_encode($this->formedDataAction($id)))
-                )
-            );
+
+            \prof\flag('@file_get_contents');
+            $template = @file_get_contents(dirname(__FILE__) . '/../Resources/views/answer.html');
+
+            \prof\flag('json_decode(json_encode($this->formedDataAction($id)));');
+            $context  = json_decode(json_encode($this->formedDataAction($id)));
+
+            \prof\flag('$m->render($template, $context )');
+            $html     = $m->render($template, $context );
+
+            \prof\flag('return');
+            \prof\print_log(true);
+            return new Response( $html );
         } else {
             throw $this->createAccessDeniedException("Incorrect format!!! " . PHP_EOL . " Use next structure: /jurists/page/{name page}/{format == html || json}!");
         }

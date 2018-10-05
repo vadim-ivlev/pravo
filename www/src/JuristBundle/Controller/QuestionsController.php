@@ -32,7 +32,7 @@ class QuestionsController extends ApiController
         $this->getDate();
 
         $this->result['canonical'] = 'https://pravo.rg.ru';
-        $questionsAndLimit  = json_decode(@file_get_contents(head42().self::URI), true);
+        $questionsAndLimit  = json_decode(@file_get_contents(\func\url().self::URI), true);
 
         //dump($questionsAndLimit);die;
         $questions = [];

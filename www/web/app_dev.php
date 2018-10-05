@@ -3,6 +3,10 @@
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Debug\Debug;
 
+require __DIR__.'/func.php';
+require __DIR__.'/prof.php';
+
+
 // If you don't want to setup permissions the proper way, just uncomment the following PHP line
 // read http://symfony.com/doc/current/book/installation.html#checking-symfony-application-configuration-and-setup
 // for more information
@@ -19,7 +23,7 @@ function closeAppDev() {
 
 if(@$_SERVER['REMOTE_ADDR'] !== '212.69.111.131' /*&& @$_SERVER['REMOTE_ADDR'] !== '192.168.1.2'*/) {
 
-    closeAppDev();
+    // closeAppDev();
 }
 
 if (isset($_SERVER['HTTP_CLIENT_IP'])

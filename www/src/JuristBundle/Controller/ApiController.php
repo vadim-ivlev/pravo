@@ -1071,7 +1071,8 @@ class ApiController extends Controller implements ContainerAwareInterface
             return $this->oldDeprecatedBiblioRand();
         try {
             $raw_rubric = $this->redis->get('biblio:' . $cpu_name);
-            if (!$raw_rubric) return [];
+            if (!$raw_rubric) 
+                return [];
 
             $rubric_array = unserialize($raw_rubric);
 
@@ -1252,21 +1253,21 @@ class ApiController extends Controller implements ContainerAwareInterface
 
             $redisUnserialize = unserialize($redisNow); //Так надо из-за мусташа
 
-            if ($redisNow) {
+            // if ($redisNow) {
 
-                //TODO Так сделано, потому что сайдбар можеть вызываться в середине или конце, и при явном  присвоение $this->result мы затрем результаты
-                $this->result['sidebar'] =  $redisUnserialize['sidebar'];
-                $this->result['questions_latest'] =  $redisUnserialize['questions_latest'];
-                $this->result['questions_latest__length'] =  $redisUnserialize['questions_latest__length'];
-                $this->result['jurists_feed'] =  $redisUnserialize['jurists_feed'];
-                $this->result['jurists_top'] =  $redisUnserialize['jurists_top'];
+            //     //TODO Так сделано, потому что сайдбар можеть вызываться в середине или конце, и при явном  присвоение $this->result мы затрем результаты
+            //     $this->result['sidebar'] =  $redisUnserialize['sidebar'];
+            //     $this->result['questions_latest'] =  $redisUnserialize['questions_latest'];
+            //     $this->result['questions_latest__length'] =  $redisUnserialize['questions_latest__length'];
+            //     $this->result['jurists_feed'] =  $redisUnserialize['jurists_feed'];
+            //     $this->result['jurists_top'] =  $redisUnserialize['jurists_top'];
 
-                $cpu_name = $this->result['current_rubric']['current_rubric_cpu_name'] ?? null;
-                $bibl = $this->bibliotechkaRand($cpu_name)[0];
-                $this->result['sidebar']['bibliotechka'] = $bibl;
+            //     $cpu_name = $this->result['current_rubric']['current_rubric_cpu_name'] ?? null;
+            //     $bibl = $this->bibliotechkaRand($cpu_name)[0];
+            //     $this->result['sidebar']['bibliotechka'] = $bibl;
 
-                return $this->result;
-            }
+            //     return $this->result;
+            // }
 
             $RubricsQuery = $this->connect_to_Jurists_bd
                 ->getRepository('JuristBundle:Rubrics')
